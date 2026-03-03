@@ -45,6 +45,9 @@ import { PEWaterfallChart } from '../src/charts/PEWaterfallChart';
 // Tokens (for display)
 import { formatCurrency } from '../src/tokens/charts';
 
+// Assets
+import { logos } from '../src/assets';
+
 // ---------------------------------------------------------------------------
 // Example data
 // ---------------------------------------------------------------------------
@@ -340,26 +343,105 @@ export function Demo() {
         {/* LAYOUT */}
         {/* ================================================================ */}
         <Section title="Layout">
-          <SubSection title="Header">
+          <SubSection title="Header (light)">
             <Header
+              variant="light"
               logo={
-                <span className="tw:text-lg tw:font-bold tw:text-primary">
-                  PolicyEngine
-                </span>
+                <img src={logos.tealWordmark} alt="PolicyEngine" className="tw:h-5" />
               }
               actions={
                 <>
-                  <Button variant="ghost" size="sm">
-                    Documentation
-                  </Button>
+                  <a href="#">Research</a>
+                  <a href="#">About</a>
+                  <a href="#">Donate</a>
                   <Button size="sm">Sign in</Button>
                 </>
               }
             >
-              <span className="tw:text-sm tw:text-text-secondary tw:ml-2">
+              <span className="tw:ml-2">
                 UBI Calculator
               </span>
             </Header>
+          </SubSection>
+
+          <SubSection title="Header (dark)">
+            <Header
+              variant="dark"
+              logo={
+                <img src={logos.whiteWordmark} alt="PolicyEngine" className="tw:h-5" />
+              }
+              actions={
+                <>
+                  <a href="#">Research</a>
+                  <a href="#">About</a>
+                  <a href="#">Donate</a>
+                  <Button size="sm" className="tw:bg-white tw:text-primary-600 tw:hover:bg-gray-100">Sign in</Button>
+                </>
+              }
+            >
+              <span className="tw:ml-2">
+                Policy calculator
+              </span>
+            </Header>
+          </SubSection>
+
+          <SubSection title="PolicyEngine logos">
+            <div className="tw:grid tw:grid-cols-3 tw:gap-4">
+              <Card>
+                <CardContent className="tw:pt-4 tw:flex tw:flex-col tw:items-center tw:gap-2">
+                  <img src={logos.tealWordmark} alt="Teal wordmark (SVG)" className="tw:h-6" />
+                  <span className="tw:text-xs tw:text-text-tertiary">tealWordmark</span>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardContent className="tw:pt-4 tw:flex tw:flex-col tw:items-center tw:gap-2">
+                  <img src={logos.tealWordmarkPng} alt="Teal wordmark (PNG)" className="tw:h-6" />
+                  <span className="tw:text-xs tw:text-text-tertiary">tealWordmarkPng</span>
+                </CardContent>
+              </Card>
+              <Card className="tw:bg-primary-600">
+                <CardContent className="tw:pt-4 tw:flex tw:flex-col tw:items-center tw:gap-2">
+                  <img src={logos.whiteWordmark} alt="White wordmark (SVG)" className="tw:h-6" />
+                  <span className="tw:text-xs tw:text-white/60">whiteWordmark</span>
+                </CardContent>
+              </Card>
+              <Card className="tw:bg-primary-600">
+                <CardContent className="tw:pt-4 tw:flex tw:flex-col tw:items-center tw:gap-2">
+                  <img src={logos.whiteWordmarkPng} alt="White wordmark (PNG)" className="tw:h-6" />
+                  <span className="tw:text-xs tw:text-white/60">whiteWordmarkPng</span>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardContent className="tw:pt-4 tw:flex tw:flex-col tw:items-center tw:gap-2">
+                  <img src={logos.tealSquare} alt="Teal square (SVG)" className="tw:h-10" />
+                  <span className="tw:text-xs tw:text-text-tertiary">tealSquare</span>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardContent className="tw:pt-4 tw:flex tw:flex-col tw:items-center tw:gap-2">
+                  <img src={logos.tealSquarePng} alt="Teal square (PNG)" className="tw:h-10" />
+                  <span className="tw:text-xs tw:text-text-tertiary">tealSquarePng</span>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardContent className="tw:pt-4 tw:flex tw:flex-col tw:items-center tw:gap-2">
+                  <img src={logos.tealSquareTransparent} alt="Teal square transparent (PNG)" className="tw:h-10" />
+                  <span className="tw:text-xs tw:text-text-tertiary">tealSquareTransparent</span>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardContent className="tw:pt-4 tw:flex tw:flex-col tw:items-center tw:gap-2">
+                  <img src={logos.tealSquarePadded} alt="Teal square padded (SVG)" className="tw:h-10" />
+                  <span className="tw:text-xs tw:text-text-tertiary">tealSquarePadded</span>
+                </CardContent>
+              </Card>
+              <Card className="tw:bg-primary-600">
+                <CardContent className="tw:pt-4 tw:flex tw:flex-col tw:items-center tw:gap-2">
+                  <img src={logos.whiteSquare} alt="White square (SVG)" className="tw:h-10" />
+                  <span className="tw:text-xs tw:text-white/60">whiteSquare</span>
+                </CardContent>
+              </Card>
+            </div>
           </SubSection>
 
           <SubSection title="SidebarLayout (with InputPanel + ResultsPanel)">
