@@ -56,7 +56,7 @@ export const TabsList = forwardRef<HTMLDivElement, TabsListProps>(
       ref={ref}
       role="tablist"
       className={cn(
-        'tw:inline-flex tw:items-center tw:gap-1 tw:border-b tw:border-border-light',
+        'inline-flex items-center gap-1 border-b border-pe-border-light',
         className,
       )}
       {...props}
@@ -82,11 +82,11 @@ export const TabsTrigger = forwardRef<HTMLButtonElement, TabsTriggerProps>(
         aria-selected={isActive}
         data-state={isActive ? 'active' : 'inactive'}
         className={cn(
-          'tw:px-4 tw:py-2 tw:text-sm tw:font-medium tw:transition-colors tw:cursor-pointer',
-          'tw:border-b-2 tw:-mb-px',
+          'px-4 py-2 text-sm font-medium transition-colors cursor-pointer',
+          'border-b-2 -mb-px',
           isActive
-            ? 'tw:border-primary tw:text-primary'
-            : 'tw:border-transparent tw:text-text-secondary tw:hover:text-text-primary',
+            ? 'border-primary text-primary'
+            : 'border-transparent text-pe-text-secondary hover:text-pe-text-primary',
           className,
         )}
         onClick={() => setActiveTab(value)}
@@ -110,7 +110,7 @@ export const TabsContent = forwardRef<HTMLDivElement, TabsContentProps>(
       <div
         ref={ref}
         role="tabpanel"
-        className={cn('tw:pt-4', className)}
+        className={cn('pt-4', className)}
         {...props}
       />
     );

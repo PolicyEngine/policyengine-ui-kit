@@ -31,22 +31,22 @@ export function DataTable<T extends Record<string, unknown>>({
   return (
     <div
       className={cn(
-        'tw:bg-white tw:border tw:border-border-light tw:rounded-container tw:overflow-hidden',
+        'bg-white border border-pe-border-light rounded-pe-container overflow-hidden',
         className,
       )}
       style={styles?.root}
       {...props}
     >
-      <table className="tw:w-full" style={styles?.table}>
+      <table className="w-full" style={styles?.table}>
         <thead>
-          <tr className="tw:border-b tw:border-border-light tw:bg-gray-50">
+          <tr className="border-b border-pe-border-light bg-pe-gray-50">
             {columns.map((col) => (
               <th
                 key={col.key}
                 className={cn(
-                  'tw:px-4 tw:py-3 tw:text-xs tw:font-semibold tw:uppercase tw:tracking-wider tw:text-text-secondary',
-                  col.align === 'right' && 'tw:text-right',
-                  col.align === 'center' && 'tw:text-center',
+                  'px-4 py-3 text-xs font-semibold uppercase tracking-wider text-pe-text-secondary',
+                  col.align === 'right' && 'text-right',
+                  col.align === 'center' && 'text-center',
                 )}
                 style={styles?.header}
               >
@@ -59,16 +59,16 @@ export function DataTable<T extends Record<string, unknown>>({
           {data.map((row, i) => (
             <tr
               key={i}
-              className="tw:border-b tw:border-border-light last:tw:border-b-0 tw:hover:bg-gray-50"
+              className="border-b border-pe-border-light last:border-b-0 hover:bg-pe-gray-50"
               style={styles?.row}
             >
               {columns.map((col) => (
                 <td
                   key={col.key}
                   className={cn(
-                    'tw:px-4 tw:py-3 tw:text-sm tw:text-text-primary',
-                    col.align === 'right' && 'tw:text-right',
-                    col.align === 'center' && 'tw:text-center',
+                    'px-4 py-3 text-sm text-pe-text-primary',
+                    col.align === 'right' && 'text-right',
+                    col.align === 'center' && 'text-center',
                   )}
                   style={styles?.cell}
                 >

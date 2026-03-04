@@ -51,7 +51,7 @@ export function PEAreaChart({
   rechartsProps,
 }: PEAreaChartProps) {
   return (
-    <div className={cn('tw:w-full', className)} style={styles?.root}>
+    <div className={cn('w-full', className)} style={styles?.root}>
       <ResponsiveContainer width="100%" height={height}>
         <AreaChart data={data} {...rechartsProps}>
           {showGrid && <CartesianGrid {...GRID_STYLE} />}

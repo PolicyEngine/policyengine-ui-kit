@@ -3,22 +3,22 @@ import { forwardRef, type ButtonHTMLAttributes } from 'react';
 import { cn } from '../utils/cn';
 
 const buttonVariants = cva(
-  'tw:inline-flex tw:items-center tw:justify-center tw:gap-2 tw:rounded-element tw:text-sm tw:font-medium tw:transition-colors tw:cursor-pointer tw:disabled:pointer-events-none tw:disabled:opacity-50',
+  'inline-flex items-center justify-center gap-2 rounded-pe-element text-sm font-medium transition-colors cursor-pointer disabled:pointer-events-none disabled:opacity-50',
   {
     variants: {
       variant: {
         default:
-          'tw:bg-primary tw:text-primary-foreground tw:hover:bg-primary-600',
+          'bg-primary text-primary-foreground hover:bg-pe-primary-600',
         outline:
-          'tw:border tw:border-border-light tw:bg-white tw:hover:bg-gray-50',
-        ghost: 'tw:hover:bg-gray-100',
-        destructive: 'tw:bg-error tw:text-white tw:hover:bg-red-600',
+          'border border-pe-border-light bg-white hover:bg-pe-gray-50',
+        ghost: 'hover:bg-pe-gray-100',
+        destructive: 'bg-pe-error text-white hover:bg-red-600',
       },
       size: {
-        default: 'tw:h-9 tw:px-4 tw:py-2',
-        sm: 'tw:h-8 tw:px-3 tw:text-xs',
-        lg: 'tw:h-10 tw:px-6',
-        icon: 'tw:h-9 tw:w-9',
+        default: 'h-9 px-4 py-2',
+        sm: 'h-8 px-3 text-xs',
+        lg: 'h-10 px-6',
+        icon: 'h-9 w-9',
       },
     },
     defaultVariants: { variant: 'default', size: 'default' },

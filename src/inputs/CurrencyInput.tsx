@@ -32,14 +32,14 @@ export const CurrencyInput = forwardRef<HTMLInputElement, CurrencyInputProps>(
     const displayValue = focused ? rawText : formatDisplay(value);
 
     return (
-      <div className={cn('tw:flex tw:flex-col tw:gap-1', className)} style={styles?.root}>
+      <div className={cn('flex flex-col gap-1', className)} style={styles?.root}>
         {label && (
-          <label className="tw:text-sm tw:font-medium tw:text-text-secondary" style={styles?.label}>
+          <label className="text-sm font-medium text-pe-text-secondary" style={styles?.label}>
             {label}
           </label>
         )}
-        <div className="tw:relative">
-          <span className="tw:absolute tw:left-3 tw:top-1/2 tw:-translate-y-1/2 tw:text-sm tw:text-text-secondary">
+        <div className="relative">
+          <span className="absolute left-3 top-1/2 -translate-y-1/2 text-sm text-pe-text-secondary">
             {currencySymbol}
           </span>
           <input
@@ -58,7 +58,7 @@ export const CurrencyInput = forwardRef<HTMLInputElement, CurrencyInputProps>(
             onChange={(e) => {
               setRawText(e.target.value);
             }}
-            className="tw:h-10 tw:w-full tw:rounded-element tw:border tw:border-border-light tw:pl-7 tw:pr-3 tw:text-sm tw:transition-colors tw:focus:outline-none tw:focus:ring-2 tw:focus:ring-ring tw:focus:border-primary"
+            className="h-10 w-full rounded-pe-element border border-pe-border-light pl-7 pr-3 text-sm transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:border-primary"
             style={styles?.input}
             {...props}
           />

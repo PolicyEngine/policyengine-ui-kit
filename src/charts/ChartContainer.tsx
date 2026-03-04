@@ -24,25 +24,25 @@ export function ChartContainer({
   return (
     <div
       className={cn(
-        'tw:bg-white tw:border tw:border-border-light tw:rounded-container tw:p-lg',
+        'bg-white border border-pe-border-light rounded-pe-container p-pe-lg',
         className,
       )}
       style={styles?.root}
       {...props}
     >
       {(title || actions) && (
-        <div className="tw:flex tw:items-start tw:justify-between tw:mb-lg">
+        <div className="flex items-start justify-between mb-pe-lg">
           <div>
             {title && (
               <h3
-                className="tw:text-base tw:font-semibold tw:text-text-primary"
+                className="text-base font-semibold text-pe-text-primary"
                 style={styles?.title}
               >
                 {title}
               </h3>
             )}
             {subtitle && (
-              <p className="tw:text-sm tw:text-text-secondary tw:mt-0.5">
+              <p className="text-sm text-pe-text-secondary mt-0.5">
                 {subtitle}
               </p>
             )}

@@ -1,158 +1,160 @@
-@import 'tailwindcss' prefix(tw);
+@import 'tailwindcss';
 
 @theme {
+  /* =======================================================
+   * PolicyEngine Design Token Bridge
+   * =======================================================
+   * All tokens bridge to @policyengine/design-system CSS
+   * variables (--pe-*). Consumers MUST load tokens.css:
+   *   <link rel="stylesheet" href="https://unpkg.com/@policyengine/design-system/dist/tokens.css">
+   * =======================================================
+   */
+
   /* Primary brand colors - teal */
-  --color-primary-50: #e6fffa;
-  --color-primary-100: #b2f5ea;
-  --color-primary-200: #81e6d9;
-  --color-primary-300: #4fd1c5;
-  --color-primary-400: #38b2ac;
-  --color-primary-500: #319795;
-  --color-primary-600: #2c7a7b;
-  --color-primary-700: #285e61;
-  --color-primary-800: #234e52;
-  --color-primary-900: #1d4044;
-
-  /* Secondary colors - gray scale */
-  --color-secondary-50: #f0f9ff;
-  --color-secondary-100: #f2f4f7;
-  --color-secondary-200: #e2e8f0;
-  --color-secondary-300: #cbd5e1;
-  --color-secondary-400: #94a3b8;
-  --color-secondary-500: #64748b;
-  --color-secondary-600: #475569;
-  --color-secondary-700: #344054;
-  --color-secondary-800: #1e293b;
-  --color-secondary-900: #101828;
-
-  /* Blue accent colors */
-  --color-blue-50: #f0f9ff;
-  --color-blue-100: #e0f2fe;
-  --color-blue-200: #bae6fd;
-  --color-blue-300: #7dd3fc;
-  --color-blue-400: #38bdf8;
-  --color-blue-500: #0ea5e9;
-  --color-blue-600: #0284c7;
-  --color-blue-700: #026aa2;
-  --color-blue-800: #075985;
-  --color-blue-900: #0c4a6e;
+  --color-pe-primary-50: var(--pe-color-primary-50);
+  --color-pe-primary-100: var(--pe-color-primary-100);
+  --color-pe-primary-200: var(--pe-color-primary-200);
+  --color-pe-primary-300: var(--pe-color-primary-300);
+  --color-pe-primary-400: var(--pe-color-primary-400);
+  --color-pe-primary-500: var(--pe-color-primary-500);
+  --color-pe-primary-600: var(--pe-color-primary-600);
+  --color-pe-primary-700: var(--pe-color-primary-700);
+  --color-pe-primary-800: var(--pe-color-primary-800);
+  --color-pe-primary-900: var(--pe-color-primary-900);
 
   /* Gray scale */
-  --color-gray-50: #f9fafb;
-  --color-gray-100: #f2f4f7;
-  --color-gray-200: #e2e8f0;
-  --color-gray-300: #d1d5db;
-  --color-gray-400: #9ca3af;
-  --color-gray-500: #6b7280;
-  --color-gray-600: #4b5563;
-  --color-gray-700: #344054;
-  --color-gray-800: #1f2937;
-  --color-gray-900: #101828;
+  --color-pe-gray-50: var(--pe-color-gray-50);
+  --color-pe-gray-100: var(--pe-color-gray-100);
+  --color-pe-gray-200: var(--pe-color-gray-200);
+  --color-pe-gray-300: var(--pe-color-gray-300);
+  --color-pe-gray-400: var(--pe-color-gray-400);
+  --color-pe-gray-500: var(--pe-color-gray-500);
+  --color-pe-gray-600: var(--pe-color-gray-600);
+  --color-pe-gray-700: var(--pe-color-gray-700);
+  --color-pe-gray-800: var(--pe-color-gray-800);
+  --color-pe-gray-900: var(--pe-color-gray-900);
+
+  /* Blue accent colors */
+  --color-pe-blue-50: var(--pe-color-blue-50);
+  --color-pe-blue-100: var(--pe-color-blue-100);
+  --color-pe-blue-200: var(--pe-color-blue-200);
+  --color-pe-blue-300: var(--pe-color-blue-300);
+  --color-pe-blue-400: var(--pe-color-blue-400);
+  --color-pe-blue-500: var(--pe-color-blue-500);
+  --color-pe-blue-600: var(--pe-color-blue-600);
+  --color-pe-blue-700: var(--pe-color-blue-700);
+  --color-pe-blue-800: var(--pe-color-blue-800);
+  --color-pe-blue-900: var(--pe-color-blue-900);
 
   /* Semantic colors */
-  --color-success: #22c55e;
-  --color-warning: #fec601;
-  --color-error: #ef4444;
-  --color-info: #1890ff;
+  --color-pe-success: var(--pe-color-success);
+  --color-pe-warning: var(--pe-color-warning);
+  --color-pe-error: var(--pe-color-error);
+  --color-pe-info: var(--pe-color-info);
 
   /* Background colors */
-  --color-bg-primary: #fff;
-  --color-bg-secondary: #f5f9ff;
-  --color-bg-tertiary: #f1f5f9;
+  --color-pe-bg-primary: var(--pe-color-bg-primary);
+  --color-pe-bg-secondary: var(--pe-color-bg-secondary);
+  --color-pe-bg-tertiary: var(--pe-color-bg-tertiary);
 
   /* Text colors */
-  --color-text-primary: #000;
-  --color-text-secondary: #5a5a5a;
-  --color-text-tertiary: #9ca3af;
-  --color-text-inverse: #fff;
+  --color-pe-text-primary: var(--pe-color-text-primary);
+  --color-pe-text-secondary: var(--pe-color-text-secondary);
+  --color-pe-text-tertiary: var(--pe-color-text-tertiary);
+  --color-pe-text-inverse: var(--pe-color-text-inverse);
 
   /* Border colors */
-  --color-border-light: #e2e8f0;
-  --color-border-medium: #cbd5e1;
-  --color-border-dark: #94a3b8;
+  --color-pe-border-light: var(--pe-color-border-light);
+  --color-pe-border-medium: var(--pe-color-border-medium);
+  --color-pe-border-dark: var(--pe-color-border-dark);
 
   /*
    * =========================================================
    * shadcn/ui semantic color tokens
    * =========================================================
-   * These are REQUIRED by all shadcn/ui components (Button,
-   * Badge, Table, Input, Dialog, etc.). They use classes like
-   * tw:bg-primary, tw:text-foreground, tw:border-border which
-   * resolve to these CSS variables.
+   * Required by shadcn/ui components (Button, Badge, Dialog,
+   * etc.). These use classes like bg-primary, text-foreground,
+   * border-border. NOT pe-prefixed — shadcn expects these
+   * exact names.
    * =========================================================
    */
 
   /* Core foreground/background */
-  --color-background: #fff;
-  --color-foreground: #101828;
+  --color-background: var(--pe-color-bg-primary);
+  --color-foreground: var(--pe-color-gray-900);
 
   /* Primary action color (buttons, links, badges) */
-  --color-primary: #2c7a7b;
-  --color-primary-foreground: #fff;
+  --color-primary: var(--pe-color-primary-600);
+  --color-primary-foreground: var(--pe-color-text-inverse);
 
   /* Secondary (muted buttons, secondary badges) */
-  --color-secondary: #f2f4f7;
-  --color-secondary-foreground: #101828;
+  --color-secondary: var(--pe-color-gray-100);
+  --color-secondary-foreground: var(--pe-color-gray-900);
 
   /* Muted (subtle backgrounds, disabled states) */
-  --color-muted: #f2f4f7;
-  --color-muted-foreground: #6b7280;
+  --color-muted: var(--pe-color-gray-100);
+  --color-muted-foreground: var(--pe-color-gray-500);
 
   /* Accent (hover highlights, active states) */
-  --color-accent: #f2f4f7;
-  --color-accent-foreground: #101828;
+  --color-accent: var(--pe-color-gray-100);
+  --color-accent-foreground: var(--pe-color-gray-900);
 
   /* Destructive (delete buttons, error states) */
-  --color-destructive: #ef4444;
+  --color-destructive: var(--pe-color-error);
 
   /* Popover/dropdown backgrounds */
-  --color-popover: #fff;
-  --color-popover-foreground: #101828;
+  --color-popover: var(--pe-color-bg-primary);
+  --color-popover-foreground: var(--pe-color-gray-900);
 
   /* Card backgrounds */
-  --color-card: #fff;
-  --color-card-foreground: #101828;
+  --color-card: var(--pe-color-bg-primary);
+  --color-card-foreground: var(--pe-color-gray-900);
 
   /* Border, input, ring (form controls) */
-  --color-border: #e2e8f0;
-  --color-input: #e2e8f0;
-  --color-ring: #319795;
+  --color-border: var(--pe-color-border-light);
+  --color-input: var(--pe-color-border-light);
+  --color-ring: var(--pe-color-primary-500);
 
   /* Typography */
-  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --font-mono: 'JetBrains Mono', 'Fira Code', Consolas, monospace;
+  --font-pe: var(--pe-font-family-primary);
+  --font-pe-mono: var(--pe-font-family-mono);
 
-  --font-size-xs: 12px;
-  --font-size-sm: 14px;
-  --font-size-base: 16px;
-  --font-size-lg: 18px;
-  --font-size-xl: 20px;
-  --font-size-2xl: 24px;
-  --font-size-3xl: 28px;
-  --font-size-4xl: 32px;
+  /* Override Tailwind's default font sizes with PE design system values.
+   * Tailwind v4 uses the --text-* namespace to generate text-* utilities.
+   * We clear all defaults and define only PE's scale (xs through 4xl).
+   * Use standard classes (text-xs, text-sm, text-base, etc.) in components. */
+  --text-*: initial;
+  --text-xs: var(--pe-font-size-xs);
+  --text-sm: var(--pe-font-size-sm);
+  --text-base: var(--pe-font-size-base);
+  --text-lg: var(--pe-font-size-lg);
+  --text-xl: var(--pe-font-size-xl);
+  --text-2xl: var(--pe-font-size-2xl);
+  --text-3xl: var(--pe-font-size-3xl);
+  --text-4xl: var(--pe-font-size-4xl);
 
   /* Spacing */
-  --spacing-xs: 4px;
-  --spacing-sm: 8px;
-  --spacing-md: 12px;
-  --spacing-lg: 16px;
-  --spacing-xl: 20px;
-  --spacing-2xl: 24px;
-  --spacing-3xl: 32px;
-  --spacing-4xl: 48px;
-  --spacing-5xl: 64px;
+  --spacing-pe-xs: var(--pe-space-xs);
+  --spacing-pe-sm: var(--pe-space-sm);
+  --spacing-pe-md: var(--pe-space-md);
+  --spacing-pe-lg: var(--pe-space-lg);
+  --spacing-pe-xl: var(--pe-space-xl);
+  --spacing-pe-2xl: var(--pe-space-2xl);
+  --spacing-pe-3xl: var(--pe-space-3xl);
+  --spacing-pe-4xl: var(--pe-space-4xl);
+  --spacing-pe-5xl: var(--pe-space-5xl);
 
   /* Border radius - semantic scale */
-  --radius-chip: 2px;
-  --radius-element: 4px;
-  --radius-container: 8px;
-  --radius-feature: 12px;
+  --radius-pe-chip: var(--pe-radius-chip);
+  --radius-pe-element: var(--pe-radius-element);
+  --radius-pe-container: var(--pe-radius-container);
+  --radius-pe-feature: var(--pe-radius-feature);
 
-  /* shadcn radius tokens */
-  --radius-sm: 4px;
-  --radius-md: 6px;
-  --radius-lg: 8px;
-  --radius-xl: 12px;
+  /* Border radius - size scale (aliases for convenience) */
+  --radius-pe-sm: var(--pe-radius-element);
+  --radius-pe-md: 6px;
+  --radius-pe-lg: var(--pe-radius-container);
+  --radius-pe-xl: var(--pe-radius-feature);
 
   /* Breakpoints */
   --breakpoint-xs: 36rem;
@@ -162,12 +164,12 @@
   --breakpoint-xl: 88rem;
   --breakpoint-2xl: 96rem;
 
-  /* Layout */
-  --spacing-sidebar: 79px;
-  --spacing-sidebar-width: 280px;
-  --spacing-header: 58px;
-  --spacing-content: 1361px;
-  --spacing-container: 976px;
+  /* Layout spacing */
+  --spacing-pe-sidebar: 79px;
+  --spacing-pe-sidebar-width: 280px;
+  --spacing-pe-header: 58px;
+  --spacing-pe-content: 1361px;
+  --spacing-pe-container: 976px;
 }
 
 /*
@@ -178,32 +180,27 @@
  * slate. These base styles restore sensible defaults.
  * =========================================================
  */
-/*
- * IMPORTANT: prefix(tw) causes all @theme variables to be prefixed
- * with --tw-. So --font-sans becomes --tw-font-sans, etc.
- * All var() references in hand-written CSS must use --tw- prefix.
- */
 @layer base {
   /* Default border color */
   *,
   ::before,
   ::after {
-    border-color: var(--tw-color-border);
+    border-color: var(--color-border);
   }
 
   html {
-    font-family: var(--tw-font-sans);
-    font-size: var(--tw-font-size-base);
+    font-family: var(--font-pe);
+    font-size: var(--text-base);
     line-height: 1.55;
-    color: var(--tw-color-foreground);
+    color: var(--color-foreground);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
 
   body {
-    font-family: var(--tw-font-sans);
-    color: var(--tw-color-foreground);
-    background-color: var(--tw-color-background);
+    font-family: var(--font-pe);
+    color: var(--color-foreground);
+    background-color: var(--color-background);
   }
 
   a {
@@ -218,7 +215,7 @@
 
   [data-slot='table-container'],
   tr {
-    background-color: var(--tw-color-bg-primary);
+    background-color: var(--color-pe-bg-primary);
   }
 
   th {
@@ -232,7 +229,7 @@
   textarea {
     font-family: inherit;
     font-size: inherit;
-    background-color: var(--tw-color-bg-primary);
+    background-color: var(--color-pe-bg-primary);
   }
 
   input[type='number']::-webkit-inner-spin-button,

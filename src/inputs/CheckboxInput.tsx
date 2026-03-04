@@ -16,7 +16,7 @@ export interface CheckboxInputProps
 export const CheckboxInput = forwardRef<HTMLInputElement, CheckboxInputProps>(
   ({ label, checked, onChange, className, styles, ...props }, ref) => (
     <label
-      className={cn('tw:flex tw:items-center tw:gap-2 tw:cursor-pointer', className)}
+      className={cn('flex items-center gap-2 cursor-pointer', className)}
       style={styles?.root}
     >
       <input
@@ -24,11 +24,11 @@ export const CheckboxInput = forwardRef<HTMLInputElement, CheckboxInputProps>(
         type="checkbox"
         checked={checked}
         onChange={(e) => onChange(e.target.checked)}
-        className="tw:h-4 tw:w-4 tw:rounded tw:border tw:border-border-light tw:accent-primary tw:focus:ring-2 tw:focus:ring-ring tw:cursor-pointer"
+        className="h-4 w-4 rounded border border-pe-border-light accent-primary focus:ring-2 focus:ring-ring cursor-pointer"
         style={styles?.input}
         {...props}
       />
-      <span className="tw:text-sm tw:text-text-primary" style={styles?.label}>
+      <span className="text-sm text-pe-text-primary" style={styles?.label}>
         {label}
       </span>
     </label>

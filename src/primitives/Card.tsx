@@ -10,7 +10,7 @@ export const Card = forwardRef<HTMLDivElement, CardProps>(
     <div
       ref={ref}
       className={cn(
-        'tw:bg-white tw:border tw:border-border-light tw:rounded-container tw:shadow-sm',
+        'bg-white border border-pe-border-light rounded-pe-container shadow-sm',
         className,
       )}
       style={styles?.root}
@@ -26,7 +26,7 @@ export const CardHeader = forwardRef<
 >(({ className, ...props }, ref) => (
   <div
     ref={ref}
-    className={cn('tw:flex tw:flex-col tw:gap-1.5 tw:p-lg', className)}
+    className={cn('flex flex-col gap-1.5 p-pe-lg', className)}
     {...props}
   />
 ));
@@ -38,7 +38,7 @@ export const CardTitle = forwardRef<
 >(({ className, ...props }, ref) => (
   <h3
     ref={ref}
-    className={cn('tw:text-lg tw:font-semibold tw:text-text-primary', className)}
+    className={cn('text-lg font-semibold text-pe-text-primary', className)}
     {...props}
   />
 ));
@@ -50,7 +50,7 @@ export const CardDescription = forwardRef<
 >(({ className, ...props }, ref) => (
   <p
     ref={ref}
-    className={cn('tw:text-sm tw:text-text-secondary', className)}
+    className={cn('text-sm text-pe-text-secondary', className)}
     {...props}
   />
 ));
@@ -62,7 +62,7 @@ export const CardContent = forwardRef<
 >(({ className, ...props }, ref) => (
   <div
     ref={ref}
-    className={cn('tw:p-lg tw:pt-0', className)}
+    className={cn('p-pe-lg pt-0', className)}
     {...props}
   />
 ));
@@ -74,7 +74,7 @@ export const CardFooter = forwardRef<
 >(({ className, ...props }, ref) => (
   <div
     ref={ref}
-    className={cn('tw:flex tw:items-center tw:p-lg tw:pt-0', className)}
+    className={cn('flex items-center p-pe-lg pt-0', className)}
     {...props}
   />
 ));

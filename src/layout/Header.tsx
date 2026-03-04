@@ -3,12 +3,12 @@ import { forwardRef, type HTMLAttributes, type ReactNode } from 'react';
 import { cn } from '../utils/cn';
 
 const headerVariants = cva(
-  'tw:flex tw:items-center tw:justify-between tw:h-[58px] tw:px-2xl',
+  'flex items-center justify-between h-[58px] px-pe-2xl',
   {
     variants: {
       variant: {
-        light: 'tw:bg-white tw:border-b tw:border-border-light',
-        dark: 'tw:bg-primary-600 tw:text-white tw:shadow-md tw:border-b tw:border-border-dark',
+        light: 'bg-white border-b border-pe-border-light',
+        dark: 'bg-pe-primary-600 text-white shadow-md border-b border-pe-border-dark',
       },
     },
     defaultVariants: { variant: 'light' },
@@ -16,14 +16,14 @@ const headerVariants = cva(
 );
 
 const actionsVariants = cva(
-  'tw:flex tw:items-center tw:gap-3xl',
+  'flex items-center gap-pe-3xl',
   {
     variants: {
       variant: {
         light:
-          '[&_a]:tw:text-text-secondary [&_a]:tw:text-lg [&_a]:tw:font-medium [&_a]:tw:no-underline [&_a]:tw:hover:text-text-primary [&_button]:tw:text-text-secondary',
+          '[&_a]:text-pe-text-secondary [&_a]:text-lg [&_a]:font-medium [&_a]:no-underline [&_a]:hover:text-pe-text-primary',
         dark:
-          '[&_a]:tw:text-white [&_a]:tw:text-lg [&_a]:tw:font-medium [&_a]:tw:no-underline [&_a]:tw:hover:opacity-80 [&_button]:tw:text-white',
+          '[&_a]:text-white [&_a]:text-lg [&_a]:font-medium [&_a]:no-underline [&_a]:hover:opacity-80',
       },
     },
     defaultVariants: { variant: 'light' },
@@ -31,12 +31,12 @@ const actionsVariants = cva(
 );
 
 const subtitleVariants = cva(
-  'tw:flex tw:items-center tw:gap-md',
+  'flex items-center gap-pe-md',
   {
     variants: {
       variant: {
-        light: '[&>span]:tw:text-text-secondary [&>span]:tw:text-lg [&>span]:tw:font-medium',
-        dark: '[&>span]:tw:text-white/70 [&>span]:tw:text-lg [&>span]:tw:font-medium',
+        light: '[&>span]:text-pe-text-secondary [&>span]:text-lg [&>span]:font-medium',
+        dark: '[&>span]:text-white/70 [&>span]:text-lg [&>span]:font-medium',
       },
     },
     defaultVariants: { variant: 'light' },

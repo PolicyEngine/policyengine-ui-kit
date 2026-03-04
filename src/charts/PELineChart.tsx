@@ -49,7 +49,7 @@ export function PELineChart({
   rechartsProps,
 }: PELineChartProps) {
   return (
-    <div className={cn('tw:w-full', className)} style={styles?.root}>
+    <div className={cn('w-full', className)} style={styles?.root}>
       <ResponsiveContainer width="100%" height={height}>
         <LineChart data={data} {...rechartsProps}>
           {showGrid && <CartesianGrid {...GRID_STYLE} />}

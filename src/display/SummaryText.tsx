@@ -10,7 +10,7 @@ export function SummaryText({ className, styles, children, ...props }: SummaryTe
   return (
     <div
       className={cn(
-        'tw:text-base tw:leading-relaxed tw:text-text-primary tw:bg-white tw:border tw:border-border-light tw:rounded-container tw:p-lg',
+        'text-base leading-relaxed text-pe-text-primary bg-white border border-pe-border-light rounded-pe-container p-pe-lg',
         className,
       )}
       style={styles?.root}

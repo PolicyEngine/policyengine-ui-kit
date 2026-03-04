@@ -9,7 +9,7 @@ describe('Badge', () => {
   });
 
   it('accepts className override', () => {
-    render(<Badge className="tw:bg-blue-500">Tag</Badge>);
-    expect(screen.getByText('Tag').className).toContain('tw:bg-blue-500');
+    render(<Badge className="bg-blue-500">Tag</Badge>);
+    expect(screen.getByText('Tag').className).toContain('bg-blue-500');
   });
 });

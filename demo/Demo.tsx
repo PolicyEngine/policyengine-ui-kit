@@ -163,8 +163,8 @@ function Section({
   children: React.ReactNode;
 }) {
   return (
-    <section className="tw:mb-12">
-      <h2 className="tw:text-2xl tw:font-bold tw:text-text-primary tw:mb-6 tw:pb-2 tw:border-b tw:border-border-light">
+    <section className="mb-12">
+      <h2 className="text-2xl font-bold text-pe-text-primary mb-6 pb-2 border-b border-pe-border-light">
         {title}
       </h2>
       {children}
@@ -180,8 +180,8 @@ function SubSection({
   children: React.ReactNode;
 }) {
   return (
-    <div className="tw:mb-8">
-      <h3 className="tw:text-lg tw:font-semibold tw:text-text-secondary tw:mb-4">
+    <div className="mb-8">
+      <h3 className="text-lg font-semibold text-pe-text-secondary mb-4">
         {title}
       </h3>
       {children}
@@ -203,12 +203,12 @@ export function Demo() {
 
   return (
     <DashboardShell>
-      <div className="tw:max-w-6xl tw:mx-auto tw:px-6 tw:py-8">
-        <div className="tw:mb-10">
-          <h1 className="tw:text-4xl tw:font-bold tw:text-text-primary tw:mb-2">
+      <div className="max-w-6xl mx-auto px-6 py-8">
+        <div className="mb-10">
+          <h1 className="text-4xl font-bold text-pe-text-primary mb-2">
             @policyengine/ui-kit
           </h1>
-          <p className="tw:text-lg tw:text-text-secondary">
+          <p className="text-lg text-pe-text-secondary">
             Component gallery — every component rendered with example data
           </p>
         </div>
@@ -218,19 +218,19 @@ export function Demo() {
         {/* ================================================================ */}
         <Section title="Primitives">
           <SubSection title="Button">
-            <div className="tw:flex tw:flex-wrap tw:gap-3 tw:mb-4">
+            <div className="flex flex-wrap gap-3 mb-4">
               <Button variant="default">Default</Button>
               <Button variant="outline">Outline</Button>
               <Button variant="ghost">Ghost</Button>
               <Button variant="destructive">Destructive</Button>
             </div>
-            <div className="tw:flex tw:flex-wrap tw:gap-3 tw:mb-4">
+            <div className="flex flex-wrap gap-3 mb-4">
               <Button size="sm">Small</Button>
               <Button size="default">Default</Button>
               <Button size="lg">Large</Button>
               <Button size="icon">+</Button>
             </div>
-            <div className="tw:flex tw:flex-wrap tw:gap-3">
+            <div className="flex flex-wrap gap-3">
               <Button disabled>Disabled</Button>
               <Button variant="outline" disabled>
                 Disabled outline
@@ -239,7 +239,7 @@ export function Demo() {
           </SubSection>
 
           <SubSection title="Badge">
-            <div className="tw:flex tw:flex-wrap tw:gap-3">
+            <div className="flex flex-wrap gap-3">
               <Badge variant="default">Default</Badge>
               <Badge variant="secondary">Secondary</Badge>
               <Badge variant="outline">Outline</Badge>
@@ -250,7 +250,7 @@ export function Demo() {
           </SubSection>
 
           <SubSection title="Card">
-            <div className="tw:grid tw:grid-cols-1 tw:md:grid-cols-2 tw:gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <Card>
                 <CardHeader>
                   <CardTitle>Universal Basic Income</CardTitle>
@@ -259,7 +259,7 @@ export function Demo() {
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <p className="tw:text-sm tw:text-text-secondary">
+                  <p className="text-sm text-pe-text-secondary">
                     This reform would provide a monthly payment of $500 to every
                     adult US citizen, funded through a combination of income tax
                     increases and spending reductions.
@@ -267,7 +267,7 @@ export function Demo() {
                 </CardContent>
                 <CardFooter>
                   <Button size="sm">View details</Button>
-                  <Button variant="outline" size="sm" className="tw:ml-2">
+                  <Button variant="outline" size="sm" className="ml-2">
                     Compare
                   </Button>
                 </CardFooter>
@@ -280,7 +280,7 @@ export function Demo() {
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <p className="tw:text-sm tw:text-text-secondary">
+                  <p className="text-sm text-pe-text-secondary">
                     Expanding the Child Tax Credit to $3,600 per child under 6
                     and $3,000 for children 6-17, with full refundability for
                     all qualifying families.
@@ -304,8 +304,8 @@ export function Demo() {
               </TabsList>
               <TabsContent value="overview">
                 <Card>
-                  <CardContent className="tw:pt-4">
-                    <p className="tw:text-sm tw:text-text-secondary">
+                  <CardContent className="pt-4">
+                    <p className="text-sm text-pe-text-secondary">
                       This tab shows the overview of the policy reform,
                       including headline metrics and a summary of key impacts
                       across income deciles.
@@ -315,8 +315,8 @@ export function Demo() {
               </TabsContent>
               <TabsContent value="distributional">
                 <Card>
-                  <CardContent className="tw:pt-4">
-                    <p className="tw:text-sm tw:text-text-secondary">
+                  <CardContent className="pt-4">
+                    <p className="text-sm text-pe-text-secondary">
                       Distributional analysis shows how the reform affects
                       different income groups, with the bottom 5 deciles
                       gaining and the top 4 deciles bearing the net cost.
@@ -326,8 +326,8 @@ export function Demo() {
               </TabsContent>
               <TabsContent value="budget">
                 <Card>
-                  <CardContent className="tw:pt-4">
-                    <p className="tw:text-sm tw:text-text-secondary">
+                  <CardContent className="pt-4">
+                    <p className="text-sm text-pe-text-secondary">
                       The budget impact analysis estimates this reform would
                       cost approximately $160 billion annually, partially
                       offset by increased economic activity.
@@ -347,7 +347,7 @@ export function Demo() {
             <Header
               variant="light"
               logo={
-                <img src={logos.tealWordmark} alt="PolicyEngine" className="tw:h-5" />
+                <img src={logos.tealWordmark} alt="PolicyEngine" className="h-5" />
               }
               actions={
                 <>
@@ -358,7 +358,7 @@ export function Demo() {
                 </>
               }
             >
-              <span className="tw:ml-2">
+              <span className="ml-2">
                 UBI Calculator
               </span>
             </Header>
@@ -368,84 +368,84 @@ export function Demo() {
             <Header
               variant="dark"
               logo={
-                <img src={logos.whiteWordmark} alt="PolicyEngine" className="tw:h-5" />
+                <img src={logos.whiteWordmark} alt="PolicyEngine" className="h-5" />
               }
               actions={
                 <>
                   <a href="#">Research</a>
                   <a href="#">About</a>
                   <a href="#">Donate</a>
-                  <Button size="sm" className="tw:bg-white tw:text-primary-600 tw:hover:bg-gray-100">Sign in</Button>
+                  <Button size="sm" className="bg-white text-pe-primary-600 hover:bg-pe-gray-100">Sign in</Button>
                 </>
               }
             >
-              <span className="tw:ml-2">
+              <span className="ml-2">
                 Policy calculator
               </span>
             </Header>
           </SubSection>
 
           <SubSection title="PolicyEngine logos">
-            <div className="tw:grid tw:grid-cols-3 tw:gap-4">
+            <div className="grid grid-cols-3 gap-4">
               <Card>
-                <CardContent className="tw:pt-4 tw:flex tw:flex-col tw:items-center tw:gap-2">
-                  <img src={logos.tealWordmark} alt="Teal wordmark (SVG)" className="tw:h-6" />
-                  <span className="tw:text-xs tw:text-text-tertiary">tealWordmark</span>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardContent className="tw:pt-4 tw:flex tw:flex-col tw:items-center tw:gap-2">
-                  <img src={logos.tealWordmarkPng} alt="Teal wordmark (PNG)" className="tw:h-6" />
-                  <span className="tw:text-xs tw:text-text-tertiary">tealWordmarkPng</span>
-                </CardContent>
-              </Card>
-              <Card className="tw:bg-primary-600">
-                <CardContent className="tw:pt-4 tw:flex tw:flex-col tw:items-center tw:gap-2">
-                  <img src={logos.whiteWordmark} alt="White wordmark (SVG)" className="tw:h-6" />
-                  <span className="tw:text-xs tw:text-white/60">whiteWordmark</span>
-                </CardContent>
-              </Card>
-              <Card className="tw:bg-primary-600">
-                <CardContent className="tw:pt-4 tw:flex tw:flex-col tw:items-center tw:gap-2">
-                  <img src={logos.whiteWordmarkPng} alt="White wordmark (PNG)" className="tw:h-6" />
-                  <span className="tw:text-xs tw:text-white/60">whiteWordmarkPng</span>
+                <CardContent className="pt-4 flex flex-col items-center gap-2">
+                  <img src={logos.tealWordmark} alt="Teal wordmark (SVG)" className="h-6" />
+                  <span className="text-xs text-pe-text-tertiary">tealWordmark</span>
                 </CardContent>
               </Card>
               <Card>
-                <CardContent className="tw:pt-4 tw:flex tw:flex-col tw:items-center tw:gap-2">
-                  <img src={logos.tealSquare} alt="Teal square (SVG)" className="tw:h-10" />
-                  <span className="tw:text-xs tw:text-text-tertiary">tealSquare</span>
+                <CardContent className="pt-4 flex flex-col items-center gap-2">
+                  <img src={logos.tealWordmarkPng} alt="Teal wordmark (PNG)" className="h-6" />
+                  <span className="text-xs text-pe-text-tertiary">tealWordmarkPng</span>
+                </CardContent>
+              </Card>
+              <Card className="bg-pe-primary-600">
+                <CardContent className="pt-4 flex flex-col items-center gap-2">
+                  <img src={logos.whiteWordmark} alt="White wordmark (SVG)" className="h-6" />
+                  <span className="text-xs text-white/60">whiteWordmark</span>
+                </CardContent>
+              </Card>
+              <Card className="bg-pe-primary-600">
+                <CardContent className="pt-4 flex flex-col items-center gap-2">
+                  <img src={logos.whiteWordmarkPng} alt="White wordmark (PNG)" className="h-6" />
+                  <span className="text-xs text-white/60">whiteWordmarkPng</span>
                 </CardContent>
               </Card>
               <Card>
-                <CardContent className="tw:pt-4 tw:flex tw:flex-col tw:items-center tw:gap-2">
-                  <img src={logos.tealSquarePng} alt="Teal square (PNG)" className="tw:h-10" />
-                  <span className="tw:text-xs tw:text-text-tertiary">tealSquarePng</span>
+                <CardContent className="pt-4 flex flex-col items-center gap-2">
+                  <img src={logos.tealSquare} alt="Teal square (SVG)" className="h-10" />
+                  <span className="text-xs text-pe-text-tertiary">tealSquare</span>
                 </CardContent>
               </Card>
               <Card>
-                <CardContent className="tw:pt-4 tw:flex tw:flex-col tw:items-center tw:gap-2">
-                  <img src={logos.tealSquareTransparent} alt="Teal square transparent (PNG)" className="tw:h-10" />
-                  <span className="tw:text-xs tw:text-text-tertiary">tealSquareTransparent</span>
+                <CardContent className="pt-4 flex flex-col items-center gap-2">
+                  <img src={logos.tealSquarePng} alt="Teal square (PNG)" className="h-10" />
+                  <span className="text-xs text-pe-text-tertiary">tealSquarePng</span>
                 </CardContent>
               </Card>
               <Card>
-                <CardContent className="tw:pt-4 tw:flex tw:flex-col tw:items-center tw:gap-2">
-                  <img src={logos.tealSquarePadded} alt="Teal square padded (SVG)" className="tw:h-10" />
-                  <span className="tw:text-xs tw:text-text-tertiary">tealSquarePadded</span>
+                <CardContent className="pt-4 flex flex-col items-center gap-2">
+                  <img src={logos.tealSquareTransparent} alt="Teal square transparent (PNG)" className="h-10" />
+                  <span className="text-xs text-pe-text-tertiary">tealSquareTransparent</span>
                 </CardContent>
               </Card>
-              <Card className="tw:bg-primary-600">
-                <CardContent className="tw:pt-4 tw:flex tw:flex-col tw:items-center tw:gap-2">
-                  <img src={logos.whiteSquare} alt="White square (SVG)" className="tw:h-10" />
-                  <span className="tw:text-xs tw:text-white/60">whiteSquare</span>
+              <Card>
+                <CardContent className="pt-4 flex flex-col items-center gap-2">
+                  <img src={logos.tealSquarePadded} alt="Teal square padded (SVG)" className="h-10" />
+                  <span className="text-xs text-pe-text-tertiary">tealSquarePadded</span>
+                </CardContent>
+              </Card>
+              <Card className="bg-pe-primary-600">
+                <CardContent className="pt-4 flex flex-col items-center gap-2">
+                  <img src={logos.whiteSquare} alt="White square (SVG)" className="h-10" />
+                  <span className="text-xs text-white/60">whiteSquare</span>
                 </CardContent>
               </Card>
             </div>
           </SubSection>
 
           <SubSection title="SidebarLayout (with InputPanel + ResultsPanel)">
-            <div className="tw:border tw:border-border-light tw:rounded-container tw:overflow-hidden tw:h-[500px]">
+            <div className="border border-pe-border-light rounded-pe-container overflow-hidden h-[500px]">
               <SidebarLayout
                 sidebar={
                   <InputPanel title="Household parameters">
@@ -483,7 +483,7 @@ export function Demo() {
                 }
               >
                 <ResultsPanel>
-                  <div className="tw:grid tw:grid-cols-1 tw:sm:grid-cols-3 tw:gap-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                     <MetricCard
                       label="Net income change"
                       value={3200}
@@ -512,9 +512,9 @@ export function Demo() {
           </SubSection>
 
           <SubSection title="SingleColumnLayout">
-            <div className="tw:border tw:border-border-light tw:rounded-container tw:overflow-hidden">
+            <div className="border border-pe-border-light rounded-pe-container overflow-hidden">
               <SingleColumnLayout maxWidth="700px">
-                <h3 className="tw:text-xl tw:font-bold tw:mb-4">
+                <h3 className="text-xl font-bold mb-4">
                   Policy summary
                 </h3>
                 <SummaryText>
@@ -535,10 +535,10 @@ export function Demo() {
         {/* INPUTS */}
         {/* ================================================================ */}
         <Section title="Inputs">
-          <div className="tw:grid tw:grid-cols-1 tw:md:grid-cols-2 tw:gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <Card>
-              <CardContent className="tw:pt-4">
-                <div className="tw:flex tw:flex-col tw:gap-4">
+              <CardContent className="pt-4">
+                <div className="flex flex-col gap-4">
                   <CurrencyInput
                     label="Annual household income"
                     value={income}
@@ -568,8 +568,8 @@ export function Demo() {
               </CardContent>
             </Card>
             <Card>
-              <CardContent className="tw:pt-4">
-                <div className="tw:flex tw:flex-col tw:gap-4">
+              <CardContent className="pt-4">
+                <div className="flex flex-col gap-4">
                   <CheckboxInput
                     label="Include state-level tax effects"
                     checked={includeState}
@@ -615,7 +615,7 @@ export function Demo() {
         {/* ================================================================ */}
         <Section title="Display">
           <SubSection title="MetricCard">
-            <div className="tw:grid tw:grid-cols-1 tw:sm:grid-cols-2 tw:lg:grid-cols-4 tw:gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
               <MetricCard
                 label="Annual cost"
                 value={162000000000}
@@ -651,7 +651,7 @@ export function Demo() {
               <strong>{dependents} dependents</strong> would receive{' '}
               <strong>$12,000</strong> in annual UBI payments and pay an
               additional <strong>$8,200</strong> in income taxes, for a{' '}
-              <strong className="tw:text-primary-500">
+              <strong className="text-pe-primary-500">
                 net gain of $3,800
               </strong>{' '}
               per year.
@@ -671,7 +671,7 @@ export function Demo() {
         {/* CHARTS */}
         {/* ================================================================ */}
         <Section title="Charts">
-          <div className="tw:grid tw:grid-cols-1 tw:gap-6">
+          <div className="grid grid-cols-1 gap-6">
             <ChartContainer
               title="Revenue sources vs. UBI cost"
               subtitle="Billions of dollars, annual"
@@ -745,7 +745,7 @@ export function Demo() {
           </div>
         </Section>
 
-        <div className="tw:text-center tw:py-8 tw:text-sm tw:text-text-tertiary">
+        <div className="text-center py-8 text-sm text-pe-text-tertiary">
           @policyengine/ui-kit v0.1.0 — All components shown with example data
         </div>
       </div>
