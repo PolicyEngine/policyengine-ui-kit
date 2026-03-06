@@ -24,7 +24,7 @@ export function PolicyEngineWatermark({
       {logoSrc && (
         <img src={logoSrc} alt="PolicyEngine" className="h-4 w-4" />
       )}
-      <span className="text-xs text-pe-text-tertiary">PolicyEngine</span>
+      <span className="text-xs text-gray-400">PolicyEngine</span>
     </div>
   );
 }

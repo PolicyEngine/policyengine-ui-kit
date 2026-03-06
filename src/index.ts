@@ -1,8 +1,5 @@
 // Styles — consumers must import '@policyengine/ui-kit/styles.css' separately
-import './app.css';
-
-// Design tokens
-export * from './tokens';
+import './theme/tokens.css';
 
 // Utilities
 export * from './utils';

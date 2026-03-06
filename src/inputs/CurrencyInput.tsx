@@ -34,12 +34,12 @@ export const CurrencyInput = forwardRef<HTMLInputElement, CurrencyInputProps>(
     return (
       <div className={cn('flex flex-col gap-1', className)} style={styles?.root}>
         {label && (
-          <label className="text-sm font-medium text-pe-text-secondary" style={styles?.label}>
+          <label className="text-sm font-medium text-muted-foreground" style={styles?.label}>
             {label}
           </label>
         )}
         <div className="relative">
-          <span className="absolute left-3 top-1/2 -translate-y-1/2 text-sm text-pe-text-secondary">
+          <span className="absolute left-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">
             {currencySymbol}
           </span>
           <input
@@ -58,7 +58,7 @@ export const CurrencyInput = forwardRef<HTMLInputElement, CurrencyInputProps>(
             onChange={(e) => {
               setRawText(e.target.value);
             }}
-            className="h-10 w-full rounded-pe-element border border-pe-border-light pl-7 pr-3 text-sm transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:border-primary"
+            className="h-10 w-full rounded-sm border border-border pl-7 pr-3 text-sm transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:border-primary"
             style={styles?.input}
             {...props}
           />

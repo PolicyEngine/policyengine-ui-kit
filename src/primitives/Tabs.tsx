@@ -4,7 +4,6 @@ import {
   useContext,
   useState,
   type HTMLAttributes,
-  type ReactNode,
 } from 'react';
 import { cn } from '../utils/cn';
 
@@ -56,7 +55,7 @@ export const TabsList = forwardRef<HTMLDivElement, TabsListProps>(
       ref={ref}
       role="tablist"
       className={cn(
-        'inline-flex items-center gap-1 border-b border-pe-border-light',
+        'inline-flex items-center gap-1 border-b border-border',
         className,
       )}
       {...props}
@@ -86,7 +85,7 @@ export const TabsTrigger = forwardRef<HTMLButtonElement, TabsTriggerProps>(
           'border-b-2 -mb-px',
           isActive
             ? 'border-primary text-primary'
-            : 'border-transparent text-pe-text-secondary hover:text-pe-text-primary',
+            : 'border-transparent text-muted-foreground hover:text-foreground',
           className,
         )}
         onClick={() => setActiveTab(value)}

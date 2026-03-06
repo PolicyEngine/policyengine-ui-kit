@@ -23,10 +23,10 @@ export const SliderInput = forwardRef<HTMLInputElement, SliderInputProps>(
     <div className={cn('flex flex-col gap-1', className)} style={styles?.root}>
       {label && (
         <div className="flex items-center justify-between">
-          <label className="text-sm font-medium text-pe-text-secondary" style={styles?.label}>
+          <label className="text-sm font-medium text-muted-foreground" style={styles?.label}>
             {label}
           </label>
-          <span className="text-sm font-medium text-pe-text-primary" style={styles?.value}>
+          <span className="text-sm font-medium text-foreground" style={styles?.value}>
             {formatValue ? formatValue(value) : value}
           </span>
         </div>

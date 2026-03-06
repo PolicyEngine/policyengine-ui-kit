@@ -1,46 +1,57 @@
-import { colors } from '../tokens/colors';
-import { typography } from '../tokens/typography';
-import { chartColors } from '../tokens/charts';
-
 export const AXIS_STYLE = {
-  fontFamily: typography.fontFamily.primary,
+  fontFamily: 'var(--font-sans)',
   fontSize: 12,
-  fill: colors.text.secondary,
+  fill: 'var(--muted-foreground)',
 };
 
 export const GRID_STYLE = {
-  stroke: colors.border.light,
+  stroke: 'var(--border)',
   strokeDasharray: '3 3',
 };
 
 export const TOOLTIP_STYLE = {
   contentStyle: {
-    fontFamily: typography.fontFamily.primary,
+    fontFamily: 'var(--font-sans)',
     fontSize: 13,
-    backgroundColor: colors.white,
-    border: `1px solid ${colors.border.light}`,
+    backgroundColor: 'var(--background)',
+    border: '1px solid var(--border)',
     borderRadius: '8px',
-    boxShadow: `0 4px 12px ${colors.shadow.medium}`,
+    boxShadow: '0 4px 12px rgba(16, 24, 40, 0.1)',
     padding: '8px 12px',
   },
   labelStyle: {
     fontWeight: 600,
     marginBottom: 4,
-    color: colors.text.primary,
+    color: 'var(--foreground)',
   },
   itemStyle: {
-    color: colors.text.secondary,
+    color: 'var(--muted-foreground)',
     padding: '2px 0',
   },
 };
 
 export const LEGEND_STYLE = {
   wrapperStyle: {
-    fontFamily: typography.fontFamily.primary,
+    fontFamily: 'var(--font-sans)',
     fontSize: 13,
-    color: colors.text.secondary,
+    color: 'var(--muted-foreground)',
     paddingTop: 8,
   },
 };
 
-export { chartColors };
+export const chartColors = {
+  primary: 'var(--chart-1)',
+  secondary: 'var(--chart-2)',
+  tertiary: 'var(--chart-3)',
+  quaternary: 'var(--chart-4)',
+  quinary: 'var(--chart-5)',
+  positive: 'var(--success)',
+  negative: 'var(--destructive)',
+  series: [
+    'var(--chart-1)',
+    'var(--chart-2)',
+    'var(--chart-3)',
+    'var(--chart-4)',
+    'var(--chart-5)',
+  ],
+} as const;

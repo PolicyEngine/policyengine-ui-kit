@@ -10,7 +10,7 @@ export const DashboardShell = forwardRef<HTMLDivElement, DashboardShellProps>(
     <div
       ref={ref}
       className={cn(
-        'min-h-screen bg-pe-bg-secondary font-sans text-pe-text-primary',
+        'min-h-screen bg-muted font-sans text-foreground',
         className,
       )}
       style={styles?.root}

@@ -10,12 +10,12 @@ export const SingleColumnLayout = forwardRef<HTMLDivElement, SingleColumnLayoutP
   ({ maxWidth = '976px', className, styles, children, ...props }, ref) => (
     <div
       ref={ref}
-      className={cn('min-h-screen bg-pe-bg-secondary', className)}
+      className={cn('min-h-screen bg-muted', className)}
       style={styles?.root}
       {...props}
     >
       <div
-        className="mx-auto px-pe-lg py-pe-2xl"
+        className="mx-auto px-4 py-6"
         style={{ maxWidth, ...styles?.content }}
       >
         {children}

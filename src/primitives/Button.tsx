@@ -3,16 +3,16 @@ import { forwardRef, type ButtonHTMLAttributes } from 'react';
 import { cn } from '../utils/cn';
 
 const buttonVariants = cva(
-  'inline-flex items-center justify-center gap-2 rounded-pe-element text-sm font-medium transition-colors cursor-pointer disabled:pointer-events-none disabled:opacity-50',
+  'inline-flex items-center justify-center gap-2 rounded-sm text-sm font-medium transition-colors cursor-pointer disabled:pointer-events-none disabled:opacity-50',
   {
     variants: {
       variant: {
         default:
-          'bg-primary text-primary-foreground hover:bg-pe-primary-600',
+          'bg-primary text-primary-foreground hover:bg-teal-600',
         outline:
-          'border border-pe-border-light bg-white hover:bg-pe-gray-50',
-        ghost: 'hover:bg-pe-gray-100',
-        destructive: 'bg-pe-error text-white hover:bg-red-600',
+          'border border-border bg-background hover:bg-gray-50',
+        ghost: 'hover:bg-gray-100',
+        destructive: 'bg-destructive text-destructive-foreground hover:bg-red-600',
       },
       size: {
         default: 'h-9 px-4 py-2',

@@ -24,11 +24,11 @@ export const CheckboxInput = forwardRef<HTMLInputElement, CheckboxInputProps>(
         type="checkbox"
         checked={checked}
         onChange={(e) => onChange(e.target.checked)}
-        className="h-4 w-4 rounded border border-pe-border-light accent-primary focus:ring-2 focus:ring-ring cursor-pointer"
+        className="h-4 w-4 rounded border border-border accent-primary focus:ring-2 focus:ring-ring cursor-pointer"
         style={styles?.input}
         {...props}
       />
-      <span className="text-sm text-pe-text-primary" style={styles?.label}>
+      <span className="text-sm text-foreground" style={styles?.label}>
         {label}
       </span>
     </label>

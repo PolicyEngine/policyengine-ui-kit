@@ -31,7 +31,7 @@ export function DataTable<T extends Record<string, unknown>>({
   return (
     <div
       className={cn(
-        'bg-white border border-pe-border-light rounded-pe-container overflow-hidden',
+        'bg-card border border-border rounded-lg overflow-hidden',
         className,
       )}
       style={styles?.root}
@@ -39,12 +39,12 @@ export function DataTable<T extends Record<string, unknown>>({
     >
       <table className="w-full" style={styles?.table}>
         <thead>
-          <tr className="border-b border-pe-border-light bg-pe-gray-50">
+          <tr className="border-b border-border bg-gray-50">
             {columns.map((col) => (
               <th
                 key={col.key}
                 className={cn(
-                  'px-4 py-3 text-xs font-semibold uppercase tracking-wider text-pe-text-secondary',
+                  'px-4 py-3 text-xs font-semibold uppercase tracking-wider text-muted-foreground',
                   col.align === 'right' && 'text-right',
                   col.align === 'center' && 'text-center',
                 )}
@@ -59,14 +59,14 @@ export function DataTable<T extends Record<string, unknown>>({
           {data.map((row, i) => (
             <tr
               key={i}
-              className="border-b border-pe-border-light last:border-b-0 hover:bg-pe-gray-50"
+              className="border-b border-border last:border-b-0 hover:bg-gray-50"
               style={styles?.row}
             >
               {columns.map((col) => (
                 <td
                   key={col.key}
                   className={cn(
-                    'px-4 py-3 text-sm text-pe-text-primary',
+                    'px-4 py-3 text-sm text-foreground',
                     col.align === 'right' && 'text-right',
                     col.align === 'center' && 'text-center',
                   )}

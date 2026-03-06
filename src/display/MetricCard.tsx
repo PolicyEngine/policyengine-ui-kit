@@ -1,6 +1,6 @@
 import { type HTMLAttributes } from 'react';
 import { cn } from '../utils/cn';
-import { formatCurrency, formatPercent, formatNumber } from '../tokens/charts';
+import { formatCurrency, formatPercent, formatNumber } from '../utils/formatters';
 
 export type MetricFormat = 'currency' | 'percent' | 'number' | 'string';
 export type MetricTrend = 'positive' | 'negative' | 'neutral';
@@ -45,20 +45,20 @@ export function MetricCard({
   return (
     <div
       className={cn(
-        'bg-white border border-pe-border-light rounded-pe-container p-pe-lg flex flex-col gap-pe-xs',
+        'bg-card border border-border rounded-lg p-4 flex flex-col gap-1',
         className,
       )}
       style={styles?.root}
       {...props}
     >
       <span
-        className="text-sm text-pe-text-secondary font-medium"
+        className="text-sm text-muted-foreground font-medium"
         style={styles?.label}
       >
         {label}
       </span>
       <span
-        className="text-2xl font-bold text-pe-text-primary"
+        className="text-2xl font-bold text-foreground"
         style={styles?.value}
       >
         {typeof value === 'number' ? formatByType(value, format) : value}
@@ -67,9 +67,9 @@ export function MetricCard({
         <span
           className={cn(
             'text-sm font-medium',
-            trend === 'positive' && 'text-pe-primary-500',
-            trend === 'negative' && 'text-pe-error',
-            trend === 'neutral' && 'text-pe-gray-500',
+            trend === 'positive' && 'text-teal-500',
+            trend === 'negative' && 'text-destructive',
+            trend === 'neutral' && 'text-gray-500',
           )}
           style={styles?.trend}
         >

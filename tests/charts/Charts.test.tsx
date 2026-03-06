@@ -40,7 +40,7 @@ describe('chartDefaults', () => {
     const { AXIS_STYLE, GRID_STYLE, TOOLTIP_STYLE } = await import(
       '../../src/charts/chartDefaults'
     );
-    expect(AXIS_STYLE.fontFamily).toContain('Inter');
+    expect(AXIS_STYLE.fontFamily).toBe('var(--font-sans)');
     expect(GRID_STYLE.stroke).toBeDefined();
     expect(TOOLTIP_STYLE.contentStyle.borderRadius).toBe('8px');
   });

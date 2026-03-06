@@ -20,7 +20,7 @@ export const SidebarLayout = forwardRef<HTMLDivElement, SidebarLayoutProps>(
       {...props}
     >
       <aside
-        className="w-full md:flex-shrink-0 border-r border-pe-border-light bg-white overflow-y-auto"
+        className="w-full md:flex-shrink-0 border-r border-border bg-background overflow-y-auto"
         style={{ ...styles?.sidebar, maxWidth: sidebarWidth }}
       >
         {sidebar}

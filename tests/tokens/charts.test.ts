@@ -1,15 +1,14 @@
 import { describe, it, expect } from 'vitest';
 import {
-  chartColors,
   formatCurrency,
   formatPercent,
   formatNumber,
-  getNiceTicks,
-} from '../../src/tokens/charts';
+} from '../../src/utils/formatters';
+import { chartColors } from '../../src/charts/chartDefaults';
 
 describe('chartColors', () => {
-  it('has primary color matching TEAL_PRIMARY', () => {
-    expect(chartColors.primary).toBe('#319795');
+  it('has primary color as CSS var', () => {
+    expect(chartColors.primary).toBe('var(--chart-1)');
   });
 
   it('has series array', () => {
@@ -42,18 +41,5 @@ describe('formatPercent', () => {
 
   it('supports decimals', () => {
     expect(formatPercent(0.156, 1)).toBe('15.6%');
-  });
-});
-
-describe('getNiceTicks', () => {
-  it('returns single value for equal domain', () => {
-    expect(getNiceTicks([5, 5])).toEqual([5]);
-  });
-
-  it('returns nice tick values', () => {
-    const ticks = getNiceTicks([0, 100], 5);
-    expect(ticks.length).toBeGreaterThan(1);
-    expect(ticks[0]).toBeLessThanOrEqual(0);
-    expect(ticks[ticks.length - 1]).toBeGreaterThanOrEqual(100);
   });
 });

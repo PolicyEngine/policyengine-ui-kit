@@ -1,0 +1,230 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/* ============================================================
+ * PolicyEngine Design Tokens
+ * Source: @policyengine/design-system v0.3.0 (npm)
+ *
+ * This file IS the design system for all frontend projects.
+ * Import it: @import "@policyengine/ui-kit/theme.css";
+ * ============================================================ */
+
+/* --- Layer 1: Raw token values (shadcn/ui semantic variables) --- */
+:root {
+  --radius: 6px;
+
+  /* Page */
+  --background: #FFFFFF;
+  --foreground: #000000;
+
+  /* Primary (teal brand) */
+  --primary: #2C7A7B;
+  --primary-foreground: #FFFFFF;
+
+  /* Secondary */
+  --secondary: #F2F4F7;
+  --secondary-foreground: #101828;
+
+  /* Muted */
+  --muted: #F2F4F7;
+  --muted-foreground: #6B7280;
+
+  /* Accent */
+  --accent: #F2F4F7;
+  --accent-foreground: #101828;
+
+  /* Destructive */
+  --destructive: #EF4444;
+  --destructive-foreground: #FFFFFF;
+
+  /* Chrome */
+  --border: #E2E8F0;
+  --input: #E2E8F0;
+  --ring: #319795;
+
+  /* Card */
+  --card: #FFFFFF;
+  --card-foreground: #000000;
+
+  /* Popover */
+  --popover: #FFFFFF;
+  --popover-foreground: #000000;
+
+  /* Charts (shadcn chart-1 through chart-5) */
+  --chart-1: #319795;
+  --chart-2: #0EA5E9;
+  --chart-3: #285E61;
+  --chart-4: #026AA2;
+  --chart-5: #6B7280;
+}
+
+/* --- Layer 2: Tailwind @theme inline (bridges :root vars to Tailwind utilities) --- */
+@theme inline {
+  /* Semantic colors → Tailwind classes (bg-primary, text-foreground, etc.) */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+
+  /* Radius derived from base --radius */
+  --radius-sm: calc(var(--radius) - 2px);
+  --radius-md: var(--radius);
+  --radius-lg: calc(var(--radius) + 2px);
+  --radius-xl: calc(var(--radius) + 6px);
+}
+
+/* --- Layer 3: Brand palette (direct Tailwind classes like bg-teal-500) --- */
+@theme {
+  /* Teal (primary brand) */
+  --color-teal-50: #E6FFFA;
+  --color-teal-100: #B2F5EA;
+  --color-teal-200: #81E6D9;
+  --color-teal-300: #4FD1C5;
+  --color-teal-400: #38B2AC;
+  --color-teal-500: #319795;
+  --color-teal-600: #2C7A7B;
+  --color-teal-700: #285E61;
+  --color-teal-800: #234E52;
+  --color-teal-900: #1D4044;
+
+  /* Gray */
+  --color-gray-50: #F9FAFB;
+  --color-gray-100: #F2F4F7;
+  --color-gray-200: #E2E8F0;
+  --color-gray-300: #D1D5DB;
+  --color-gray-400: #9CA3AF;
+  --color-gray-500: #6B7280;
+  --color-gray-600: #4B5563;
+  --color-gray-700: #344054;
+  --color-gray-800: #1F2937;
+  --color-gray-900: #101828;
+
+  /* Blue (accent) */
+  --color-blue-50: #F0F9FF;
+  --color-blue-100: #E0F2FE;
+  --color-blue-200: #BAE6FD;
+  --color-blue-300: #7DD3FC;
+  --color-blue-400: #38BDF8;
+  --color-blue-500: #0EA5E9;
+  --color-blue-600: #0284C7;
+  --color-blue-700: #026AA2;
+  --color-blue-800: #075985;
+  --color-blue-900: #0C4A6E;
+
+  /* Semantic */
+  --color-success: #22C55E;
+  --color-warning: #FEC601;
+  --color-error: #EF4444;
+  --color-info: #1890FF;
+
+  /* Font families */
+  --font-sans: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: JetBrains Mono, "Fira Code", Consolas, monospace;
+
+  /* Font sizes (overrides Tailwind defaults with PE scale) */
+  --text-*: initial;
+  --text-xs: 12px;
+  --text-xs--line-height: 16px;
+  --text-sm: 14px;
+  --text-sm--line-height: 20px;
+  --text-base: 16px;
+  --text-base--line-height: 24px;
+  --text-lg: 18px;
+  --text-lg--line-height: 28px;
+  --text-xl: 20px;
+  --text-xl--line-height: 28px;
+  --text-2xl: 24px;
+  --text-2xl--line-height: 32px;
+  --text-3xl: 28px;
+  --text-3xl--line-height: 36px;
+  --text-4xl: 32px;
+  --text-4xl--line-height: 40px;
+
+  /* Named spacing */
+  --spacing-header: 58px;
+  --spacing-sidebar: 280px;
+  --spacing-content: 976px;
+
+  /* Breakpoints */
+  --breakpoint-xs: 36rem;
+  --breakpoint-sm: 48rem;
+  --breakpoint-md: 62rem;
+  --breakpoint-lg: 75rem;
+  --breakpoint-xl: 88rem;
+  --breakpoint-2xl: 96rem;
+}
+
+/* --- Base styles --- */
+@layer base {
+  * {
+    @apply border-border;
+  }
+  html {
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-sans);
+    line-height: 1.55;
+  }
+
+  /* Range input (slider) */
+  input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    background: transparent;
+    height: 6px;
+  }
+  input[type="range"]::-webkit-slider-runnable-track {
+    background: var(--border);
+    height: 6px;
+    border-radius: 3px;
+  }
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--primary);
+    cursor: pointer;
+    margin-top: -6px;
+  }
+  input[type="range"]::-moz-range-track {
+    background: var(--border);
+    height: 6px;
+    border-radius: 3px;
+  }
+  input[type="range"]::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--primary);
+    border: none;
+    cursor: pointer;
+  }
+}

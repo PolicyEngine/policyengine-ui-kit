@@ -3,12 +3,12 @@ import { forwardRef, type HTMLAttributes, type ReactNode } from 'react';
 import { cn } from '../utils/cn';
 
 const headerVariants = cva(
-  'flex items-center justify-between h-[58px] px-pe-2xl',
+  'flex items-center justify-between h-[58px] px-6',
   {
     variants: {
       variant: {
-        light: 'bg-white border-b border-pe-border-light',
-        dark: 'bg-pe-primary-600 text-white shadow-md border-b border-pe-border-dark',
+        light: 'bg-background border-b border-border',
+        dark: 'bg-teal-600 text-white shadow-md border-b border-gray-400',
       },
     },
     defaultVariants: { variant: 'light' },
@@ -16,12 +16,12 @@ const headerVariants = cva(
 );
 
 const actionsVariants = cva(
-  'flex items-center gap-pe-3xl',
+  'flex items-center gap-8',
   {
     variants: {
       variant: {
         light:
-          '[&_a]:text-pe-text-secondary [&_a]:text-lg [&_a]:font-medium [&_a]:no-underline [&_a]:hover:text-pe-text-primary',
+          '[&_a]:text-muted-foreground [&_a]:text-lg [&_a]:font-medium [&_a]:no-underline [&_a]:hover:text-foreground',
         dark:
           '[&_a]:text-white [&_a]:text-lg [&_a]:font-medium [&_a]:no-underline [&_a]:hover:opacity-80',
       },
@@ -31,11 +31,11 @@ const actionsVariants = cva(
 );
 
 const subtitleVariants = cva(
-  'flex items-center gap-pe-md',
+  'flex items-center gap-3',
   {
     variants: {
       variant: {
-        light: '[&>span]:text-pe-text-secondary [&>span]:text-lg [&>span]:font-medium',
+        light: '[&>span]:text-muted-foreground [&>span]:text-lg [&>span]:font-medium',
         dark: '[&>span]:text-white/70 [&>span]:text-lg [&>span]:font-medium',
       },
     },

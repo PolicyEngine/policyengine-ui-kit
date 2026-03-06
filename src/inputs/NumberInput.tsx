@@ -20,7 +20,7 @@ export const NumberInput = forwardRef<HTMLInputElement, NumberInputProps>(
   ({ label, value, onChange, min, max, step = 1, className, styles, ...props }, ref) => (
     <div className={cn('flex flex-col gap-1', className)} style={styles?.root}>
       {label && (
-        <label className="text-sm font-medium text-pe-text-secondary" style={styles?.label}>
+        <label className="text-sm font-medium text-muted-foreground" style={styles?.label}>
           {label}
         </label>
       )}
@@ -32,7 +32,7 @@ export const NumberInput = forwardRef<HTMLInputElement, NumberInputProps>(
         min={min}
         max={max}
         step={step}
-        className="h-10 w-full rounded-pe-element border border-pe-border-light px-3 text-sm transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:border-primary"
+        className="h-10 w-full rounded-sm border border-border px-3 text-sm transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:border-primary"
         style={styles?.input}
         {...props}
       />

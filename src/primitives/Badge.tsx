@@ -3,13 +3,13 @@ import { type HTMLAttributes } from 'react';
 import { cn } from '../utils/cn';
 
 const badgeVariants = cva(
-  'inline-flex items-center rounded-pe-chip px-3 py-1 text-xs font-medium transition-colors',
+  'inline-flex items-center rounded-sm px-3 py-1 text-xs font-medium transition-colors',
   {
     variants: {
       variant: {
         default: 'bg-primary text-primary-foreground',
         secondary: 'bg-secondary text-secondary-foreground',
-        outline: 'border border-pe-border-light text-pe-text-primary',
+        outline: 'border border-border text-foreground',
         success: 'bg-green-100 text-green-800',
         warning: 'bg-yellow-100 text-yellow-800',
         error: 'bg-red-100 text-red-800',

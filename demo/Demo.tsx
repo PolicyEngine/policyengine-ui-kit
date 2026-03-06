@@ -42,8 +42,8 @@ import { PELineChart } from '../src/charts/PELineChart';
 import { PEAreaChart } from '../src/charts/PEAreaChart';
 import { PEWaterfallChart } from '../src/charts/PEWaterfallChart';
 
-// Tokens (for display)
-import { formatCurrency } from '../src/tokens/charts';
+// Utils
+import { formatCurrency } from '../src/utils/formatters';
 
 // Assets
 import { logos } from '../src/assets';
@@ -164,7 +164,7 @@ function Section({
 }) {
   return (
     <section className="mb-12">
-      <h2 className="text-2xl font-bold text-pe-text-primary mb-6 pb-2 border-b border-pe-border-light">
+      <h2 className="text-2xl font-bold text-foreground mb-6 pb-2 border-b border-border">
         {title}
       </h2>
       {children}
@@ -181,7 +181,7 @@ function SubSection({
 }) {
   return (
     <div className="mb-8">
-      <h3 className="text-lg font-semibold text-pe-text-secondary mb-4">
+      <h3 className="text-lg font-semibold text-muted-foreground mb-4">
         {title}
       </h3>
       {children}
@@ -205,10 +205,10 @@ export function Demo() {
     <DashboardShell>
       <div className="max-w-6xl mx-auto px-6 py-8">
         <div className="mb-10">
-          <h1 className="text-4xl font-bold text-pe-text-primary mb-2">
+          <h1 className="text-4xl font-bold text-foreground mb-2">
             @policyengine/ui-kit
           </h1>
-          <p className="text-lg text-pe-text-secondary">
+          <p className="text-lg text-muted-foreground">
             Component gallery — every component rendered with example data
           </p>
         </div>
@@ -259,7 +259,7 @@ export function Demo() {
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-sm text-pe-text-secondary">
+                  <p className="text-sm text-muted-foreground">
                     This reform would provide a monthly payment of $500 to every
                     adult US citizen, funded through a combination of income tax
                     increases and spending reductions.
@@ -280,7 +280,7 @@ export function Demo() {
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-sm text-pe-text-secondary">
+                  <p className="text-sm text-muted-foreground">
                     Expanding the Child Tax Credit to $3,600 per child under 6
                     and $3,000 for children 6-17, with full refundability for
                     all qualifying families.
@@ -305,7 +305,7 @@ export function Demo() {
               <TabsContent value="overview">
                 <Card>
                   <CardContent className="pt-4">
-                    <p className="text-sm text-pe-text-secondary">
+                    <p className="text-sm text-muted-foreground">
                       This tab shows the overview of the policy reform,
                       including headline metrics and a summary of key impacts
                       across income deciles.
@@ -316,7 +316,7 @@ export function Demo() {
               <TabsContent value="distributional">
                 <Card>
                   <CardContent className="pt-4">
-                    <p className="text-sm text-pe-text-secondary">
+                    <p className="text-sm text-muted-foreground">
                       Distributional analysis shows how the reform affects
                       different income groups, with the bottom 5 deciles
                       gaining and the top 4 deciles bearing the net cost.
@@ -327,7 +327,7 @@ export function Demo() {
               <TabsContent value="budget">
                 <Card>
                   <CardContent className="pt-4">
-                    <p className="text-sm text-pe-text-secondary">
+                    <p className="text-sm text-muted-foreground">
                       The budget impact analysis estimates this reform would
                       cost approximately $160 billion annually, partially
                       offset by increased economic activity.
@@ -375,7 +375,7 @@ export function Demo() {
                   <a href="#">Research</a>
                   <a href="#">About</a>
                   <a href="#">Donate</a>
-                  <Button size="sm" className="bg-white text-pe-primary-600 hover:bg-pe-gray-100">Sign in</Button>
+                  <Button size="sm" className="bg-white text-teal-600 hover:bg-gray-100">Sign in</Button>
                 </>
               }
             >
@@ -390,22 +390,22 @@ export function Demo() {
               <Card>
                 <CardContent className="pt-4 flex flex-col items-center gap-2">
                   <img src={logos.tealWordmark} alt="Teal wordmark (SVG)" className="h-6" />
-                  <span className="text-xs text-pe-text-tertiary">tealWordmark</span>
+                  <span className="text-xs text-gray-400">tealWordmark</span>
                 </CardContent>
               </Card>
               <Card>
                 <CardContent className="pt-4 flex flex-col items-center gap-2">
                   <img src={logos.tealWordmarkPng} alt="Teal wordmark (PNG)" className="h-6" />
-                  <span className="text-xs text-pe-text-tertiary">tealWordmarkPng</span>
+                  <span className="text-xs text-gray-400">tealWordmarkPng</span>
                 </CardContent>
               </Card>
-              <Card className="bg-pe-primary-600">
+              <Card className="bg-teal-600">
                 <CardContent className="pt-4 flex flex-col items-center gap-2">
                   <img src={logos.whiteWordmark} alt="White wordmark (SVG)" className="h-6" />
                   <span className="text-xs text-white/60">whiteWordmark</span>
                 </CardContent>
               </Card>
-              <Card className="bg-pe-primary-600">
+              <Card className="bg-teal-600">
                 <CardContent className="pt-4 flex flex-col items-center gap-2">
                   <img src={logos.whiteWordmarkPng} alt="White wordmark (PNG)" className="h-6" />
                   <span className="text-xs text-white/60">whiteWordmarkPng</span>
@@ -414,28 +414,28 @@ export function Demo() {
               <Card>
                 <CardContent className="pt-4 flex flex-col items-center gap-2">
                   <img src={logos.tealSquare} alt="Teal square (SVG)" className="h-10" />
-                  <span className="text-xs text-pe-text-tertiary">tealSquare</span>
+                  <span className="text-xs text-gray-400">tealSquare</span>
                 </CardContent>
               </Card>
               <Card>
                 <CardContent className="pt-4 flex flex-col items-center gap-2">
                   <img src={logos.tealSquarePng} alt="Teal square (PNG)" className="h-10" />
-                  <span className="text-xs text-pe-text-tertiary">tealSquarePng</span>
+                  <span className="text-xs text-gray-400">tealSquarePng</span>
                 </CardContent>
               </Card>
               <Card>
                 <CardContent className="pt-4 flex flex-col items-center gap-2">
                   <img src={logos.tealSquareTransparent} alt="Teal square transparent (PNG)" className="h-10" />
-                  <span className="text-xs text-pe-text-tertiary">tealSquareTransparent</span>
+                  <span className="text-xs text-gray-400">tealSquareTransparent</span>
                 </CardContent>
               </Card>
               <Card>
                 <CardContent className="pt-4 flex flex-col items-center gap-2">
                   <img src={logos.tealSquarePadded} alt="Teal square padded (SVG)" className="h-10" />
-                  <span className="text-xs text-pe-text-tertiary">tealSquarePadded</span>
+                  <span className="text-xs text-gray-400">tealSquarePadded</span>
                 </CardContent>
               </Card>
-              <Card className="bg-pe-primary-600">
+              <Card className="bg-teal-600">
                 <CardContent className="pt-4 flex flex-col items-center gap-2">
                   <img src={logos.whiteSquare} alt="White square (SVG)" className="h-10" />
                   <span className="text-xs text-white/60">whiteSquare</span>
@@ -445,7 +445,7 @@ export function Demo() {
           </SubSection>
 
           <SubSection title="SidebarLayout (with InputPanel + ResultsPanel)">
-            <div className="border border-pe-border-light rounded-pe-container overflow-hidden h-[500px]">
+            <div className="border border-border rounded-lg overflow-hidden h-[500px]">
               <SidebarLayout
                 sidebar={
                   <InputPanel title="Household parameters">
@@ -512,7 +512,7 @@ export function Demo() {
           </SubSection>
 
           <SubSection title="SingleColumnLayout">
-            <div className="border border-pe-border-light rounded-pe-container overflow-hidden">
+            <div className="border border-border rounded-lg overflow-hidden">
               <SingleColumnLayout maxWidth="700px">
                 <h3 className="text-xl font-bold mb-4">
                   Policy summary
@@ -651,7 +651,7 @@ export function Demo() {
               <strong>{dependents} dependents</strong> would receive{' '}
               <strong>$12,000</strong> in annual UBI payments and pay an
               additional <strong>$8,200</strong> in income taxes, for a{' '}
-              <strong className="text-pe-primary-500">
+              <strong className="text-teal-500">
                 net gain of $3,800
               </strong>{' '}
               per year.
@@ -703,7 +703,7 @@ export function Demo() {
                   {
                     dataKey: 'baseline',
                     name: 'Baseline',
-                    color: '#9CA3AF',
+                    color: 'var(--gray-400)',
                     strokeDasharray: '5 5',
                   },
                   { dataKey: 'reform', name: 'With UBI reform' },
@@ -745,7 +745,7 @@ export function Demo() {
           </div>
         </Section>
 
-        <div className="text-center py-8 text-sm text-pe-text-tertiary">
+        <div className="text-center py-8 text-sm text-gray-400">
           @policyengine/ui-kit v0.1.0 — All components shown with example data
         </div>
       </div>

@@ -8,7 +8,6 @@ import {
   ResponsiveContainer,
   Cell,
 } from 'recharts';
-import { colors } from '../tokens/colors';
 import { AXIS_STYLE, GRID_STYLE, TOOLTIP_STYLE, chartColors } from './chartDefaults';
 import { cn } from '../utils/cn';
 
@@ -75,8 +74,8 @@ export function PEWaterfallChart({
   data,
   height = 400,
   positiveColor = chartColors.primary,
-  negativeColor = colors.gray[600],
-  totalColor = colors.primary[700],
+  negativeColor = 'var(--gray-600)',
+  totalColor = 'var(--chart-3)',
   showGrid = true,
   formatTooltip,
   className,
@@ -94,12 +93,12 @@ export function PEWaterfallChart({
             dataKey="name"
             tick={AXIS_STYLE}
             tickLine={false}
-            axisLine={{ stroke: colors.border.light }}
+            axisLine={{ stroke: 'var(--border)' }}
           />
           <YAxis
             tick={AXIS_STYLE}
             tickLine={false}
-            axisLine={{ stroke: colors.border.light }}
+            axisLine={{ stroke: 'var(--border)' }}
           />
           <Tooltip
             {...TOOLTIP_STYLE}
