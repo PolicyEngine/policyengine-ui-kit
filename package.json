@@ -15,7 +15,8 @@
     "./theme.css": "./src/theme/tokens.css"
   },
   "files": [
-    "dist"
+    "dist",
+    "src/theme"
   ],
   "scripts": {
     "dev": "vite",

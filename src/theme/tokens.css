@@ -1,14 +1,20 @@
-@import "tailwindcss";
 @import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
+
+@source "../components/**/*.{ts,tsx}";
 
 /* ============================================================
  * PolicyEngine Design Tokens
  * Source: @policyengine/design-system v0.3.0 (npm)
  *
  * This file IS the design system for all frontend projects.
- * Import it: @import "@policyengine/ui-kit/theme.css";
+ * Consumer usage (globals.css):
+ *   @import "tailwindcss";
+ *   @import "@policyengine/ui-kit/theme.css";
+ *
+ * Both imports are required. Tailwind must come first.
+ * The consumer must have @tailwindcss/postcss in their postcss config.
  * ============================================================ */
 
 /* --- Layer 1: Raw token values (shadcn/ui semantic variables) --- */
