@@ -2,7 +2,7 @@
 
 @custom-variant dark (&:is(.dark *));
 
-@source "../components/**/*.{ts,tsx}";
+@source "../**/*.{ts,tsx}";
 
 /* ============================================================
  * PolicyEngine Design Tokens
