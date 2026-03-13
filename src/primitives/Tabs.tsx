@@ -1,118 +1,109 @@
-import {
-  createContext,
-  forwardRef,
-  useContext,
-  useState,
-  type HTMLAttributes,
-} from 'react';
+import { forwardRef } from 'react';
+import { cva, type VariantProps } from 'class-variance-authority';
+import { Tabs as TabsPrimitive } from 'radix-ui';
 import { cn } from '../utils/cn';
 
-interface TabsContextValue {
-  activeTab: string;
-  setActiveTab: (value: string) => void;
-}
-
-const TabsContext = createContext<TabsContextValue | null>(null);
-
-function useTabsContext() {
-  const ctx = useContext(TabsContext);
-  if (!ctx) throw new Error('Tabs compound components must be used within <Tabs>');
-  return ctx;
-}
-
-export interface TabsProps extends HTMLAttributes<HTMLDivElement> {
-  defaultValue: string;
-  value?: string;
-  onValueChange?: (value: string) => void;
+export interface TabsProps
+  extends React.ComponentPropsWithoutRef<typeof TabsPrimitive.Root> {
   styles?: { root?: React.CSSProperties };
 }
 
-export const Tabs = forwardRef<HTMLDivElement, TabsProps>(
-  ({ defaultValue, value, onValueChange, className, styles, children, ...props }, ref) => {
-    const [internal, setInternal] = useState(defaultValue);
-    const activeTab = value ?? internal;
-    const setActiveTab = (v: string) => {
-      setInternal(v);
-      onValueChange?.(v);
-    };
-
-    return (
-      <TabsContext.Provider value={{ activeTab, setActiveTab }}>
-        <div ref={ref} className={className} style={styles?.root} {...props}>
-          {children}
-        </div>
-      </TabsContext.Provider>
-    );
-  },
-);
+export const Tabs = forwardRef<
+  React.ComponentRef<typeof TabsPrimitive.Root>,
+  TabsProps
+>(({ className, orientation = 'horizontal', styles, ...props }, ref) => (
+  <TabsPrimitive.Root
+    ref={ref}
+    data-slot="tabs"
+    data-orientation={orientation}
+    orientation={orientation}
+    className={cn(
+      'group/tabs flex gap-2 data-[orientation=horizontal]:flex-col',
+      className,
+    )}
+    style={styles?.root}
+    {...props}
+  />
+));
 Tabs.displayName = 'Tabs';
 
-export interface TabsListProps extends HTMLAttributes<HTMLDivElement> {}
-
-export const TabsList = forwardRef<HTMLDivElement, TabsListProps>(
-  ({ className, ...props }, ref) => (
-    <div
-      ref={ref}
-      role="tablist"
-      className={cn(
-        'inline-flex items-center gap-1 border-b border-border',
-        className,
-      )}
-      {...props}
-    />
-  ),
+const tabsListVariants = cva(
+  'rounded-lg p-[3px] group-data-[orientation=horizontal]/tabs:h-9 data-[variant=line]:rounded-none group/tabs-list text-muted-foreground inline-flex w-fit items-center justify-center group-data-[orientation=vertical]/tabs:h-fit group-data-[orientation=vertical]/tabs:flex-col',
+  {
+    variants: {
+      variant: {
+        default: 'bg-muted',
+        line: 'gap-1 bg-transparent',
+      },
+    },
+    defaultVariants: {
+      variant: 'default',
+    },
+  },
 );
+
+export interface TabsListProps
+  extends React.ComponentPropsWithoutRef<typeof TabsPrimitive.List>,
+    VariantProps<typeof tabsListVariants> {}
+
+export const TabsList = forwardRef<
+  React.ComponentRef<typeof TabsPrimitive.List>,
+  TabsListProps
+>(({ className, variant = 'default', ...props }, ref) => (
+  <TabsPrimitive.List
+    ref={ref}
+    data-slot="tabs-list"
+    data-variant={variant}
+    className={cn(tabsListVariants({ variant }), className)}
+    {...props}
+  />
+));
 TabsList.displayName = 'TabsList';
 
-export interface TabsTriggerProps extends HTMLAttributes<HTMLButtonElement> {
-  value: string;
-}
+export interface TabsTriggerProps
+  extends React.ComponentPropsWithoutRef<typeof TabsPrimitive.Trigger> {}
 
-export const TabsTrigger = forwardRef<HTMLButtonElement, TabsTriggerProps>(
-  ({ value, className, ...props }, ref) => {
-    const { activeTab, setActiveTab } = useTabsContext();
-    const isActive = activeTab === value;
-
-    return (
-      <button
-        ref={ref}
-        role="tab"
-        type="button"
-        aria-selected={isActive}
-        data-state={isActive ? 'active' : 'inactive'}
-        className={cn(
-          'px-4 py-2 text-sm font-medium transition-colors cursor-pointer',
-          'border-b-2 -mb-px',
-          isActive
-            ? 'border-primary text-primary'
-            : 'border-transparent text-muted-foreground hover:text-foreground',
-          className,
-        )}
-        onClick={() => setActiveTab(value)}
-        {...props}
-      />
-    );
-  },
-);
+export const TabsTrigger = forwardRef<
+  React.ComponentRef<typeof TabsPrimitive.Trigger>,
+  TabsTriggerProps
+>(({ className, ...props }, ref) => (
+  <TabsPrimitive.Trigger
+    ref={ref}
+    data-slot="tabs-trigger"
+    className={cn(
+      'text-foreground/60 hover:text-foreground relative inline-flex h-[calc(100%-1px)] flex-1 items-center justify-center gap-1.5 rounded-md border border-transparent px-2 py-1 text-sm font-medium whitespace-nowrap transition-all cursor-pointer',
+      'group-data-[orientation=vertical]/tabs:w-full group-data-[orientation=vertical]/tabs:justify-start',
+      'disabled:pointer-events-none disabled:opacity-50',
+      'group-data-[variant=default]/tabs-list:data-[state=active]:shadow-sm',
+      'group-data-[variant=line]/tabs-list:data-[state=active]:shadow-none',
+      '[&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*=size-])]:size-4',
+      'group-data-[variant=line]/tabs-list:bg-transparent group-data-[variant=line]/tabs-list:data-[state=active]:bg-transparent',
+      'data-[state=active]:bg-background data-[state=active]:text-foreground',
+      'after:bg-foreground after:absolute after:opacity-0 after:transition-opacity',
+      'group-data-[orientation=horizontal]/tabs:after:inset-x-0 group-data-[orientation=horizontal]/tabs:after:bottom-[-5px] group-data-[orientation=horizontal]/tabs:after:h-0.5',
+      'group-data-[orientation=vertical]/tabs:after:inset-y-0 group-data-[orientation=vertical]/tabs:after:-right-1 group-data-[orientation=vertical]/tabs:after:w-0.5',
+      'group-data-[variant=line]/tabs-list:data-[state=active]:after:opacity-100',
+      className,
+    )}
+    {...props}
+  />
+));
 TabsTrigger.displayName = 'TabsTrigger';
 
-export interface TabsContentProps extends HTMLAttributes<HTMLDivElement> {
-  value: string;
-}
+export interface TabsContentProps
+  extends React.ComponentPropsWithoutRef<typeof TabsPrimitive.Content> {}
 
-export const TabsContent = forwardRef<HTMLDivElement, TabsContentProps>(
-  ({ value, className, ...props }, ref) => {
-    const { activeTab } = useTabsContext();
-    if (activeTab !== value) return null;
-
-    return (
-      <div
-        ref={ref}
-        role="tabpanel"
-        className={cn('pt-4', className)}
-        {...props}
-      />
-    );
-  },
-);
+export const TabsContent = forwardRef<
+  React.ComponentRef<typeof TabsPrimitive.Content>,
+  TabsContentProps
+>(({ className, ...props }, ref) => (
+  <TabsPrimitive.Content
+    ref={ref}
+    data-slot="tabs-content"
+    className={cn('flex-1 outline-none', className)}
+    {...props}
+  />
+));
 TabsContent.displayName = 'TabsContent';
+
+export { tabsListVariants };

@@ -2,7 +2,7 @@
 
 @custom-variant dark (&:is(.dark *));
 
-@source "../**/*.{ts,tsx}";
+@source "../../dist/**/*.js";
 
 /* ============================================================
  * PolicyEngine Design Tokens
@@ -64,6 +64,21 @@
   --chart-3: #285E61;
   --chart-4: #026AA2;
   --chart-5: #6B7280;
+
+  /* Background variants */
+  --background-secondary: #f5f9ff;
+  --background-tertiary: #f1f5f9;
+
+  /* Border scale */
+  --border-light: #e2e8f0;
+  --border-medium: #cbd5e1;
+  --border-dark: #94a3b8;
+
+  /* Text semantic aliases */
+  --text-primary: #000000;
+  --text-secondary: #5a5a5a;
+  --text-tertiary: #9ca3af;
+  --text-inverse: #ffffff;
 }
 
 /* --- Layer 2: Tailwind @theme inline (bridges :root vars to Tailwind utilities) --- */
@@ -93,6 +108,15 @@
   --color-chart-3: var(--chart-3);
   --color-chart-4: var(--chart-4);
   --color-chart-5: var(--chart-5);
+
+  /* Additional backgrounds */
+  --color-background-secondary: var(--background-secondary);
+  --color-background-tertiary: var(--background-tertiary);
+
+  /* Border scale */
+  --color-border-light: var(--border-light);
+  --color-border-medium: var(--border-medium);
+  --color-border-dark: var(--border-dark);
 
   /* Radius derived from base --radius */
   --radius-sm: calc(var(--radius) - 2px);
@@ -168,9 +192,16 @@
   --text-4xl: 32px;
   --text-4xl--line-height: 40px;
 
+  /* Semantic radius */
+  --radius-chip: 2px;
+  --radius-element: 4px;
+  --radius-container: 8px;
+  --radius-feature: 12px;
+
   /* Named spacing */
   --spacing-header: 58px;
   --spacing-sidebar: 280px;
+  --spacing-sidebar-width: 280px;
   --spacing-content: 976px;
 
   /* Breakpoints */

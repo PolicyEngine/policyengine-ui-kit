@@ -43,16 +43,28 @@ const subtitleVariants = cva(
   },
 );
 
+export interface HeaderNavLink {
+  /** Display text */
+  text: string;
+  /** URL slug for identification (e.g., "research") */
+  slug: string;
+  /** Where to navigate — a full URL (external) or a path (internal) */
+  href: string;
+}
+
 export interface HeaderProps
   extends HTMLAttributes<HTMLElement>,
     VariantProps<typeof headerVariants> {
   logo?: ReactNode;
+  /** Structured navigation links rendered in the actions area */
+  navLinks?: HeaderNavLink[];
+  /** Additional actions rendered after navLinks (e.g., sign-in button) */
   actions?: ReactNode;
   styles?: { root?: React.CSSProperties };
 }
 
 export const Header = forwardRef<HTMLElement, HeaderProps>(
-  ({ logo, actions, variant, className, styles, children, ...props }, ref) => (
+  ({ logo, navLinks, actions, variant, className, styles, children, ...props }, ref) => (
     <header
       ref={ref}
       className={cn(headerVariants({ variant }), className)}
@@ -63,10 +75,15 @@ export const Header = forwardRef<HTMLElement, HeaderProps>(
         {logo}
         {children}
       </div>
-      {actions && (
-        <div className={cn(actionsVariants({ variant }))}>
+      {(navLinks || actions) && (
+        <nav className={cn(actionsVariants({ variant }))}>
+          {navLinks?.map((link) => (
+            <a key={link.slug} href={link.href}>
+              {link.text}
+            </a>
+          ))}
           {actions}
-        </div>
+        </nav>
       )}
     </header>
   ),
