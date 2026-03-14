@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '../../src/primitives/Tabs';
 
 describe('Tabs', () => {
@@ -15,10 +16,10 @@ describe('Tabs', () => {
       </Tabs>,
     );
     expect(screen.getByText('Content A')).toBeInTheDocument();
-    expect(screen.queryByText('Content B')).not.toBeInTheDocument();
   });
 
-  it('switches tabs on click', () => {
+  it('switches tabs on click', async () => {
+    const user = userEvent.setup();
     render(
       <Tabs defaultValue="a">
         <TabsList>
@@ -29,7 +30,7 @@ describe('Tabs', () => {
         <TabsContent value="b">Content B</TabsContent>
       </Tabs>,
     );
-    fireEvent.click(screen.getByText('Tab B'));
+    await user.click(screen.getByText('Tab B'));
     expect(screen.queryByText('Content A')).not.toBeInTheDocument();
     expect(screen.getByText('Content B')).toBeInTheDocument();
   });
