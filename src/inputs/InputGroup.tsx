@@ -13,17 +13,17 @@ export const InputGroup = forwardRef<HTMLDivElement, InputGroupProps>(
   ({ label, className, styles, children, ...props }, ref) => (
     <div
       ref={ref}
-      className={cn('tw:flex tw:flex-col tw:gap-md', className)}
+      className={cn('flex flex-col gap-3', className)}
       style={styles?.root}
       {...props}
     >
       <h3
-        className="tw:text-xs tw:font-semibold tw:uppercase tw:tracking-wider tw:text-text-secondary"
+        className="text-xs font-semibold uppercase tracking-wider text-muted-foreground"
         style={styles?.label}
       >
         {label}
       </h3>
-      <div className="tw:flex tw:flex-col tw:gap-sm">{children}</div>
+      <div className="flex flex-col gap-2">{children}</div>
     </div>
   ),
 );

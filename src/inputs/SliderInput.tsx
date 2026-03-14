@@ -20,13 +20,13 @@ export interface SliderInputProps
 
 export const SliderInput = forwardRef<HTMLInputElement, SliderInputProps>(
   ({ label, value, onChange, min, max, step = 1, formatValue, className, styles, ...props }, ref) => (
-    <div className={cn('tw:flex tw:flex-col tw:gap-1', className)} style={styles?.root}>
+    <div className={cn('flex flex-col gap-1', className)} style={styles?.root}>
       {label && (
-        <div className="tw:flex tw:items-center tw:justify-between">
-          <label className="tw:text-sm tw:font-medium tw:text-text-secondary" style={styles?.label}>
+        <div className="flex items-center justify-between">
+          <label className="text-sm font-medium text-muted-foreground" style={styles?.label}>
             {label}
           </label>
-          <span className="tw:text-sm tw:font-medium tw:text-text-primary" style={styles?.value}>
+          <span className="text-sm font-medium text-foreground" style={styles?.value}>
             {formatValue ? formatValue(value) : value}
           </span>
         </div>
@@ -39,7 +39,7 @@ export const SliderInput = forwardRef<HTMLInputElement, SliderInputProps>(
         min={min}
         max={max}
         step={step}
-        className="tw:w-full tw:accent-primary tw:cursor-pointer"
+        className="w-full accent-primary cursor-pointer"
         style={styles?.input}
         {...props}
       />

@@ -15,18 +15,18 @@ export const SidebarLayout = forwardRef<HTMLDivElement, SidebarLayoutProps>(
   ({ sidebar, sidebarWidth = '320px', className, styles, children, ...props }, ref) => (
     <div
       ref={ref}
-      className={cn('tw:flex tw:flex-col tw:md:flex-row tw:min-h-screen', className)}
+      className={cn('flex flex-col md:flex-row min-h-screen', className)}
       style={styles?.root}
       {...props}
     >
       <aside
-        className="tw:w-full tw:md:flex-shrink-0 tw:border-r tw:border-border-light tw:bg-white tw:overflow-y-auto"
+        className="w-full md:flex-shrink-0 border-r border-border bg-background overflow-y-auto"
         style={{ ...styles?.sidebar, maxWidth: sidebarWidth }}
       >
         {sidebar}
       </aside>
       <main
-        className="tw:flex-1 tw:overflow-y-auto"
+        className="flex-1 overflow-y-auto"
         style={styles?.content}
       >
         {children}

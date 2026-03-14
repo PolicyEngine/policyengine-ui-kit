@@ -8,7 +8,6 @@ import {
   Legend,
   ResponsiveContainer,
 } from 'recharts';
-import { colors } from '../tokens/colors';
 import { AXIS_STYLE, GRID_STYLE, TOOLTIP_STYLE, LEGEND_STYLE, chartColors } from './chartDefaults';
 import { cn } from '../utils/cn';
 
@@ -49,7 +48,7 @@ export function PELineChart({
   rechartsProps,
 }: PELineChartProps) {
   return (
-    <div className={cn('tw:w-full', className)} style={styles?.root}>
+    <div className={cn('w-full', className)} style={styles?.root}>
       <ResponsiveContainer width="100%" height={height}>
         <LineChart data={data} {...rechartsProps}>
           {showGrid && <CartesianGrid {...GRID_STYLE} />}
@@ -57,13 +56,13 @@ export function PELineChart({
             dataKey={xKey}
             tick={AXIS_STYLE}
             tickLine={false}
-            axisLine={{ stroke: colors.border.light }}
+            axisLine={{ stroke: 'var(--border)' }}
             label={xLabel ? { value: xLabel, position: 'insideBottom', offset: -5, style: AXIS_STYLE } : undefined}
           />
           <YAxis
             tick={AXIS_STYLE}
             tickLine={false}
-            axisLine={{ stroke: colors.border.light }}
+            axisLine={{ stroke: 'var(--border)' }}
             label={yLabel ? { value: yLabel, angle: -90, position: 'insideLeft', offset: 10, style: AXIS_STYLE } : undefined}
           />
           <Tooltip

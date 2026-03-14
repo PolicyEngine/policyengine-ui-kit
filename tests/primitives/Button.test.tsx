@@ -21,8 +21,8 @@ describe('Button', () => {
   });
 
   it('accepts className override', () => {
-    render(<Button className="tw:bg-blue-500">Styled</Button>);
-    expect(screen.getByRole('button').className).toContain('tw:bg-blue-500');
+    render(<Button className="bg-blue-500">Styled</Button>);
+    expect(screen.getByRole('button').className).toContain('bg-blue-500');
   });
 
   it('accepts styles prop', () => {

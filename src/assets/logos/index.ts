@@ -18,4 +18,8 @@ export const logos = {
   whiteWordmark,
   whiteWordmarkPng,
   whiteSquare,
+  /** Alias for teal-square SVG — use as favicon href */
+  favicon: tealSquare,
+  /** Alias for teal-square PNG — favicon fallback */
+  faviconPng: tealSquarePng,
 } as const;

@@ -3,12 +3,12 @@ import { forwardRef, type HTMLAttributes, type ReactNode } from 'react';
 import { cn } from '../utils/cn';
 
 const headerVariants = cva(
-  'tw:flex tw:items-center tw:justify-between tw:h-[58px] tw:px-2xl',
+  'flex items-center justify-between h-[58px] px-6',
   {
     variants: {
       variant: {
-        light: 'tw:bg-white tw:border-b tw:border-border-light',
-        dark: 'tw:bg-primary-600 tw:text-white tw:shadow-md tw:border-b tw:border-border-dark',
+        light: 'bg-background border-b border-border',
+        dark: 'bg-teal-600 text-white shadow-md border-b border-gray-400',
       },
     },
     defaultVariants: { variant: 'light' },
@@ -16,14 +16,14 @@ const headerVariants = cva(
 );
 
 const actionsVariants = cva(
-  'tw:flex tw:items-center tw:gap-3xl',
+  'flex items-center gap-8',
   {
     variants: {
       variant: {
         light:
-          '[&_a]:tw:text-text-secondary [&_a]:tw:text-lg [&_a]:tw:font-medium [&_a]:tw:no-underline [&_a]:tw:hover:text-text-primary [&_button]:tw:text-text-secondary',
+          '[&_a]:text-muted-foreground [&_a]:text-lg [&_a]:font-medium [&_a]:no-underline [&_a]:hover:text-foreground',
         dark:
-          '[&_a]:tw:text-white [&_a]:tw:text-lg [&_a]:tw:font-medium [&_a]:tw:no-underline [&_a]:tw:hover:opacity-80 [&_button]:tw:text-white',
+          '[&_a]:text-white [&_a]:text-lg [&_a]:font-medium [&_a]:no-underline [&_a]:hover:opacity-80',
       },
     },
     defaultVariants: { variant: 'light' },
@@ -31,28 +31,40 @@ const actionsVariants = cva(
 );
 
 const subtitleVariants = cva(
-  'tw:flex tw:items-center tw:gap-md',
+  'flex items-center gap-3',
   {
     variants: {
       variant: {
-        light: '[&>span]:tw:text-text-secondary [&>span]:tw:text-lg [&>span]:tw:font-medium',
-        dark: '[&>span]:tw:text-white/70 [&>span]:tw:text-lg [&>span]:tw:font-medium',
+        light: '[&>span]:text-muted-foreground [&>span]:text-lg [&>span]:font-medium',
+        dark: '[&>span]:text-white/70 [&>span]:text-lg [&>span]:font-medium',
       },
     },
     defaultVariants: { variant: 'light' },
   },
 );
 
+export interface HeaderNavLink {
+  /** Display text */
+  text: string;
+  /** URL slug for identification (e.g., "research") */
+  slug: string;
+  /** Where to navigate — a full URL (external) or a path (internal) */
+  href: string;
+}
+
 export interface HeaderProps
   extends HTMLAttributes<HTMLElement>,
     VariantProps<typeof headerVariants> {
   logo?: ReactNode;
+  /** Structured navigation links rendered in the actions area */
+  navLinks?: HeaderNavLink[];
+  /** Additional actions rendered after navLinks (e.g., sign-in button) */
   actions?: ReactNode;
   styles?: { root?: React.CSSProperties };
 }
 
 export const Header = forwardRef<HTMLElement, HeaderProps>(
-  ({ logo, actions, variant, className, styles, children, ...props }, ref) => (
+  ({ logo, navLinks, actions, variant, className, styles, children, ...props }, ref) => (
     <header
       ref={ref}
       className={cn(headerVariants({ variant }), className)}
@@ -63,10 +75,15 @@ export const Header = forwardRef<HTMLElement, HeaderProps>(
         {logo}
         {children}
       </div>
-      {actions && (
-        <div className={cn(actionsVariants({ variant }))}>
+      {(navLinks || actions) && (
+        <nav className={cn(actionsVariants({ variant }))}>
+          {navLinks?.map((link) => (
+            <a key={link.slug} href={link.href}>
+              {link.text}
+            </a>
+          ))}
           {actions}
-        </div>
+        </nav>
       )}
     </header>
   ),

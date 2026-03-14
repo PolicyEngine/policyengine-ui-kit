@@ -10,7 +10,7 @@ export const ResultsPanel = forwardRef<HTMLDivElement, ResultsPanelProps>(
     <div
       ref={ref}
       className={cn(
-        'tw:flex tw:flex-col tw:gap-2xl tw:p-2xl',
+        'flex flex-col gap-6 p-6',
         className,
       )}
       style={styles?.root}

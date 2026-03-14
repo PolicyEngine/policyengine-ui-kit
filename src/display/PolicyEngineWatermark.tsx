@@ -15,16 +15,16 @@ export function PolicyEngineWatermark({
   return (
     <div
       className={cn(
-        'tw:flex tw:items-center tw:justify-end tw:gap-1 tw:py-1 tw:opacity-60',
+        'flex items-center justify-end gap-1 py-1 opacity-60',
         className,
       )}
       style={styles?.root}
       {...props}
     >
       {logoSrc && (
-        <img src={logoSrc} alt="PolicyEngine" className="tw:h-4 tw:w-4" />
+        <img src={logoSrc} alt="PolicyEngine" className="h-4 w-4" />
       )}
-      <span className="tw:text-xs tw:text-text-tertiary">PolicyEngine</span>
+      <span className="text-xs text-gray-400">PolicyEngine</span>
     </div>
   );
 }

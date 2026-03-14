@@ -10,13 +10,13 @@ export const InputPanel = forwardRef<HTMLDivElement, InputPanelProps>(
   ({ title, className, styles, children, ...props }, ref) => (
     <div
       ref={ref}
-      className={cn('tw:flex tw:flex-col tw:gap-lg tw:p-lg', className)}
+      className={cn('flex flex-col gap-4 p-4', className)}
       style={styles?.root}
       {...props}
     >
       {title && (
         <h2
-          className="tw:text-lg tw:font-semibold tw:text-text-primary"
+          className="text-lg font-semibold text-foreground"
           style={styles?.title}
         >
           {title}
