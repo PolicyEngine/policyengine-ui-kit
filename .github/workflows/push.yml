@@ -48,7 +48,7 @@ jobs:
 
       - name: Publish to npm
         if: steps.check.outputs.count != '0'
-        run: npm publish
+        run: npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
