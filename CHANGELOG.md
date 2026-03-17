@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.3.0] - 2026-03-17
+
+### Added
+
+- Make demo site deployable to Vercel
+
 ## [0.2.0] - 2026-03-16
 
 ### Added
@@ -17,4 +23,5 @@
 
 
 
+[0.3.0]: https://github.com/PolicyEngine/policyengine-ui-kit/compare/0.2.0...0.3.0
 [0.2.0]: https://github.com/PolicyEngine/policyengine-ui-kit/compare/0.0.0...0.2.0
