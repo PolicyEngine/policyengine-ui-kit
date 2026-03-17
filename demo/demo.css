@@ -1,2 +1,5 @@
 @import "tailwindcss";
 @import "../src/theme/tokens.css";
+
+/* Scan source components so Tailwind generates utility classes for them */
+@source "../src/**/*.{ts,tsx}";
