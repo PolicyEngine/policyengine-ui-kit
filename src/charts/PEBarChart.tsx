@@ -10,6 +10,7 @@ import {
   Cell,
 } from 'recharts';
 import { AXIS_STYLE, GRID_STYLE, TOOLTIP_STYLE, LEGEND_STYLE, chartColors } from './chartDefaults';
+import { CHART_MARGINS, getNiceTicks, getYAxisLabelDx } from '../utils/chartUtils';
 import { cn } from '../utils/cn';
 
 export interface PEBarChartProps {
@@ -25,6 +26,10 @@ export interface PEBarChartProps {
   showLegend?: boolean;
   xLabel?: string;
   yLabel?: string;
+  yTicks?: number[];
+  yDomain?: [number, number];
+  margin?: { top?: number; right?: number; bottom?: number; left?: number };
+  isAnimationActive?: boolean;
   formatTooltip?: (value: number) => string;
   className?: string;
   styles?: { root?: React.CSSProperties };
@@ -44,16 +49,26 @@ export function PEBarChart({
   showLegend = false,
   xLabel,
   yLabel,
+  yTicks,
+  yDomain,
+  margin = CHART_MARGINS.bar,
+  isAnimationActive = false,
   formatTooltip,
   className,
   styles,
   rechartsProps,
 }: PEBarChartProps) {
+  const computedTicks = yTicks ?? getNiceTicks([
+    Math.min(0, ...data.map((d) => d[yKey] as number)),
+    Math.max(0, ...data.map((d) => d[yKey] as number)),
+  ], 5);
+  const yLabelDx = yLabel ? getYAxisLabelDx(computedTicks) : 0;
+
   return (
     <div className={cn('w-full', className)} style={styles?.root}>
       <ResponsiveContainer width="100%" height={height}>
-        <BarChart data={data} {...rechartsProps}>
-          {showGrid && <CartesianGrid {...GRID_STYLE} />}
+        <BarChart data={data} margin={margin} {...rechartsProps}>
+          {showGrid && <CartesianGrid {...GRID_STYLE} vertical={false} />}
           <XAxis
             dataKey={xKey}
             tick={AXIS_STYLE}
@@ -65,14 +80,16 @@ export function PEBarChart({
             tick={AXIS_STYLE}
             tickLine={false}
             axisLine={{ stroke: 'var(--border)' }}
-            label={yLabel ? { value: yLabel, angle: -90, position: 'insideLeft', offset: 10, style: AXIS_STYLE } : undefined}
+            ticks={yTicks}
+            domain={yDomain}
+            label={yLabel ? { value: yLabel, angle: -90, position: 'center', dx: yLabelDx, style: AXIS_STYLE } : undefined}
           />
           <Tooltip
             {...TOOLTIP_STYLE}
             formatter={formatTooltip ? (v: number) => formatTooltip(v) : undefined}
           />
           {showLegend && <Legend {...LEGEND_STYLE} />}
-          <Bar dataKey={yKey} radius={[4, 4, 0, 0]}>
+          <Bar dataKey={yKey} radius={[4, 4, 0, 0]} isAnimationActive={isAnimationActive}>
             {colorByValue
               ? data.map((entry, index) => (
                   <Cell

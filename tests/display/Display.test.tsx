@@ -48,8 +48,10 @@ describe('DataTable', () => {
 });
 
 describe('PolicyEngineWatermark', () => {
-  it('renders text', () => {
+  it('renders logo image', () => {
     render(<PolicyEngineWatermark />);
-    expect(screen.getByText('PolicyEngine')).toBeInTheDocument();
+    const img = screen.getByRole('presentation');
+    expect(img).toBeInTheDocument();
+    expect(img.tagName).toBe('IMG');
   });
 });

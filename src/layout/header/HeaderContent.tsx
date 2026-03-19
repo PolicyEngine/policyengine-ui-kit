@@ -1,10 +1,10 @@
-import type { CountryConfig, NavItemConfig } from './HomeHeader';
-import { HomeHeaderCountrySelector } from './HomeHeaderCountrySelector';
-import { HomeHeaderLogo } from './HomeHeaderLogo';
-import { HomeHeaderMobileMenu } from './HomeHeaderMobileMenu';
-import { HomeHeaderNav } from './HomeHeaderNav';
+import type { CountryConfig, NavItemConfig } from './Header';
+import { HeaderCountrySelector } from './HeaderCountrySelector';
+import { HeaderLogo } from './HeaderLogo';
+import { HeaderMobileMenu } from './HeaderMobileMenu';
+import { HeaderNav } from './HeaderNav';
 
-interface HomeHeaderContentProps {
+interface HeaderContentProps {
   navItems: NavItemConfig[];
   opened: boolean;
   onOpen: () => void;
@@ -23,7 +23,7 @@ interface HomeHeaderContentProps {
 /**
  * Flex layout arranging logo, desktop nav, and action buttons.
  */
-export function HomeHeaderContent({
+export function HeaderContent({
   navItems,
   opened,
   onOpen,
@@ -35,7 +35,7 @@ export function HomeHeaderContent({
   countries,
   currentCountry,
   onCountryChange,
-}: HomeHeaderContentProps) {
+}: HeaderContentProps) {
   return (
     <div style={{ height: '100%', width: '100%', padding: 0, margin: 0 }}>
       <div
@@ -48,13 +48,13 @@ export function HomeHeaderContent({
       >
         {/* Left: Logo + Desktop Nav */}
         <div style={{ display: 'flex', alignItems: 'center' }}>
-          <HomeHeaderLogo
+          <HeaderLogo
             logoSrc={logoSrc}
             logoHref={logoHref}
             linkComponent={linkComponent}
             onNavigate={onNavigate}
           />
-          <HomeHeaderNav
+          <HeaderNav
             navItems={navItems}
             onNavigate={onNavigate}
             linkComponent={linkComponent}
@@ -64,7 +64,7 @@ export function HomeHeaderContent({
         {/* Right: Desktop actions (country selector) */}
         <div className="hidden lg:flex items-center">
           {countries && countries.length > 0 && (
-            <HomeHeaderCountrySelector
+            <HeaderCountrySelector
               countries={countries}
               currentCountry={currentCountry}
               onCountryChange={onCountryChange}
@@ -73,7 +73,7 @@ export function HomeHeaderContent({
         </div>
 
         {/* Mobile menu (burger + sheet) */}
-        <HomeHeaderMobileMenu
+        <HeaderMobileMenu
           opened={opened}
           onOpen={onOpen}
           onClose={onClose}

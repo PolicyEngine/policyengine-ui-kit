@@ -1,14 +1,14 @@
 import { forwardRef } from 'react';
 import whiteWordmark from '../../assets/logos/policyengine/white.svg';
 
-export interface HomeHeaderLogoProps {
+export interface HeaderLogoProps {
   logoSrc?: string;
   logoHref?: string;
   linkComponent?: React.ElementType;
   onNavigate?: (href: string) => void;
 }
 
-export const HomeHeaderLogo = forwardRef<HTMLDivElement, HomeHeaderLogoProps>(
+export const HeaderLogo = forwardRef<HTMLDivElement, HeaderLogoProps>(
   ({ logoSrc, logoHref = '/', linkComponent, onNavigate }, ref) => {
     const imgEl = (
       <img
@@ -57,4 +57,4 @@ export const HomeHeaderLogo = forwardRef<HTMLDivElement, HomeHeaderLogoProps>(
     );
   },
 );
-HomeHeaderLogo.displayName = 'HomeHeaderLogo';
+HeaderLogo.displayName = 'HeaderLogo';

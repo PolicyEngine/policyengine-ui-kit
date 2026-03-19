@@ -36,10 +36,17 @@
   "peerDependencies": {
     "react": ">=19",
     "react-dom": ">=19",
-    "recharts": ">=2.12"
+    "recharts": ">=2.12",
+    "react-plotly.js": ">=2.6"
+  },
+  "peerDependenciesMeta": {
+    "react-plotly.js": {
+      "optional": true
+    }
   },
   "dependencies": {
     "class-variance-authority": "^0.7.1",
+    "d3-geo": "^3.1.0",
     "clsx": "^2.1.1",
     "cmdk": "^1.1.1",
     "dayjs": "^1.11.13",
@@ -55,6 +62,7 @@
     "@testing-library/user-event": "^14.6.1",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
+    "@types/d3-geo": "^3.1.0",
     "@vitejs/plugin-react": "^4.3.4",
     "jsdom": "^25.0.1",
     "react": "^19.0.0",

@@ -19,7 +19,7 @@ export const Spinner = forwardRef<HTMLDivElement, SpinnerProps>(
         ref={ref}
         role="status"
         className={cn(
-          'animate-spin rounded-full border-2 border-current border-t-transparent text-primary-500',
+          'animate-spin rounded-full border-2 border-current border-t-transparent text-primary',
           sizeMap[size],
           className,
         )}

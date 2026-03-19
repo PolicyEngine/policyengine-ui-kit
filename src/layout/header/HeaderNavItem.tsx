@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { ChevronDown } from 'lucide-react';
-import type { NavItemConfig } from './HomeHeader';
+import type { NavItemConfig } from './Header';
 
-interface HomeHeaderNavItemProps {
+interface HeaderNavItemProps {
   item: NavItemConfig;
   onNavigate?: (href: string) => void;
   linkComponent?: React.ElementType;
@@ -178,11 +178,11 @@ function AppleDropdown({
 /**
  * Navigation item with optional Apple-style dropdown.
  */
-export function HomeHeaderNavItem({
+export function HeaderNavItem({
   item,
   onNavigate,
   linkComponent,
-}: HomeHeaderNavItemProps) {
+}: HeaderNavItemProps) {
   const { label, href, children } = item;
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);

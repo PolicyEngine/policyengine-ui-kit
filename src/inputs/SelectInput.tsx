@@ -32,7 +32,7 @@ export const SelectInput = forwardRef<HTMLSelectElement, SelectInputProps>(
         ref={ref}
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="h-10 w-full rounded-sm border border-border px-3 text-sm transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:border-primary appearance-none bg-background"
+        className="h-10 w-full rounded-sm border border-border px-3 text-sm transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:border-primary appearance-none bg-white"
         style={styles?.select}
         {...props}
       >

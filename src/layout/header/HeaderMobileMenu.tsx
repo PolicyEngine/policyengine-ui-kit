@@ -5,10 +5,10 @@ import {
   SheetHeader,
   SheetTitle,
 } from '../../primitives/Sheet';
-import type { CountryConfig, NavItemConfig } from './HomeHeader';
-import { HomeHeaderCountrySelector } from './HomeHeaderCountrySelector';
+import type { CountryConfig, NavItemConfig } from './Header';
+import { HeaderCountrySelector } from './HeaderCountrySelector';
 
-interface HomeHeaderMobileMenuProps {
+interface HeaderMobileMenuProps {
   opened: boolean;
   onOpen: () => void;
   onClose: () => void;
@@ -24,7 +24,7 @@ interface HomeHeaderMobileMenuProps {
  * Mobile navigation: hamburger button + Sheet slide-in panel.
  * Visible below the lg breakpoint.
  */
-export function HomeHeaderMobileMenu({
+export function HeaderMobileMenu({
   opened,
   onOpen,
   onClose,
@@ -34,7 +34,7 @@ export function HomeHeaderMobileMenu({
   countries,
   currentCountry,
   onCountryChange,
-}: HomeHeaderMobileMenuProps) {
+}: HeaderMobileMenuProps) {
   const handleNavigate = (href: string) => {
     onClose();
     if (onNavigate) {
@@ -49,7 +49,7 @@ export function HomeHeaderMobileMenu({
       {/* Mobile burger + country selector */}
       <div className="flex lg:hidden items-center" style={{ gap: '16px' }}>
         {countries && countries.length > 0 && (
-          <HomeHeaderCountrySelector
+          <HeaderCountrySelector
             countries={countries}
             currentCountry={currentCountry}
             onCountryChange={onCountryChange}

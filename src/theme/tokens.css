@@ -79,6 +79,27 @@
   --text-secondary: #5a5a5a;
   --text-tertiary: #9ca3af;
   --text-inverse: #ffffff;
+
+  /* Diverging color scales */
+  --diverging-gray-teal-1: #4B5563;
+  --diverging-gray-teal-2: #9CA3AF;
+  --diverging-gray-teal-3: #E2E8F0;
+  --diverging-gray-teal-4: #81E6D9;
+  --diverging-gray-teal-5: #319795;
+
+  --diverging-gray-blue-1: #4B5563;
+  --diverging-gray-blue-2: #9CA3AF;
+  --diverging-gray-blue-3: #E2E8F0;
+  --diverging-gray-blue-4: #7DD3FC;
+  --diverging-gray-blue-5: #0EA5E9;
+
+  /* Primary alpha variants */
+  --primary-alpha-40: rgba(44, 122, 123, 0.4);
+  --primary-alpha-50: rgba(44, 122, 123, 0.5);
+  --primary-alpha-60: rgba(44, 122, 123, 0.6);
+
+  /* Warm neutral */
+  --warm-neutral: #F9F2EA;
 }
 
 /* --- Layer 2: Tailwind @theme inline (bridges :root vars to Tailwind utilities) --- */
@@ -117,6 +138,27 @@
   --color-border-light: var(--border-light);
   --color-border-medium: var(--border-medium);
   --color-border-dark: var(--border-dark);
+
+  /* Diverging color scales */
+  --color-diverging-gray-teal-1: var(--diverging-gray-teal-1);
+  --color-diverging-gray-teal-2: var(--diverging-gray-teal-2);
+  --color-diverging-gray-teal-3: var(--diverging-gray-teal-3);
+  --color-diverging-gray-teal-4: var(--diverging-gray-teal-4);
+  --color-diverging-gray-teal-5: var(--diverging-gray-teal-5);
+
+  --color-diverging-gray-blue-1: var(--diverging-gray-blue-1);
+  --color-diverging-gray-blue-2: var(--diverging-gray-blue-2);
+  --color-diverging-gray-blue-3: var(--diverging-gray-blue-3);
+  --color-diverging-gray-blue-4: var(--diverging-gray-blue-4);
+  --color-diverging-gray-blue-5: var(--diverging-gray-blue-5);
+
+  /* Primary alpha variants */
+  --color-primary-alpha-40: var(--primary-alpha-40);
+  --color-primary-alpha-50: var(--primary-alpha-50);
+  --color-primary-alpha-60: var(--primary-alpha-60);
+
+  /* Warm neutral */
+  --color-warm-neutral: var(--warm-neutral);
 
   /* Radius derived from base --radius */
   --radius-sm: calc(var(--radius) - 2px);

@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { Globe } from 'lucide-react';
-import type { CountryConfig } from './HomeHeader';
+import type { CountryConfig } from './Header';
 
-interface HomeHeaderCountrySelectorProps {
+interface HeaderCountrySelectorProps {
   countries: CountryConfig[];
   currentCountry?: string;
   onCountryChange?: (id: string) => void;
@@ -11,11 +11,11 @@ interface HomeHeaderCountrySelectorProps {
 /**
  * Globe-icon dropdown for selecting a country/region.
  */
-export function HomeHeaderCountrySelector({
+export function HeaderCountrySelector({
   countries,
   currentCountry,
   onCountryChange,
-}: HomeHeaderCountrySelectorProps) {
+}: HeaderCountrySelectorProps) {
   const [open, setOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);

@@ -58,7 +58,7 @@ export const CurrencyInput = forwardRef<HTMLInputElement, CurrencyInputProps>(
             onChange={(e) => {
               setRawText(e.target.value);
             }}
-            className="h-10 w-full rounded-sm border border-border pl-7 pr-3 text-sm transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:border-primary"
+            className="h-10 w-full rounded-sm border border-border bg-white pl-7 pr-3 text-sm transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:border-primary"
             style={styles?.input}
             {...props}
           />
