@@ -7,12 +7,13 @@ import {
   Tooltip,
   ResponsiveContainer,
   Cell,
+  ReferenceLine,
 } from 'recharts';
-import { AXIS_STYLE, GRID_STYLE } from '../chartDefaults';
+import { AXIS_STYLE, GRID_STYLE, ZERO_LINE_STYLE } from '../chartDefaults';
 import { getImpactColors } from '../colorSemantics';
 import { ImpactBarLabel } from '../ImpactBarLabel';
 import { ImpactTooltip } from '../ImpactTooltip';
-import { CHART_MARGINS, getNiceTicks, getYAxisLabelDx } from '../../utils/chartUtils';
+import { CHART_MARGINS, getNiceTicks, getYAxisLayout } from '../../utils/chartUtils';
 import { cn } from '../../utils/cn';
 
 export interface ImpactBarDatum {
@@ -56,12 +57,12 @@ export function PEImpactBarChart({
   const minVal = Math.min(0, ...values);
   const maxVal = Math.max(0, ...values);
   const computedTicks = yTicks ?? getNiceTicks([minVal, maxVal], 5);
-  const yLabelDx = yAxisLabel ? getYAxisLabelDx(computedTicks, yTickFormatter) : 0;
+  const yAxis = getYAxisLayout(computedTicks, !!yAxisLabel, yTickFormatter);
 
   return (
     <div className={cn('w-full', className)} style={styles?.root}>
       <ResponsiveContainer width="100%" height={height}>
-        <BarChart data={data} margin={margin}>
+        <BarChart data={data} margin={{ ...margin, left: (margin.left ?? 0) + yAxis.marginLeft }}>
           <CartesianGrid {...GRID_STYLE} vertical={false} />
           <XAxis
             dataKey="name"
@@ -75,12 +76,14 @@ export function PEImpactBarChart({
             tickLine={false}
             axisLine={{ stroke: 'var(--border)' }}
             ticks={computedTicks}
+            width={yAxis.yAxisWidth}
             tickFormatter={yTickFormatter}
-            label={yAxisLabel ? { value: yAxisLabel, angle: -90, position: 'center', dx: yLabelDx, style: AXIS_STYLE } : undefined}
+            label={yAxisLabel ? { value: yAxisLabel, angle: -90, position: 'center', dx: yAxis.labelDx, style: AXIS_STYLE } : undefined}
           />
           <Tooltip
             content={<ImpactTooltip formatter={barLabelFormatter} />}
           />
+          <ReferenceLine y={0} {...ZERO_LINE_STYLE} />
           <Bar
             dataKey="value"
             radius={[4, 4, 0, 0]}

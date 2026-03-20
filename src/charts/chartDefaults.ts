@@ -56,6 +56,12 @@ export const chartColors = {
   ],
 } as const;
 
+export const ZERO_LINE_STYLE = {
+  stroke: 'var(--color-gray-600)',
+  strokeWidth: 1,
+  strokeDasharray: undefined as undefined,
+} as const;
+
 export const RECHARTS_FONT_STYLE = {
   fontFamily: 'var(--font-sans)',
   fontSize: 12,

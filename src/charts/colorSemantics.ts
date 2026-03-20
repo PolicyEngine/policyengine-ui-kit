@@ -66,16 +66,16 @@ export const chartLineColors = {
 // --- Diverging color scales (raw hex for canvas/SVG operations) ---
 
 export const DIVERGING_GRAY_TEAL: readonly string[] = [
-  '#4B5563', // gray-600
-  '#9CA3AF', // gray-400
+  '#475569', // gray-600
+  '#94A3B8', // gray-400
   '#E2E8F0', // gray-200
   '#81E6D9', // teal-200
   '#319795', // teal-500
 ];
 
 export const DIVERGING_GRAY_BLUE: readonly string[] = [
-  '#4B5563', // gray-600
-  '#9CA3AF', // gray-400
+  '#475569', // gray-600
+  '#94A3B8', // gray-400
   '#E2E8F0', // gray-200
   '#7DD3FC', // blue-300
   '#0EA5E9', // blue-500

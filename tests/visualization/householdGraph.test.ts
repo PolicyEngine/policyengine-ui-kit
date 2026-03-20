@@ -34,7 +34,7 @@ describe('generateImpactForPrompt', () => {
     });
 
     const positive = impacted.filter((n) => n.color === '#319795');
-    const negative = impacted.filter((n) => n.color === '#4B5563');
+    const negative = impacted.filter((n) => n.color === '#475569');
     const neutral = impacted.filter((n) => n.color === '#E2E8F0');
 
     expect(positive.length).toBeCloseTo(3000, -2); // within ~100

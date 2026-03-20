@@ -8,9 +8,10 @@ import {
   Tooltip,
   ResponsiveContainer,
   Cell,
+  ReferenceLine,
 } from 'recharts';
-import { AXIS_STYLE, GRID_STYLE, TOOLTIP_STYLE, chartColors } from './chartDefaults';
-import { CHART_MARGINS, getNiceTicks, getYAxisLabelDx } from '../utils/chartUtils';
+import { AXIS_STYLE, GRID_STYLE, TOOLTIP_STYLE, ZERO_LINE_STYLE, chartColors } from './chartDefaults';
+import { CHART_MARGINS, getNiceTicks, getYAxisLayout } from '../utils/chartUtils';
 import { cn } from '../utils/cn';
 
 export interface WaterfallItem {
@@ -155,12 +156,12 @@ export function PEWaterfallChart({
   const waterfallData = buildWaterfallData(data, positiveColor, negativeColor, totalColor, fillColor);
   const allValues = waterfallData.flatMap((d) => [d.base, d.base + d.value]);
   const computedTicks = yTicks ?? getNiceTicks([Math.min(...allValues), Math.max(...allValues)], 5);
-  const yLabelDx = yLabel ? getYAxisLabelDx(computedTicks, yTickFormatter) : 0;
+  const yAxis = getYAxisLayout(computedTicks, !!yLabel, yTickFormatter);
 
   return (
     <div className={cn('w-full', className)} style={styles?.root}>
       <ResponsiveContainer width="100%" height={height}>
-        <BarChart data={waterfallData} margin={margin} {...rechartsProps}>
+        <BarChart data={waterfallData} margin={{ ...margin, left: (margin.left ?? 0) + yAxis.marginLeft }} {...rechartsProps}>
           {showGrid && <CartesianGrid {...GRID_STYLE} vertical={false} />}
           <XAxis
             dataKey="name"
@@ -175,8 +176,9 @@ export function PEWaterfallChart({
             axisLine={{ stroke: 'var(--border)' }}
             ticks={yTicks}
             domain={yDomain}
+            width={yAxis.yAxisWidth}
             tickFormatter={yTickFormatter}
-            label={yLabel ? { value: yLabel, angle: -90, position: 'center', dx: yLabelDx, style: AXIS_STYLE } : undefined}
+            label={yLabel ? { value: yLabel, angle: -90, position: 'center', dx: yAxis.labelDx, style: AXIS_STYLE } : undefined}
           />
           {tooltipContent ? (
             <Tooltip content={tooltipContent} />
@@ -190,6 +192,7 @@ export function PEWaterfallChart({
               }}
             />
           )}
+          <ReferenceLine y={0} {...ZERO_LINE_STYLE} />
           <Bar dataKey="base" stackId="waterfall" fill="transparent" isAnimationActive={isAnimationActive} />
           <Bar
             dataKey="value"

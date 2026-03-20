@@ -24,6 +24,7 @@ export {
   getNiceTicks,
   getClampedChartHeight,
   getYAxisLabelDx,
+  getYAxisLayout,
   CHART_MARGINS,
   downloadCsv,
 } from './chartUtils';

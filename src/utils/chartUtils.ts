@@ -56,38 +56,68 @@ export function getClampedChartHeight(
   return Math.max(400, Math.min(700, viewportHeight * 0.55));
 }
 
-// --- Default chart margins ---
+// --- Default chart margins (left is minimal; use getYAxisLayout for dynamic left) ---
 
 export const CHART_MARGINS = {
-  bar: { top: 20, right: 20, bottom: 20, left: 60 },
-  line: { top: 20, right: 20, bottom: 20, left: 60 },
-  area: { top: 20, right: 20, bottom: 20, left: 60 },
-  waterfall: { top: 20, right: 20, bottom: 40, left: 80 },
+  bar: { top: 20, right: 20, bottom: 20, left: 0 },
+  line: { top: 20, right: 20, bottom: 20, left: 0 },
+  area: { top: 20, right: 20, bottom: 20, left: 0 },
+  waterfall: { top: 20, right: 20, bottom: 40, left: 0 },
 } as const;
 
-// --- Y-axis label offset ---
+// --- Y-axis layout (dynamic width, margin, and label offset) ---
 
 const AXIS_FONT = '12px Inter, system-ui, sans-serif';
+const Y_LABEL_FONT_SIZE = 12; // matches AXIS_STYLE fontSize
+const TICK_PADDING = 4;
 
 /**
- * Measure the pixel width of the longest formatted tick label,
- * then return a negative dx so the y-axis label clears the ticks.
+ * Measure tick label widths and compute the YAxis width, left margin,
+ * and label dx so nothing clips and there's no wasted space.
+ *
+ * - yAxisWidth: set as the `width` prop on `<YAxis>`
+ * - marginLeft: set as `margin.left` on the chart
+ * - labelDx: set as `dx` on the YAxis label
  */
+export function getYAxisLayout(
+  ticks: number[],
+  hasLabel: boolean,
+  formatter?: (value: number) => string,
+): { yAxisWidth: number; marginLeft: number; labelDx: number } {
+  const fallbackTickWidth = 30;
+
+  let maxTickWidth = fallbackTickWidth;
+  if (typeof document !== 'undefined' && ticks.length > 0) {
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    if (ctx) {
+      ctx.font = AXIS_FONT;
+      const labels = ticks.map((t) => (formatter ? formatter(t) : String(t)));
+      maxTickWidth = Math.max(...labels.map((l) => ctx.measureText(l).width));
+    }
+  }
+
+  // YAxis width = tick labels + padding so they don't clip
+  const yAxisWidth = Math.ceil(maxTickWidth) + TICK_PADDING + 4;
+
+  // Base margin ensures left-most tick text isn't clipped by SVG edge;
+  // add extra space for a rotated axis label when present
+  const BASE_MARGIN = 4;
+  const marginLeft = hasLabel ? Y_LABEL_FONT_SIZE + 20 + BASE_MARGIN : BASE_MARGIN;
+
+  // Position the label to the left of the tick labels with breathing room
+  const LABEL_GAP = 16;
+  const labelDx = -(Math.ceil(maxTickWidth) / 2 + TICK_PADDING + LABEL_GAP);
+
+  return { yAxisWidth, marginLeft, labelDx };
+}
+
+/** @deprecated Use getYAxisLayout instead */
 export function getYAxisLabelDx(
   ticks: number[],
   formatter?: (value: number) => string,
 ): number {
-  if (typeof document === 'undefined' || ticks.length === 0) return -30;
-
-  const canvas = document.createElement('canvas');
-  const ctx = canvas.getContext('2d');
-  if (!ctx) return -30;
-
-  ctx.font = AXIS_FONT;
-  const labels = ticks.map((t) => (formatter ? formatter(t) : String(t)));
-  const maxWidth = Math.max(...labels.map((l) => ctx.measureText(l).width));
-
-  return -(maxWidth + 8);
+  return getYAxisLayout(ticks, true, formatter).labelDx;
 }
 
 // --- CSV download ---

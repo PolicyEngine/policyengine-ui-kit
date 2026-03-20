@@ -11,10 +11,11 @@ import {
   Legend,
   ResponsiveContainer,
   ReferenceDot,
+  ReferenceLine,
 } from 'recharts';
-import { AXIS_STYLE, GRID_STYLE, TOOLTIP_STYLE, LEGEND_STYLE } from '../chartDefaults';
+import { AXIS_STYLE, GRID_STYLE, TOOLTIP_STYLE, LEGEND_STYLE, ZERO_LINE_STYLE } from '../chartDefaults';
 import { chartLineColors } from '../colorSemantics';
-import { CHART_MARGINS, getNiceTicks, getYAxisLabelDx } from '../../utils/chartUtils';
+import { CHART_MARGINS, getNiceTicks, getYAxisLayout } from '../../utils/chartUtils';
 import { cn } from '../../utils/cn';
 
 export type EarningsViewMode = 'both' | 'absolute' | 'relative';
@@ -82,8 +83,9 @@ export function PEEarningsChart({
   const activeFormatter = mode === 'relative'
     ? (v: number) => `${(v * 100).toFixed(0)}%`
     : yTickFormatter;
-  const yLabelDx = yLabel ? getYAxisLabelDx(computedTicks, activeFormatter) : 0;
-  const yLabelConfig = yLabel ? { value: yLabel, angle: -90, position: 'center' as const, dx: yLabelDx, style: AXIS_STYLE } : undefined;
+  const yAxis = getYAxisLayout(computedTicks, !!yLabel, activeFormatter);
+  const yLabelConfig = yLabel ? { value: yLabel, angle: -90, position: 'center' as const, dx: yAxis.labelDx, style: AXIS_STYLE } : undefined;
+  const dynamicMargin = { ...margin, left: (margin.left ?? 0) + yAxis.marginLeft };
 
   return (
     <div className={cn('w-full', className)} style={styles?.root}>
@@ -109,7 +111,7 @@ export function PEEarningsChart({
 
       <ResponsiveContainer width="100%" height={height}>
         {mode === 'both' ? (
-          <LineChart data={enrichedData} margin={margin}>
+          <LineChart data={enrichedData} margin={dynamicMargin}>
             <CartesianGrid {...GRID_STYLE} />
             <XAxis
               dataKey="earnings"
@@ -123,6 +125,7 @@ export function PEEarningsChart({
               tick={AXIS_STYLE}
               tickLine={false}
               axisLine={{ stroke: 'var(--border)' }}
+              width={yAxis.yAxisWidth}
               tickFormatter={yTickFormatter}
               label={yLabelConfig}
             />
@@ -156,7 +159,7 @@ export function PEEarningsChart({
             )}
           </LineChart>
         ) : (
-          <AreaChart data={enrichedData} margin={margin}>
+          <AreaChart data={enrichedData} margin={dynamicMargin}>
             <CartesianGrid {...GRID_STYLE} />
             <XAxis
               dataKey="earnings"
@@ -170,6 +173,7 @@ export function PEEarningsChart({
               tick={AXIS_STYLE}
               tickLine={false}
               axisLine={{ stroke: 'var(--border)' }}
+              width={yAxis.yAxisWidth}
               tickFormatter={
                 mode === 'relative'
                   ? (v: number) => `${(v * 100).toFixed(0)}%`
@@ -178,6 +182,7 @@ export function PEEarningsChart({
               label={yLabelConfig}
             />
             <Tooltip {...TOOLTIP_STYLE} />
+            <ReferenceLine y={0} {...ZERO_LINE_STYLE} />
             <Area
               type="monotone"
               dataKey={mode === 'absolute' ? 'difference' : 'relativeDifference'}

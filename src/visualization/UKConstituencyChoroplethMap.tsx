@@ -42,7 +42,7 @@ export interface UKConstituencyChoroplethMapProps {
   styles?: { root?: React.CSSProperties };
 }
 
-const NO_DATA_FILL = '#D1D5DB';
+const NO_DATA_FILL = '#CBD5E1'; // gray-300
 const BORDER_COLOR = '#FFFFFF';
 const BORDER_WIDTH = 0.3;
 const COLOR_BAR_WIDTH = 16;

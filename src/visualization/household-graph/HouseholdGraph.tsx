@@ -6,7 +6,7 @@ import { cn } from '../../utils/cn';
 // --- Raw hex colors for canvas (CSS vars don't work in canvas) ---
 const COLORS = {
   positive: '#319795',   // teal-500
-  negative: '#4B5563',   // gray-600
+  negative: '#475569',   // gray-600
   neutral: '#E2E8F0',    // gray-200
   background: '#FFFFFF',
 };

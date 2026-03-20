@@ -195,6 +195,14 @@ const waterfallData = [
   { name: 'Net impact', value: 0, isTotal: true },
 ];
 
+const waterfallAllNegativeData = [
+  { name: 'Income tax', value: -120 },
+  { name: 'Payroll tax', value: -85 },
+  { name: 'Corporate tax', value: -60 },
+  { name: 'Estate tax', value: -35 },
+  { name: 'Total', value: 0, isTotal: true },
+];
+
 // Impact bar chart data
 const impactBarData = [
   { name: '1st', value: 0.08, hoverText: 'Gain: 8.0% of net income' },
@@ -592,18 +600,21 @@ export function Demo() {
             </SubSection>
 
             <SubSection title="Skeleton">
-              <Stack gap="md">
-                <Skeleton className="h-4 w-[250px]" />
-                <Skeleton className="h-4 w-[200px]" />
-                <Skeleton className="h-4 w-[150px]" />
-                <Group gap="md">
-                  <Skeleton className="h-12 w-12 rounded-full" />
-                  <Stack gap="sm">
-                    <Skeleton className="h-4 w-[160px]" />
-                    <Skeleton className="h-3 w-[120px]" />
-                  </Stack>
-                </Group>
-              </Stack>
+              <div className="bg-white rounded-lg p-4 border border-border">
+                <p className="text-xs text-muted-foreground mb-3">Shown on white background for visibility</p>
+                <Stack gap="md">
+                  <Skeleton className="h-4 w-[250px]" />
+                  <Skeleton className="h-4 w-[200px]" />
+                  <Skeleton className="h-4 w-[150px]" />
+                  <Group gap="md">
+                    <Skeleton className="h-12 w-12 rounded-full" />
+                    <Stack gap="sm">
+                      <Skeleton className="h-4 w-[160px]" />
+                      <Skeleton className="h-3 w-[120px]" />
+                    </Stack>
+                  </Group>
+                </Stack>
+              </div>
             </SubSection>
 
             <SubSection title="Progress">
@@ -1594,6 +1605,20 @@ export function Demo() {
                   data={waterfallData}
                   height={350}
                   yLabel="Net fiscal impact (billions)"
+                  showBarLabels
+                  barLabelFormatter={(v) => `$${v}B`}
+                  formatTooltip={(v) => `$${v}B`}
+                />
+                <PolicyEngineWatermark />
+              </ChartContainer>
+
+              <ChartContainer
+                title="Revenue losses waterfall (all negative)"
+              >
+                <PEWaterfallChart
+                  data={waterfallAllNegativeData}
+                  height={350}
+                  yLabel="Revenue change (billions)"
                   showBarLabels
                   barLabelFormatter={(v) => `$${v}B`}
                   formatTooltip={(v) => `$${v}B`}

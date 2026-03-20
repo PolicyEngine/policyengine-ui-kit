@@ -8,9 +8,10 @@ import {
   Legend,
   ResponsiveContainer,
   Cell,
+  ReferenceLine,
 } from 'recharts';
-import { AXIS_STYLE, GRID_STYLE, TOOLTIP_STYLE, LEGEND_STYLE, chartColors } from './chartDefaults';
-import { CHART_MARGINS, getNiceTicks, getYAxisLabelDx } from '../utils/chartUtils';
+import { AXIS_STYLE, GRID_STYLE, TOOLTIP_STYLE, LEGEND_STYLE, ZERO_LINE_STYLE, chartColors } from './chartDefaults';
+import { CHART_MARGINS, getNiceTicks, getYAxisLayout } from '../utils/chartUtils';
 import { cn } from '../utils/cn';
 
 export interface PEBarChartProps {
@@ -62,12 +63,12 @@ export function PEBarChart({
     Math.min(0, ...data.map((d) => d[yKey] as number)),
     Math.max(0, ...data.map((d) => d[yKey] as number)),
   ], 5);
-  const yLabelDx = yLabel ? getYAxisLabelDx(computedTicks) : 0;
+  const yAxis = getYAxisLayout(computedTicks, !!yLabel);
 
   return (
     <div className={cn('w-full', className)} style={styles?.root}>
       <ResponsiveContainer width="100%" height={height}>
-        <BarChart data={data} margin={margin} {...rechartsProps}>
+        <BarChart data={data} margin={{ ...margin, left: (margin.left ?? 0) + yAxis.marginLeft }} {...rechartsProps}>
           {showGrid && <CartesianGrid {...GRID_STYLE} vertical={false} />}
           <XAxis
             dataKey={xKey}
@@ -82,13 +83,15 @@ export function PEBarChart({
             axisLine={{ stroke: 'var(--border)' }}
             ticks={yTicks}
             domain={yDomain}
-            label={yLabel ? { value: yLabel, angle: -90, position: 'center', dx: yLabelDx, style: AXIS_STYLE } : undefined}
+            width={yAxis.yAxisWidth}
+            label={yLabel ? { value: yLabel, angle: -90, position: 'center', dx: yAxis.labelDx, style: AXIS_STYLE } : undefined}
           />
           <Tooltip
             {...TOOLTIP_STYLE}
             formatter={formatTooltip ? (v: number) => formatTooltip(v) : undefined}
           />
           {showLegend && <Legend {...LEGEND_STYLE} />}
+          <ReferenceLine y={0} {...ZERO_LINE_STYLE} />
           <Bar dataKey={yKey} radius={[4, 4, 0, 0]} isAnimationActive={isAnimationActive}>
             {colorByValue
               ? data.map((entry, index) => (

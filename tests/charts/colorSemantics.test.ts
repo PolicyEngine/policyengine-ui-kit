@@ -74,7 +74,7 @@ describe('color scales', () => {
 
 describe('interpolateColor', () => {
   it('returns first color at min', () => {
-    expect(interpolateColor(0, 0, 100, DIVERGING_GRAY_TEAL)).toBe('#4b5563');
+    expect(interpolateColor(0, 0, 100, DIVERGING_GRAY_TEAL)).toBe('#475569');
   });
 
   it('returns last color at max', () => {
@@ -91,7 +91,7 @@ describe('interpolateColor', () => {
 
   it('clamps values below min', () => {
     const color = interpolateColor(-10, 0, 100, DIVERGING_GRAY_TEAL);
-    expect(color).toBe('#4b5563');
+    expect(color).toBe('#475569');
   });
 
   it('clamps values above max', () => {

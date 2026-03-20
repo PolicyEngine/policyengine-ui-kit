@@ -10,7 +10,7 @@ import {
   ReferenceDot,
 } from 'recharts';
 import { AXIS_STYLE, GRID_STYLE, TOOLTIP_STYLE, LEGEND_STYLE, chartColors } from './chartDefaults';
-import { CHART_MARGINS, getNiceTicks, getYAxisLabelDx } from '../utils/chartUtils';
+import { CHART_MARGINS, getNiceTicks, getYAxisLayout } from '../utils/chartUtils';
 import { cn } from '../utils/cn';
 
 export interface PELineChartSeries {
@@ -68,12 +68,12 @@ export function PELineChart({
     Math.min(...data.map((d) => Math.min(...series.map((s) => d[s.dataKey] as number)))),
     Math.max(...data.map((d) => Math.max(...series.map((s) => d[s.dataKey] as number)))),
   ], 5);
-  const yLabelDx = yLabel ? getYAxisLabelDx(computedTicks) : 0;
+  const yAxis = getYAxisLayout(computedTicks, !!yLabel);
 
   return (
     <div className={cn('w-full', className)} style={styles?.root}>
       <ResponsiveContainer width="100%" height={height}>
-        <LineChart data={data} margin={margin} {...rechartsProps}>
+        <LineChart data={data} margin={{ ...margin, left: (margin.left ?? 0) + yAxis.marginLeft }} {...rechartsProps}>
           {showGrid && <CartesianGrid {...GRID_STYLE} />}
           <XAxis
             dataKey={xKey}
@@ -88,7 +88,8 @@ export function PELineChart({
             axisLine={{ stroke: 'var(--border)' }}
             ticks={yTicks}
             domain={yDomain}
-            label={yLabel ? { value: yLabel, angle: -90, position: 'center', dx: yLabelDx, style: AXIS_STYLE } : undefined}
+            width={yAxis.yAxisWidth}
+            label={yLabel ? { value: yLabel, angle: -90, position: 'center', dx: yAxis.labelDx, style: AXIS_STYLE } : undefined}
           />
           <Tooltip
             {...TOOLTIP_STYLE}

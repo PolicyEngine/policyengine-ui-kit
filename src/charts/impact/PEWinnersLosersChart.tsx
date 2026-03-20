@@ -121,7 +121,7 @@ export function PEWinnersLosersChart({
                   data={allChartData}
                   stackOffset="expand"
                   barSize={BAR_SIZE}
-                  margin={{ top: 8, right: 10, bottom: 0, left: 40 }}
+                  margin={{ top: 8, right: 10, bottom: 0, left: 56 }}
                 >
                   <XAxis type="number" hide />
                   <YAxis
@@ -163,7 +163,7 @@ export function PEWinnersLosersChart({
               stackOffset="expand"
               barSize={BAR_SIZE}
               barCategoryGap={1}
-              margin={{ top: 0, right: 10, bottom: 40, left: 40 }}
+              margin={{ top: 0, right: 10, bottom: 40, left: 56 }}
             >
               <XAxis
                 type="number"
@@ -195,6 +195,7 @@ export function PEWinnersLosersChart({
                     value={yLabel}
                     angle={-90}
                     position="insideLeft"
+                    dx={-16}
                     style={{ textAnchor: 'middle', ...AXIS_STYLE }}
                   />
                 )}

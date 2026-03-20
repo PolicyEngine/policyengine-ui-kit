@@ -52,7 +52,7 @@ const GEOJSON_MAP: Record<MapVisualizationType, GeoJSONFeatureCollection> = {
   hex: CONGRESSIONAL_DISTRICTS_HEX,
 };
 
-const NO_DATA_FILL = '#D1D5DB'; // gray-300
+const NO_DATA_FILL = '#CBD5E1'; // gray-300
 const BORDER_COLOR = '#FFFFFF';
 const BORDER_WIDTH = 0.5;
 const COLOR_BAR_WIDTH = 16;
