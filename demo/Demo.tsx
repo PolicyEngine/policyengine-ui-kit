@@ -474,7 +474,7 @@ function SubSection({
 }) {
   return (
     <div className="mb-8">
-      <h3 className="text-lg font-semibold text-muted-foreground mb-4">
+      <h3 className="text-lg font-semibold text-foreground mb-4">
         {title}
       </h3>
       {children}

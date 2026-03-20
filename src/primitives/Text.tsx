@@ -4,7 +4,7 @@ import { cn } from '../utils/cn';
 
 // Mantine color aliases -- "dimmed" was the most common
 const COLOR_ALIASES: Record<string, string> = {
-  dimmed: 'var(--muted-foreground)',
+  dimmed: 'var(--color-gray-600)',
 };
 
 const textVariants = cva('', {
