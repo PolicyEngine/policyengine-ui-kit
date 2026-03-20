@@ -94,10 +94,10 @@ function ColorBar({
         </linearGradient>
       </defs>
       <rect x={4} y={barY} width={COLOR_BAR_WIDTH} height={barHeight} fill={`url(#${gradientId})`} rx={2} />
-      <text x={24} y={barY + 4} fontSize={10} fill="#4B5563" dominantBaseline="hanging">
+      <text x={24} y={barY + 4} fontSize={10} fill="var(--foreground)" dominantBaseline="hanging">
         {formatValue(max)}
       </text>
-      <text x={24} y={barY + barHeight - 4} fontSize={10} fill="#4B5563">
+      <text x={24} y={barY + barHeight - 4} fontSize={10} fill="var(--foreground)">
         {formatValue(min)}
       </text>
     </svg>

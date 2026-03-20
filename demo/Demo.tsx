@@ -1231,13 +1231,13 @@ export function Demo() {
                 <Card>
                   <CardContent className="pt-4 flex flex-col items-center gap-2">
                     <img src={logos.tealWordmark} alt="Teal wordmark (SVG)" className="h-6" />
-                    <span className="text-xs text-gray-400">tealWordmark</span>
+                    <span className="text-xs text-muted-foreground">tealWordmark</span>
                   </CardContent>
                 </Card>
                 <Card>
                   <CardContent className="pt-4 flex flex-col items-center gap-2">
                     <img src={logos.tealWordmarkPng} alt="Teal wordmark (PNG)" className="h-6" />
-                    <span className="text-xs text-gray-400">tealWordmarkPng</span>
+                    <span className="text-xs text-muted-foreground">tealWordmarkPng</span>
                   </CardContent>
                 </Card>
                 <Card className="bg-teal-600">
@@ -1255,25 +1255,25 @@ export function Demo() {
                 <Card>
                   <CardContent className="pt-4 flex flex-col items-center gap-2">
                     <img src={logos.tealSquare} alt="Teal square (SVG)" className="h-10" />
-                    <span className="text-xs text-gray-400">tealSquare</span>
+                    <span className="text-xs text-muted-foreground">tealSquare</span>
                   </CardContent>
                 </Card>
                 <Card>
                   <CardContent className="pt-4 flex flex-col items-center gap-2">
                     <img src={logos.tealSquarePng} alt="Teal square (PNG)" className="h-10" />
-                    <span className="text-xs text-gray-400">tealSquarePng</span>
+                    <span className="text-xs text-muted-foreground">tealSquarePng</span>
                   </CardContent>
                 </Card>
                 <Card>
                   <CardContent className="pt-4 flex flex-col items-center gap-2">
                     <img src={logos.tealSquareTransparent} alt="Teal square transparent (PNG)" className="h-10" />
-                    <span className="text-xs text-gray-400">tealSquareTransparent</span>
+                    <span className="text-xs text-muted-foreground">tealSquareTransparent</span>
                   </CardContent>
                 </Card>
                 <Card>
                   <CardContent className="pt-4 flex flex-col items-center gap-2">
                     <img src={logos.tealSquarePadded} alt="Teal square padded (SVG)" className="h-10" />
-                    <span className="text-xs text-gray-400">tealSquarePadded</span>
+                    <span className="text-xs text-muted-foreground">tealSquarePadded</span>
                   </CardContent>
                 </Card>
                 <Card className="bg-teal-600">
@@ -1778,7 +1778,7 @@ export function Demo() {
             </SubSection>
           </Section>
 
-          <div className="text-center py-8 text-sm text-gray-400">
+          <div className="text-center py-8 text-sm text-muted-foreground">
             @policyengine/ui-kit — All components shown with example data
           </div>
         </div>

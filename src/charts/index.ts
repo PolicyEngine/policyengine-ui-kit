@@ -59,11 +59,3 @@ export {
   makeBudgetTickFormatter,
   getBudgetChartTitle,
 } from './impact';
-export {
-  LazyPlot,
-  DEFAULT_CHART_CONFIG,
-  CHART_FONT,
-  DEFAULT_CHART_LAYOUT,
-  getBaseChartLayout,
-  getChartLogoImage,
-} from './plotly';
