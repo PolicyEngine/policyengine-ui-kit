@@ -274,26 +274,24 @@ const budgetWaterfallData = [
 // Hex map data — standard US state hex grid layout
 // Even rows (y=0,2,4,6) use integer x; odd rows (y=1,3,5,7) offset x by +0.5
 const hexMapData = [
-  // Row 0
-  { id: 'AK', label: 'Alaska', x: 0, y: 0, value: 0.01 },
-  { id: 'ME', label: 'Maine', x: 10, y: 0, value: -0.01 },
-  // Row 1
-  { id: 'VT', label: 'Vermont', x: 8.5, y: 1, value: 0.02 },
-  { id: 'NH', label: 'New Hampshire', x: 9.5, y: 1, value: -0.01 },
-  // Row 2
-  { id: 'WA', label: 'Washington', x: 0, y: 2, value: 0.01 },
-  { id: 'ID', label: 'Idaho', x: 1, y: 2, value: -0.01 },
+  // Row 0 (even — no offset)
+  { id: 'AK', label: 'Alaska', x: 1, y: 0, value: 0.01 },
+  { id: 'ME', label: 'Maine', x: 11, y: 0, value: -0.01 },
+  // Row 1 (odd — +0.5 offset)
+  { id: 'VT', label: 'Vermont', x: 9.5, y: 1, value: 0.02 },
+  { id: 'NH', label: 'New Hampshire', x: 10.5, y: 1, value: -0.01 },
+  // Row 2 (even)
+  { id: 'WA', label: 'Washington', x: 1, y: 2, value: 0.01 },
   { id: 'MT', label: 'Montana', x: 2, y: 2, value: 0.00 },
   { id: 'ND', label: 'North Dakota', x: 3, y: 2, value: -0.02 },
   { id: 'MN', label: 'Minnesota', x: 4, y: 2, value: 0.03 },
-  { id: 'WI', label: 'Wisconsin', x: 6, y: 2, value: 0.02 },
-  { id: 'MI', label: 'Michigan', x: 8, y: 2, value: -0.01 },
+  { id: 'WI', label: 'Wisconsin', x: 5, y: 2, value: 0.02 },
+  { id: 'MI', label: 'Michigan', x: 7, y: 2, value: -0.01 },
   { id: 'NY', label: 'New York', x: 9, y: 2, value: 0.05 },
   { id: 'MA', label: 'Massachusetts', x: 10, y: 2, value: 0.03 },
   { id: 'RI', label: 'Rhode Island', x: 11, y: 2, value: 0.01 },
-  // Row 3
-  { id: 'OR', label: 'Oregon', x: 0.5, y: 3, value: 0.02 },
-  { id: 'NV', label: 'Nevada', x: 1.5, y: 3, value: -0.01 },
+  // Row 3 (odd — +0.5 offset)
+  { id: 'ID', label: 'Idaho', x: 1.5, y: 3, value: -0.01 },
   { id: 'WY', label: 'Wyoming', x: 2.5, y: 3, value: 0.00 },
   { id: 'SD', label: 'South Dakota', x: 3.5, y: 3, value: -0.01 },
   { id: 'IA', label: 'Iowa', x: 4.5, y: 3, value: 0.02 },
@@ -303,36 +301,39 @@ const hexMapData = [
   { id: 'PA', label: 'Pennsylvania', x: 8.5, y: 3, value: 0.02 },
   { id: 'NJ', label: 'New Jersey', x: 9.5, y: 3, value: -0.02 },
   { id: 'CT', label: 'Connecticut', x: 10.5, y: 3, value: 0.01 },
-  // Row 4
-  { id: 'CA', label: 'California', x: 0, y: 4, value: -0.03 },
-  { id: 'UT', label: 'Utah', x: 1, y: 4, value: 0.01 },
-  { id: 'CO', label: 'Colorado', x: 2, y: 4, value: 0.00 },
-  { id: 'NE', label: 'Nebraska', x: 3, y: 4, value: -0.01 },
-  { id: 'MO', label: 'Missouri', x: 4, y: 4, value: 0.03 },
-  { id: 'KY', label: 'Kentucky', x: 5, y: 4, value: 0.05 },
-  { id: 'WV', label: 'West Virginia', x: 6, y: 4, value: 0.07 },
-  { id: 'VA', label: 'Virginia', x: 7, y: 4, value: 0.01 },
-  { id: 'MD', label: 'Maryland', x: 8, y: 4, value: -0.02 },
-  { id: 'DE', label: 'Delaware', x: 9, y: 4, value: 0.00 },
-  // Row 5
-  { id: 'AZ', label: 'Arizona', x: 1.5, y: 5, value: -0.02 },
-  { id: 'NM', label: 'New Mexico', x: 2.5, y: 5, value: 0.04 },
-  { id: 'KS', label: 'Kansas', x: 3.5, y: 5, value: -0.01 },
-  { id: 'AR', label: 'Arkansas', x: 4.5, y: 5, value: 0.06 },
-  { id: 'TN', label: 'Tennessee', x: 5.5, y: 5, value: 0.03 },
-  { id: 'NC', label: 'North Carolina', x: 6.5, y: 5, value: 0.02 },
-  { id: 'SC', label: 'South Carolina', x: 7.5, y: 5, value: 0.04 },
-  { id: 'DC', label: 'Washington DC', x: 8.5, y: 5, value: 0.08 },
-  // Row 6
-  { id: 'HI', label: 'Hawaii', x: 0, y: 6, value: 0.01 },
-  { id: 'OK', label: 'Oklahoma', x: 3, y: 6, value: 0.03 },
-  { id: 'LA', label: 'Louisiana', x: 4, y: 6, value: 0.05 },
-  { id: 'MS', label: 'Mississippi', x: 5, y: 6, value: 0.07 },
-  { id: 'AL', label: 'Alabama', x: 6, y: 6, value: 0.04 },
-  { id: 'GA', label: 'Georgia', x: 7, y: 6, value: 0.06 },
-  // Row 7
-  { id: 'TX', label: 'Texas', x: 3.5, y: 7, value: 0.02 },
+  // Row 4 (even)
+  { id: 'OR', label: 'Oregon', x: 1, y: 4, value: 0.02 },
+  { id: 'NV', label: 'Nevada', x: 2, y: 4, value: -0.01 },
+  { id: 'CO', label: 'Colorado', x: 3, y: 4, value: 0.00 },
+  { id: 'NE', label: 'Nebraska', x: 4, y: 4, value: -0.01 },
+  { id: 'MO', label: 'Missouri', x: 5, y: 4, value: 0.03 },
+  { id: 'KY', label: 'Kentucky', x: 6, y: 4, value: 0.05 },
+  { id: 'WV', label: 'West Virginia', x: 7, y: 4, value: 0.07 },
+  { id: 'VA', label: 'Virginia', x: 8, y: 4, value: 0.01 },
+  { id: 'MD', label: 'Maryland', x: 9, y: 4, value: -0.02 },
+  { id: 'DE', label: 'Delaware', x: 10, y: 4, value: 0.00 },
+  // Row 5 (odd — +0.5 offset)
+  { id: 'CA', label: 'California', x: 1.5, y: 5, value: -0.03 },
+  { id: 'UT', label: 'Utah', x: 2.5, y: 5, value: 0.01 },
+  { id: 'NM', label: 'New Mexico', x: 3.5, y: 5, value: 0.04 },
+  { id: 'KS', label: 'Kansas', x: 4.5, y: 5, value: -0.01 },
+  { id: 'AR', label: 'Arkansas', x: 5.5, y: 5, value: 0.06 },
+  { id: 'TN', label: 'Tennessee', x: 6.5, y: 5, value: 0.03 },
+  { id: 'NC', label: 'North Carolina', x: 7.5, y: 5, value: 0.02 },
+  { id: 'SC', label: 'South Carolina', x: 8.5, y: 5, value: 0.04 },
+  { id: 'DC', label: 'Washington DC', x: 9.5, y: 5, value: 0.08 },
+  // Row 6 (even)
+  { id: 'AZ', label: 'Arizona', x: 3, y: 6, value: -0.02 },
+  { id: 'OK', label: 'Oklahoma', x: 4, y: 6, value: 0.03 },
+  { id: 'LA', label: 'Louisiana', x: 5, y: 6, value: 0.05 },
+  { id: 'MS', label: 'Mississippi', x: 6, y: 6, value: 0.07 },
+  { id: 'AL', label: 'Alabama', x: 7, y: 6, value: 0.04 },
+  { id: 'GA', label: 'Georgia', x: 8, y: 6, value: 0.06 },
+  // Row 7 (odd — +0.5 offset)
+  { id: 'TX', label: 'Texas', x: 4.5, y: 7, value: 0.02 },
   { id: 'FL', label: 'Florida', x: 7.5, y: 7, value: 0.08 },
+  // Row 8 (even)
+  { id: 'HI', label: 'Hawaii', x: 1, y: 8, value: 0.01 },
 ];
 
 // Congressional district demo data — synthetic values for all 436 districts
@@ -1801,8 +1802,6 @@ export function Demo() {
                 data={hexMapData}
                 config={{ hexSize: 28, showLabels: true, labelFontSize: 9, colorScale: { colors: [...DIVERGING_GRAY_TEAL], symmetric: true } }}
                 formatter={(v) => `${(v * 100).toFixed(1)}%`}
-                width={700}
-                height={420}
                 downloadFilename="us-state-hex-map.svg"
               />
             </SubSection>

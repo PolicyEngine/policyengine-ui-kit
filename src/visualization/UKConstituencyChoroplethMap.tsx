@@ -492,7 +492,7 @@ export function UKConstituencyChoroplethMap({
 
       {/* Watermark */}
       <div className="absolute bottom-1 right-2">
-        <PolicyEngineWatermark width={60} opacity={0.6} />
+        <PolicyEngineWatermark width={80} opacity={0.6} />
       </div>
     </div>
   );
