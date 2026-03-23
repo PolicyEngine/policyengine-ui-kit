@@ -19,7 +19,12 @@ export {
   mergeConfig,
   DEFAULT_CHOROPLETH_CONFIG,
   STATE_ABBREV_TO_FIPS,
+  STATE_FIPS_TO_ABBREV,
+  SLDU_QUALIFYING_STATES,
+  SLDL_QUALIFYING_STATES,
+  isStateQualified,
 } from './utils';
+export type { StateLegislativeChamber } from './utils';
 export { HexagonalMap, type HexagonalMapProps } from './HexagonalMap';
 export {
   USDistrictChoroplethMap,
@@ -35,6 +40,12 @@ export { CONGRESSIONAL_DISTRICTS_GEO } from './data/congressionalDistrictsGeo';
 export { CONGRESSIONAL_DISTRICTS_HEX } from './data/congressionalDistrictsHex';
 export { UK_CONSTITUENCIES_GEO } from './data/ukConstituenciesGeo';
 export { UK_CONSTITUENCIES_HEX } from './data/ukConstituenciesHex';
+export { STATE_SENATE_DISTRICTS_GEO } from './data/stateSenateDistrictsGeo';
+export { STATE_HOUSE_DISTRICTS_GEO } from './data/stateHouseDistrictsGeo';
+export {
+  StateLegislativeDistrictMap,
+  type StateLegislativeDistrictMapProps,
+} from './StateLegislativeDistrictMap';
 export {
   transformConstituencyData,
   transformConstituencyAbsoluteChange,

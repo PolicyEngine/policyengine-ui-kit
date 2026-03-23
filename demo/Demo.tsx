@@ -144,8 +144,13 @@ import { PEBudgetWaterfallChart, getBudgetChartTitle } from '../src/charts/impac
 import { HexagonalMap } from '../src/visualization/HexagonalMap';
 import { USDistrictChoroplethMap } from '../src/visualization/USDistrictChoroplethMap';
 import { UKConstituencyChoroplethMap } from '../src/visualization/UKConstituencyChoroplethMap';
+import { StateLegislativeDistrictMap } from '../src/visualization/StateLegislativeDistrictMap';
 import { UK_CONSTITUENCIES_HEX } from '../src/visualization/data/ukConstituenciesHex';
+import { STATE_SENATE_DISTRICTS_GEO } from '../src/visualization/data/stateSenateDistrictsGeo';
+import { STATE_HOUSE_DISTRICTS_GEO } from '../src/visualization/data/stateHouseDistrictsGeo';
 import { MapTypeToggle } from '../src/visualization/MapTypeToggle';
+import { SLDU_QUALIFYING_STATES, SLDL_QUALIFYING_STATES, STATE_ABBREV_TO_FIPS } from '../src/visualization/utils';
+import type { StateLegislativeChamber } from '../src/visualization/utils';
 import type { ChoroplethDataPoint, MapVisualizationType } from '../src/visualization/types';
 
 // Color semantics
@@ -426,6 +431,40 @@ const tableData = [
   { decile: '10th (richest)', avgIncome: 420000, taxChange: 62000, benefitChange: 6000, netChange: -56000 },
 ];
 
+// State legislative district demo helpers
+const STATE_NAMES: Record<string, string> = {
+  AL: 'Alabama', AZ: 'Arizona', CA: 'California', CO: 'Colorado', CT: 'Connecticut',
+  FL: 'Florida', GA: 'Georgia', IL: 'Illinois', IN: 'Indiana', KY: 'Kentucky',
+  LA: 'Louisiana', MA: 'Massachusetts', MD: 'Maryland', MI: 'Michigan', MO: 'Missouri',
+  NC: 'North Carolina', NJ: 'New Jersey', NV: 'Nevada', NY: 'New York', OH: 'Ohio',
+  OR: 'Oregon', PA: 'Pennsylvania', SC: 'South Carolina', TN: 'Tennessee', TX: 'Texas',
+  UT: 'Utah', VA: 'Virginia', WA: 'Washington', WI: 'Wisconsin',
+};
+
+const sldStateOptions = SLDU_QUALIFYING_STATES.map((s) => ({
+  label: STATE_NAMES[s] ?? s,
+  value: s,
+}));
+
+function generateSldDemoData(stateAbbrev: string, chamber: StateLegislativeChamber): ChoroplethDataPoint[] {
+  const source = chamber === 'upper' ? STATE_SENATE_DISTRICTS_GEO : STATE_HOUSE_DISTRICTS_GEO;
+  const fips = STATE_ABBREV_TO_FIPS[stateAbbrev.toUpperCase()];
+  if (!fips) return [];
+
+  return source.features
+    .filter((f) => f.properties?.STATEFP === fips)
+    .map((f) => {
+      const districtId = f.properties?.DISTRICT_ID as string;
+      const name = f.properties?.NAMELSAD as string;
+      // Deterministic hash
+      const hash = (districtId.charCodeAt(0) * 31 + districtId.charCodeAt(3) * 17 +
+        districtId.charCodeAt(districtId.length - 1) * 7 +
+        districtId.charCodeAt(districtId.length - 2) * 13) % 100;
+      const value = Math.round(((hash - 40) / 500) * 1000) / 1000;
+      return { geoId: districtId, label: name, value };
+    });
+}
+
 const stateOptions = [
   { label: 'California', value: 'CA' },
   { label: 'New York', value: 'NY' },
@@ -529,6 +568,8 @@ export function Demo() {
   const [homeCountry, setHomeCountry] = useState('us');
   const [mapVizType, setMapVizType] = useState<MapVisualizationType>('geographic');
   const [ukMapVizType, setUkMapVizType] = useState<MapVisualizationType>('geographic');
+  const [sldState, setSldState] = useState('CA');
+  const [sldChamber, setSldChamber] = useState<StateLegislativeChamber>('upper');
 
   return (
     <TooltipProvider>
@@ -1803,6 +1844,54 @@ export function Demo() {
                 config={{ hexSize: 28, showLabels: true, labelFontSize: 9, colorScale: { colors: [...DIVERGING_GRAY_TEAL], symmetric: true } }}
                 formatter={(v) => `${(v * 100).toFixed(1)}%`}
                 downloadFilename="us-state-hex-map.svg"
+              />
+            </SubSection>
+
+            <SubSection title="State legislative district map">
+              <Text size="sm" c="dimmed" className="mb-3">
+                State senate and house districts — only states with average district population &ge; 100,000
+              </Text>
+              <label className="text-sm font-medium text-muted-foreground mb-1 block">State</label>
+              <div className="flex gap-4 mb-3 items-center">
+                <div className="w-56">
+                  <SelectInput
+                    options={sldStateOptions}
+                    value={sldState}
+                    onChange={(val) => {
+                      setSldState(val);
+                      // Auto-reset to upper if new state doesn't qualify for lower
+                      if (sldChamber === 'lower' && !(SLDL_QUALIFYING_STATES as readonly string[]).includes(val)) {
+                        setSldChamber('upper');
+                      }
+                    }}
+                  />
+                </div>
+                <div className="bg-white rounded-md">
+                  <SegmentedControl
+                    value={sldChamber}
+                    onValueChange={(v) => setSldChamber(v as StateLegislativeChamber)}
+                    size="sm"
+                    options={[
+                      { label: 'Senate (upper)', value: 'upper' },
+                      {
+                        label: 'House (lower)',
+                        value: 'lower',
+                        disabled: !(SLDL_QUALIFYING_STATES as readonly string[]).includes(sldState),
+                      },
+                    ]}
+                  />
+                </div>
+              </div>
+              <StateLegislativeDistrictMap
+                data={generateSldDemoData(sldState, sldChamber)}
+                state={sldState}
+                chamber={sldChamber}
+                downloadFilename={`${sldState.toLowerCase()}-${sldChamber}-districts.svg`}
+                config={{
+                  height: 550,
+                  colorScale: { colors: [...DIVERGING_GRAY_TEAL], symmetric: true },
+                  formatValue: (v) => `${(v * 100).toFixed(1)}%`,
+                }}
               />
             </SubSection>
 

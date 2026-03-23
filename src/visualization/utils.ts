@@ -112,3 +112,47 @@ export const STATE_ABBREV_TO_FIPS: Record<string, string> = {
   VA: '51', WA: '53', WV: '54', WI: '55', WY: '56',
   DC: '11',
 };
+
+/**
+ * Reverse lookup: FIPS code → state abbreviation.
+ */
+export const STATE_FIPS_TO_ABBREV: Record<string, string> = Object.fromEntries(
+  Object.entries(STATE_ABBREV_TO_FIPS).map(([abbrev, fips]) => [fips, abbrev]),
+);
+
+/**
+ * Which legislative chamber: 'upper' (senate) or 'lower' (house/assembly).
+ */
+export type StateLegislativeChamber = 'upper' | 'lower';
+
+/**
+ * States with senate (upper chamber) districts averaging >= 100,000 people.
+ *
+ * Source: 2024 Census population estimates divided by district count.
+ * Only these states are included in STATE_SENATE_DISTRICTS_GEO.
+ */
+export const SLDU_QUALIFYING_STATES = [
+  'AL','AZ','CA','CO','CT','FL','GA','IL','IN','KY','LA','MA','MD','MI','MO',
+  'NC','NJ','NV','NY','OH','OR','PA','SC','TN','TX','UT','VA','WA','WI',
+] as const;
+
+/**
+ * States with house/assembly (lower chamber) districts averaging >= 100,000 people.
+ *
+ * Source: 2024 Census population estimates divided by district count.
+ * Only these states are included in STATE_HOUSE_DISTRICTS_GEO.
+ */
+export const SLDL_QUALIFYING_STATES = [
+  'AZ','CA','FL','IL','NJ','NY','OH','TX',
+] as const;
+
+/**
+ * Check whether a state has data for a given legislative chamber.
+ */
+export function isStateQualified(state: string, chamber: StateLegislativeChamber): boolean {
+  const upper = state.toUpperCase();
+  if (chamber === 'upper') {
+    return (SLDU_QUALIFYING_STATES as readonly string[]).includes(upper);
+  }
+  return (SLDL_QUALIFYING_STATES as readonly string[]).includes(upper);
+}

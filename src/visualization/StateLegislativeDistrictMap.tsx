@@ -1,19 +1,25 @@
 /**
- * US Congressional District Choropleth Map
+ * State Legislative District Choropleth Map
  *
- * Renders a geographic or hex choropleth map of US congressional districts using
- * d3-geo projections (pure SVG). GeoJSON data is bundled — no runtime fetching required.
- * Supports diverging color scales, custom formatting, and state-level zooming.
+ * Renders a geographic choropleth map of state senate or house districts for a
+ * single US state using d3-geo projections (pure SVG). GeoJSON data is bundled —
+ * no runtime fetching required. Supports diverging color scales, custom formatting,
+ * zoom/pan, and SVG download.
+ *
+ * Only states where average district population >= 100,000 are supported.
+ *
+ * Source: U.S. Census Bureau, 2024 Cartographic Boundary Files (1:500,000)
+ * - Senate: https://www2.census.gov/geo/tiger/GENZ2024/shp/cb_2024_us_sldu_500k.zip
+ * - House:  https://www2.census.gov/geo/tiger/GENZ2024/shp/cb_2024_us_sldl_500k.zip
  */
 
 import { useCallback, useId, useMemo, useRef, useState } from 'react';
-import { geoPath, geoAlbersUsa, geoEquirectangular } from 'd3-geo';
+import { geoPath, geoAlbersUsa } from 'd3-geo';
 import type {
   ChoroplethDataPoint,
   ChoroplethMapConfig,
   GeoJSONFeature,
   GeoJSONFeatureCollection,
-  MapVisualizationType,
   ColorRange,
 } from './types';
 import {
@@ -22,38 +28,33 @@ import {
   getDistrictColor,
   DEFAULT_CHOROPLETH_CONFIG,
   STATE_ABBREV_TO_FIPS,
+  isStateQualified,
 } from './utils';
-import { CONGRESSIONAL_DISTRICTS_GEO } from './data/congressionalDistrictsGeo';
-import { CONGRESSIONAL_DISTRICTS_HEX } from './data/congressionalDistrictsHex';
+import type { StateLegislativeChamber } from './utils';
+import { STATE_SENATE_DISTRICTS_GEO } from './data/stateSenateDistrictsGeo';
+import { STATE_HOUSE_DISTRICTS_GEO } from './data/stateHouseDistrictsGeo';
 import { DIVERGING_GRAY_TEAL } from '../charts/colorSemantics';
 import { PolicyEngineWatermark } from '../display/PolicyEngineWatermark';
 import { ZoomControls } from './ZoomControls';
 import { MapDownloadButton } from './MapDownloadButton';
 import { cn } from '../utils/cn';
 
-export interface USDistrictChoroplethMapProps {
+export interface StateLegislativeDistrictMapProps {
   /** Array of data points to visualize */
   data: ChoroplethDataPoint[];
+  /** Two-letter US state abbreviation (e.g., 'CA', 'NY') */
+  state: string;
+  /** Which legislative chamber to display */
+  chamber: StateLegislativeChamber;
   /** Configuration for the map */
   config?: Partial<ChoroplethMapConfig>;
-  /** State code to focus/zoom on (e.g., 'ca', 'ny') */
-  focusState?: string;
-  /** Map visualization type: 'geographic' or 'hex' */
-  visualizationType?: MapVisualizationType;
   /** Optional ref to the map container for image export */
   exportRef?: React.Ref<HTMLDivElement>;
-  /** State abbreviations whose fetches errored (colored red) */
-  errorStates?: string[];
   /** When set, shows a download button that exports the map as an SVG. */
   downloadFilename?: string;
   className?: string;
   styles?: { root?: React.CSSProperties };
 }
-
-const GEOJSON_MAP: Record<MapVisualizationType, GeoJSONFeatureCollection> = {
-  geographic: CONGRESSIONAL_DISTRICTS_GEO,
-  hex: CONGRESSIONAL_DISTRICTS_HEX,
-};
 
 const NO_DATA_FILL = '#CBD5E1'; // gray-300
 const BORDER_COLOR = '#FFFFFF';
@@ -125,36 +126,33 @@ function mergeMapConfig(partial?: Partial<ChoroplethMapConfig>): Required<Chorop
 }
 
 /**
- * Filter features to a specific US state by state abbreviation.
+ * Filter features to a specific state by FIPS code.
  */
 function filterFeaturesByState(
   geoJSON: GeoJSONFeatureCollection,
-  focusState: string,
+  stateAbbrev: string,
 ): GeoJSONFeatureCollection {
-  const statePrefix = `${focusState.toUpperCase()}-`;
-  const fips = STATE_ABBREV_TO_FIPS[focusState.toLowerCase()];
+  const fips = STATE_ABBREV_TO_FIPS[stateAbbrev.toUpperCase()];
+  if (!fips) return { ...geoJSON, features: [] };
 
   const filtered = geoJSON.features.filter((f) => {
-    const districtId = f.properties?.DISTRICT_ID as string | undefined;
-    const stateFp = f.properties?.STATEFP as string | undefined;
-    return (districtId && districtId.startsWith(statePrefix)) || (fips && stateFp === fips);
+    return f.properties?.STATEFP === fips;
   });
 
   return { ...geoJSON, features: filtered };
 }
 
 /**
- * Build a d3-geo path generator for the given GeoJSON, visualization type, and viewport.
- * - Geographic: geoAlbersUsa with fitExtent
- * - Hex: geoEquirectangular with fitExtent
+ * Build a d3-geo path generator for state-level features.
  */
 function usePathGenerator(
   geoJSON: GeoJSONFeatureCollection,
-  isHex: boolean,
   svgWidth: number,
   svgHeight: number,
 ) {
   return useMemo(() => {
+    if (geoJSON.features.length === 0) return geoPath();
+
     const padding = 20;
     const extent: [[number, number], [number, number]] = [
       [padding, padding],
@@ -163,29 +161,24 @@ function usePathGenerator(
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const collection = geoJSON as any;
-
-    const projection = isHex
-      ? geoEquirectangular().fitExtent(extent, collection)
-      : geoAlbersUsa().fitExtent(extent, collection);
+    const projection = geoAlbersUsa().fitExtent(extent, collection);
 
     return geoPath(projection);
-  }, [geoJSON, isHex, svgWidth, svgHeight]);
+  }, [geoJSON, svgWidth, svgHeight]);
 }
 
-export function USDistrictChoroplethMap({
+export function StateLegislativeDistrictMap({
   data,
+  state,
+  chamber,
   config,
-  focusState,
-  visualizationType = 'geographic',
   exportRef,
-  errorStates,
   downloadFilename,
   className,
   styles,
-}: USDistrictChoroplethMapProps) {
+}: StateLegislativeDistrictMapProps) {
   const uniqueId = useId();
   const containerRef = useRef<HTMLDivElement>(null);
-  const isHexMap = visualizationType === 'hex';
 
   const mergedRef = useCallback(
     (node: HTMLDivElement | null) => {
@@ -199,7 +192,6 @@ export function USDistrictChoroplethMap({
     [exportRef],
   );
 
-  const geoJSON = GEOJSON_MAP[visualizationType];
   const fullConfig = useMemo(() => mergeMapConfig(config), [config]);
   const dataMap = useMemo(() => createDataLookupMap(data), [data]);
 
@@ -208,23 +200,18 @@ export function USDistrictChoroplethMap({
     [data, fullConfig.colorScale.symmetric],
   );
 
-  const errorStateSet = useMemo(
-    () => new Set(errorStates?.map((s) => s.toUpperCase()) ?? []),
-    [errorStates],
-  );
-
-  // Filter features when focusState is set
+  // Select and filter GeoJSON by chamber + state
   const displayGeoJSON = useMemo(() => {
-    if (!focusState) return geoJSON;
-    return filterFeaturesByState(geoJSON, focusState);
-  }, [geoJSON, focusState]);
+    const source = chamber === 'upper' ? STATE_SENATE_DISTRICTS_GEO : STATE_HOUSE_DISTRICTS_GEO;
+    return filterFeaturesByState(source, state);
+  }, [chamber, state]);
 
-  // Build path generator — fitExtent auto-zooms to filtered features
-  const pathGen = usePathGenerator(displayGeoJSON, isHexMap, SVG_WIDTH, fullConfig.height);
+  // Build path generator — fitExtent auto-zooms to the state's features
+  const pathGen = usePathGenerator(displayGeoJSON, SVG_WIDTH, fullConfig.height);
 
   const [tooltip, setTooltip] = useState<TooltipState | null>(null);
 
-  // Zoom/pan state — manipulates a <g> transform inside the SVG
+  // Zoom/pan state
   const [svgZoom, setSvgZoom] = useState(1);
   const [svgPan, setSvgPan] = useState<[number, number]>([0, 0]);
   const isPanning = useRef(false);
@@ -269,17 +256,6 @@ export function USDistrictChoroplethMap({
       const rect = containerRef.current?.getBoundingClientRect();
       if (!rect) return;
 
-      const stateAbbr = districtId.split('-')[0]?.toUpperCase();
-      if (stateAbbr && errorStateSet.has(stateAbbr)) {
-        setTooltip({
-          x: event.clientX - rect.left,
-          y: event.clientY - rect.top,
-          label: districtId,
-          value: 'Error loading data',
-        });
-        return;
-      }
-
       const dataPoint = dataMap.get(districtId);
       if (!dataPoint) return;
 
@@ -290,7 +266,7 @@ export function USDistrictChoroplethMap({
         value: fullConfig.formatValue(dataPoint.value),
       });
     },
-    [dataMap, fullConfig, errorStateSet],
+    [dataMap, fullConfig],
   );
 
   const handleMouseMove = useCallback(
@@ -309,6 +285,21 @@ export function USDistrictChoroplethMap({
     setTooltip(null);
   }, []);
 
+  // Validation: check if this state/chamber combination is supported
+  if (!isStateQualified(state, chamber)) {
+    const chamberLabel = chamber === 'upper' ? 'senate' : 'house';
+    return (
+      <div
+        className={cn('flex items-center justify-center', className)}
+        style={{ height: fullConfig.height, ...styles?.root }}
+      >
+        <span className="text-sm text-muted-foreground">
+          {state.toUpperCase()} {chamberLabel} districts are not available (average district population is below 100,000)
+        </span>
+      </div>
+    );
+  }
+
   if (!data.length) {
     return (
       <div
@@ -320,7 +311,7 @@ export function USDistrictChoroplethMap({
     );
   }
 
-  const gradientId = `choropleth-gradient-${uniqueId.replace(/:/g, '')}`;
+  const gradientId = `sld-gradient-${uniqueId.replace(/:/g, '')}`;
 
   return (
     <div
@@ -343,19 +334,15 @@ export function USDistrictChoroplethMap({
           <g transform={`translate(${SVG_WIDTH / 2}, ${fullConfig.height / 2}) scale(${svgZoom}) translate(${-SVG_WIDTH / 2 + svgPan[0]}, ${-fullConfig.height / 2 + svgPan[1]})`}>
             {displayGeoJSON.features.map((feature: GeoJSONFeature) => {
               const districtId = feature.properties?.DISTRICT_ID as string | undefined;
-              const stateAbbr = districtId?.split('-')[0]?.toUpperCase();
-              const isErrorState = stateAbbr ? errorStateSet.has(stateAbbr) : false;
               const dataPoint = districtId ? dataMap.get(districtId) : undefined;
 
-              const fillColor = isErrorState
-                ? 'rgba(220, 53, 69, 0.5)'
-                : dataPoint
-                  ? getDistrictColor(
-                      dataPoint.value,
-                      colorRange,
-                      fullConfig.colorScale.colors,
-                    )
-                  : NO_DATA_FILL;
+              const fillColor = dataPoint
+                ? getDistrictColor(
+                    dataPoint.value,
+                    colorRange,
+                    fullConfig.colorScale.colors,
+                  )
+                : NO_DATA_FILL;
 
               // eslint-disable-next-line @typescript-eslint/no-explicit-any
               const d = pathGen(feature as any) ?? undefined;
