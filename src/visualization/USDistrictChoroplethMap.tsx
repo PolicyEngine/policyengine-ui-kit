@@ -28,6 +28,7 @@ import { CONGRESSIONAL_DISTRICTS_HEX } from './data/congressionalDistrictsHex';
 import { DIVERGING_GRAY_TEAL } from '../charts/colorSemantics';
 import { PolicyEngineWatermark } from '../display/PolicyEngineWatermark';
 import { ZoomControls } from './ZoomControls';
+import { MapDownloadButton } from './MapDownloadButton';
 import { cn } from '../utils/cn';
 
 export interface USDistrictChoroplethMapProps {
@@ -43,6 +44,8 @@ export interface USDistrictChoroplethMapProps {
   exportRef?: React.Ref<HTMLDivElement>;
   /** State abbreviations whose fetches errored (colored red) */
   errorStates?: string[];
+  /** When set, shows a download button that exports the map as an SVG. */
+  downloadFilename?: string;
   className?: string;
   styles?: { root?: React.CSSProperties };
 }
@@ -176,6 +179,7 @@ export function USDistrictChoroplethMap({
   visualizationType = 'geographic',
   exportRef,
   errorStates,
+  downloadFilename,
   className,
   styles,
 }: USDistrictChoroplethMapProps) {
@@ -321,7 +325,7 @@ export function USDistrictChoroplethMap({
   return (
     <div
       ref={mergedRef}
-      className={cn('flex items-stretch relative', className)}
+      className={cn('flex items-stretch relative bg-white border border-border rounded-lg overflow-hidden', className)}
       style={{ height: fullConfig.height, ...styles?.root }}
     >
       {/* Map */}
@@ -414,6 +418,11 @@ export function USDistrictChoroplethMap({
 
       {/* Zoom controls */}
       <ZoomControls onZoomIn={handleZoomIn} onZoomOut={handleZoomOut} onReset={handleZoomReset} />
+
+      {/* Download button */}
+      {downloadFilename && (
+        <MapDownloadButton containerRef={containerRef} filename={downloadFilename} />
+      )}
 
       {/* Watermark */}
       <div className="absolute bottom-1 right-2">

@@ -1,6 +1,8 @@
 import type { CountryId } from '../../types/country';
-import { PEWaterfallChart, type WaterfallItem } from '../PEWaterfallChart';
+import { PEWaterfallChart, type WaterfallItem, type WaterfallDatum } from '../PEWaterfallChart';
+import { computeWaterfallData, getWaterfallDomain } from '../waterfallUtils';
 import { chartColors } from '../chartDefaults';
+import { getNiceTicks } from '../../utils/chartUtils';
 import { formatCurrencyAbbr, currencySymbol } from '../../utils/formatters';
 import { cn } from '../../utils/cn';
 
@@ -8,8 +10,10 @@ export interface PEBudgetWaterfallChartProps {
   data: WaterfallItem[];
   countryId?: CountryId;
   height?: number;
+  fillHeight?: boolean;
   yLabel?: string;
   showBarLabels?: boolean;
+  showConnectors?: boolean;
   className?: string;
   styles?: { root?: React.CSSProperties };
 }
@@ -60,30 +64,37 @@ export function getBudgetChartTitle(
 }
 
 export function PEBudgetWaterfallChart({
-  data,
+  data: items,
   countryId = 'us',
   height = 400,
+  fillHeight = false,
   yLabel = 'Budgetary impact (bn)',
   showBarLabels = true,
+  showConnectors = true,
   className,
   styles,
 }: PEBudgetWaterfallChartProps) {
   const tickFormatter = makeBudgetTickFormatter(countryId);
   const barLabelFormatter = (v: number) => formatBillions(v, countryId);
 
+  const waterfallData = computeWaterfallData(items, barLabelFormatter);
+  const yDomain = getWaterfallDomain(waterfallData);
+  const yTicks = getNiceTicks(yDomain);
+
   return (
     <PEWaterfallChart
-      data={data}
+      data={waterfallData}
+      yDomain={yDomain}
       height={height}
-      positiveColor={chartColors.primary}
-      negativeColor="var(--color-gray-600)"
-      totalColor="var(--chart-3)"
-      fillColor={(item) => getBudgetFillColor(item)}
+      fillHeight={fillHeight}
+      fillColor={(d: WaterfallDatum) => getBudgetFillColor(d)}
       yLabel={yLabel}
+      yTicks={yTicks}
       yTickFormatter={tickFormatter}
       formatTooltip={(v: number) => formatBillions(v, countryId)}
       showBarLabels={showBarLabels}
       barLabelFormatter={barLabelFormatter}
+      showConnectors={showConnectors}
       className={cn(className)}
       styles={styles}
     />

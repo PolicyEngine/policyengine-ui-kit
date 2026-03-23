@@ -1,7 +1,8 @@
-import { useState, useMemo } from 'react';
+import { useRef, useState, useMemo } from 'react';
 import type { HexMapDataPoint, HexMapConfig, ColorRange } from './types';
 import { calculateColorRange, getDistrictColor, generateHoverText } from './utils';
 import { DIVERGING_GRAY_TEAL } from '../charts/colorSemantics';
+import { MapDownloadButton } from './MapDownloadButton';
 import { cn } from '../utils/cn';
 
 export interface HexagonalMapProps {
@@ -11,6 +12,8 @@ export interface HexagonalMapProps {
   onHexClick?: (dataPoint: HexMapDataPoint) => void;
   width?: number;
   height?: number;
+  /** When set, shows a download button that exports the map as an SVG. */
+  downloadFilename?: string;
   className?: string;
   styles?: { root?: React.CSSProperties };
 }
@@ -41,9 +44,11 @@ export function HexagonalMap({
   onHexClick,
   width = 800,
   height = 500,
+  downloadFilename,
   className,
   styles,
 }: HexagonalMapProps) {
+  const containerRef = useRef<HTMLDivElement>(null);
   const [hoveredId, setHoveredId] = useState<string | null>(null);
   const [tooltipInfo, setTooltipInfo] = useState<{ x: number; y: number; text: string } | null>(null);
 
@@ -59,7 +64,7 @@ export function HexagonalMap({
   const hexHeight = cfg.hexSize * 2;
 
   return (
-    <div className={cn('relative', className)} style={styles?.root}>
+    <div ref={containerRef} className={cn('relative bg-white border border-border rounded-lg overflow-hidden', className)} style={styles?.root}>
       <svg width={width} height={height} viewBox={`0 0 ${width} ${height}`}>
         {data.map((d) => {
           const cx = d.x * (hexWidth + cfg.gap) + hexWidth / 2 + 20;
@@ -123,6 +128,11 @@ export function HexagonalMap({
           {formatter ? formatter(range.max) : range.max.toFixed(2)}
         </span>
       </div>
+
+      {/* Download button */}
+      {downloadFilename && (
+        <MapDownloadButton containerRef={containerRef} filename={downloadFilename} />
+      )}
 
       {/* Tooltip */}
       {tooltipInfo && (

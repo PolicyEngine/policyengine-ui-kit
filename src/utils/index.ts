@@ -27,6 +27,9 @@ export {
   getYAxisLayout,
   CHART_MARGINS,
   downloadCsv,
+  downloadChartAsSvg,
+  downloadChartAsPng,
+  type ChartDownloadOptions,
 } from './chartUtils';
 export {
   wordWrap,

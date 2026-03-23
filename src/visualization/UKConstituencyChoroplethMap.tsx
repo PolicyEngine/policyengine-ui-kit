@@ -27,6 +27,7 @@ import { UK_CONSTITUENCIES_HEX } from './data/ukConstituenciesHex';
 import { DIVERGING_GRAY_TEAL } from '../charts/colorSemantics';
 import { PolicyEngineWatermark } from '../display/PolicyEngineWatermark';
 import { ZoomControls } from './ZoomControls';
+import { MapDownloadButton } from './MapDownloadButton';
 import { cn } from '../utils/cn';
 
 export interface UKConstituencyChoroplethMapProps {
@@ -38,6 +39,8 @@ export interface UKConstituencyChoroplethMapProps {
   visualizationType?: MapVisualizationType;
   /** Optional ref to the map container for image export */
   exportRef?: React.Ref<HTMLDivElement>;
+  /** When set, shows a download button that exports the map as an SVG. */
+  downloadFilename?: string;
   className?: string;
   styles?: { root?: React.CSSProperties };
 }
@@ -248,6 +251,7 @@ export function UKConstituencyChoroplethMap({
   config,
   visualizationType = 'geographic',
   exportRef,
+  downloadFilename,
   className,
   styles,
 }: UKConstituencyChoroplethMapProps) {
@@ -370,7 +374,7 @@ export function UKConstituencyChoroplethMap({
   return (
     <div
       ref={mergedRef}
-      className={cn('flex items-stretch relative', className)}
+      className={cn('flex items-stretch relative bg-white border border-border rounded-lg overflow-hidden', className)}
       style={{ height: fullConfig.height, ...styles?.root }}
     >
       {/* Map */}
@@ -480,6 +484,11 @@ export function UKConstituencyChoroplethMap({
 
       {/* Zoom controls */}
       <ZoomControls onZoomIn={handleZoomIn} onZoomOut={handleZoomOut} onReset={handleZoomReset} />
+
+      {/* Download button */}
+      {downloadFilename && (
+        <MapDownloadButton containerRef={containerRef} filename={downloadFilename} />
+      )}
 
       {/* Watermark */}
       <div className="absolute bottom-1 right-2">

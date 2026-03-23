@@ -14,7 +14,7 @@ export function MapTypeToggle({ value, onChange, className }: MapTypeToggleProps
         type="button"
         onClick={() => onChange('geographic')}
         className={cn(
-          'px-3 py-1.5 text-xs font-medium transition-colors rounded-l-md',
+          'px-3 py-1.5 text-xs font-medium transition-colors rounded-l-md cursor-pointer',
           value === 'geographic'
             ? 'bg-primary text-primary-foreground'
             : 'bg-white text-muted-foreground hover:bg-gray-50',
@@ -26,7 +26,7 @@ export function MapTypeToggle({ value, onChange, className }: MapTypeToggleProps
         type="button"
         onClick={() => onChange('hex')}
         className={cn(
-          'px-3 py-1.5 text-xs font-medium transition-colors rounded-r-md',
+          'px-3 py-1.5 text-xs font-medium transition-colors rounded-r-md cursor-pointer',
           value === 'hex'
             ? 'bg-primary text-primary-foreground'
             : 'bg-white text-muted-foreground hover:bg-gray-50',

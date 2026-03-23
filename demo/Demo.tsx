@@ -132,6 +132,9 @@ import { PEBarChart } from '../src/charts/PEBarChart';
 import { PELineChart } from '../src/charts/PELineChart';
 import { PEAreaChart } from '../src/charts/PEAreaChart';
 import { PEWaterfallChart } from '../src/charts/PEWaterfallChart';
+import { computeWaterfallData, getWaterfallDomain } from '../src/charts/waterfallUtils';
+import { chartColors } from '../src/charts/chartDefaults';
+import { getNiceTicks } from '../src/utils/chartUtils';
 import { PEImpactBarChart } from '../src/charts/impact/PEImpactBarChart';
 import { PEWinnersLosersChart } from '../src/charts/impact/PEWinnersLosersChart';
 import { PEEarningsChart } from '../src/charts/impact/PEEarningsChart';
@@ -186,7 +189,7 @@ const areaData = [
   { decile: '10th', income_tax: 62000, payroll_tax: 9400, benefits: 0 },
 ];
 
-const waterfallData = [
+const waterfallItems = [
   { name: 'Income tax', value: 320 },
   { name: 'Payroll tax', value: 180 },
   { name: 'Corporate tax', value: 95 },
@@ -194,14 +197,26 @@ const waterfallData = [
   { name: 'UBI cost', value: -480 },
   { name: 'Net impact', value: 0, isTotal: true },
 ];
+const waterfallFmt = (v: number) => `$${v}B`;
+const waterfallData = computeWaterfallData(waterfallItems, waterfallFmt);
+const waterfallDomain = getWaterfallDomain(waterfallData);
+const waterfallTicks = getNiceTicks(waterfallDomain);
 
-const waterfallAllNegativeData = [
+const waterfallAllNegativeItems = [
   { name: 'Income tax', value: -120 },
   { name: 'Payroll tax', value: -85 },
   { name: 'Corporate tax', value: -60 },
   { name: 'Estate tax', value: -35 },
   { name: 'Total', value: 0, isTotal: true },
 ];
+const waterfallAllNegativeData = computeWaterfallData(waterfallAllNegativeItems, waterfallFmt);
+const waterfallAllNegativeDomain = getWaterfallDomain(waterfallAllNegativeData);
+const waterfallAllNegativeTicks = getNiceTicks(waterfallAllNegativeDomain);
+
+function getWaterfallFillColor(d: { value: number; isTotal: boolean }): string {
+  if (d.isTotal) return 'var(--chart-3)';
+  return d.value >= 0 ? chartColors.primary : 'var(--color-gray-600)';
+}
 
 // Impact bar chart data
 const impactBarData = [
@@ -1540,9 +1555,7 @@ export function Demo() {
             <div className="grid grid-cols-1 gap-6">
               <ChartContainer
                 title="Revenue sources vs. UBI cost"
-                actions={
-                  <Button variant="outline" size="sm">Download CSV</Button>
-                }
+                downloadFilename="revenue-vs-ubi.svg"
               >
                 <PEBarChart
                   data={barData}
@@ -1559,6 +1572,7 @@ export function Demo() {
 
               <ChartContainer
                 title="Poverty rate projections"
+                downloadFilename="poverty-rate-projections.svg"
               >
                 <PELineChart
                   data={lineData}
@@ -1582,6 +1596,7 @@ export function Demo() {
 
               <ChartContainer
                 title="Tax burden by income decile"
+                downloadFilename="tax-burden-by-decile.svg"
               >
                 <PEAreaChart
                   data={areaData}
@@ -1600,28 +1615,36 @@ export function Demo() {
 
               <ChartContainer
                 title="Budget impact waterfall"
+                downloadFilename="budget-impact-waterfall.svg"
               >
                 <PEWaterfallChart
                   data={waterfallData}
+                  yDomain={waterfallDomain}
+                  yTicks={waterfallTicks}
                   height={350}
+                  fillColor={getWaterfallFillColor}
                   yLabel="Net fiscal impact (billions)"
                   showBarLabels
-                  barLabelFormatter={(v) => `$${v}B`}
-                  formatTooltip={(v) => `$${v}B`}
+                  barLabelFormatter={waterfallFmt}
+                  formatTooltip={waterfallFmt}
                 />
                 <PolicyEngineWatermark />
               </ChartContainer>
 
               <ChartContainer
                 title="Revenue losses waterfall (all negative)"
+                downloadFilename="revenue-losses-waterfall.svg"
               >
                 <PEWaterfallChart
                   data={waterfallAllNegativeData}
+                  yDomain={waterfallAllNegativeDomain}
+                  yTicks={waterfallAllNegativeTicks}
                   height={350}
+                  fillColor={getWaterfallFillColor}
                   yLabel="Revenue change (billions)"
                   showBarLabels
-                  barLabelFormatter={(v) => `$${v}B`}
-                  formatTooltip={(v) => `$${v}B`}
+                  barLabelFormatter={waterfallFmt}
+                  formatTooltip={waterfallFmt}
                 />
                 <PolicyEngineWatermark />
               </ChartContainer>
@@ -1635,6 +1658,7 @@ export function Demo() {
             <div className="grid grid-cols-1 gap-6">
               <ChartContainer
                 title="Distributional impact by income decile"
+                downloadFilename="distributional-impact.svg"
               >
                 <PEImpactBarChart
                   data={impactBarData}
@@ -1653,10 +1677,12 @@ export function Demo() {
                     Loss
                   </span>
                 </div>
+                <PolicyEngineWatermark />
               </ChartContainer>
 
               <ChartContainer
                 title="Poverty impact (inverted colors)"
+                downloadFilename="poverty-impact.svg"
               >
                 <PEImpactBarChart
                   data={impactBarData}
@@ -1676,20 +1702,24 @@ export function Demo() {
                     Increase (worsening)
                   </span>
                 </div>
+                <PolicyEngineWatermark />
               </ChartContainer>
 
               <ChartContainer
                 title="Winners and losers"
+                downloadFilename="winners-and-losers.svg"
               >
                 <PEWinnersLosersChart
                   data={winnersLosersData}
                   allData={winnersLosersAllData}
                   height={500}
                 />
+                <PolicyEngineWatermark />
               </ChartContainer>
 
               <ChartContainer
                 title="Earnings chart"
+                downloadFilename="earnings-chart.svg"
               >
                 <PEEarningsChart
                   data={earningsData}
@@ -1698,6 +1728,7 @@ export function Demo() {
                   yTickFormatter={(v) => formatCurrency(v)}
                   height={350}
                 />
+                <PolicyEngineWatermark />
               </ChartContainer>
 
               <ChartContainer
@@ -1705,12 +1736,14 @@ export function Demo() {
                   budgetWaterfallData.reduce((s, d) => s + (d.isTotal ? 0 : d.value), 0),
                   'us',
                 )}
+                downloadFilename="budget-waterfall.svg"
               >
                 <PEBudgetWaterfallChart
                   data={budgetWaterfallData}
                   countryId="us"
                   height={350}
                 />
+                <PolicyEngineWatermark />
               </ChartContainer>
             </div>
           </Section>
@@ -1729,6 +1762,7 @@ export function Demo() {
               <USDistrictChoroplethMap
                 data={congressionalHexData}
                 visualizationType={mapVizType}
+                downloadFilename="us-district-map.svg"
                 config={{
                   width: 900,
                   height: 550,
@@ -1750,6 +1784,7 @@ export function Demo() {
               <UKConstituencyChoroplethMap
                 data={ukConstituencyData}
                 visualizationType={ukMapVizType}
+                downloadFilename="uk-constituency-map.svg"
                 config={{
                   width: 600,
                   height: 700,
@@ -1768,6 +1803,7 @@ export function Demo() {
                 formatter={(v) => `${(v * 100).toFixed(1)}%`}
                 width={700}
                 height={420}
+                downloadFilename="us-state-hex-map.svg"
               />
             </SubSection>
 

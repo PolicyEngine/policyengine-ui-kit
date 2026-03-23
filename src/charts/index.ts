@@ -11,6 +11,7 @@ export {
   PEWaterfallChart,
   type PEWaterfallChartProps,
   type WaterfallItem,
+  type WaterfallDatum,
 } from './PEWaterfallChart';
 export {
   AXIS_STYLE,
@@ -37,8 +38,8 @@ export { ImpactTooltip, type ImpactTooltipProps, type ImpactTooltipItem } from '
 export {
   computeWaterfallData,
   getWaterfallDomain,
-  type WaterfallInputItem,
-  type WaterfallComputedItem,
+  computeWaterfallConnectors,
+  type WaterfallConnector,
 } from './waterfallUtils';
 export {
   PEImpactBarChart,
