@@ -5,6 +5,7 @@ export interface ZoomControlsProps {
   onZoomOut: () => void;
   onReset: () => void;
   className?: string;
+  styles?: { root?: React.CSSProperties };
 }
 
 const btnStyle: React.CSSProperties = {
@@ -22,11 +23,11 @@ const btnStyle: React.CSSProperties = {
   lineHeight: 1,
 };
 
-export function ZoomControls({ onZoomIn, onZoomOut, onReset, className }: ZoomControlsProps) {
+export function ZoomControls({ onZoomIn, onZoomOut, onReset, className, styles }: ZoomControlsProps) {
   return (
     <div
       className={cn('absolute flex flex-col gap-1', className)}
-      style={{ top: 8, left: 8, zIndex: 5 }}
+      style={{ top: 8, left: 8, zIndex: 5, ...styles?.root }}
     >
       <button style={btnStyle} onClick={onZoomIn} aria-label="Zoom in" title="Zoom in">+</button>
       <button style={btnStyle} onClick={onZoomOut} aria-label="Zoom out" title="Zoom out">&minus;</button>

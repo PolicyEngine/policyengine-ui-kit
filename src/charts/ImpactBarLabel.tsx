@@ -6,9 +6,10 @@ export interface ImpactBarLabelProps {
   x?: number;
   y?: number;
   width?: number;
-  height?: number;
   value?: number;
   formatter?: (value: number) => string;
+  className?: string;
+  styles?: { root?: React.CSSProperties };
 }
 
 export function ImpactBarLabel({
@@ -17,6 +18,8 @@ export function ImpactBarLabel({
   width = 0,
   value = 0,
   formatter,
+  className,
+  styles,
 }: ImpactBarLabelProps) {
   const isPositive = value >= 0;
   const labelY = isPositive ? y - 4 : y + 16;
@@ -24,12 +27,14 @@ export function ImpactBarLabel({
 
   return (
     <text
+      className={className}
       x={x + width / 2}
       y={labelY}
       textAnchor="middle"
       fontSize={12}
       fontFamily="var(--font-sans)"
       fill="var(--color-gray-700)"
+      style={styles?.root}
     >
       {text}
     </text>

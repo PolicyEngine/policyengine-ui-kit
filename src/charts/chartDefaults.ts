@@ -61,29 +61,10 @@ export const ZERO_LINE_STYLE = {
   strokeWidth: 1,
 } as const;
 
-export const RECHARTS_FONT_STYLE = {
-  fontFamily: 'var(--font-sans)',
-  fontSize: 12,
-  fill: 'var(--muted-foreground)',
-} as const;
+/** @deprecated Use AXIS_STYLE instead — identical values. */
+export const RECHARTS_FONT_STYLE = AXIS_STYLE;
 
 export const TOOLTIP_CONTAINER_STYLE: React.CSSProperties = {
-  fontFamily: 'var(--font-sans)',
-  fontSize: 13,
-  backgroundColor: 'var(--background)',
-  border: '1px solid var(--border)',
-  borderRadius: '8px',
-  boxShadow: '0 4px 12px rgba(16, 24, 40, 0.1)',
-  padding: '8px 12px',
+  ...TOOLTIP_STYLE.contentStyle,
   maxWidth: 'min(300px, 90vw)',
 };
-
-export const RECHARTS_WATERMARK = {
-  text: 'PolicyEngine',
-  style: {
-    fontFamily: 'var(--font-sans)',
-    fontSize: 10,
-    fill: 'var(--color-gray-300)',
-    textAnchor: 'end' as const,
-  },
-} as const;

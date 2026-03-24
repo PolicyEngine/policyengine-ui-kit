@@ -17,6 +17,7 @@ export function getNiceTicks(
 ): number[] {
   const [rawMin, rawMax] = domain;
   if (rawMin === rawMax) return [rawMin];
+  if (count <= 1) return [rawMin];
 
   const range = rawMax - rawMin;
   const roughStep = range / (count - 1);
@@ -202,7 +203,8 @@ function imgToDataUrl(img: HTMLImageElement): string | null {
     if (!cx) return null;
     cx.drawImage(img, 0, 0);
     return c.toDataURL('image/png');
-  } catch {
+  } catch (e) {
+    console.warn('imgToDataUrl: failed to convert image', e);
     return null;
   }
 }
@@ -226,7 +228,10 @@ export function downloadChartAsSvg(
     const r = s.getBoundingClientRect();
     return r.width > 40 && r.height > 40;
   });
-  if (svgs.length === 0) return;
+  if (svgs.length === 0) {
+    console.warn('downloadChartAsSvg: no SVG elements found in container');
+    return;
+  }
 
   const computed = getComputedStyle(document.documentElement);
   const fontFamily = getComputedStyle(document.body).fontFamily || 'Inter, sans-serif';
@@ -330,7 +335,10 @@ export function downloadCsv(
   data: Record<string, unknown>[],
   filename: string = 'chart-data.csv',
 ): void {
-  if (data.length === 0) return;
+  if (data.length === 0) {
+    console.warn('downloadCsv: no data to export');
+    return;
+  }
 
   const headers = Object.keys(data[0]);
   const rows = data.map((row) =>

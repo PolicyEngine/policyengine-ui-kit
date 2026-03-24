@@ -95,11 +95,12 @@ export function getColorScale(name?: string): readonly string[] {
 
 function hexToRgb(hex: string): [number, number, number] {
   const h = hex.replace('#', '');
-  return [
-    parseInt(h.substring(0, 2), 16),
-    parseInt(h.substring(2, 4), 16),
-    parseInt(h.substring(4, 6), 16),
-  ];
+  if (h.length < 6) return [0, 0, 0];
+  const r = parseInt(h.substring(0, 2), 16);
+  const g = parseInt(h.substring(2, 4), 16);
+  const b = parseInt(h.substring(4, 6), 16);
+  if (isNaN(r) || isNaN(g) || isNaN(b)) return [0, 0, 0];
+  return [r, g, b];
 }
 
 function rgbToHex(r: number, g: number, b: number): string {

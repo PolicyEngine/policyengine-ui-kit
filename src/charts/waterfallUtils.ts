@@ -116,8 +116,8 @@ export interface WaterfallConnector {
  * Compute horizontal connector lines between consecutive waterfall bars.
  *
  * Each connector sits at the running-total boundary between two bars —
- * i.e. the Y value where bar i ends and bar i+1 begins. Connectors into
- * total bars are skipped (totals anchor to 0, not the previous running total).
+ * i.e. the Y value where bar i ends and bar i+1 begins. A connector is
+ * generated for every consecutive pair, including into total bars.
  */
 export function computeWaterfallConnectors(data: WaterfallDatum[]): WaterfallConnector[] {
   const connectors: WaterfallConnector[] = [];

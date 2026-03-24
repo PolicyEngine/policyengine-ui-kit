@@ -2,21 +2,26 @@ import { Download } from 'lucide-react';
 import { downloadChartAsSvg } from '../utils/chartUtils';
 import { Button } from '../primitives/Button';
 import { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider } from '../primitives/Tooltip';
+import { cn } from '../utils/cn';
 
 export interface MapDownloadButtonProps {
   containerRef: React.RefObject<HTMLDivElement | null>;
   filename: string;
+  className?: string;
+  styles?: { root?: React.CSSProperties };
 }
 
-export function MapDownloadButton({ containerRef, filename }: MapDownloadButtonProps) {
+export function MapDownloadButton({ containerRef, filename, className, styles }: MapDownloadButtonProps) {
   const handleDownload = () => {
-    if (containerRef.current) {
-      downloadChartAsSvg(containerRef.current, { filename });
+    if (!containerRef.current) {
+      console.warn('MapDownloadButton: container ref is null');
+      return;
     }
+    downloadChartAsSvg(containerRef.current, { filename });
   };
 
   return (
-    <div className="absolute" style={{ top: 8, right: 8, zIndex: 5 }}>
+    <div className={cn('absolute', className)} style={{ top: 8, right: 8, zIndex: 5, ...styles?.root }}>
       <TooltipProvider>
         <Tooltip>
           <TooltipTrigger asChild>

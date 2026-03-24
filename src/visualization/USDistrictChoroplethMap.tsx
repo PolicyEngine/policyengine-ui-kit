@@ -6,7 +6,7 @@
  * Supports diverging color scales, custom formatting, and state-level zooming.
  */
 
-import { useCallback, useId, useMemo, useRef, useState } from 'react';
+import { useCallback, useId, useMemo, useState } from 'react';
 import { geoPath, geoAlbersUsa, geoEquirectangular } from 'd3-geo';
 import type {
   ChoroplethDataPoint,
@@ -20,15 +20,19 @@ import {
   calculateColorRange,
   createDataLookupMap,
   getDistrictColor,
-  DEFAULT_CHOROPLETH_CONFIG,
   STATE_ABBREV_TO_FIPS,
+  mergeMapConfig,
 } from './utils';
 import { CONGRESSIONAL_DISTRICTS_GEO } from './data/congressionalDistrictsGeo';
 import { CONGRESSIONAL_DISTRICTS_HEX } from './data/congressionalDistrictsHex';
-import { DIVERGING_GRAY_TEAL } from '../charts/colorSemantics';
 import { PolicyEngineWatermark } from '../display/PolicyEngineWatermark';
 import { ZoomControls } from './ZoomControls';
 import { MapDownloadButton } from './MapDownloadButton';
+import { ColorBar } from './ColorBar';
+import { MapTooltip } from './MapTooltip';
+import { useSvgZoomPan } from './useSvgZoomPan';
+import { useMergedRef } from './useMergedRef';
+import { NO_DATA_FILL, MAP_BORDER_COLOR } from './constants';
 import { cn } from '../utils/cn';
 
 export interface USDistrictChoroplethMapProps {
@@ -36,7 +40,7 @@ export interface USDistrictChoroplethMapProps {
   data: ChoroplethDataPoint[];
   /** Configuration for the map */
   config?: Partial<ChoroplethMapConfig>;
-  /** State code to focus/zoom on (e.g., 'ca', 'ny') */
+  /** State code to focus/zoom on (e.g., 'CA', 'NY') */
   focusState?: string;
   /** Map visualization type: 'geographic' or 'hex' */
   visualizationType?: MapVisualizationType;
@@ -55,11 +59,7 @@ const GEOJSON_MAP: Record<MapVisualizationType, GeoJSONFeatureCollection> = {
   hex: CONGRESSIONAL_DISTRICTS_HEX,
 };
 
-const NO_DATA_FILL = '#CBD5E1'; // gray-300
-const BORDER_COLOR = '#FFFFFF';
 const BORDER_WIDTH = 0.5;
-const COLOR_BAR_WIDTH = 16;
-const COLOR_BAR_HEIGHT_FRACTION = 0.6;
 const SVG_WIDTH = 800;
 
 interface TooltipState {
@@ -67,61 +67,6 @@ interface TooltipState {
   y: number;
   label: string;
   value: string;
-}
-
-function ColorBar({
-  scaleColors,
-  height,
-  min,
-  max,
-  formatValue,
-  gradientId,
-}: {
-  scaleColors: string[];
-  height: number;
-  min: number;
-  max: number;
-  formatValue: (v: number) => string;
-  gradientId: string;
-}) {
-  const barHeight = Math.round(height * COLOR_BAR_HEIGHT_FRACTION);
-  const barY = Math.round((height - barHeight) / 2);
-
-  return (
-    <svg width={60} height={height} style={{ flexShrink: 0 }} role="img" aria-label="Color scale legend">
-      <defs>
-        <linearGradient id={gradientId} x1="0" y1="1" x2="0" y2="0">
-          {scaleColors.map((color, i) => (
-            <stop key={i} offset={`${(i / (scaleColors.length - 1)) * 100}%`} stopColor={color} />
-          ))}
-        </linearGradient>
-      </defs>
-      <rect x={4} y={barY} width={COLOR_BAR_WIDTH} height={barHeight} fill={`url(#${gradientId})`} rx={2} />
-      <text x={24} y={barY + 4} fontSize={10} fill="var(--foreground)" dominantBaseline="hanging">
-        {formatValue(max)}
-      </text>
-      <text x={24} y={barY + barHeight - 4} fontSize={10} fill="var(--foreground)">
-        {formatValue(min)}
-      </text>
-    </svg>
-  );
-}
-
-function mergeMapConfig(partial?: Partial<ChoroplethMapConfig>): Required<ChoroplethMapConfig> {
-  return {
-    width: partial?.width ?? DEFAULT_CHOROPLETH_CONFIG.width!,
-    height: partial?.height ?? DEFAULT_CHOROPLETH_CONFIG.height!,
-    colorScale: {
-      colors: partial?.colorScale?.colors ?? [...DIVERGING_GRAY_TEAL],
-      symmetric: partial?.colorScale?.symmetric ?? true,
-    },
-    projectionConfig: partial?.projectionConfig ?? {},
-    defaultFill: partial?.defaultFill ?? DEFAULT_CHOROPLETH_CONFIG.defaultFill!,
-    borderColor: partial?.borderColor ?? DEFAULT_CHOROPLETH_CONFIG.borderColor!,
-    borderWidth: partial?.borderWidth ?? DEFAULT_CHOROPLETH_CONFIG.borderWidth!,
-    showColorBar: partial?.showColorBar ?? true,
-    formatValue: partial?.formatValue ?? ((v: number) => v.toFixed(2)),
-  };
 }
 
 /**
@@ -132,7 +77,7 @@ function filterFeaturesByState(
   focusState: string,
 ): GeoJSONFeatureCollection {
   const statePrefix = `${focusState.toUpperCase()}-`;
-  const fips = STATE_ABBREV_TO_FIPS[focusState.toLowerCase()];
+  const fips = STATE_ABBREV_TO_FIPS[focusState.toUpperCase()];
 
   const filtered = geoJSON.features.filter((f) => {
     const districtId = f.properties?.DISTRICT_ID as string | undefined;
@@ -145,8 +90,6 @@ function filterFeaturesByState(
 
 /**
  * Build a d3-geo path generator for the given GeoJSON, visualization type, and viewport.
- * - Geographic: geoAlbersUsa with fitExtent
- * - Hex: geoEquirectangular with fitExtent
  */
 function usePathGenerator(
   geoJSON: GeoJSONFeatureCollection,
@@ -184,23 +127,14 @@ export function USDistrictChoroplethMap({
   styles,
 }: USDistrictChoroplethMapProps) {
   const uniqueId = useId();
-  const containerRef = useRef<HTMLDivElement>(null);
+  const { containerRef, mergedRef } = useMergedRef<HTMLDivElement>(exportRef);
   const isHexMap = visualizationType === 'hex';
 
-  const mergedRef = useCallback(
-    (node: HTMLDivElement | null) => {
-      (containerRef as React.MutableRefObject<HTMLDivElement | null>).current = node;
-      if (typeof exportRef === 'function') {
-        exportRef(node);
-      } else if (exportRef) {
-        (exportRef as React.MutableRefObject<HTMLDivElement | null>).current = node;
-      }
-    },
-    [exportRef],
-  );
-
   const geoJSON = GEOJSON_MAP[visualizationType];
-  const fullConfig = useMemo(() => mergeMapConfig(config), [config]);
+  const fullConfig = useMemo(
+    () => mergeMapConfig(config, { width: SVG_WIDTH, height: 500, borderWidth: BORDER_WIDTH }),
+    [config],
+  );
   const dataMap = useMemo(() => createDataLookupMap(data), [data]);
 
   const colorRange: ColorRange = useMemo(
@@ -213,56 +147,15 @@ export function USDistrictChoroplethMap({
     [errorStates],
   );
 
-  // Filter features when focusState is set
   const displayGeoJSON = useMemo(() => {
     if (!focusState) return geoJSON;
     return filterFeaturesByState(geoJSON, focusState);
   }, [geoJSON, focusState]);
 
-  // Build path generator — fitExtent auto-zooms to filtered features
   const pathGen = usePathGenerator(displayGeoJSON, isHexMap, SVG_WIDTH, fullConfig.height);
 
   const [tooltip, setTooltip] = useState<TooltipState | null>(null);
-
-  // Zoom/pan state — manipulates a <g> transform inside the SVG
-  const [svgZoom, setSvgZoom] = useState(1);
-  const [svgPan, setSvgPan] = useState<[number, number]>([0, 0]);
-  const isPanning = useRef(false);
-  const panStart = useRef<[number, number]>([0, 0]);
-  const panOrigin = useRef<[number, number]>([0, 0]);
-
-  const handleZoomIn = useCallback(() => setSvgZoom((z) => Math.min(z * 1.5, 20)), []);
-  const handleZoomOut = useCallback(() => setSvgZoom((z) => Math.max(z / 1.5, 0.5)), []);
-  const handleZoomReset = useCallback(() => {
-    setSvgZoom(1);
-    setSvgPan([0, 0]);
-  }, []);
-
-  const handleWheel = useCallback((e: React.WheelEvent) => {
-    e.preventDefault();
-    setSvgZoom((z) => {
-      const factor = e.deltaY < 0 ? 1.15 : 1 / 1.15;
-      return Math.min(Math.max(z * factor, 0.5), 20);
-    });
-  }, []);
-
-  const handlePointerDown = useCallback((e: React.PointerEvent) => {
-    isPanning.current = true;
-    panStart.current = [e.clientX, e.clientY];
-    panOrigin.current = [...svgPan] as [number, number];
-    (e.target as Element).setPointerCapture(e.pointerId);
-  }, [svgPan]);
-
-  const handlePointerMove = useCallback((e: React.PointerEvent) => {
-    if (!isPanning.current) return;
-    const dx = e.clientX - panStart.current[0];
-    const dy = e.clientY - panStart.current[1];
-    setSvgPan([panOrigin.current[0] + dx / svgZoom, panOrigin.current[1] + dy / svgZoom]);
-  }, [svgZoom]);
-
-  const handlePointerUp = useCallback(() => {
-    isPanning.current = false;
-  }, []);
+  const { zoom: svgZoom, pan: svgPan, handlers: zoomHandlers } = useSvgZoomPan();
 
   const handleMouseEnter = useCallback(
     (event: React.MouseEvent, districtId: string) => {
@@ -290,7 +183,7 @@ export function USDistrictChoroplethMap({
         value: fullConfig.formatValue(dataPoint.value),
       });
     },
-    [dataMap, fullConfig, errorStateSet],
+    [dataMap, fullConfig, errorStateSet, containerRef],
   );
 
   const handleMouseMove = useCallback(
@@ -302,7 +195,7 @@ export function USDistrictChoroplethMap({
         prev ? { ...prev, x: event.clientX - rect.left, y: event.clientY - rect.top } : null,
       );
     },
-    [tooltip],
+    [tooltip, containerRef],
   );
 
   const handleMouseLeave = useCallback(() => {
@@ -335,10 +228,10 @@ export function USDistrictChoroplethMap({
           height={fullConfig.height}
           viewBox={`0 0 ${SVG_WIDTH} ${fullConfig.height}`}
           style={{ width: '100%', height: '100%', cursor: svgZoom > 1 ? 'grab' : 'default' }}
-          onWheel={handleWheel}
-          onPointerDown={handlePointerDown}
-          onPointerMove={handlePointerMove}
-          onPointerUp={handlePointerUp}
+          onWheel={zoomHandlers.onWheel}
+          onPointerDown={zoomHandlers.onPointerDown}
+          onPointerMove={zoomHandlers.onPointerMove}
+          onPointerUp={zoomHandlers.onPointerUp}
         >
           <g transform={`translate(${SVG_WIDTH / 2}, ${fullConfig.height / 2}) scale(${svgZoom}) translate(${-SVG_WIDTH / 2 + svgPan[0]}, ${-fullConfig.height / 2 + svgPan[1]})`}>
             {displayGeoJSON.features.map((feature: GeoJSONFeature) => {
@@ -365,7 +258,7 @@ export function USDistrictChoroplethMap({
                   key={districtId ?? (feature.properties?.GEOID as string)}
                   d={d}
                   fill={fillColor}
-                  stroke={BORDER_COLOR}
+                  stroke={MAP_BORDER_COLOR}
                   strokeWidth={BORDER_WIDTH}
                   style={{ cursor: 'default', transition: 'opacity 0.15s' }}
                   onMouseEnter={(e) => {
@@ -393,31 +286,10 @@ export function USDistrictChoroplethMap({
       )}
 
       {/* Tooltip */}
-      {tooltip && (
-        <div
-          role="tooltip"
-          style={{
-            position: 'absolute',
-            left: tooltip.x + 12,
-            top: tooltip.y - 30,
-            backgroundColor: 'var(--background)',
-            border: '1px solid var(--border)',
-            borderRadius: 8,
-            padding: '4px 8px',
-            fontSize: 12,
-            pointerEvents: 'none',
-            zIndex: 10,
-            boxShadow: '0 2px 6px rgba(16, 24, 40, 0.1)',
-            whiteSpace: 'nowrap',
-          }}
-        >
-          <div style={{ fontWeight: 600 }}>{tooltip.label}</div>
-          <div style={{ color: 'var(--muted-foreground)' }}>{tooltip.value}</div>
-        </div>
-      )}
+      {tooltip && <MapTooltip {...tooltip} />}
 
       {/* Zoom controls */}
-      <ZoomControls onZoomIn={handleZoomIn} onZoomOut={handleZoomOut} onReset={handleZoomReset} />
+      <ZoomControls onZoomIn={zoomHandlers.onZoomIn} onZoomOut={zoomHandlers.onZoomOut} onReset={zoomHandlers.onReset} />
 
       {/* Download button */}
       {downloadFilename && (

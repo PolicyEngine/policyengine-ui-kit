@@ -17,6 +17,8 @@ export {
   createDataLookupMap,
   getDistrictColor,
   mergeConfig,
+  mergeMapConfig,
+  hexPoints,
   DEFAULT_CHOROPLETH_CONFIG,
   STATE_ABBREV_TO_FIPS,
   STATE_FIPS_TO_ABBREV,
@@ -25,6 +27,18 @@ export {
   isStateQualified,
 } from './utils';
 export type { StateLegislativeChamber } from './utils';
+export { ColorBar, type ColorBarProps } from './ColorBar';
+export { MapTooltip, type MapTooltipProps } from './MapTooltip';
+export { MapDownloadButton, type MapDownloadButtonProps } from './MapDownloadButton';
+export { useSvgZoomPan, type SvgZoomPanState } from './useSvgZoomPan';
+export { useMergedRef } from './useMergedRef';
+export {
+  NO_DATA_FILL,
+  MAP_BORDER_COLOR,
+  COLOR_BAR_WIDTH,
+  COLOR_BAR_HEIGHT_FRACTION,
+  MAP_TOOLTIP_SHADOW,
+} from './constants';
 export { HexagonalMap, type HexagonalMapProps } from './HexagonalMap';
 export {
   USDistrictChoroplethMap,

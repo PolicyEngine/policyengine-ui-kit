@@ -7,6 +7,7 @@ import {
   createDataLookupMap,
   getDistrictColor,
   mergeConfig,
+  hexPoints,
   STATE_ABBREV_TO_FIPS,
 } from '../../src/visualization/utils';
 
@@ -49,6 +50,18 @@ describe('calculateColorRange', () => {
     const range = calculateColorRange([2, -3], false);
     expect(range.min).toBe(-3);
     expect(range.max).toBe(2);
+  });
+
+  it('returns default range for empty array', () => {
+    const range = calculateColorRange([], false);
+    expect(range.min).toBe(-1);
+    expect(range.max).toBe(1);
+  });
+
+  it('returns default range for empty symmetric array', () => {
+    const range = calculateColorRange([], true);
+    expect(range.min).toBe(-1);
+    expect(range.max).toBe(1);
   });
 });
 
@@ -99,6 +112,28 @@ describe('mergeConfig', () => {
   it('returns defaults when partial is undefined', () => {
     const defaults = { a: 1 };
     expect(mergeConfig(defaults)).toEqual({ a: 1 });
+  });
+});
+
+describe('hexPoints', () => {
+  it('returns 6 vertices', () => {
+    const result = hexPoints(100, 100, 30);
+    const points = result.split(' ');
+    expect(points).toHaveLength(6);
+  });
+
+  it('all vertices are at the correct distance from center', () => {
+    const cx = 50, cy = 50, size = 20;
+    const result = hexPoints(cx, cy, size);
+    const points = result.split(' ').map((p) => {
+      const [x, y] = p.split(',').map(Number);
+      return { x, y };
+    });
+
+    for (const { x, y } of points) {
+      const dist = Math.sqrt((x - cx) ** 2 + (y - cy) ** 2);
+      expect(dist).toBeCloseTo(size, 5);
+    }
   });
 });
 

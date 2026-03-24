@@ -64,6 +64,16 @@ describe('isStateQualified', () => {
     expect(isStateQualified('AK', 'upper')).toBe(false);
     expect(isStateQualified('AK', 'lower')).toBe(false);
   });
+
+  it('returns false for empty string', () => {
+    expect(isStateQualified('', 'upper')).toBe(false);
+    expect(isStateQualified('', 'lower')).toBe(false);
+  });
+
+  it('returns false for invalid state code', () => {
+    expect(isStateQualified('ZZ', 'upper')).toBe(false);
+    expect(isStateQualified('XX', 'lower')).toBe(false);
+  });
 });
 
 describe('STATE_FIPS_TO_ABBREV', () => {

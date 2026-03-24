@@ -30,6 +30,16 @@ describe('getNiceTicks', () => {
     expect(ticks[0]).toBeLessThanOrEqual(0);
     expect(ticks[ticks.length - 1]).toBeGreaterThanOrEqual(0.05);
   });
+
+  it('returns single value when count is 1', () => {
+    const ticks = getNiceTicks([0, 100], 1);
+    expect(ticks).toEqual([0]);
+  });
+
+  it('returns single value when count is 0', () => {
+    const ticks = getNiceTicks([0, 100], 0);
+    expect(ticks).toEqual([0]);
+  });
 });
 
 describe('getClampedChartHeight', () => {

@@ -76,7 +76,6 @@ export function relativeChangeMessage(
   object: string,
   change: number,
   tolerance: number = 0.001,
-  countryId?: CountryId,
   options?: RelativeChangeOptions,
 ): string {
   const direction = getDirection(change, tolerance);

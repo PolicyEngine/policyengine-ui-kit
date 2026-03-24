@@ -14,6 +14,8 @@ import {
   formatPowers,
   formatParameterValue,
   formatCurrencyLocale,
+  formatPercentLocale,
+  getRechartsTickFormatter,
   rechartsPercentFormatter,
 } from '../../src/utils/formatters';
 
@@ -157,6 +159,60 @@ describe('formatCurrencyLocale', () => {
     const result = formatCurrencyLocale(1234, 'us');
     expect(result).toContain('1,234');
     expect(result).toContain('$');
+  });
+});
+
+describe('formatPercentLocale', () => {
+  it('formats zero', () => {
+    expect(formatPercentLocale(0, 'us')).toBe('0%');
+  });
+  it('formats 100%', () => {
+    expect(formatPercentLocale(1, 'us')).toContain('100');
+  });
+  it('formats negative values', () => {
+    const result = formatPercentLocale(-0.5, 'us');
+    expect(result).toContain('50');
+    expect(result).toContain('-');
+  });
+  it('respects decimals option', () => {
+    const result = formatPercentLocale(0.1234, 'us', { decimals: 2 });
+    expect(result).toContain('12.34');
+  });
+});
+
+describe('formatParameterValue - currency branch', () => {
+  it('formats USD currency values', () => {
+    const result = formatParameterValue(1234, 'currency-USD');
+    expect(result).toContain('$');
+    expect(result).toContain('1,234');
+  });
+  it('formats GBP currency values', () => {
+    const result = formatParameterValue(500, 'currency-GBP');
+    expect(result).toContain('£');
+  });
+  it('formats unknown currency with default', () => {
+    const result = formatParameterValue(100, 'currency-EUR');
+    // Falls back to 'us' as default
+    expect(result).toContain('$');
+  });
+});
+
+describe('getRechartsTickFormatter', () => {
+  it('formats percent unit', () => {
+    const fmt = getRechartsTickFormatter('/1');
+    expect(fmt(0.5)).toContain('50');
+  });
+  it('formats currency unit', () => {
+    const fmt = getRechartsTickFormatter('currency-USD', { countryId: 'us' });
+    expect(typeof fmt(1000)).toBe('string');
+  });
+  it('formats plain number', () => {
+    const fmt = getRechartsTickFormatter('number');
+    expect(typeof fmt(42)).toBe('string');
+  });
+  it('formats percent unit alias', () => {
+    const fmt = getRechartsTickFormatter('percent');
+    expect(fmt(0.25)).toContain('25');
   });
 });
 

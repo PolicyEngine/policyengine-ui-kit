@@ -21,7 +21,6 @@ export {
   chartColors,
   RECHARTS_FONT_STYLE,
   TOOLTIP_CONTAINER_STYLE,
-  RECHARTS_WATERMARK,
 } from './chartDefaults';
 export {
   impactColors,

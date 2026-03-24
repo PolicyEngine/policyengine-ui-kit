@@ -21,8 +21,8 @@
 
 ### Changed
 
-- Align gray palette with app-v2 slate scale (gray-50 through gray-900)
-- Darken muted-foreground from gray-500 to slate-600 for accessibility
+- Align gray palette with app-v2 gray scale (gray-50 through gray-900)
+- Darken muted-foreground from gray-500 to gray-600 for accessibility
 - Refactor waterfall chart with connector lines and extracted utilities
 - Double PolicyEngineWatermark width across all map components
 - Rename homeHeader to header with consolidated component names

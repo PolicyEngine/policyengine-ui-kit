@@ -1,3 +1,11 @@
+/**
+ * Animated particle-based household visualization.
+ *
+ * Renders 10,000 particles on a canvas, distributed across population centers
+ * for a given country. Each particle is colored by policy impact (positive,
+ * negative, or neutral) to visualize winners and losers at a glance.
+ */
+
 import { useRef, useEffect, useCallback, useMemo } from 'react';
 import type { CountryId } from '../../types/country';
 import { US_CENTERS, UK_CENTERS, type PopulationCenter } from './populationCenters';
@@ -120,14 +128,15 @@ export function HouseholdGraph({
   const nodesRef = useRef<GraphNode[]>([]);
   const animationRef = useRef<number>(0);
 
-  // Initialize nodes
-  useMemo(() => {
+  // Compute nodes (pure — no side effects)
+  const computedNodes = useMemo(() => {
     let nodes = generateGraph(countryId);
     if (distribution) {
       nodes = generateImpactForPrompt(nodes, distribution);
     }
-    nodesRef.current = nodes;
+    return nodes;
   }, [countryId, distribution]);
+  nodesRef.current = computedNodes;
 
   const draw = useCallback(() => {
     const canvas = canvasRef.current;

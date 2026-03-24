@@ -1,9 +1,11 @@
 import { useId, useRef, useState, useMemo } from 'react';
 import type { HexMapDataPoint, HexMapConfig, ColorRange } from './types';
-import { calculateColorRange, getDistrictColor, generateHoverText } from './utils';
+import { calculateColorRange, getDistrictColor, generateHoverText, hexPoints } from './utils';
 import { DIVERGING_GRAY_TEAL } from '../charts/colorSemantics';
 import { PolicyEngineWatermark } from '../display/PolicyEngineWatermark';
 import { MapDownloadButton } from './MapDownloadButton';
+import { ColorBar } from './ColorBar';
+import { MAP_TOOLTIP_SHADOW } from './constants';
 import { cn } from '../utils/cn';
 
 export interface HexagonalMapProps {
@@ -24,58 +26,6 @@ const DEFAULT_CONFIG: Required<HexMapConfig> = {
   showLabels: true,
   labelFontSize: 10,
 };
-
-const COLOR_BAR_WIDTH = 16;
-const COLOR_BAR_HEIGHT_FRACTION = 0.6;
-
-function hexPoints(cx: number, cy: number, size: number): string {
-  const points: string[] = [];
-  for (let i = 0; i < 6; i++) {
-    const angle = (Math.PI / 3) * i - Math.PI / 6;
-    points.push(
-      `${cx + size * Math.cos(angle)},${cy + size * Math.sin(angle)}`,
-    );
-  }
-  return points.join(' ');
-}
-
-function ColorBar({
-  scaleColors,
-  height,
-  min,
-  max,
-  formatValue,
-  gradientId,
-}: {
-  scaleColors: string[];
-  height: number;
-  min: number;
-  max: number;
-  formatValue: (v: number) => string;
-  gradientId: string;
-}) {
-  const barHeight = Math.round(height * COLOR_BAR_HEIGHT_FRACTION);
-  const barY = Math.round((height - barHeight) / 2);
-
-  return (
-    <svg width={60} height={height} style={{ flexShrink: 0 }} role="img" aria-label="Color scale legend">
-      <defs>
-        <linearGradient id={gradientId} x1="0" y1="1" x2="0" y2="0">
-          {scaleColors.map((color, i) => (
-            <stop key={i} offset={`${(i / (scaleColors.length - 1)) * 100}%`} stopColor={color} />
-          ))}
-        </linearGradient>
-      </defs>
-      <rect x={4} y={barY} width={COLOR_BAR_WIDTH} height={barHeight} fill={`url(#${gradientId})`} rx={2} />
-      <text x={24} y={barY + 4} fontSize={10} fill="var(--foreground)" dominantBaseline="hanging">
-        {formatValue(max)}
-      </text>
-      <text x={24} y={barY + barHeight - 4} fontSize={10} fill="var(--foreground)">
-        {formatValue(min)}
-      </text>
-    </svg>
-  );
-}
 
 export function HexagonalMap({
   data,
@@ -226,7 +176,7 @@ export function HexagonalMap({
             backgroundColor: 'var(--background)',
             border: '1px solid var(--border)',
             borderRadius: 8,
-            boxShadow: '0 4px 12px rgba(16, 24, 40, 0.1)',
+            boxShadow: MAP_TOOLTIP_SHADOW,
             padding: '6px 10px',
           }}
         >

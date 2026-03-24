@@ -4,7 +4,7 @@ import { computeWaterfallData, getWaterfallDomain } from '../waterfallUtils';
 import { chartColors } from '../chartDefaults';
 import { getNiceTicks } from '../../utils/chartUtils';
 import { formatCurrencyAbbr, currencySymbol } from '../../utils/formatters';
-import { cn } from '../../utils/cn';
+
 
 export interface PEBudgetWaterfallChartProps {
   data: WaterfallItem[];
@@ -87,7 +87,7 @@ export function PEBudgetWaterfallChart({
       yDomain={yDomain}
       height={height}
       fillHeight={fillHeight}
-      fillColor={(d: WaterfallDatum) => getBudgetFillColor(d)}
+      fillColor={getBudgetFillColor}
       yLabel={yLabel}
       yTicks={yTicks}
       yTickFormatter={tickFormatter}
@@ -95,7 +95,7 @@ export function PEBudgetWaterfallChart({
       showBarLabels={showBarLabels}
       barLabelFormatter={barLabelFormatter}
       showConnectors={showConnectors}
-      className={cn(className)}
+      className={className}
       styles={styles}
     />
   );

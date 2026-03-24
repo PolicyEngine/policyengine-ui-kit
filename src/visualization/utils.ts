@@ -156,3 +156,38 @@ export function isStateQualified(state: string, chamber: StateLegislativeChamber
   }
   return (SLDL_QUALIFYING_STATES as readonly string[]).includes(upper);
 }
+
+/**
+ * Compute the 6 vertices of a flat-top hexagon centered at (cx, cy).
+ */
+export function hexPoints(cx: number, cy: number, size: number): string {
+  const points: string[] = [];
+  for (let i = 0; i < 6; i++) {
+    const angle = (Math.PI / 3) * i - Math.PI / 6;
+    points.push(`${cx + size * Math.cos(angle)},${cy + size * Math.sin(angle)}`);
+  }
+  return points.join(' ');
+}
+
+/**
+ * Merge a partial ChoroplethMapConfig with defaults.
+ */
+export function mergeMapConfig(
+  partial: Partial<ChoroplethMapConfig> | undefined,
+  defaults: { width: number; height: number; borderWidth: number },
+): Required<ChoroplethMapConfig> {
+  return {
+    width: partial?.width ?? defaults.width,
+    height: partial?.height ?? defaults.height,
+    colorScale: {
+      colors: partial?.colorScale?.colors ?? [...DIVERGING_GRAY_TEAL],
+      symmetric: partial?.colorScale?.symmetric ?? true,
+    },
+    projectionConfig: partial?.projectionConfig ?? {},
+    defaultFill: partial?.defaultFill ?? DEFAULT_CHOROPLETH_CONFIG.defaultFill!,
+    borderColor: partial?.borderColor ?? DEFAULT_CHOROPLETH_CONFIG.borderColor!,
+    borderWidth: partial?.borderWidth ?? defaults.borderWidth,
+    showColorBar: partial?.showColorBar ?? true,
+    formatValue: partial?.formatValue ?? ((v: number) => v.toFixed(2)),
+  };
+}

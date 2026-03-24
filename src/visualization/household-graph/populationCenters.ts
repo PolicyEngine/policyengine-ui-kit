@@ -1,7 +1,7 @@
 /**
  * Population-weighted geographic centers for particle distribution.
  * Each center has a normalized [0,1] x/y position and a weight proportional
- * to the population it represents.
+ * to the population it represents (approximate millions in the metro area).
  */
 
 export interface PopulationCenter {

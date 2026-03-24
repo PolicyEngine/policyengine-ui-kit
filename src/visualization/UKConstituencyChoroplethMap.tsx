@@ -7,7 +7,7 @@
  * Both datasets are bundled — no runtime fetching required.
  */
 
-import { useCallback, useId, useMemo, useRef, useState } from 'react';
+import { useCallback, useId, useMemo, useState } from 'react';
 import { geoPath, geoTransform } from 'd3-geo';
 import type {
   ChoroplethDataPoint,
@@ -20,14 +20,19 @@ import {
   calculateColorRange,
   createDataLookupMap,
   getDistrictColor,
-  DEFAULT_CHOROPLETH_CONFIG,
+  mergeMapConfig,
+  hexPoints,
 } from './utils';
 import { UK_CONSTITUENCIES_GEO } from './data/ukConstituenciesGeo';
 import { UK_CONSTITUENCIES_HEX } from './data/ukConstituenciesHex';
-import { DIVERGING_GRAY_TEAL } from '../charts/colorSemantics';
 import { PolicyEngineWatermark } from '../display/PolicyEngineWatermark';
 import { ZoomControls } from './ZoomControls';
 import { MapDownloadButton } from './MapDownloadButton';
+import { ColorBar } from './ColorBar';
+import { MapTooltip } from './MapTooltip';
+import { useSvgZoomPan } from './useSvgZoomPan';
+import { useMergedRef } from './useMergedRef';
+import { NO_DATA_FILL, MAP_BORDER_COLOR } from './constants';
 import { cn } from '../utils/cn';
 
 export interface UKConstituencyChoroplethMapProps {
@@ -45,11 +50,7 @@ export interface UKConstituencyChoroplethMapProps {
   styles?: { root?: React.CSSProperties };
 }
 
-const NO_DATA_FILL = '#CBD5E1'; // gray-300
-const BORDER_COLOR = '#FFFFFF';
 const BORDER_WIDTH = 0.3;
-const COLOR_BAR_WIDTH = 16;
-const COLOR_BAR_HEIGHT_FRACTION = 0.6;
 const SVG_WIDTH = 600;
 const DEFAULT_HEIGHT = 700;
 
@@ -64,61 +65,6 @@ interface TooltipState {
   y: number;
   label: string;
   value: string;
-}
-
-function ColorBar({
-  scaleColors,
-  height,
-  min,
-  max,
-  formatValue,
-  gradientId,
-}: {
-  scaleColors: string[];
-  height: number;
-  min: number;
-  max: number;
-  formatValue: (v: number) => string;
-  gradientId: string;
-}) {
-  const barHeight = Math.round(height * COLOR_BAR_HEIGHT_FRACTION);
-  const barY = Math.round((height - barHeight) / 2);
-
-  return (
-    <svg width={60} height={height} style={{ flexShrink: 0 }} role="img" aria-label="Color scale legend">
-      <defs>
-        <linearGradient id={gradientId} x1="0" y1="1" x2="0" y2="0">
-          {scaleColors.map((color, i) => (
-            <stop key={i} offset={`${(i / (scaleColors.length - 1)) * 100}%`} stopColor={color} />
-          ))}
-        </linearGradient>
-      </defs>
-      <rect x={4} y={barY} width={COLOR_BAR_WIDTH} height={barHeight} fill={`url(#${gradientId})`} rx={2} />
-      <text x={24} y={barY + 4} fontSize={10} fill="var(--foreground)" dominantBaseline="hanging">
-        {formatValue(max)}
-      </text>
-      <text x={24} y={barY + barHeight - 4} fontSize={10} fill="var(--foreground)">
-        {formatValue(min)}
-      </text>
-    </svg>
-  );
-}
-
-function mergeMapConfig(partial?: Partial<ChoroplethMapConfig>): Required<ChoroplethMapConfig> {
-  return {
-    width: partial?.width ?? SVG_WIDTH,
-    height: partial?.height ?? DEFAULT_HEIGHT,
-    colorScale: {
-      colors: partial?.colorScale?.colors ?? [...DIVERGING_GRAY_TEAL],
-      symmetric: partial?.colorScale?.symmetric ?? true,
-    },
-    projectionConfig: partial?.projectionConfig ?? {},
-    defaultFill: partial?.defaultFill ?? DEFAULT_CHOROPLETH_CONFIG.defaultFill!,
-    borderColor: partial?.borderColor ?? DEFAULT_CHOROPLETH_CONFIG.borderColor!,
-    borderWidth: partial?.borderWidth ?? BORDER_WIDTH,
-    showColorBar: partial?.showColorBar ?? true,
-    formatValue: partial?.formatValue ?? ((v: number) => v.toFixed(2)),
-  };
 }
 
 /**
@@ -176,15 +122,6 @@ function gridToPixel(
   return { cx, cy };
 }
 
-function hexPoints(cx: number, cy: number, size: number): string {
-  const points: string[] = [];
-  for (let i = 0; i < 6; i++) {
-    const angle = (Math.PI / 3) * i - Math.PI / 6;
-    points.push(`${cx + size * Math.cos(angle)},${cy + size * Math.sin(angle)}`);
-  }
-  return points.join(' ');
-}
-
 /**
  * Pre-compute hex layout: derive hex size from grid coordinate ranges
  * to fill the SVG viewport, then compute pixel positions.
@@ -209,7 +146,7 @@ function useHexLayout(svgWidth: number, svgHeight: number) {
     const drawW = svgWidth - padding * 2;
     const drawH = svgHeight - padding * 2;
 
-    // Hex size from available space: columns need hexWidth * gridCols, rows need hexHeight * 0.75 * gridRows
+    // Hex size from available space
     const hexSizeFromWidth = drawW / (gridCols * Math.sqrt(3));
     const hexSizeFromHeight = drawH / (gridRows * 1.5);
     const hexSize = Math.min(hexSizeFromWidth, hexSizeFromHeight);
@@ -256,22 +193,13 @@ export function UKConstituencyChoroplethMap({
   styles,
 }: UKConstituencyChoroplethMapProps) {
   const uniqueId = useId();
-  const containerRef = useRef<HTMLDivElement>(null);
+  const { containerRef, mergedRef } = useMergedRef<HTMLDivElement>(exportRef);
   const isHexMap = visualizationType === 'hex';
 
-  const mergedRef = useCallback(
-    (node: HTMLDivElement | null) => {
-      (containerRef as React.MutableRefObject<HTMLDivElement | null>).current = node;
-      if (typeof exportRef === 'function') {
-        exportRef(node);
-      } else if (exportRef) {
-        (exportRef as React.MutableRefObject<HTMLDivElement | null>).current = node;
-      }
-    },
-    [exportRef],
+  const fullConfig = useMemo(
+    () => mergeMapConfig(config, { width: SVG_WIDTH, height: DEFAULT_HEIGHT, borderWidth: BORDER_WIDTH }),
+    [config],
   );
-
-  const fullConfig = useMemo(() => mergeMapConfig(config), [config]);
   const dataMap = useMemo(() => createDataLookupMap(data), [data]);
 
   const colorRange: ColorRange = useMemo(
@@ -283,46 +211,7 @@ export function UKConstituencyChoroplethMap({
   const hexLayout = useHexLayout(fullConfig.width, fullConfig.height);
 
   const [tooltip, setTooltip] = useState<TooltipState | null>(null);
-
-  // Zoom/pan state — manipulates a <g> transform inside the SVG
-  const [svgZoom, setSvgZoom] = useState(1);
-  const [svgPan, setSvgPan] = useState<[number, number]>([0, 0]);
-  const isPanning = useRef(false);
-  const panStart = useRef<[number, number]>([0, 0]);
-  const panOrigin = useRef<[number, number]>([0, 0]);
-
-  const handleZoomIn = useCallback(() => setSvgZoom((z) => Math.min(z * 1.5, 20)), []);
-  const handleZoomOut = useCallback(() => setSvgZoom((z) => Math.max(z / 1.5, 0.5)), []);
-  const handleZoomReset = useCallback(() => {
-    setSvgZoom(1);
-    setSvgPan([0, 0]);
-  }, []);
-
-  const handleWheel = useCallback((e: React.WheelEvent) => {
-    e.preventDefault();
-    setSvgZoom((z) => {
-      const factor = e.deltaY < 0 ? 1.15 : 1 / 1.15;
-      return Math.min(Math.max(z * factor, 0.5), 20);
-    });
-  }, []);
-
-  const handlePointerDown = useCallback((e: React.PointerEvent) => {
-    isPanning.current = true;
-    panStart.current = [e.clientX, e.clientY];
-    panOrigin.current = [...svgPan] as [number, number];
-    (e.target as Element).setPointerCapture(e.pointerId);
-  }, [svgPan]);
-
-  const handlePointerMove = useCallback((e: React.PointerEvent) => {
-    if (!isPanning.current) return;
-    const dx = e.clientX - panStart.current[0];
-    const dy = e.clientY - panStart.current[1];
-    setSvgPan([panOrigin.current[0] + dx / svgZoom, panOrigin.current[1] + dy / svgZoom]);
-  }, [svgZoom]);
-
-  const handlePointerUp = useCallback(() => {
-    isPanning.current = false;
-  }, []);
+  const { zoom: svgZoom, pan: svgPan, handlers: zoomHandlers } = useSvgZoomPan();
 
   const handleMouseEnter = useCallback(
     (event: React.MouseEvent, geoId: string) => {
@@ -339,7 +228,7 @@ export function UKConstituencyChoroplethMap({
         value: dataPoint ? fullConfig.formatValue(dataPoint.value) : 'No data',
       });
     },
-    [dataMap, fullConfig],
+    [dataMap, fullConfig, containerRef],
   );
 
   const handleMouseMove = useCallback(
@@ -351,7 +240,7 @@ export function UKConstituencyChoroplethMap({
         prev ? { ...prev, x: event.clientX - rect.left, y: event.clientY - rect.top } : null,
       );
     },
-    [tooltip],
+    [tooltip, containerRef],
   );
 
   const handleMouseLeave = useCallback(() => {
@@ -384,10 +273,10 @@ export function UKConstituencyChoroplethMap({
           height={fullConfig.height}
           viewBox={`0 0 ${fullConfig.width} ${fullConfig.height}`}
           style={{ width: '100%', height: '100%', cursor: svgZoom > 1 ? 'grab' : 'default' }}
-          onWheel={handleWheel}
-          onPointerDown={handlePointerDown}
-          onPointerMove={handlePointerMove}
-          onPointerUp={handlePointerUp}
+          onWheel={zoomHandlers.onWheel}
+          onPointerDown={zoomHandlers.onPointerDown}
+          onPointerMove={zoomHandlers.onPointerMove}
+          onPointerUp={zoomHandlers.onPointerUp}
         >
           <g transform={`translate(${fullConfig.width / 2}, ${fullConfig.height / 2}) scale(${svgZoom}) translate(${-fullConfig.width / 2 + svgPan[0]}, ${-fullConfig.height / 2 + svgPan[1]})`}>
           {isHexMap
@@ -402,7 +291,7 @@ export function UKConstituencyChoroplethMap({
                     key={gss}
                     points={hexPoints(cx, cy, hexLayout.hexSize)}
                     fill={fillColor}
-                    stroke={BORDER_COLOR}
+                    stroke={MAP_BORDER_COLOR}
                     strokeWidth={0.5}
                     style={{ cursor: 'default', transition: 'opacity 0.15s' }}
                     onMouseEnter={(e) => handleMouseEnter(e, gss)}
@@ -459,31 +348,10 @@ export function UKConstituencyChoroplethMap({
       )}
 
       {/* Tooltip */}
-      {tooltip && (
-        <div
-          role="tooltip"
-          style={{
-            position: 'absolute',
-            left: tooltip.x + 12,
-            top: tooltip.y - 30,
-            backgroundColor: 'var(--background)',
-            border: '1px solid var(--border)',
-            borderRadius: 8,
-            padding: '4px 8px',
-            fontSize: 12,
-            pointerEvents: 'none',
-            zIndex: 10,
-            boxShadow: '0 2px 6px rgba(16, 24, 40, 0.1)',
-            whiteSpace: 'nowrap',
-          }}
-        >
-          <div style={{ fontWeight: 600 }}>{tooltip.label}</div>
-          <div style={{ color: 'var(--muted-foreground)' }}>{tooltip.value}</div>
-        </div>
-      )}
+      {tooltip && <MapTooltip {...tooltip} />}
 
       {/* Zoom controls */}
-      <ZoomControls onZoomIn={handleZoomIn} onZoomOut={handleZoomOut} onReset={handleZoomReset} />
+      <ZoomControls onZoomIn={zoomHandlers.onZoomIn} onZoomOut={zoomHandlers.onZoomOut} onReset={zoomHandlers.onReset} />
 
       {/* Download button */}
       {downloadFilename && (

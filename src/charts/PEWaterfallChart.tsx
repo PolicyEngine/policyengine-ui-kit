@@ -21,10 +21,8 @@ import {
 import {
   AXIS_STYLE,
   GRID_STYLE,
-  TOOLTIP_STYLE,
   TOOLTIP_CONTAINER_STYLE,
   ZERO_LINE_STYLE,
-  chartColors,
 } from './chartDefaults';
 import { CHART_MARGINS, getYAxisLayout } from '../utils/chartUtils';
 import { cn } from '../utils/cn';
@@ -43,7 +41,8 @@ export interface PEWaterfallChartProps {
   yDomain: [number, number];
   /** Chart height in pixels (ignored when fillHeight is true) */
   height?: number;
-  /** When true, chart fills its parent via flex layout instead of using a fixed height */
+  /** When true, chart fills its parent via flex layout instead of using a fixed height.
+   * The parent container must have an explicit height for this to work. */
   fillHeight?: boolean;
   /** Fill color resolver — receives datum, returns CSS color string */
   fillColor: (datum: WaterfallDatum) => string;
