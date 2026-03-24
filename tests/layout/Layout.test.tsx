@@ -3,7 +3,7 @@ import { render, screen } from '@testing-library/react';
 import { DashboardShell } from '../../src/layout/DashboardShell';
 import { SidebarLayout } from '../../src/layout/SidebarLayout';
 import { SingleColumnLayout } from '../../src/layout/SingleColumnLayout';
-import { Header } from '../../src/layout/Header';
+import { Header } from '../../src/layout/header';
 import { InputPanel } from '../../src/layout/InputPanel';
 import { ResultsPanel } from '../../src/layout/ResultsPanel';
 
@@ -34,15 +34,13 @@ describe('SingleColumnLayout', () => {
 });
 
 describe('Header', () => {
-  it('renders logo and actions', () => {
+  it('renders with nav items', () => {
     render(
       <Header
-        logo={<span>Logo</span>}
-        actions={<button>Action</button>}
+        navItems={[{ label: 'Home', href: '/' }]}
       />,
     );
-    expect(screen.getByText('Logo')).toBeInTheDocument();
-    expect(screen.getByText('Action')).toBeInTheDocument();
+    expect(screen.getByText('Home')).toBeInTheDocument();
   });
 });
 

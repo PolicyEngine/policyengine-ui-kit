@@ -32,7 +32,7 @@ export const NumberInput = forwardRef<HTMLInputElement, NumberInputProps>(
         min={min}
         max={max}
         step={step}
-        className="h-10 w-full rounded-sm border border-border px-3 text-sm transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:border-primary"
+        className="h-10 w-full rounded-sm border border-border bg-white px-3 text-sm transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:border-primary"
         style={styles?.input}
         {...props}
       />

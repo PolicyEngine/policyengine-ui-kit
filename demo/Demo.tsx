@@ -99,7 +99,7 @@ import { SegmentedControl } from '../src/primitives/SegmentedControl';
 
 // Layout
 import { DashboardShell } from '../src/layout/DashboardShell';
-import { Header } from '../src/layout/Header';
+import { Header } from '../src/layout/header';
 import { SidebarLayout } from '../src/layout/SidebarLayout';
 import { SingleColumnLayout } from '../src/layout/SingleColumnLayout';
 import { InputPanel } from '../src/layout/InputPanel';
@@ -111,7 +111,6 @@ import { SidebarNavItem } from '../src/layout/SidebarNavItem';
 import { SidebarSection } from '../src/layout/SidebarSection';
 import { SidebarDivider } from '../src/layout/SidebarDivider';
 import { Footer } from '../src/layout/Footer';
-import { HomeHeader } from '../src/layout/homeHeader';
 
 // Inputs
 import { CurrencyInput } from '../src/inputs/CurrencyInput';
@@ -133,9 +132,32 @@ import { PEBarChart } from '../src/charts/PEBarChart';
 import { PELineChart } from '../src/charts/PELineChart';
 import { PEAreaChart } from '../src/charts/PEAreaChart';
 import { PEWaterfallChart } from '../src/charts/PEWaterfallChart';
+import { computeWaterfallData, getWaterfallDomain } from '../src/charts/waterfallUtils';
+import { chartColors } from '../src/charts/chartDefaults';
+import { getNiceTicks } from '../src/utils/chartUtils';
+import { PEImpactBarChart } from '../src/charts/impact/PEImpactBarChart';
+import { PEWinnersLosersChart } from '../src/charts/impact/PEWinnersLosersChart';
+import { PEEarningsChart } from '../src/charts/impact/PEEarningsChart';
+import { PEBudgetWaterfallChart, getBudgetChartTitle } from '../src/charts/impact/PEBudgetWaterfallChart';
+
+// Visualization
+import { HexagonalMap } from '../src/visualization/HexagonalMap';
+import { USDistrictChoroplethMap } from '../src/visualization/USDistrictChoroplethMap';
+import { UKConstituencyChoroplethMap } from '../src/visualization/UKConstituencyChoroplethMap';
+import { StateLegislativeDistrictMap } from '../src/visualization/StateLegislativeDistrictMap';
+import { UK_CONSTITUENCIES_HEX } from '../src/visualization/data/ukConstituenciesHex';
+import { STATE_SENATE_DISTRICTS_GEO } from '../src/visualization/data/stateSenateDistrictsGeo';
+import { STATE_HOUSE_DISTRICTS_GEO } from '../src/visualization/data/stateHouseDistrictsGeo';
+import { MapTypeToggle } from '../src/visualization/MapTypeToggle';
+import { SLDU_QUALIFYING_STATES, SLDL_QUALIFYING_STATES, STATE_ABBREV_TO_FIPS } from '../src/visualization/utils';
+import type { StateLegislativeChamber } from '../src/visualization/utils';
+import type { ChoroplethDataPoint, MapVisualizationType } from '../src/visualization/types';
+
+// Color semantics
+import { winnersLosersColors, DIVERGING_GRAY_TEAL } from '../src/charts/colorSemantics';
 
 // Utils
-import { formatCurrency } from '../src/utils/formatters';
+import { formatCurrency, formatCurrencyAbbr } from '../src/utils/formatters';
 
 // Assets
 import { logos } from '../src/assets';
@@ -172,7 +194,7 @@ const areaData = [
   { decile: '10th', income_tax: 62000, payroll_tax: 9400, benefits: 0 },
 ];
 
-const waterfallData = [
+const waterfallItems = [
   { name: 'Income tax', value: 320 },
   { name: 'Payroll tax', value: 180 },
   { name: 'Corporate tax', value: 95 },
@@ -180,6 +202,187 @@ const waterfallData = [
   { name: 'UBI cost', value: -480 },
   { name: 'Net impact', value: 0, isTotal: true },
 ];
+const waterfallFmt = (v: number) => `$${v}B`;
+const waterfallData = computeWaterfallData(waterfallItems, waterfallFmt);
+const waterfallDomain = getWaterfallDomain(waterfallData);
+const waterfallTicks = getNiceTicks(waterfallDomain);
+
+const waterfallAllNegativeItems = [
+  { name: 'Income tax', value: -120 },
+  { name: 'Payroll tax', value: -85 },
+  { name: 'Corporate tax', value: -60 },
+  { name: 'Estate tax', value: -35 },
+  { name: 'Total', value: 0, isTotal: true },
+];
+const waterfallAllNegativeData = computeWaterfallData(waterfallAllNegativeItems, waterfallFmt);
+const waterfallAllNegativeDomain = getWaterfallDomain(waterfallAllNegativeData);
+const waterfallAllNegativeTicks = getNiceTicks(waterfallAllNegativeDomain);
+
+function getWaterfallFillColor(d: { value: number; isTotal: boolean }): string {
+  if (d.isTotal) return 'var(--chart-3)';
+  return d.value >= 0 ? chartColors.primary : 'var(--color-gray-600)';
+}
+
+// Impact bar chart data
+const impactBarData = [
+  { name: '1st', value: 0.08, hoverText: 'Gain: 8.0% of net income' },
+  { name: '2nd', value: 0.05, hoverText: 'Gain: 5.0% of net income' },
+  { name: '3rd', value: 0.03, hoverText: 'Gain: 3.0% of net income' },
+  { name: '4th', value: 0.01, hoverText: 'Gain: 1.0% of net income' },
+  { name: '5th', value: -0.01, hoverText: 'Loss: 1.0% of net income' },
+  { name: '6th', value: -0.02, hoverText: 'Loss: 2.0% of net income' },
+  { name: '7th', value: -0.03, hoverText: 'Loss: 3.0% of net income' },
+  { name: '8th', value: -0.04, hoverText: 'Loss: 4.0% of net income' },
+  { name: '9th', value: -0.05, hoverText: 'Loss: 5.0% of net income' },
+  { name: '10th', value: -0.07, hoverText: 'Loss: 7.0% of net income' },
+];
+
+// Winners/losers data — deciles 1–10
+const winnersLosersData = [
+  { name: '1', gainMore5: 0.35, gainLess5: 0.40, noChange: 0.15, loseLess5: 0.07, loseMore5: 0.03 },
+  { name: '2', gainMore5: 0.25, gainLess5: 0.35, noChange: 0.20, loseLess5: 0.12, loseMore5: 0.08 },
+  { name: '3', gainMore5: 0.15, gainLess5: 0.30, noChange: 0.25, loseLess5: 0.18, loseMore5: 0.12 },
+  { name: '4', gainMore5: 0.08, gainLess5: 0.22, noChange: 0.30, loseLess5: 0.25, loseMore5: 0.15 },
+  { name: '5', gainMore5: 0.05, gainLess5: 0.15, noChange: 0.30, loseLess5: 0.30, loseMore5: 0.20 },
+  { name: '6', gainMore5: 0.03, gainLess5: 0.10, noChange: 0.32, loseLess5: 0.32, loseMore5: 0.23 },
+  { name: '7', gainMore5: 0.02, gainLess5: 0.08, noChange: 0.30, loseLess5: 0.35, loseMore5: 0.25 },
+  { name: '8', gainMore5: 0.01, gainLess5: 0.05, noChange: 0.28, loseLess5: 0.38, loseMore5: 0.28 },
+  { name: '9', gainMore5: 0.01, gainLess5: 0.03, noChange: 0.25, loseLess5: 0.40, loseMore5: 0.31 },
+  { name: '10', gainMore5: 0.00, gainLess5: 0.02, noChange: 0.20, loseLess5: 0.42, loseMore5: 0.36 },
+];
+
+const winnersLosersAllData = {
+  gainMore5: 0.18,
+  gainLess5: 0.28,
+  noChange: 0.24,
+  loseLess5: 0.18,
+  loseMore5: 0.12,
+};
+
+// Earnings chart data
+const earningsData = Array.from({ length: 20 }, (_, i) => {
+  const earnings = i * 5000;
+  const baseline = Math.max(0, earnings * 0.75 - 2000);
+  const reform = Math.max(0, earnings * 0.70 + 1000);
+  return { earnings, baseline, reform };
+});
+
+// Budget waterfall data
+const budgetWaterfallData = [
+  { name: 'Income tax', value: 120_000_000_000 },
+  { name: 'Payroll tax', value: 80_000_000_000 },
+  { name: 'Corporate tax', value: 40_000_000_000 },
+  { name: 'UBI cost', value: -320_000_000_000 },
+  { name: 'Net impact', value: 0, isTotal: true },
+];
+
+// Hex map data — standard US state hex grid layout
+// Even rows (y=0,2,4,6) use integer x; odd rows (y=1,3,5,7) offset x by +0.5
+const hexMapData = [
+  // Row 0 (even — no offset)
+  { id: 'AK', label: 'Alaska', x: 1, y: 0, value: 0.01 },
+  { id: 'ME', label: 'Maine', x: 11, y: 0, value: -0.01 },
+  // Row 1 (odd — +0.5 offset)
+  { id: 'VT', label: 'Vermont', x: 9.5, y: 1, value: 0.02 },
+  { id: 'NH', label: 'New Hampshire', x: 10.5, y: 1, value: -0.01 },
+  // Row 2 (even)
+  { id: 'WA', label: 'Washington', x: 1, y: 2, value: 0.01 },
+  { id: 'MT', label: 'Montana', x: 2, y: 2, value: 0.00 },
+  { id: 'ND', label: 'North Dakota', x: 3, y: 2, value: -0.02 },
+  { id: 'MN', label: 'Minnesota', x: 4, y: 2, value: 0.03 },
+  { id: 'WI', label: 'Wisconsin', x: 5, y: 2, value: 0.02 },
+  { id: 'MI', label: 'Michigan', x: 7, y: 2, value: -0.01 },
+  { id: 'NY', label: 'New York', x: 9, y: 2, value: 0.05 },
+  { id: 'MA', label: 'Massachusetts', x: 10, y: 2, value: 0.03 },
+  { id: 'RI', label: 'Rhode Island', x: 11, y: 2, value: 0.01 },
+  // Row 3 (odd — +0.5 offset)
+  { id: 'ID', label: 'Idaho', x: 1.5, y: 3, value: -0.01 },
+  { id: 'WY', label: 'Wyoming', x: 2.5, y: 3, value: 0.00 },
+  { id: 'SD', label: 'South Dakota', x: 3.5, y: 3, value: -0.01 },
+  { id: 'IA', label: 'Iowa', x: 4.5, y: 3, value: 0.02 },
+  { id: 'IL', label: 'Illinois', x: 5.5, y: 3, value: 0.04 },
+  { id: 'IN', label: 'Indiana', x: 6.5, y: 3, value: 0.01 },
+  { id: 'OH', label: 'Ohio', x: 7.5, y: 3, value: 0.03 },
+  { id: 'PA', label: 'Pennsylvania', x: 8.5, y: 3, value: 0.02 },
+  { id: 'NJ', label: 'New Jersey', x: 9.5, y: 3, value: -0.02 },
+  { id: 'CT', label: 'Connecticut', x: 10.5, y: 3, value: 0.01 },
+  // Row 4 (even)
+  { id: 'OR', label: 'Oregon', x: 1, y: 4, value: 0.02 },
+  { id: 'NV', label: 'Nevada', x: 2, y: 4, value: -0.01 },
+  { id: 'CO', label: 'Colorado', x: 3, y: 4, value: 0.00 },
+  { id: 'NE', label: 'Nebraska', x: 4, y: 4, value: -0.01 },
+  { id: 'MO', label: 'Missouri', x: 5, y: 4, value: 0.03 },
+  { id: 'KY', label: 'Kentucky', x: 6, y: 4, value: 0.05 },
+  { id: 'WV', label: 'West Virginia', x: 7, y: 4, value: 0.07 },
+  { id: 'VA', label: 'Virginia', x: 8, y: 4, value: 0.01 },
+  { id: 'MD', label: 'Maryland', x: 9, y: 4, value: -0.02 },
+  { id: 'DE', label: 'Delaware', x: 10, y: 4, value: 0.00 },
+  // Row 5 (odd — +0.5 offset)
+  { id: 'CA', label: 'California', x: 1.5, y: 5, value: -0.03 },
+  { id: 'UT', label: 'Utah', x: 2.5, y: 5, value: 0.01 },
+  { id: 'NM', label: 'New Mexico', x: 3.5, y: 5, value: 0.04 },
+  { id: 'KS', label: 'Kansas', x: 4.5, y: 5, value: -0.01 },
+  { id: 'AR', label: 'Arkansas', x: 5.5, y: 5, value: 0.06 },
+  { id: 'TN', label: 'Tennessee', x: 6.5, y: 5, value: 0.03 },
+  { id: 'NC', label: 'North Carolina', x: 7.5, y: 5, value: 0.02 },
+  { id: 'SC', label: 'South Carolina', x: 8.5, y: 5, value: 0.04 },
+  { id: 'DC', label: 'Washington DC', x: 9.5, y: 5, value: 0.08 },
+  // Row 6 (even)
+  { id: 'AZ', label: 'Arizona', x: 3, y: 6, value: -0.02 },
+  { id: 'OK', label: 'Oklahoma', x: 4, y: 6, value: 0.03 },
+  { id: 'LA', label: 'Louisiana', x: 5, y: 6, value: 0.05 },
+  { id: 'MS', label: 'Mississippi', x: 6, y: 6, value: 0.07 },
+  { id: 'AL', label: 'Alabama', x: 7, y: 6, value: 0.04 },
+  { id: 'GA', label: 'Georgia', x: 8, y: 6, value: 0.06 },
+  // Row 7 (odd — +0.5 offset)
+  { id: 'TX', label: 'Texas', x: 4.5, y: 7, value: 0.02 },
+  { id: 'FL', label: 'Florida', x: 7.5, y: 7, value: 0.08 },
+  // Row 8 (even)
+  { id: 'HI', label: 'Hawaii', x: 1, y: 8, value: 0.01 },
+];
+
+// Congressional district demo data — synthetic values for all 436 districts
+const DISTRICT_COUNTS: Record<string, number> = {
+  AK: 1, AL: 7, AR: 4, AZ: 9, CA: 52, CO: 8, CT: 5, DC: 1, DE: 1, FL: 28,
+  GA: 14, HI: 2, IA: 4, ID: 2, IL: 17, IN: 9, KS: 4, KY: 6, LA: 6, MA: 9,
+  MD: 8, ME: 2, MI: 13, MN: 8, MO: 8, MS: 4, MT: 2, NC: 14, ND: 1, NE: 3,
+  NH: 2, NJ: 12, NM: 3, NV: 4, NY: 26, OH: 15, OK: 5, OR: 6, PA: 17, RI: 2,
+  SC: 7, SD: 1, TN: 9, TX: 38, UT: 4, VA: 11, VT: 1, WA: 10, WI: 8, WV: 2,
+  WY: 1,
+};
+
+const congressionalHexData: ChoroplethDataPoint[] = (() => {
+  const data: ChoroplethDataPoint[] = [];
+  for (const [state, count] of Object.entries(DISTRICT_COUNTS)) {
+    for (let i = 1; i <= count; i++) {
+      const num = i.toString().padStart(2, '0');
+      // Deterministic value: hash of state + district number
+      const hash = (state.charCodeAt(0) * 31 + state.charCodeAt(1) * 17 + i * 7) % 100;
+      const value = (hash - 40) / 500;
+      data.push({
+        geoId: `${state}-${num}`,
+        label: `${state}-${i}`,
+        value: Math.round(value * 1000) / 1000,
+      });
+    }
+  }
+  return data;
+})();
+
+// UK constituency demo data — synthetic values for all 650 constituencies
+const ukConstituencyData: ChoroplethDataPoint[] = (() => {
+  const data: ChoroplethDataPoint[] = [];
+  for (const [name, { gss }] of Object.entries(UK_CONSTITUENCIES_HEX)) {
+    const hash = (gss.charCodeAt(4) * 31 + gss.charCodeAt(5) * 17 + gss.charCodeAt(6) * 7) % 100;
+    const value = (hash - 45) / 500;
+    data.push({
+      geoId: gss,
+      label: name,
+      value: Math.round(value * 1000) / 1000,
+    });
+  }
+  return data;
+})();
 
 const tableColumns = [
   { key: 'decile', header: 'Income decile' },
@@ -227,6 +430,40 @@ const tableData = [
   { decile: '9th', avgIncome: 185000, taxChange: 24000, benefitChange: 6000, netChange: -18000 },
   { decile: '10th (richest)', avgIncome: 420000, taxChange: 62000, benefitChange: 6000, netChange: -56000 },
 ];
+
+// State legislative district demo helpers
+const STATE_NAMES: Record<string, string> = {
+  AL: 'Alabama', AZ: 'Arizona', CA: 'California', CO: 'Colorado', CT: 'Connecticut',
+  FL: 'Florida', GA: 'Georgia', IL: 'Illinois', IN: 'Indiana', KY: 'Kentucky',
+  LA: 'Louisiana', MA: 'Massachusetts', MD: 'Maryland', MI: 'Michigan', MO: 'Missouri',
+  NC: 'North Carolina', NJ: 'New Jersey', NV: 'Nevada', NY: 'New York', OH: 'Ohio',
+  OR: 'Oregon', PA: 'Pennsylvania', SC: 'South Carolina', TN: 'Tennessee', TX: 'Texas',
+  UT: 'Utah', VA: 'Virginia', WA: 'Washington', WI: 'Wisconsin',
+};
+
+const sldStateOptions = SLDU_QUALIFYING_STATES.map((s) => ({
+  label: STATE_NAMES[s] ?? s,
+  value: s,
+}));
+
+function generateSldDemoData(stateAbbrev: string, chamber: StateLegislativeChamber): ChoroplethDataPoint[] {
+  const source = chamber === 'upper' ? STATE_SENATE_DISTRICTS_GEO : STATE_HOUSE_DISTRICTS_GEO;
+  const fips = STATE_ABBREV_TO_FIPS[stateAbbrev.toUpperCase()];
+  if (!fips) return [];
+
+  return source.features
+    .filter((f) => f.properties?.STATEFP === fips)
+    .map((f) => {
+      const districtId = f.properties?.DISTRICT_ID as string;
+      const name = f.properties?.NAMELSAD as string;
+      // Deterministic hash
+      const hash = (districtId.charCodeAt(0) * 31 + districtId.charCodeAt(3) * 17 +
+        districtId.charCodeAt(districtId.length - 1) * 7 +
+        districtId.charCodeAt(districtId.length - 2) * 13) % 100;
+      const value = Math.round(((hash - 40) / 500) * 1000) / 1000;
+      return { geoId: districtId, label: name, value };
+    });
+}
 
 const stateOptions = [
   { label: 'California', value: 'CA' },
@@ -300,7 +537,7 @@ function SubSection({
 }) {
   return (
     <div className="mb-8">
-      <h3 className="text-lg font-semibold text-muted-foreground mb-4">
+      <h3 className="text-lg font-semibold text-foreground mb-4">
         {title}
       </h3>
       {children}
@@ -329,11 +566,15 @@ export function Demo() {
   const [selectValue, setSelectValue] = useState('');
   const [progressValue] = useState(65);
   const [homeCountry, setHomeCountry] = useState('us');
+  const [mapVizType, setMapVizType] = useState<MapVisualizationType>('geographic');
+  const [ukMapVizType, setUkMapVizType] = useState<MapVisualizationType>('geographic');
+  const [sldState, setSldState] = useState('CA');
+  const [sldChamber, setSldChamber] = useState<StateLegislativeChamber>('upper');
 
   return (
     <TooltipProvider>
       <DashboardShell>
-        <HomeHeader
+        <Header
           navItems={homeHeaderNavItems}
           countries={homeHeaderCountries}
           currentCountry={homeCountry}
@@ -416,18 +657,21 @@ export function Demo() {
             </SubSection>
 
             <SubSection title="Skeleton">
-              <Stack gap="md">
-                <Skeleton className="h-4 w-[250px]" />
-                <Skeleton className="h-4 w-[200px]" />
-                <Skeleton className="h-4 w-[150px]" />
-                <Group gap="md">
-                  <Skeleton className="h-12 w-12 rounded-full" />
-                  <Stack gap="sm">
-                    <Skeleton className="h-4 w-[160px]" />
-                    <Skeleton className="h-3 w-[120px]" />
-                  </Stack>
-                </Group>
-              </Stack>
+              <div className="bg-white rounded-lg p-4 border border-border">
+                <p className="text-xs text-muted-foreground mb-3">Shown on white background for visibility</p>
+                <Stack gap="md">
+                  <Skeleton className="h-4 w-[250px]" />
+                  <Skeleton className="h-4 w-[200px]" />
+                  <Skeleton className="h-4 w-[150px]" />
+                  <Group gap="md">
+                    <Skeleton className="h-12 w-12 rounded-full" />
+                    <Stack gap="sm">
+                      <Skeleton className="h-4 w-[160px]" />
+                      <Skeleton className="h-3 w-[120px]" />
+                    </Stack>
+                  </Group>
+                </Stack>
+              </div>
             </SubSection>
 
             <SubSection title="Progress">
@@ -1018,9 +1262,9 @@ export function Demo() {
               </Card>
             </SubSection>
 
-            <SubSection title="HomeHeader">
+            <SubSection title="Header">
               <div className="border border-border rounded-lg overflow-hidden">
-                <HomeHeader
+                <Header
                   navItems={homeHeaderNavItems}
                   countries={homeHeaderCountries}
                   currentCountry={homeCountry}
@@ -1031,43 +1275,6 @@ export function Demo() {
               </div>
             </SubSection>
 
-            <SubSection title="Header (light)">
-              <Header
-                variant="light"
-                logo={
-                  <img src={logos.tealWordmark} alt="PolicyEngine" className="h-5" />
-                }
-                actions={
-                  <>
-                    <a href="#">Research</a>
-                    <a href="#">About</a>
-                    <a href="#">Donate</a>
-                    <Button size="sm">Sign in</Button>
-                  </>
-                }
-              >
-                <span className="ml-2">UBI Calculator</span>
-              </Header>
-            </SubSection>
-
-            <SubSection title="Header (dark, with navLinks)">
-              <Header
-                variant="dark"
-                logo={
-                  <img src={logos.whiteWordmark} alt="PolicyEngine" className="h-5" />
-                }
-                navLinks={[
-                  { slug: 'research', text: 'Research', href: '#' },
-                  { slug: 'about', text: 'About', href: '#' },
-                  { slug: 'donate', text: 'Donate', href: '#' },
-                ]}
-                actions={
-                  <Button size="sm" className="bg-white text-teal-600 hover:bg-gray-100">Sign in</Button>
-                }
-              >
-                <span className="ml-2">Policy calculator</span>
-              </Header>
-            </SubSection>
 
             <SubSection title="Sidebar components">
               <Card className="max-w-[280px]">
@@ -1092,13 +1299,13 @@ export function Demo() {
                 <Card>
                   <CardContent className="pt-4 flex flex-col items-center gap-2">
                     <img src={logos.tealWordmark} alt="Teal wordmark (SVG)" className="h-6" />
-                    <span className="text-xs text-gray-400">tealWordmark</span>
+                    <span className="text-xs text-muted-foreground">tealWordmark</span>
                   </CardContent>
                 </Card>
                 <Card>
                   <CardContent className="pt-4 flex flex-col items-center gap-2">
                     <img src={logos.tealWordmarkPng} alt="Teal wordmark (PNG)" className="h-6" />
-                    <span className="text-xs text-gray-400">tealWordmarkPng</span>
+                    <span className="text-xs text-muted-foreground">tealWordmarkPng</span>
                   </CardContent>
                 </Card>
                 <Card className="bg-teal-600">
@@ -1116,25 +1323,25 @@ export function Demo() {
                 <Card>
                   <CardContent className="pt-4 flex flex-col items-center gap-2">
                     <img src={logos.tealSquare} alt="Teal square (SVG)" className="h-10" />
-                    <span className="text-xs text-gray-400">tealSquare</span>
+                    <span className="text-xs text-muted-foreground">tealSquare</span>
                   </CardContent>
                 </Card>
                 <Card>
                   <CardContent className="pt-4 flex flex-col items-center gap-2">
                     <img src={logos.tealSquarePng} alt="Teal square (PNG)" className="h-10" />
-                    <span className="text-xs text-gray-400">tealSquarePng</span>
+                    <span className="text-xs text-muted-foreground">tealSquarePng</span>
                   </CardContent>
                 </Card>
                 <Card>
                   <CardContent className="pt-4 flex flex-col items-center gap-2">
                     <img src={logos.tealSquareTransparent} alt="Teal square transparent (PNG)" className="h-10" />
-                    <span className="text-xs text-gray-400">tealSquareTransparent</span>
+                    <span className="text-xs text-muted-foreground">tealSquareTransparent</span>
                   </CardContent>
                 </Card>
                 <Card>
                   <CardContent className="pt-4 flex flex-col items-center gap-2">
                     <img src={logos.tealSquarePadded} alt="Teal square padded (SVG)" className="h-10" />
-                    <span className="text-xs text-gray-400">tealSquarePadded</span>
+                    <span className="text-xs text-muted-foreground">tealSquarePadded</span>
                   </CardContent>
                 </Card>
                 <Card className="bg-teal-600">
@@ -1390,10 +1597,7 @@ export function Demo() {
             <div className="grid grid-cols-1 gap-6">
               <ChartContainer
                 title="Revenue sources vs. UBI cost"
-                subtitle="Billions of dollars, annual"
-                actions={
-                  <Button variant="outline" size="sm">Download CSV</Button>
-                }
+                downloadFilename="revenue-vs-ubi.svg"
               >
                 <PEBarChart
                   data={barData}
@@ -1401,6 +1605,8 @@ export function Demo() {
                   yKey="amount"
                   height={350}
                   colorByValue
+                  yLabel="Billions of dollars, annual"
+                  xLabel="Revenue source"
                   formatTooltip={(v) => `$${v}B`}
                 />
                 <PolicyEngineWatermark />
@@ -1408,7 +1614,7 @@ export function Demo() {
 
               <ChartContainer
                 title="Poverty rate projections"
-                subtitle="Percentage of population below poverty line, 2024-2033"
+                downloadFilename="poverty-rate-projections.svg"
               >
                 <PELineChart
                   data={lineData}
@@ -1417,12 +1623,14 @@ export function Demo() {
                     {
                       dataKey: 'baseline',
                       name: 'Baseline',
-                      color: 'var(--gray-400)',
+                      color: 'var(--color-gray-400)',
                       strokeDasharray: '5 5',
                     },
                     { dataKey: 'reform', name: 'With UBI reform' },
                   ]}
                   height={350}
+                  yLabel="Poverty rate (%)"
+                  xLabel="Year"
                   formatTooltip={(v) => `${v.toFixed(1)}%`}
                 />
                 <PolicyEngineWatermark />
@@ -1430,7 +1638,7 @@ export function Demo() {
 
               <ChartContainer
                 title="Tax burden by income decile"
-                subtitle="Average annual amount per household"
+                downloadFilename="tax-burden-by-decile.svg"
               >
                 <PEAreaChart
                   data={areaData}
@@ -1440,6 +1648,8 @@ export function Demo() {
                     { dataKey: 'payroll_tax', name: 'Payroll tax' },
                   ]}
                   height={350}
+                  yLabel="Average annual amount ($)"
+                  xLabel="Income decile"
                   formatTooltip={(v) => formatCurrency(v)}
                 />
                 <PolicyEngineWatermark />
@@ -1447,19 +1657,277 @@ export function Demo() {
 
               <ChartContainer
                 title="Budget impact waterfall"
-                subtitle="Net fiscal impact of UBI reform (billions)"
+                downloadFilename="budget-impact-waterfall.svg"
               >
                 <PEWaterfallChart
                   data={waterfallData}
+                  yDomain={waterfallDomain}
+                  yTicks={waterfallTicks}
                   height={350}
-                  formatTooltip={(v) => `$${v}B`}
+                  fillColor={getWaterfallFillColor}
+                  yLabel="Net fiscal impact (billions)"
+                  showBarLabels
+                  barLabelFormatter={waterfallFmt}
+                  formatTooltip={waterfallFmt}
+                />
+                <PolicyEngineWatermark />
+              </ChartContainer>
+
+              <ChartContainer
+                title="Revenue losses waterfall (all negative)"
+                downloadFilename="revenue-losses-waterfall.svg"
+              >
+                <PEWaterfallChart
+                  data={waterfallAllNegativeData}
+                  yDomain={waterfallAllNegativeDomain}
+                  yTicks={waterfallAllNegativeTicks}
+                  height={350}
+                  fillColor={getWaterfallFillColor}
+                  yLabel="Revenue change (billions)"
+                  showBarLabels
+                  barLabelFormatter={waterfallFmt}
+                  formatTooltip={waterfallFmt}
                 />
                 <PolicyEngineWatermark />
               </ChartContainer>
             </div>
           </Section>
 
-          <div className="text-center py-8 text-sm text-gray-400">
+          {/* ================================================================ */}
+          {/* IMPACT CHARTS */}
+          {/* ================================================================ */}
+          <Section title="Impact charts">
+            <div className="grid grid-cols-1 gap-6">
+              <ChartContainer
+                title="Distributional impact by income decile"
+                downloadFilename="distributional-impact.svg"
+              >
+                <PEImpactBarChart
+                  data={impactBarData}
+                  height={350}
+                  yAxisLabel="Relative change in net income (%)"
+                  yTickFormatter={(v) => `${(v * 100).toFixed(0)}%`}
+                  barLabelFormatter={(v) => `${(v * 100).toFixed(1)}%`}
+                />
+                <div className="flex gap-4 mt-2 px-4">
+                  <span className="flex items-center gap-1.5 text-xs text-muted-foreground">
+                    <span className="inline-block w-3 h-3 rounded-sm" style={{ backgroundColor: '#2C7A7B' }} />
+                    Gain
+                  </span>
+                  <span className="flex items-center gap-1.5 text-xs text-muted-foreground">
+                    <span className="inline-block w-3 h-3 rounded-sm" style={{ backgroundColor: '#4B5563' }} />
+                    Loss
+                  </span>
+                </div>
+                <PolicyEngineWatermark />
+              </ChartContainer>
+
+              <ChartContainer
+                title="Poverty impact (inverted colors)"
+                downloadFilename="poverty-impact.svg"
+              >
+                <PEImpactBarChart
+                  data={impactBarData}
+                  height={350}
+                  invertColors
+                  yAxisLabel="Change in poverty rate (%)"
+                  yTickFormatter={(v) => `${(v * 100).toFixed(0)}%`}
+                  barLabelFormatter={(v) => `${(v * 100).toFixed(1)}%`}
+                />
+                <div className="flex gap-4 mt-2 px-4">
+                  <span className="flex items-center gap-1.5 text-xs text-muted-foreground">
+                    <span className="inline-block w-3 h-3 rounded-sm" style={{ backgroundColor: '#2C7A7B' }} />
+                    Decrease (improvement)
+                  </span>
+                  <span className="flex items-center gap-1.5 text-xs text-muted-foreground">
+                    <span className="inline-block w-3 h-3 rounded-sm" style={{ backgroundColor: '#4B5563' }} />
+                    Increase (worsening)
+                  </span>
+                </div>
+                <PolicyEngineWatermark />
+              </ChartContainer>
+
+              <ChartContainer
+                title="Winners and losers"
+                downloadFilename="winners-and-losers.svg"
+              >
+                <PEWinnersLosersChart
+                  data={winnersLosersData}
+                  allData={winnersLosersAllData}
+                  height={500}
+                />
+                <PolicyEngineWatermark />
+              </ChartContainer>
+
+              <ChartContainer
+                title="Earnings chart"
+                downloadFilename="earnings-chart.svg"
+              >
+                <PEEarningsChart
+                  data={earningsData}
+                  currentEarnings={40000}
+                  xTickFormatter={(v) => formatCurrency(v)}
+                  yTickFormatter={(v) => formatCurrency(v)}
+                  height={350}
+                />
+                <PolicyEngineWatermark />
+              </ChartContainer>
+
+              <ChartContainer
+                title={getBudgetChartTitle(
+                  budgetWaterfallData.reduce((s, d) => s + (d.isTotal ? 0 : d.value), 0),
+                  'us',
+                )}
+                downloadFilename="budget-waterfall.svg"
+              >
+                <PEBudgetWaterfallChart
+                  data={budgetWaterfallData}
+                  countryId="us"
+                  height={350}
+                />
+                <PolicyEngineWatermark />
+              </ChartContainer>
+            </div>
+          </Section>
+
+          {/* ================================================================ */}
+          {/* VISUALIZATIONS */}
+          {/* ================================================================ */}
+          <Section title="Visualizations">
+            <SubSection title="Congressional district map">
+              <Text size="sm" c="dimmed" className="mb-3">
+                436 congressional districts with bundled GeoJSON — toggle between geographic and hex views
+              </Text>
+              <div className="mb-3">
+                <MapTypeToggle value={mapVizType} onChange={setMapVizType} />
+              </div>
+              <USDistrictChoroplethMap
+                data={congressionalHexData}
+                visualizationType={mapVizType}
+                downloadFilename="us-district-map.svg"
+                config={{
+                  width: 900,
+                  height: 550,
+                  colorScale: { colors: [...DIVERGING_GRAY_TEAL], symmetric: true },
+                  borderColor: '#FFFFFF',
+                  borderWidth: 0.5,
+                  formatValue: (v) => `${(v * 100).toFixed(1)}%`,
+                }}
+              />
+            </SubSection>
+
+            <SubSection title="UK constituency map">
+              <Text size="sm" c="dimmed" className="mb-3">
+                650 parliamentary constituencies with bundled GeoJSON — toggle between geographic and hex views
+              </Text>
+              <div className="mb-3">
+                <MapTypeToggle value={ukMapVizType} onChange={setUkMapVizType} />
+              </div>
+              <UKConstituencyChoroplethMap
+                data={ukConstituencyData}
+                visualizationType={ukMapVizType}
+                downloadFilename="uk-constituency-map.svg"
+                config={{
+                  width: 600,
+                  height: 700,
+                  colorScale: { colors: [...DIVERGING_GRAY_TEAL], symmetric: true },
+                  borderColor: '#FFFFFF',
+                  borderWidth: 0.3,
+                  formatValue: (v) => `${(v * 100).toFixed(1)}%`,
+                }}
+              />
+            </SubSection>
+
+            <SubSection title="US state hexagonal map">
+              <HexagonalMap
+                data={hexMapData}
+                config={{ hexSize: 28, showLabels: true, labelFontSize: 9, colorScale: { colors: [...DIVERGING_GRAY_TEAL], symmetric: true } }}
+                formatter={(v) => `${(v * 100).toFixed(1)}%`}
+                downloadFilename="us-state-hex-map.svg"
+              />
+            </SubSection>
+
+            <SubSection title="State legislative district map">
+              <Text size="sm" c="dimmed" className="mb-3">
+                State senate and house districts — only states with average district population &ge; 100,000
+              </Text>
+              <label className="text-sm font-medium text-muted-foreground mb-1 block">State</label>
+              <div className="flex gap-4 mb-3 items-center">
+                <div className="w-56">
+                  <SelectInput
+                    options={sldStateOptions}
+                    value={sldState}
+                    onChange={(val) => {
+                      setSldState(val);
+                      // Auto-reset to upper if new state doesn't qualify for lower
+                      if (sldChamber === 'lower' && !(SLDL_QUALIFYING_STATES as readonly string[]).includes(val)) {
+                        setSldChamber('upper');
+                      }
+                    }}
+                  />
+                </div>
+                <div className="bg-white rounded-md">
+                  <SegmentedControl
+                    value={sldChamber}
+                    onValueChange={(v) => setSldChamber(v as StateLegislativeChamber)}
+                    size="sm"
+                    options={[
+                      { label: 'Senate (upper)', value: 'upper' },
+                      {
+                        label: 'House (lower)',
+                        value: 'lower',
+                        disabled: !(SLDL_QUALIFYING_STATES as readonly string[]).includes(sldState),
+                      },
+                    ]}
+                  />
+                </div>
+              </div>
+              <StateLegislativeDistrictMap
+                data={generateSldDemoData(sldState, sldChamber)}
+                state={sldState}
+                chamber={sldChamber}
+                downloadFilename={`${sldState.toLowerCase()}-${sldChamber}-districts.svg`}
+                config={{
+                  height: 550,
+                  colorScale: { colors: [...DIVERGING_GRAY_TEAL], symmetric: true },
+                  formatValue: (v) => `${(v * 100).toFixed(1)}%`,
+                }}
+              />
+            </SubSection>
+
+            <SubSection title="Color semantics swatches">
+              <div className="space-y-4">
+                <div>
+                  <Text size="sm" fw={500} className="mb-2">Diverging gray-teal</Text>
+                  <div className="flex">
+                    {DIVERGING_GRAY_TEAL.map((color, i) => (
+                      <div
+                        key={i}
+                        className="h-8 flex-1"
+                        style={{ backgroundColor: color }}
+                        title={color}
+                      />
+                    ))}
+                  </div>
+                </div>
+                <div>
+                  <Text size="sm" fw={500} className="mb-2">Winners/losers scale</Text>
+                  <div className="flex">
+                    {winnersLosersColors.scale.map((color, i) => (
+                      <div
+                        key={i}
+                        className="h-8 flex-1"
+                        style={{ backgroundColor: color }}
+                        title={winnersLosersColors.labels[i]}
+                      />
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </SubSection>
+          </Section>
+
+          <div className="text-center py-8 text-sm text-muted-foreground">
             @policyengine/ui-kit — All components shown with example data
           </div>
         </div>

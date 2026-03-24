@@ -7,8 +7,10 @@ import {
   Tooltip,
   Legend,
   ResponsiveContainer,
+  ReferenceDot,
 } from 'recharts';
 import { AXIS_STYLE, GRID_STYLE, TOOLTIP_STYLE, LEGEND_STYLE, chartColors } from './chartDefaults';
+import { CHART_MARGINS, getNiceTicks, getYAxisLayout } from '../utils/chartUtils';
 import { cn } from '../utils/cn';
 
 export interface PELineChartSeries {
@@ -16,6 +18,13 @@ export interface PELineChartSeries {
   name?: string;
   color?: string;
   strokeDasharray?: string;
+}
+
+export interface PEReferenceDot {
+  x: number | string;
+  y: number;
+  label?: string;
+  color?: string;
 }
 
 export interface PELineChartProps {
@@ -27,6 +36,10 @@ export interface PELineChartProps {
   showLegend?: boolean;
   xLabel?: string;
   yLabel?: string;
+  yTicks?: number[];
+  yDomain?: [number, number];
+  margin?: { top?: number; right?: number; bottom?: number; left?: number };
+  referenceDots?: PEReferenceDot[];
   formatTooltip?: (value: number) => string;
   className?: string;
   styles?: { root?: React.CSSProperties };
@@ -42,15 +55,25 @@ export function PELineChart({
   showLegend = true,
   xLabel,
   yLabel,
+  yTicks,
+  yDomain,
+  margin = CHART_MARGINS.line,
+  referenceDots,
   formatTooltip,
   className,
   styles,
   rechartsProps,
 }: PELineChartProps) {
+  const computedTicks = yTicks ?? getNiceTicks([
+    Math.min(...data.map((d) => Math.min(...series.map((s) => d[s.dataKey] as number)))),
+    Math.max(...data.map((d) => Math.max(...series.map((s) => d[s.dataKey] as number)))),
+  ], 5);
+  const yAxis = getYAxisLayout(computedTicks, !!yLabel);
+
   return (
     <div className={cn('w-full', className)} style={styles?.root}>
       <ResponsiveContainer width="100%" height={height}>
-        <LineChart data={data} {...rechartsProps}>
+        <LineChart data={data} margin={{ ...margin, left: (margin.left ?? 0) + yAxis.marginLeft }} {...rechartsProps}>
           {showGrid && <CartesianGrid {...GRID_STYLE} />}
           <XAxis
             dataKey={xKey}
@@ -63,7 +86,10 @@ export function PELineChart({
             tick={AXIS_STYLE}
             tickLine={false}
             axisLine={{ stroke: 'var(--border)' }}
-            label={yLabel ? { value: yLabel, angle: -90, position: 'insideLeft', offset: 10, style: AXIS_STYLE } : undefined}
+            ticks={yTicks}
+            domain={yDomain}
+            width={yAxis.yAxisWidth}
+            label={yLabel ? { value: yLabel, angle: -90, position: 'center', dx: yAxis.labelDx, style: AXIS_STYLE } : undefined}
           />
           <Tooltip
             {...TOOLTIP_STYLE}
@@ -80,6 +106,18 @@ export function PELineChart({
               strokeWidth={2}
               dot={false}
               strokeDasharray={s.strokeDasharray}
+            />
+          ))}
+          {referenceDots?.map((dot, i) => (
+            <ReferenceDot
+              key={i}
+              x={dot.x}
+              y={dot.y}
+              r={5}
+              fill={dot.color ?? chartColors.primary}
+              stroke="white"
+              strokeWidth={2}
+              label={dot.label ? { value: dot.label, position: 'top', style: AXIS_STYLE } : undefined}
             />
           ))}
         </LineChart>

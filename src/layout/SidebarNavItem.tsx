@@ -35,7 +35,7 @@ const SidebarNavItem = React.forwardRef<HTMLDivElement, SidebarNavItemProps>(
             className={cn(
               'size-5 shrink-0',
               disabled
-                ? 'text-gray-400'
+                ? 'text-gray-500'
                 : isActive
                   ? 'text-gray-700'
                   : 'text-muted-foreground',
@@ -47,7 +47,7 @@ const SidebarNavItem = React.forwardRef<HTMLDivElement, SidebarNavItemProps>(
             'flex-1 text-sm',
             isActive ? 'font-medium' : 'font-normal',
             disabled
-              ? 'text-gray-400'
+              ? 'text-gray-500'
               : isActive
                 ? 'text-gray-900'
                 : 'text-gray-700',
@@ -59,7 +59,7 @@ const SidebarNavItem = React.forwardRef<HTMLDivElement, SidebarNavItemProps>(
           <ExternalLink
             className={cn(
               'size-3.5 shrink-0',
-              disabled ? 'text-gray-400' : 'text-muted-foreground',
+              disabled ? 'text-gray-500' : 'text-muted-foreground',
             )}
           />
         )}

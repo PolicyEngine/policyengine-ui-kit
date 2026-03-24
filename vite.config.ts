@@ -17,7 +17,12 @@ export default defineConfig({
       fileName: (format) => `index.${format === 'es' ? 'js' : 'cjs'}`,
     },
     rollupOptions: {
-      external: ['react', 'react-dom', 'react/jsx-runtime', 'recharts'],
+      external: [
+        'react',
+        'react-dom',
+        'react/jsx-runtime',
+        'recharts',
+      ],
     },
     cssCodeSplit: false,
   },

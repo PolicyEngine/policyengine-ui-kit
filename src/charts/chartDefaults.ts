@@ -55,3 +55,16 @@ export const chartColors = {
     'var(--chart-5)',
   ],
 } as const;
+
+export const ZERO_LINE_STYLE = {
+  stroke: 'var(--color-gray-600)',
+  strokeWidth: 1,
+} as const;
+
+/** @deprecated Use AXIS_STYLE instead — identical values. */
+export const RECHARTS_FONT_STYLE = AXIS_STYLE;
+
+export const TOOLTIP_CONTAINER_STYLE: React.CSSProperties = {
+  ...TOOLTIP_STYLE.contentStyle,
+  maxWidth: 'min(300px, 90vw)',
+};

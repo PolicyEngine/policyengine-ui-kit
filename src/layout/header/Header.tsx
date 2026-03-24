@@ -1,6 +1,6 @@
 import { forwardRef, useState } from 'react';
 import { cn } from '../../utils/cn';
-import { HomeHeaderContent } from './HomeHeaderContent';
+import { HeaderContent } from './HeaderContent';
 
 export interface NavItemConfig {
   label: string;
@@ -14,7 +14,7 @@ export interface CountryConfig {
   flagEmoji?: string;
 }
 
-export interface HomeHeaderProps {
+export interface HeaderProps {
   /** Navigation items — simple links or items with dropdown children */
   navItems: NavItemConfig[];
   /** Available countries for the country selector */
@@ -42,7 +42,7 @@ export interface HomeHeaderProps {
 }
 
 /**
- * HomeHeader — gradient teal header bar for the PolicyEngine home page.
+ * Header — gradient teal header bar for PolicyEngine.
  *
  * Features:
  * - Sticky positioning with shadow
@@ -52,7 +52,7 @@ export interface HomeHeaderProps {
  * - Mobile hamburger menu using Sheet component
  * - Country selector dropdown
  */
-export const HomeHeader = forwardRef<HTMLDivElement, HomeHeaderProps>(
+export const Header = forwardRef<HTMLDivElement, HeaderProps>(
   (
     {
       navItems,
@@ -93,7 +93,7 @@ export const HomeHeader = forwardRef<HTMLDivElement, HomeHeaderProps>(
           ...styles?.root,
         }}
       >
-        <HomeHeaderContent
+        <HeaderContent
           navItems={navItems}
           opened={mobileMenuOpened}
           onOpen={() => setMobileMenuOpened(true)}
@@ -112,4 +112,4 @@ export const HomeHeader = forwardRef<HTMLDivElement, HomeHeaderProps>(
     );
   },
 );
-HomeHeader.displayName = 'HomeHeader';
+Header.displayName = 'Header';
