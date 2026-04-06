@@ -1585,6 +1585,15 @@ export function Demo() {
               <DataTable columns={tableColumns} data={tableData} />
             </SubSection>
 
+            <SubSection title="DataTable — sortable &amp; filterable">
+              <DataTable
+                columns={tableColumns}
+                data={tableData}
+                sortable
+                filterable
+              />
+            </SubSection>
+
             <SubSection title="PolicyEngineWatermark">
               <PolicyEngineWatermark />
             </SubSection>
