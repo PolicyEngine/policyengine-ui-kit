@@ -2,11 +2,11 @@
  * US Congressional District Choropleth Map
  *
  * Renders a geographic or hex choropleth map of US congressional districts using
- * d3-geo projections (pure SVG). GeoJSON data is bundled — no runtime fetching required.
+ * d3-geo projections (pure SVG). GeoJSON data is loaded asynchronously from external files.
  * Supports diverging color scales, custom formatting, and state-level zooming.
  */
 
-import { useCallback, useId, useMemo, useState } from 'react';
+import { useCallback, useEffect, useId, useMemo, useState } from 'react';
 import { geoPath, geoAlbersUsa, geoEquirectangular } from 'd3-geo';
 import type {
   ChoroplethDataPoint,
@@ -23,8 +23,7 @@ import {
   STATE_ABBREV_TO_FIPS,
   mergeMapConfig,
 } from './utils';
-import { CONGRESSIONAL_DISTRICTS_GEO } from './data/congressionalDistrictsGeo';
-import { CONGRESSIONAL_DISTRICTS_HEX } from './data/congressionalDistrictsHex';
+import { loadCongressionalDistrictsGeo, loadCongressionalDistrictsHex } from './data/loaders';
 import { PolicyEngineWatermark } from '../display/PolicyEngineWatermark';
 import { ZoomControls } from './ZoomControls';
 import { MapDownloadButton } from './MapDownloadButton';
@@ -53,11 +52,6 @@ export interface USDistrictChoroplethMapProps {
   className?: string;
   styles?: { root?: React.CSSProperties };
 }
-
-const GEOJSON_MAP: Record<MapVisualizationType, GeoJSONFeatureCollection> = {
-  geographic: CONGRESSIONAL_DISTRICTS_GEO,
-  hex: CONGRESSIONAL_DISTRICTS_HEX,
-};
 
 const BORDER_WIDTH = 0.5;
 const SVG_WIDTH = 800;
@@ -130,7 +124,23 @@ export function USDistrictChoroplethMap({
   const { containerRef, mergedRef } = useMergedRef<HTMLDivElement>(exportRef);
   const isHexMap = visualizationType === 'hex';
 
-  const geoJSON = GEOJSON_MAP[visualizationType];
+  // Load GeoJSON data asynchronously
+  const [geoJSON, setGeoJSON] = useState<GeoJSONFeatureCollection | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    setIsLoading(true);
+    const loader = visualizationType === 'geographic' ? loadCongressionalDistrictsGeo() : loadCongressionalDistrictsHex();
+    loader
+      .then((data) => {
+        setGeoJSON(data);
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        console.error('Failed to load GeoJSON data:', error);
+        setIsLoading(false);
+      });
+  }, [visualizationType]);
   const fullConfig = useMemo(
     () => mergeMapConfig(config, { width: SVG_WIDTH, height: 500, borderWidth: BORDER_WIDTH }),
     [config],
@@ -201,6 +211,19 @@ export function USDistrictChoroplethMap({
   const handleMouseLeave = useCallback(() => {
     setTooltip(null);
   }, []);
+
+  if (isLoading || !geoJSON) {
+    return (
+      <div
+        className={cn('flex items-center justify-center', className)}
+        style={{ height: fullConfig.height, ...styles?.root }}
+      >
+        <span className="text-sm text-muted-foreground">
+          {isLoading ? 'Loading map data...' : 'Failed to load map data'}
+        </span>
+      </div>
+    );
+  }
 
   if (!data.length) {
     return (

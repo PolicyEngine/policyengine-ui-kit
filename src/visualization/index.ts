@@ -50,12 +50,8 @@ export {
   UKConstituencyChoroplethMap,
   type UKConstituencyChoroplethMapProps,
 } from './UKConstituencyChoroplethMap';
-export { CONGRESSIONAL_DISTRICTS_GEO } from './data/congressionalDistrictsGeo';
-export { CONGRESSIONAL_DISTRICTS_HEX } from './data/congressionalDistrictsHex';
-export { UK_CONSTITUENCIES_GEO } from './data/ukConstituenciesGeo';
-export { UK_CONSTITUENCIES_HEX } from './data/ukConstituenciesHex';
-export { STATE_SENATE_DISTRICTS_GEO } from './data/stateSenateDistrictsGeo';
-export { STATE_HOUSE_DISTRICTS_GEO } from './data/stateHouseDistrictsGeo';
+// Export async GeoJSON data loaders (data is externalized to reduce bundle size)
+export * from './data';
 export {
   StateLegislativeDistrictMap,
   type StateLegislativeDistrictMapProps,

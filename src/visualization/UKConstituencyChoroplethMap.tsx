@@ -3,16 +3,16 @@
  *
  * Renders a geographic or hex choropleth map of UK parliamentary constituencies.
  * Geographic view uses British National Grid coordinates with d3-geo geoTransform.
- * Hex view uses axial q/r coordinates from bundled data.
- * Both datasets are bundled — no runtime fetching required.
+ * Hex view uses axial q/r coordinates loaded asynchronously from external files.
  */
 
-import { useCallback, useId, useMemo, useState } from 'react';
+import { useCallback, useEffect, useId, useMemo, useState } from 'react';
 import { geoPath, geoTransform } from 'd3-geo';
 import type {
   ChoroplethDataPoint,
   ChoroplethMapConfig,
   GeoJSONFeature,
+  GeoJSONFeatureCollection,
   MapVisualizationType,
   ColorRange,
 } from './types';
@@ -23,8 +23,7 @@ import {
   mergeMapConfig,
   hexPoints,
 } from './utils';
-import { UK_CONSTITUENCIES_GEO } from './data/ukConstituenciesGeo';
-import { UK_CONSTITUENCIES_HEX } from './data/ukConstituenciesHex';
+import { loadUKConstituenciesGeo, loadUKConstituenciesHex } from './data/loaders';
 import { PolicyEngineWatermark } from '../display/PolicyEngineWatermark';
 import { ZoomControls } from './ZoomControls';
 import { MapDownloadButton } from './MapDownloadButton';
@@ -101,9 +100,11 @@ function useBNGPathGenerator(svgWidth: number, svgHeight: number) {
 /**
  * Build a GSS→constituency name lookup from the hex data.
  */
-const GSS_TO_NAME: Map<string, string> = new Map(
-  Object.entries(UK_CONSTITUENCIES_HEX).map(([name, { gss }]) => [gss, name]),
-);
+function buildGSSToNameMap(hexData: Record<string, { x: number; y: number; gss: string }>): Map<string, string> {
+  return new Map(
+    Object.entries(hexData).map(([name, { gss }]) => [gss, name]),
+  );
+}
 
 /**
  * Convert offset hex grid coordinates (x, y) to pixel positions.
@@ -126,9 +127,10 @@ function gridToPixel(
  * Pre-compute hex layout: derive hex size from grid coordinate ranges
  * to fill the SVG viewport, then compute pixel positions.
  */
-function useHexLayout(svgWidth: number, svgHeight: number) {
+function useHexLayout(svgWidth: number, svgHeight: number, hexData: Record<string, { x: number; y: number; gss: string }> | null) {
   return useMemo(() => {
-    const entries = Object.entries(UK_CONSTITUENCIES_HEX);
+    if (!hexData) return null;
+    const entries = Object.entries(hexData);
 
     // Find grid coordinate ranges
     let gMinX = Infinity, gMaxX = -Infinity, gMinY = Infinity, gMaxY = -Infinity;
@@ -180,7 +182,7 @@ function useHexLayout(svgWidth: number, svgHeight: number) {
         cy: cy + shiftY,
       })),
     };
-  }, [svgWidth, svgHeight]);
+  }, [svgWidth, svgHeight, hexData]);
 }
 
 export function UKConstituencyChoroplethMap({
@@ -193,8 +195,32 @@ export function UKConstituencyChoroplethMap({
   styles,
 }: UKConstituencyChoroplethMapProps) {
   const uniqueId = useId();
-  const { containerRef, mergedRef } = useMergedRef<HTMLDivElement>(exportRef);
+  const { containerRef, mergedRef} = useMergedRef<HTMLDivElement>(exportRef);
   const isHexMap = visualizationType === 'hex';
+
+  // Load GeoJSON data asynchronously
+  const [geoData, setGeoData] = useState<GeoJSONFeatureCollection | null>(null);
+  const [hexData, setHexData] = useState<Record<string, { x: number; y: number; gss: string }> | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [gssToName, setGssToName] = useState<Map<string, string>>(new Map());
+
+  useEffect(() => {
+    setIsLoading(true);
+    Promise.all([
+      loadUKConstituenciesGeo(),
+      loadUKConstituenciesHex(),
+    ])
+      .then(([geo, hex]) => {
+        setGeoData(geo);
+        setHexData(hex);
+        setGssToName(buildGSSToNameMap(hex));
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        console.error('Failed to load UK constituency data:', error);
+        setIsLoading(false);
+      });
+  }, []);
 
   const fullConfig = useMemo(
     () => mergeMapConfig(config, { width: SVG_WIDTH, height: DEFAULT_HEIGHT, borderWidth: BORDER_WIDTH }),
@@ -208,7 +234,7 @@ export function UKConstituencyChoroplethMap({
   );
 
   const pathGenerator = useBNGPathGenerator(fullConfig.width, fullConfig.height);
-  const hexLayout = useHexLayout(fullConfig.width, fullConfig.height);
+  const hexLayout = useHexLayout(fullConfig.width, fullConfig.height, hexData);
 
   const [tooltip, setTooltip] = useState<TooltipState | null>(null);
   const { zoom: svgZoom, pan: svgPan, handlers: zoomHandlers } = useSvgZoomPan();
@@ -219,7 +245,7 @@ export function UKConstituencyChoroplethMap({
       if (!rect) return;
 
       const dataPoint = dataMap.get(geoId);
-      const name = GSS_TO_NAME.get(geoId) ?? geoId;
+      const name = gssToName.get(geoId) ?? geoId;
 
       setTooltip({
         x: event.clientX - rect.left,
@@ -228,7 +254,7 @@ export function UKConstituencyChoroplethMap({
         value: dataPoint ? fullConfig.formatValue(dataPoint.value) : 'No data',
       });
     },
-    [dataMap, fullConfig, containerRef],
+    [dataMap, fullConfig, containerRef, gssToName],
   );
 
   const handleMouseMove = useCallback(
@@ -246,6 +272,19 @@ export function UKConstituencyChoroplethMap({
   const handleMouseLeave = useCallback(() => {
     setTooltip(null);
   }, []);
+
+  if (isLoading || !geoData || !hexData) {
+    return (
+      <div
+        className={cn('flex items-center justify-center', className)}
+        style={{ height: fullConfig.height, ...styles?.root }}
+      >
+        <span className="text-sm text-muted-foreground">
+          {isLoading ? 'Loading map data...' : 'Failed to load map data'}
+        </span>
+      </div>
+    );
+  }
 
   if (!data.length) {
     return (
@@ -279,7 +318,7 @@ export function UKConstituencyChoroplethMap({
           onPointerUp={zoomHandlers.onPointerUp}
         >
           <g transform={`translate(${fullConfig.width / 2}, ${fullConfig.height / 2}) scale(${svgZoom}) translate(${-fullConfig.width / 2 + svgPan[0]}, ${-fullConfig.height / 2 + svgPan[1]})`}>
-          {isHexMap
+          {isHexMap && hexLayout
             ? hexLayout.hexagons.map(({ name, gss, cx, cy }) => {
                 const dataPoint = dataMap.get(gss);
                 const fillColor = dataPoint
@@ -302,7 +341,7 @@ export function UKConstituencyChoroplethMap({
                   </polygon>
                 );
               })
-            : UK_CONSTITUENCIES_GEO.features.map((feature: GeoJSONFeature) => {
+            : geoData.features.map((feature: GeoJSONFeature) => {
                 const gssCode = feature.properties?.DISTRICT_ID as string | undefined;
                 const name = feature.properties?.Name as string | undefined;
                 const dataPoint = gssCode ? dataMap.get(gssCode) : undefined;

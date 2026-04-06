@@ -1,6 +1,12 @@
-export { CONGRESSIONAL_DISTRICTS_GEO } from './congressionalDistrictsGeo';
-export { CONGRESSIONAL_DISTRICTS_HEX } from './congressionalDistrictsHex';
-export { UK_CONSTITUENCIES_GEO } from './ukConstituenciesGeo';
-export { UK_CONSTITUENCIES_HEX } from './ukConstituenciesHex';
-export { STATE_SENATE_DISTRICTS_GEO } from './stateSenateDistrictsGeo';
-export { STATE_HOUSE_DISTRICTS_GEO } from './stateHouseDistrictsGeo';
+// Async loaders for GeoJSON data (to avoid bundling 24MB of data)
+export {
+  loadCongressionalDistrictsGeo,
+  loadCongressionalDistrictsHex,
+  loadUKConstituenciesGeo,
+  loadUKConstituenciesHex,
+  loadStateSenateDistrictsGeo,
+  loadStateHouseDistrictsGeo,
+} from './loaders';
+
+// Legacy sync exports are no longer available - use async loaders above
+// These constants have been externalized to reduce bundle size from 27MB to <1MB

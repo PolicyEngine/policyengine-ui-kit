@@ -18,7 +18,8 @@
   "files": [
     "dist",
     "src/theme",
-    "src/assets"
+    "src/assets",
+    "src/visualization/data/json"
   ],
   "scripts": {
     "dev": "vite",
