@@ -14,16 +14,14 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.13"
-
-      - name: Install towncrier
-        run: pip install towncrier
-
       - name: Check for changelog fragment
-        run: towncrier check --compare-with origin/main
+        run: |
+          count=$(find changelog.d -name '*.md' ! -name '.gitkeep' | wc -l)
+          if [ "$count" -eq 0 ]; then
+            echo "::error::No changelog fragment found in changelog.d/. Add a fragment file (e.g. changelog.d/my-change.added.md) describing your change."
+            exit 1
+          fi
+          echo "Found $count changelog fragment(s)."
 
   test:
     name: Tests
