@@ -1,6 +1,4 @@
-import type { GeoJSONFeatureCollection } from '../types';
-
-export const CONGRESSIONAL_DISTRICTS_GEO: GeoJSONFeatureCollection = {
+{
   "type": "FeatureCollection",
   "features": [
     {
@@ -39561,4 +39559,4 @@ export const CONGRESSIONAL_DISTRICTS_GEO: GeoJSONFeatureCollection = {
     }
   ],
   "fileName": "cb_2024_us_cd119_20m"
-};
+}

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   Home,
   Settings,
@@ -145,9 +145,11 @@ import { HexagonalMap } from '../src/visualization/HexagonalMap';
 import { USDistrictChoroplethMap } from '../src/visualization/USDistrictChoroplethMap';
 import { UKConstituencyChoroplethMap } from '../src/visualization/UKConstituencyChoroplethMap';
 import { StateLegislativeDistrictMap } from '../src/visualization/StateLegislativeDistrictMap';
-import { UK_CONSTITUENCIES_HEX } from '../src/visualization/data/ukConstituenciesHex';
-import { STATE_SENATE_DISTRICTS_GEO } from '../src/visualization/data/stateSenateDistrictsGeo';
-import { STATE_HOUSE_DISTRICTS_GEO } from '../src/visualization/data/stateHouseDistrictsGeo';
+import {
+  loadUKConstituenciesHex,
+  loadStateSenateDistrictsGeo,
+  loadStateHouseDistrictsGeo,
+} from '../src/visualization/data/loaders';
 import { MapTypeToggle } from '../src/visualization/MapTypeToggle';
 import { SLDU_QUALIFYING_STATES, SLDL_QUALIFYING_STATES, STATE_ABBREV_TO_FIPS } from '../src/visualization/utils';
 import type { StateLegislativeChamber } from '../src/visualization/utils';
@@ -369,10 +371,11 @@ const congressionalHexData: ChoroplethDataPoint[] = (() => {
   return data;
 })();
 
-// UK constituency demo data — synthetic values for all 650 constituencies
-const ukConstituencyData: ChoroplethDataPoint[] = (() => {
+// UK constituency demo data — loaded async from bundled hex data
+async function generateUKConstituencyData(): Promise<ChoroplethDataPoint[]> {
+  const hexData = await loadUKConstituenciesHex();
   const data: ChoroplethDataPoint[] = [];
-  for (const [name, { gss }] of Object.entries(UK_CONSTITUENCIES_HEX)) {
+  for (const [name, { gss }] of Object.entries(hexData)) {
     const hash = (gss.charCodeAt(4) * 31 + gss.charCodeAt(5) * 17 + gss.charCodeAt(6) * 7) % 100;
     const value = (hash - 45) / 500;
     data.push({
@@ -382,7 +385,7 @@ const ukConstituencyData: ChoroplethDataPoint[] = (() => {
     });
   }
   return data;
-})();
+}
 
 const tableColumns = [
   { key: 'decile', header: 'Income decile' },
@@ -446,8 +449,10 @@ const sldStateOptions = SLDU_QUALIFYING_STATES.map((s) => ({
   value: s,
 }));
 
-function generateSldDemoData(stateAbbrev: string, chamber: StateLegislativeChamber): ChoroplethDataPoint[] {
-  const source = chamber === 'upper' ? STATE_SENATE_DISTRICTS_GEO : STATE_HOUSE_DISTRICTS_GEO;
+async function generateSldDemoData(stateAbbrev: string, chamber: StateLegislativeChamber): Promise<ChoroplethDataPoint[]> {
+  const source = chamber === 'upper'
+    ? await loadStateSenateDistrictsGeo()
+    : await loadStateHouseDistrictsGeo();
   const fips = STATE_ABBREV_TO_FIPS[stateAbbrev.toUpperCase()];
   if (!fips) return [];
 
@@ -570,6 +575,18 @@ export function Demo() {
   const [ukMapVizType, setUkMapVizType] = useState<MapVisualizationType>('geographic');
   const [sldState, setSldState] = useState('CA');
   const [sldChamber, setSldChamber] = useState<StateLegislativeChamber>('upper');
+
+  // Async demo data
+  const [ukConstituencyData, setUkConstituencyData] = useState<ChoroplethDataPoint[]>([]);
+  const [sldDemoData, setSldDemoData] = useState<ChoroplethDataPoint[]>([]);
+
+  useEffect(() => {
+    generateUKConstituencyData().then(setUkConstituencyData);
+  }, []);
+
+  useEffect(() => {
+    generateSldDemoData(sldState, sldChamber).then(setSldDemoData);
+  }, [sldState, sldChamber]);
 
   return (
     <TooltipProvider>
@@ -1883,7 +1900,7 @@ export function Demo() {
                 </div>
               </div>
               <StateLegislativeDistrictMap
-                data={generateSldDemoData(sldState, sldChamber)}
+                data={sldDemoData}
                 state={sldState}
                 chamber={sldChamber}
                 downloadFilename={`${sldState.toLowerCase()}-${sldChamber}-districts.svg`}
