@@ -12,9 +12,19 @@ export default defineConfig({
   },
   build: {
     lib: {
-      entry: resolve(__dirname, 'src/index.ts'),
+      entry: {
+        index: resolve(__dirname, 'src/index.ts'),
+        primitives: resolve(__dirname, 'src/primitives/index.ts'),
+        charts: resolve(__dirname, 'src/charts/index.ts'),
+        visualization: resolve(__dirname, 'src/visualization/index.ts'),
+        layout: resolve(__dirname, 'src/layout/index.ts'),
+        inputs: resolve(__dirname, 'src/inputs/index.ts'),
+        display: resolve(__dirname, 'src/display/index.ts'),
+        utils: resolve(__dirname, 'src/utils/index.ts'),
+        assets: resolve(__dirname, 'src/assets/index.ts'),
+      },
       formats: ['es', 'cjs'],
-      fileName: (format) => `index.${format === 'es' ? 'js' : 'cjs'}`,
+      fileName: (format, entryName) => `${entryName}.${format === 'es' ? 'js' : 'cjs'}`,
     },
     rollupOptions: {
       external: [

@@ -7,12 +7,13 @@
  * Both datasets are bundled — no runtime fetching required.
  */
 
-import { useCallback, useId, useMemo, useState } from 'react';
+import { useCallback, useEffect, useId, useMemo, useState } from 'react';
 import { geoPath, geoTransform } from 'd3-geo';
 import type {
   ChoroplethDataPoint,
   ChoroplethMapConfig,
   GeoJSONFeature,
+  GeoJSONFeatureCollection,
   MapVisualizationType,
   ColorRange,
 } from './types';
@@ -23,8 +24,7 @@ import {
   mergeMapConfig,
   hexPoints,
 } from './utils';
-import { UK_CONSTITUENCIES_GEO } from './data/ukConstituenciesGeo';
-import { UK_CONSTITUENCIES_HEX } from './data/ukConstituenciesHex';
+import { loadUKConstituenciesGeo, loadUKConstituenciesHex } from './data/loaders';
 import { PolicyEngineWatermark } from '../display/PolicyEngineWatermark';
 import { ZoomControls } from './ZoomControls';
 import { MapDownloadButton } from './MapDownloadButton';
@@ -98,12 +98,7 @@ function useBNGPathGenerator(svgWidth: number, svgHeight: number) {
   }, [svgWidth, svgHeight]);
 }
 
-/**
- * Build a GSS→constituency name lookup from the hex data.
- */
-const GSS_TO_NAME: Map<string, string> = new Map(
-  Object.entries(UK_CONSTITUENCIES_HEX).map(([name, { gss }]) => [gss, name]),
-);
+type UKConstituencyHex = Record<string, { x: number; y: number; gss: string }>;
 
 /**
  * Convert offset hex grid coordinates (x, y) to pixel positions.
@@ -126,9 +121,10 @@ function gridToPixel(
  * Pre-compute hex layout: derive hex size from grid coordinate ranges
  * to fill the SVG viewport, then compute pixel positions.
  */
-function useHexLayout(svgWidth: number, svgHeight: number) {
+function useHexLayout(hexData: UKConstituencyHex | null, svgWidth: number, svgHeight: number) {
   return useMemo(() => {
-    const entries = Object.entries(UK_CONSTITUENCIES_HEX);
+    if (!hexData) return { hexSize: 0, hexagons: [] };
+    const entries = Object.entries(hexData);
 
     // Find grid coordinate ranges
     let gMinX = Infinity, gMaxX = -Infinity, gMinY = Infinity, gMaxY = -Infinity;
@@ -180,7 +176,7 @@ function useHexLayout(svgWidth: number, svgHeight: number) {
         cy: cy + shiftY,
       })),
     };
-  }, [svgWidth, svgHeight]);
+  }, [hexData, svgWidth, svgHeight]);
 }
 
 export function UKConstituencyChoroplethMap({
@@ -196,6 +192,26 @@ export function UKConstituencyChoroplethMap({
   const { containerRef, mergedRef } = useMergedRef<HTMLDivElement>(exportRef);
   const isHexMap = visualizationType === 'hex';
 
+  const [geoData, setGeoData] = useState<GeoJSONFeatureCollection | null>(null);
+  const [hexData, setHexData] = useState<UKConstituencyHex | null>(null);
+
+  useEffect(() => {
+    Promise.all([
+      loadUKConstituenciesGeo(),
+      loadUKConstituenciesHex(),
+    ]).then(([geo, hex]) => {
+      setGeoData(geo);
+      setHexData(hex);
+    });
+  }, []);
+
+  const gssToName = useMemo(() => {
+    if (!hexData) return new Map<string, string>();
+    return new Map(
+      Object.entries(hexData).map(([name, { gss }]) => [gss, name]),
+    );
+  }, [hexData]);
+
   const fullConfig = useMemo(
     () => mergeMapConfig(config, { width: SVG_WIDTH, height: DEFAULT_HEIGHT, borderWidth: BORDER_WIDTH }),
     [config],
@@ -208,7 +224,7 @@ export function UKConstituencyChoroplethMap({
   );
 
   const pathGenerator = useBNGPathGenerator(fullConfig.width, fullConfig.height);
-  const hexLayout = useHexLayout(fullConfig.width, fullConfig.height);
+  const hexLayout = useHexLayout(hexData, fullConfig.width, fullConfig.height);
 
   const [tooltip, setTooltip] = useState<TooltipState | null>(null);
   const { zoom: svgZoom, pan: svgPan, handlers: zoomHandlers } = useSvgZoomPan();
@@ -219,7 +235,7 @@ export function UKConstituencyChoroplethMap({
       if (!rect) return;
 
       const dataPoint = dataMap.get(geoId);
-      const name = GSS_TO_NAME.get(geoId) ?? geoId;
+      const name = gssToName.get(geoId) ?? geoId;
 
       setTooltip({
         x: event.clientX - rect.left,
@@ -228,7 +244,7 @@ export function UKConstituencyChoroplethMap({
         value: dataPoint ? fullConfig.formatValue(dataPoint.value) : 'No data',
       });
     },
-    [dataMap, fullConfig, containerRef],
+    [dataMap, fullConfig, containerRef, gssToName],
   );
 
   const handleMouseMove = useCallback(
@@ -246,6 +262,17 @@ export function UKConstituencyChoroplethMap({
   const handleMouseLeave = useCallback(() => {
     setTooltip(null);
   }, []);
+
+  if (!geoData || !hexData) {
+    return (
+      <div
+        className={cn('flex items-center justify-center', className)}
+        style={{ height: fullConfig.height, ...styles?.root }}
+      >
+        <span className="text-sm text-muted-foreground">Loading map data...</span>
+      </div>
+    );
+  }
 
   if (!data.length) {
     return (
@@ -302,7 +329,7 @@ export function UKConstituencyChoroplethMap({
                   </polygon>
                 );
               })
-            : UK_CONSTITUENCIES_GEO.features.map((feature: GeoJSONFeature) => {
+            : geoData.features.map((feature: GeoJSONFeature) => {
                 const gssCode = feature.properties?.DISTRICT_ID as string | undefined;
                 const name = feature.properties?.Name as string | undefined;
                 const dataPoint = gssCode ? dataMap.get(gssCode) : undefined;

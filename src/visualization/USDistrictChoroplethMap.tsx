@@ -6,7 +6,7 @@
  * Supports diverging color scales, custom formatting, and state-level zooming.
  */
 
-import { useCallback, useId, useMemo, useState } from 'react';
+import { useCallback, useEffect, useId, useMemo, useState } from 'react';
 import { geoPath, geoAlbersUsa, geoEquirectangular } from 'd3-geo';
 import type {
   ChoroplethDataPoint,
@@ -23,8 +23,7 @@ import {
   STATE_ABBREV_TO_FIPS,
   mergeMapConfig,
 } from './utils';
-import { CONGRESSIONAL_DISTRICTS_GEO } from './data/congressionalDistrictsGeo';
-import { CONGRESSIONAL_DISTRICTS_HEX } from './data/congressionalDistrictsHex';
+import { loadCongressionalDistrictsGeo, loadCongressionalDistrictsHex } from './data/loaders';
 import { PolicyEngineWatermark } from '../display/PolicyEngineWatermark';
 import { ZoomControls } from './ZoomControls';
 import { MapDownloadButton } from './MapDownloadButton';
@@ -53,11 +52,6 @@ export interface USDistrictChoroplethMapProps {
   className?: string;
   styles?: { root?: React.CSSProperties };
 }
-
-const GEOJSON_MAP: Record<MapVisualizationType, GeoJSONFeatureCollection> = {
-  geographic: CONGRESSIONAL_DISTRICTS_GEO,
-  hex: CONGRESSIONAL_DISTRICTS_HEX,
-};
 
 const BORDER_WIDTH = 0.5;
 const SVG_WIDTH = 800;
@@ -130,7 +124,16 @@ export function USDistrictChoroplethMap({
   const { containerRef, mergedRef } = useMergedRef<HTMLDivElement>(exportRef);
   const isHexMap = visualizationType === 'hex';
 
-  const geoJSON = GEOJSON_MAP[visualizationType];
+  const [geoData, setGeoData] = useState<Record<MapVisualizationType, GeoJSONFeatureCollection> | null>(null);
+
+  useEffect(() => {
+    Promise.all([
+      loadCongressionalDistrictsGeo(),
+      loadCongressionalDistrictsHex(),
+    ]).then(([geo, hex]) => setGeoData({ geographic: geo, hex }));
+  }, []);
+
+  const geoJSON = geoData?.[visualizationType] ?? null;
   const fullConfig = useMemo(
     () => mergeMapConfig(config, { width: SVG_WIDTH, height: 500, borderWidth: BORDER_WIDTH }),
     [config],
@@ -147,10 +150,13 @@ export function USDistrictChoroplethMap({
     [errorStates],
   );
 
+  const emptyCollection: GeoJSONFeatureCollection = useMemo(() => ({ type: 'FeatureCollection', features: [] }), []);
+
   const displayGeoJSON = useMemo(() => {
+    if (!geoJSON) return emptyCollection;
     if (!focusState) return geoJSON;
     return filterFeaturesByState(geoJSON, focusState);
-  }, [geoJSON, focusState]);
+  }, [geoJSON, focusState, emptyCollection]);
 
   const pathGen = usePathGenerator(displayGeoJSON, isHexMap, SVG_WIDTH, fullConfig.height);
 
@@ -201,6 +207,17 @@ export function USDistrictChoroplethMap({
   const handleMouseLeave = useCallback(() => {
     setTooltip(null);
   }, []);
+
+  if (!geoData) {
+    return (
+      <div
+        className={cn('flex items-center justify-center', className)}
+        style={{ height: fullConfig.height, ...styles?.root }}
+      >
+        <span className="text-sm text-muted-foreground">Loading map data...</span>
+      </div>
+    );
+  }
 
   if (!data.length) {
     return (
