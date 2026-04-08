@@ -1,6 +1,4 @@
-import type { GeoJSONFeatureCollection } from '../types';
-
-export const CONGRESSIONAL_DISTRICTS_HEX: GeoJSONFeatureCollection = {
+{
   "type": "FeatureCollection",
   "name": "hex_congressional_districts",
   "crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
@@ -20423,4 +20421,4 @@ export const CONGRESSIONAL_DISTRICTS_HEX: GeoJSONFeatureCollection = {
       }
     }
   ]
-};
+}

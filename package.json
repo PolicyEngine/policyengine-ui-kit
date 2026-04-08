@@ -12,42 +12,42 @@
       "require": "./dist/index.cjs"
     },
     "./primitives": {
-      "types": "./dist/primitives.d.ts",
+      "types": "./dist/primitives/index.d.ts",
       "import": "./dist/primitives.js",
       "require": "./dist/primitives.cjs"
     },
     "./charts": {
-      "types": "./dist/charts.d.ts",
+      "types": "./dist/charts/index.d.ts",
       "import": "./dist/charts.js",
       "require": "./dist/charts.cjs"
     },
     "./visualization": {
-      "types": "./dist/visualization.d.ts",
+      "types": "./dist/visualization/index.d.ts",
       "import": "./dist/visualization.js",
       "require": "./dist/visualization.cjs"
     },
     "./layout": {
-      "types": "./dist/layout.d.ts",
+      "types": "./dist/layout/index.d.ts",
       "import": "./dist/layout.js",
       "require": "./dist/layout.cjs"
     },
     "./inputs": {
-      "types": "./dist/inputs.d.ts",
+      "types": "./dist/inputs/index.d.ts",
       "import": "./dist/inputs.js",
       "require": "./dist/inputs.cjs"
     },
     "./display": {
-      "types": "./dist/display.d.ts",
+      "types": "./dist/display/index.d.ts",
       "import": "./dist/display.js",
       "require": "./dist/display.cjs"
     },
     "./utils": {
-      "types": "./dist/utils.d.ts",
+      "types": "./dist/utils/index.d.ts",
       "import": "./dist/utils.js",
       "require": "./dist/utils.cjs"
     },
     "./assets": {
-      "types": "./dist/assets.d.ts",
+      "types": "./dist/assets/index.d.ts",
       "import": "./dist/assets.js",
       "require": "./dist/assets.cjs"
     },
@@ -63,7 +63,7 @@
   "scripts": {
     "dev": "vite",
     "dev:demo": "vite --config vite.demo.config.ts",
-    "build": "vite build && mv dist/style.css dist/styles.css && tsc -p tsconfig.build.json --emitDeclarationOnly",
+    "build": "vite build && mv dist/ui-kit.css dist/styles.css && tsc -p tsconfig.build.json --emitDeclarationOnly",
     "test": "vitest run",
     "test:watch": "vitest",
     "typecheck": "tsc --noEmit",
