@@ -1,13 +1,25 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-FRAGMENTS=$(find changelog.d/ -type f ! -name '.gitkeep' | wc -l | tr -d ' ')
+BASE_REF="${GITHUB_BASE_REF:-main}"
+BASE_REMOTE="origin/${BASE_REF}"
 
-if [ "$FRAGMENTS" -eq 0 ]; then
+if ! git rev-parse --verify --quiet "$BASE_REMOTE" >/dev/null; then
+  git fetch --no-tags --depth=1 origin "$BASE_REF"
+fi
+
+FRAGMENTS=$(
+  git diff --name-only --diff-filter=AM "$BASE_REMOTE"...HEAD -- 'changelog.d/*.md' \
+    | grep -v '/.gitkeep$' \
+    || true
+)
+
+if [ -z "$FRAGMENTS" ]; then
   echo "::error::No changelog fragment found in changelog.d/."
   echo "Add a fragment: echo 'Your change description' > changelog.d/<name>.<type>.md"
   echo "Valid types: added, changed, fixed, removed, breaking"
   exit 1
 fi
 
-echo "Found $FRAGMENTS changelog fragment(s)."
+echo "Found changelog fragment(s):"
+echo "$FRAGMENTS"
