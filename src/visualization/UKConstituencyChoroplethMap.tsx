@@ -191,6 +191,7 @@ export function UKConstituencyChoroplethMap({
   const uniqueId = useId();
   const { containerRef, mergedRef } = useMergedRef<HTMLDivElement>(exportRef);
   const isHexMap = visualizationType === 'hex';
+  const shouldLoadMapData = data.length > 0;
 
   const [geoData, setGeoData] = useState<GeoJSONFeatureCollection | null>(null);
   const [hexData, setHexData] = useState<UKConstituencyHex | null>(null);
@@ -198,15 +199,26 @@ export function UKConstituencyChoroplethMap({
 
   useEffect(() => {
     let isMounted = true;
+    setGeoData(null);
+    setHexData(null);
+    setLoadError(false);
 
-    Promise.all([
-      loadUKConstituenciesGeo(),
-      loadUKConstituenciesHex(),
-    ])
-      .then(([geo, hex]) => {
+    if (!shouldLoadMapData) {
+      return () => {
+        isMounted = false;
+      };
+    }
+
+    const loadMapData = isHexMap ? loadUKConstituenciesHex : loadUKConstituenciesGeo;
+
+    loadMapData()
+      .then((mapData) => {
         if (!isMounted) return;
-        setGeoData(geo);
-        setHexData(hex);
+        if (isHexMap) {
+          setHexData(mapData as UKConstituencyHex);
+        } else {
+          setGeoData(mapData as GeoJSONFeatureCollection);
+        }
       })
       .catch(() => {
         if (isMounted) setLoadError(true);
@@ -215,14 +227,7 @@ export function UKConstituencyChoroplethMap({
     return () => {
       isMounted = false;
     };
-  }, []);
-
-  const gssToName = useMemo(() => {
-    if (!hexData) return new Map<string, string>();
-    return new Map(
-      Object.entries(hexData).map(([name, { gss }]) => [gss, name]),
-    );
-  }, [hexData]);
+  }, [isHexMap, shouldLoadMapData]);
 
   const fullConfig = useMemo(
     () => mergeMapConfig(config, { width: SVG_WIDTH, height: DEFAULT_HEIGHT, borderWidth: BORDER_WIDTH }),
@@ -242,21 +247,20 @@ export function UKConstituencyChoroplethMap({
   const { zoom: svgZoom, pan: svgPan, handlers: zoomHandlers } = useSvgZoomPan();
 
   const handleMouseEnter = useCallback(
-    (event: React.MouseEvent, geoId: string) => {
+    (event: React.MouseEvent, geoId: string, fallbackLabel?: string) => {
       const rect = containerRef.current?.getBoundingClientRect();
       if (!rect) return;
 
       const dataPoint = dataMap.get(geoId);
-      const name = gssToName.get(geoId) ?? geoId;
 
       setTooltip({
         x: event.clientX - rect.left,
         y: event.clientY - rect.top,
-        label: dataPoint?.label ?? name,
+        label: dataPoint?.label ?? fallbackLabel ?? geoId,
         value: dataPoint ? fullConfig.formatValue(dataPoint.value) : 'No data',
       });
     },
-    [dataMap, fullConfig, containerRef, gssToName],
+    [dataMap, fullConfig, containerRef],
   );
 
   const handleMouseMove = useCallback(
@@ -275,6 +279,17 @@ export function UKConstituencyChoroplethMap({
     setTooltip(null);
   }, []);
 
+  if (!data.length) {
+    return (
+      <div
+        className={cn('flex items-center justify-center', className)}
+        style={{ height: fullConfig.height, ...styles?.root }}
+      >
+        <span className="text-sm text-muted-foreground">No constituency data available</span>
+      </div>
+    );
+  }
+
   if (loadError) {
     return (
       <div
@@ -286,24 +301,13 @@ export function UKConstituencyChoroplethMap({
     );
   }
 
-  if (!geoData || !hexData) {
+  if ((isHexMap && !hexData) || (!isHexMap && !geoData)) {
     return (
       <div
         className={cn('flex items-center justify-center', className)}
         style={{ height: fullConfig.height, ...styles?.root }}
       >
         <span className="text-sm text-muted-foreground">Loading map data...</span>
-      </div>
-    );
-  }
-
-  if (!data.length) {
-    return (
-      <div
-        className={cn('flex items-center justify-center', className)}
-        style={{ height: fullConfig.height, ...styles?.root }}
-      >
-        <span className="text-sm text-muted-foreground">No constituency data available</span>
       </div>
     );
   }
@@ -344,7 +348,7 @@ export function UKConstituencyChoroplethMap({
                     stroke={MAP_BORDER_COLOR}
                     strokeWidth={0.5}
                     style={{ cursor: 'default', transition: 'opacity 0.15s' }}
-                    onMouseEnter={(e) => handleMouseEnter(e, gss)}
+                    onMouseEnter={(e) => handleMouseEnter(e, gss, name)}
                     onMouseMove={handleMouseMove}
                     onMouseLeave={handleMouseLeave}
                   >
@@ -352,7 +356,7 @@ export function UKConstituencyChoroplethMap({
                   </polygon>
                 );
               })
-            : geoData.features.map((feature: GeoJSONFeature) => {
+            : (geoData?.features ?? []).map((feature: GeoJSONFeature) => {
                 const gssCode = feature.properties?.DISTRICT_ID as string | undefined;
                 const name = feature.properties?.Name as string | undefined;
                 const dataPoint = gssCode ? dataMap.get(gssCode) : undefined;
@@ -372,7 +376,7 @@ export function UKConstituencyChoroplethMap({
                     strokeWidth={fullConfig.borderWidth}
                     style={{ cursor: 'default', transition: 'opacity 0.15s' }}
                     onMouseEnter={(e) => {
-                      if (gssCode) handleMouseEnter(e, gssCode);
+                      if (gssCode) handleMouseEnter(e, gssCode, name);
                     }}
                     onMouseMove={handleMouseMove}
                     onMouseLeave={handleMouseLeave}

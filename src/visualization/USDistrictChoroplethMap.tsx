@@ -124,19 +124,29 @@ export function USDistrictChoroplethMap({
   const uniqueId = useId();
   const { containerRef, mergedRef } = useMergedRef<HTMLDivElement>(exportRef);
   const isHexMap = visualizationType === 'hex';
+  const shouldLoadMapData = data.length > 0;
 
-  const [geoData, setGeoData] = useState<Record<MapVisualizationType, GeoJSONFeatureCollection> | null>(null);
+  const [geoData, setGeoData] = useState<GeoJSONFeatureCollection | null>(null);
   const [loadError, setLoadError] = useState(false);
 
   useEffect(() => {
     let isMounted = true;
+    setGeoData(null);
+    setLoadError(false);
 
-    Promise.all([
-      loadCongressionalDistrictsGeo(),
-      loadCongressionalDistrictsHex(),
-    ])
-      .then(([geo, hex]) => {
-        if (isMounted) setGeoData({ geographic: geo, hex });
+    if (!shouldLoadMapData) {
+      return () => {
+        isMounted = false;
+      };
+    }
+
+    const loadMapData = isHexMap
+      ? loadCongressionalDistrictsHex
+      : loadCongressionalDistrictsGeo;
+
+    loadMapData()
+      .then((geo) => {
+        if (isMounted) setGeoData(geo);
       })
       .catch(() => {
         if (isMounted) setLoadError(true);
@@ -145,9 +155,9 @@ export function USDistrictChoroplethMap({
     return () => {
       isMounted = false;
     };
-  }, []);
+  }, [isHexMap, shouldLoadMapData]);
 
-  const geoJSON = geoData?.[visualizationType] ?? null;
+  const geoJSON = geoData;
   const fullConfig = useMemo(
     () => mergeMapConfig(config, { width: SVG_WIDTH, height: 500, borderWidth: BORDER_WIDTH }),
     [config],
@@ -222,6 +232,17 @@ export function USDistrictChoroplethMap({
     setTooltip(null);
   }, []);
 
+  if (!data.length) {
+    return (
+      <div
+        className={cn('flex items-center justify-center', className)}
+        style={{ height: fullConfig.height, ...styles?.root }}
+      >
+        <span className="text-sm text-muted-foreground">No district data available</span>
+      </div>
+    );
+  }
+
   if (loadError) {
     return (
       <div
@@ -240,17 +261,6 @@ export function USDistrictChoroplethMap({
         style={{ height: fullConfig.height, ...styles?.root }}
       >
         <span className="text-sm text-muted-foreground">Loading map data...</span>
-      </div>
-    );
-  }
-
-  if (!data.length) {
-    return (
-      <div
-        className={cn('flex items-center justify-center', className)}
-        style={{ height: fullConfig.height, ...styles?.root }}
-      >
-        <span className="text-sm text-muted-foreground">No district data available</span>
       </div>
     );
   }

@@ -124,21 +124,31 @@ export function StateLegislativeDistrictMap({
   const uniqueId = useId();
   const { containerRef, mergedRef } = useMergedRef<HTMLDivElement>(exportRef);
 
-  const [senateGeo, setSenateGeo] = useState<GeoJSONFeatureCollection | null>(null);
-  const [houseGeo, setHouseGeo] = useState<GeoJSONFeatureCollection | null>(null);
+  const [geoData, setGeoData] = useState<GeoJSONFeatureCollection | null>(null);
   const [loadError, setLoadError] = useState(false);
+
+  const isQualifiedState = isStateQualified(state, chamber);
+  const shouldLoadMapData = isQualifiedState && data.length > 0;
 
   useEffect(() => {
     let isMounted = true;
+    setGeoData(null);
+    setLoadError(false);
 
-    Promise.all([
-      loadStateSenateDistrictsGeo(),
-      loadStateHouseDistrictsGeo(),
-    ])
-      .then(([senate, house]) => {
+    if (!shouldLoadMapData) {
+      return () => {
+        isMounted = false;
+      };
+    }
+
+    const loadMapData = chamber === 'upper'
+      ? loadStateSenateDistrictsGeo
+      : loadStateHouseDistrictsGeo;
+
+    loadMapData()
+      .then((geo) => {
         if (!isMounted) return;
-        setSenateGeo(senate);
-        setHouseGeo(house);
+        setGeoData(geo);
       })
       .catch(() => {
         if (isMounted) setLoadError(true);
@@ -147,7 +157,7 @@ export function StateLegislativeDistrictMap({
     return () => {
       isMounted = false;
     };
-  }, []);
+  }, [chamber, shouldLoadMapData]);
 
   const fullConfig = useMemo(
     () => mergeMapConfig(config, { width: SVG_WIDTH, height: 500, borderWidth: BORDER_WIDTH }),
@@ -162,10 +172,9 @@ export function StateLegislativeDistrictMap({
 
   // Select and filter GeoJSON by chamber + state
   const displayGeoJSON = useMemo(() => {
-    const source = chamber === 'upper' ? senateGeo : houseGeo;
-    if (!source) return { type: 'FeatureCollection' as const, features: [] as GeoJSONFeature[] };
-    return filterFeaturesByState(source, state);
-  }, [chamber, state, senateGeo, houseGeo]);
+    if (!geoData) return { type: 'FeatureCollection' as const, features: [] as GeoJSONFeature[] };
+    return filterFeaturesByState(geoData, state);
+  }, [state, geoData]);
 
   // Build path generator — fitExtent auto-zooms to the state's features
   const pathGen = usePathGenerator(displayGeoJSON, SVG_WIDTH, fullConfig.height);
@@ -207,30 +216,8 @@ export function StateLegislativeDistrictMap({
     setTooltip(null);
   }, []);
 
-  if (loadError) {
-    return (
-      <div
-        className={cn('flex items-center justify-center', className)}
-        style={{ height: fullConfig.height, ...styles?.root }}
-      >
-        <span className="text-sm text-muted-foreground">Unable to load map data</span>
-      </div>
-    );
-  }
-
-  if (!senateGeo || !houseGeo) {
-    return (
-      <div
-        className={cn('flex items-center justify-center', className)}
-        style={{ height: fullConfig.height, ...styles?.root }}
-      >
-        <span className="text-sm text-muted-foreground">Loading map data...</span>
-      </div>
-    );
-  }
-
   // Validation: check if this state/chamber combination is supported
-  if (!isStateQualified(state, chamber)) {
+  if (!isQualifiedState) {
     const chamberLabel = chamber === 'upper' ? 'senate' : 'house';
     return (
       <div
@@ -251,6 +238,28 @@ export function StateLegislativeDistrictMap({
         style={{ height: fullConfig.height, ...styles?.root }}
       >
         <span className="text-sm text-muted-foreground">No district data available</span>
+      </div>
+    );
+  }
+
+  if (loadError) {
+    return (
+      <div
+        className={cn('flex items-center justify-center', className)}
+        style={{ height: fullConfig.height, ...styles?.root }}
+      >
+        <span className="text-sm text-muted-foreground">Unable to load map data</span>
+      </div>
+    );
+  }
+
+  if (!geoData) {
+    return (
+      <div
+        className={cn('flex items-center justify-center', className)}
+        style={{ height: fullConfig.height, ...styles?.root }}
+      >
+        <span className="text-sm text-muted-foreground">Loading map data...</span>
       </div>
     );
   }
