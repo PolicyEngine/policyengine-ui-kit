@@ -10,12 +10,12 @@ fi
 
 FRAGMENTS=$(
   git diff --name-only --diff-filter=AM "$BASE_REMOTE"...HEAD -- 'changelog.d/*.md' \
-    | grep -v '/.gitkeep$' \
+    | grep -E '\.(added|changed|fixed|removed|breaking)\.md$' \
     || true
 )
 
 if [ -z "$FRAGMENTS" ]; then
-  echo "::error::No changelog fragment found in changelog.d/."
+  echo "::error::No valid changelog fragment found in changelog.d/."
   echo "Add a fragment: echo 'Your change description' > changelog.d/<name>.<type>.md"
   echo "Valid types: added, changed, fixed, removed, breaking"
   exit 1
