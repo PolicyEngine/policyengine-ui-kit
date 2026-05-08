@@ -2,9 +2,9 @@
  * State Legislative District Choropleth Map
  *
  * Renders a geographic choropleth map of state senate or house districts for a
- * single US state using d3-geo projections (pure SVG). GeoJSON data is bundled —
- * no runtime fetching required. Supports diverging color scales, custom formatting,
- * zoom/pan, and SVG download.
+ * single US state using d3-geo projections (pure SVG). GeoJSON data is bundled
+ * and loaded from lazy chunks when the component mounts. Supports diverging
+ * color scales, custom formatting, zoom/pan, and SVG download.
  *
  * Only states where average district population >= 100,000 are supported.
  *
@@ -13,7 +13,7 @@
  * - House:  https://www2.census.gov/geo/tiger/GENZ2024/shp/cb_2024_us_sldl_500k.zip
  */
 
-import { useCallback, useId, useMemo, useState } from 'react';
+import { useCallback, useEffect, useId, useMemo, useState } from 'react';
 import { geoPath, geoAlbersUsa } from 'd3-geo';
 import type {
   ChoroplethDataPoint,
@@ -31,8 +31,7 @@ import {
   mergeMapConfig,
 } from './utils';
 import type { StateLegislativeChamber } from './utils';
-import { STATE_SENATE_DISTRICTS_GEO } from './data/stateSenateDistrictsGeo';
-import { STATE_HOUSE_DISTRICTS_GEO } from './data/stateHouseDistrictsGeo';
+import { loadStateSenateDistrictsGeo, loadStateHouseDistrictsGeo } from './data/loaders';
 import { PolicyEngineWatermark } from '../display/PolicyEngineWatermark';
 import { ZoomControls } from './ZoomControls';
 import { MapDownloadButton } from './MapDownloadButton';
@@ -125,6 +124,41 @@ export function StateLegislativeDistrictMap({
   const uniqueId = useId();
   const { containerRef, mergedRef } = useMergedRef<HTMLDivElement>(exportRef);
 
+  const [geoData, setGeoData] = useState<GeoJSONFeatureCollection | null>(null);
+  const [loadError, setLoadError] = useState(false);
+
+  const isQualifiedState = isStateQualified(state, chamber);
+  const shouldLoadMapData = isQualifiedState && data.length > 0;
+
+  useEffect(() => {
+    let isMounted = true;
+    setGeoData(null);
+    setLoadError(false);
+
+    if (!shouldLoadMapData) {
+      return () => {
+        isMounted = false;
+      };
+    }
+
+    const loadMapData = chamber === 'upper'
+      ? loadStateSenateDistrictsGeo
+      : loadStateHouseDistrictsGeo;
+
+    loadMapData()
+      .then((geo) => {
+        if (!isMounted) return;
+        setGeoData(geo);
+      })
+      .catch(() => {
+        if (isMounted) setLoadError(true);
+      });
+
+    return () => {
+      isMounted = false;
+    };
+  }, [chamber, shouldLoadMapData]);
+
   const fullConfig = useMemo(
     () => mergeMapConfig(config, { width: SVG_WIDTH, height: 500, borderWidth: BORDER_WIDTH }),
     [config],
@@ -138,9 +172,9 @@ export function StateLegislativeDistrictMap({
 
   // Select and filter GeoJSON by chamber + state
   const displayGeoJSON = useMemo(() => {
-    const source = chamber === 'upper' ? STATE_SENATE_DISTRICTS_GEO : STATE_HOUSE_DISTRICTS_GEO;
-    return filterFeaturesByState(source, state);
-  }, [chamber, state]);
+    if (!geoData) return { type: 'FeatureCollection' as const, features: [] as GeoJSONFeature[] };
+    return filterFeaturesByState(geoData, state);
+  }, [state, geoData]);
 
   // Build path generator — fitExtent auto-zooms to the state's features
   const pathGen = usePathGenerator(displayGeoJSON, SVG_WIDTH, fullConfig.height);
@@ -183,7 +217,7 @@ export function StateLegislativeDistrictMap({
   }, []);
 
   // Validation: check if this state/chamber combination is supported
-  if (!isStateQualified(state, chamber)) {
+  if (!isQualifiedState) {
     const chamberLabel = chamber === 'upper' ? 'senate' : 'house';
     return (
       <div
@@ -204,6 +238,28 @@ export function StateLegislativeDistrictMap({
         style={{ height: fullConfig.height, ...styles?.root }}
       >
         <span className="text-sm text-muted-foreground">No district data available</span>
+      </div>
+    );
+  }
+
+  if (loadError) {
+    return (
+      <div
+        className={cn('flex items-center justify-center', className)}
+        style={{ height: fullConfig.height, ...styles?.root }}
+      >
+        <span className="text-sm text-muted-foreground">Unable to load map data</span>
+      </div>
+    );
+  }
+
+  if (!geoData) {
+    return (
+      <div
+        className={cn('flex items-center justify-center', className)}
+        style={{ height: fullConfig.height, ...styles?.root }}
+      >
+        <span className="text-sm text-muted-foreground">Loading map data...</span>
       </div>
     );
   }

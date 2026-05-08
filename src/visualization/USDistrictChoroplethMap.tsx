@@ -2,11 +2,12 @@
  * US Congressional District Choropleth Map
  *
  * Renders a geographic or hex choropleth map of US congressional districts using
- * d3-geo projections (pure SVG). GeoJSON data is bundled — no runtime fetching required.
+ * d3-geo projections (pure SVG). GeoJSON data is bundled and loaded from
+ * lazy chunks when the component mounts.
  * Supports diverging color scales, custom formatting, and state-level zooming.
  */
 
-import { useCallback, useId, useMemo, useState } from 'react';
+import { useCallback, useEffect, useId, useMemo, useState } from 'react';
 import { geoPath, geoAlbersUsa, geoEquirectangular } from 'd3-geo';
 import type {
   ChoroplethDataPoint,
@@ -23,8 +24,7 @@ import {
   STATE_ABBREV_TO_FIPS,
   mergeMapConfig,
 } from './utils';
-import { CONGRESSIONAL_DISTRICTS_GEO } from './data/congressionalDistrictsGeo';
-import { CONGRESSIONAL_DISTRICTS_HEX } from './data/congressionalDistrictsHex';
+import { loadCongressionalDistrictsGeo, loadCongressionalDistrictsHex } from './data/loaders';
 import { PolicyEngineWatermark } from '../display/PolicyEngineWatermark';
 import { ZoomControls } from './ZoomControls';
 import { MapDownloadButton } from './MapDownloadButton';
@@ -53,11 +53,6 @@ export interface USDistrictChoroplethMapProps {
   className?: string;
   styles?: { root?: React.CSSProperties };
 }
-
-const GEOJSON_MAP: Record<MapVisualizationType, GeoJSONFeatureCollection> = {
-  geographic: CONGRESSIONAL_DISTRICTS_GEO,
-  hex: CONGRESSIONAL_DISTRICTS_HEX,
-};
 
 const BORDER_WIDTH = 0.5;
 const SVG_WIDTH = 800;
@@ -129,8 +124,40 @@ export function USDistrictChoroplethMap({
   const uniqueId = useId();
   const { containerRef, mergedRef } = useMergedRef<HTMLDivElement>(exportRef);
   const isHexMap = visualizationType === 'hex';
+  const shouldLoadMapData = data.length > 0;
 
-  const geoJSON = GEOJSON_MAP[visualizationType];
+  const [geoData, setGeoData] = useState<GeoJSONFeatureCollection | null>(null);
+  const [loadError, setLoadError] = useState(false);
+
+  useEffect(() => {
+    let isMounted = true;
+    setGeoData(null);
+    setLoadError(false);
+
+    if (!shouldLoadMapData) {
+      return () => {
+        isMounted = false;
+      };
+    }
+
+    const loadMapData = isHexMap
+      ? loadCongressionalDistrictsHex
+      : loadCongressionalDistrictsGeo;
+
+    loadMapData()
+      .then((geo) => {
+        if (isMounted) setGeoData(geo);
+      })
+      .catch(() => {
+        if (isMounted) setLoadError(true);
+      });
+
+    return () => {
+      isMounted = false;
+    };
+  }, [isHexMap, shouldLoadMapData]);
+
+  const geoJSON = geoData;
   const fullConfig = useMemo(
     () => mergeMapConfig(config, { width: SVG_WIDTH, height: 500, borderWidth: BORDER_WIDTH }),
     [config],
@@ -147,10 +174,13 @@ export function USDistrictChoroplethMap({
     [errorStates],
   );
 
+  const emptyCollection: GeoJSONFeatureCollection = useMemo(() => ({ type: 'FeatureCollection', features: [] }), []);
+
   const displayGeoJSON = useMemo(() => {
+    if (!geoJSON) return emptyCollection;
     if (!focusState) return geoJSON;
     return filterFeaturesByState(geoJSON, focusState);
-  }, [geoJSON, focusState]);
+  }, [geoJSON, focusState, emptyCollection]);
 
   const pathGen = usePathGenerator(displayGeoJSON, isHexMap, SVG_WIDTH, fullConfig.height);
 
@@ -209,6 +239,28 @@ export function USDistrictChoroplethMap({
         style={{ height: fullConfig.height, ...styles?.root }}
       >
         <span className="text-sm text-muted-foreground">No district data available</span>
+      </div>
+    );
+  }
+
+  if (loadError) {
+    return (
+      <div
+        className={cn('flex items-center justify-center', className)}
+        style={{ height: fullConfig.height, ...styles?.root }}
+      >
+        <span className="text-sm text-muted-foreground">Unable to load map data</span>
+      </div>
+    );
+  }
+
+  if (!geoData) {
+    return (
+      <div
+        className={cn('flex items-center justify-center', className)}
+        style={{ height: fullConfig.height, ...styles?.root }}
+      >
+        <span className="text-sm text-muted-foreground">Loading map data...</span>
       </div>
     );
   }
