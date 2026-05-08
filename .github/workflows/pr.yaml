@@ -7,23 +7,14 @@ jobs:
   changelog:
     name: Changelog fragment
     runs-on: ubuntu-latest
-
     steps:
       - name: Check out repository
         uses: actions/checkout@v6
         with:
           fetch-depth: 0
 
-      - name: Set up Python
-        uses: actions/setup-python@v6
-        with:
-          python-version: "3.13"
-
-      - name: Install towncrier
-        run: pip install towncrier
-
       - name: Check for changelog fragment
-        run: towncrier check --compare-with origin/main
+        run: .github/check_pr_fragment.sh
 
   test:
     name: Tests

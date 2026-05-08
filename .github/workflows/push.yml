@@ -19,13 +19,23 @@ jobs:
         id: check
         run: .github/check_fragments.sh
 
+      - name: Set up Python
+        if: steps.check.outputs.count != '0'
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.13"
+
+      - name: Install towncrier
+        if: steps.check.outputs.count != '0'
+        run: pip install towncrier
+
       - name: Bump version
         if: steps.check.outputs.count != '0'
         run: python .github/bump_version.py
 
       - name: Build changelog
         if: steps.check.outputs.count != '0'
-        run: python .github/build_changelog.py
+        run: towncrier build --yes --version "$(python -c "import json; print(json.load(open('package.json'))['version'])")"
 
       - name: Set up Bun
         if: steps.check.outputs.count != '0'
