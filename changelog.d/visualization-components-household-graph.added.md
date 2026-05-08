@@ -1,1 +1,0 @@
-Household composition graph visualization
