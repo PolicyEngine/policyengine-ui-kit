@@ -22,6 +22,14 @@ export default defineConfig({
         display: resolve(__dirname, 'src/display/index.ts'),
         utils: resolve(__dirname, 'src/utils/index.ts'),
         assets: resolve(__dirname, 'src/assets/index.ts'),
+        // Legacy compat surface mirroring @policyengine/design-system. See
+        // src/legacy/index.ts for the migration map.
+        legacy: resolve(__dirname, 'src/legacy/index.ts'),
+        'legacy/tokens': resolve(__dirname, 'src/legacy/tokens/index.ts'),
+        'legacy/tokens/colors': resolve(__dirname, 'src/legacy/tokens/colors.ts'),
+        'legacy/tokens/typography': resolve(__dirname, 'src/legacy/tokens/typography.ts'),
+        'legacy/tokens/spacing': resolve(__dirname, 'src/legacy/tokens/spacing.ts'),
+        'legacy/charts': resolve(__dirname, 'src/legacy/charts/index.ts'),
       },
       formats: ['es', 'cjs'],
       fileName: (format, entryName) => `${entryName}.${format === 'es' ? 'js' : 'cjs'}`,

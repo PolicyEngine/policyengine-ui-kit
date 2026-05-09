@@ -51,6 +51,36 @@
       "import": "./dist/assets.js",
       "require": "./dist/assets.cjs"
     },
+    "./legacy": {
+      "types": "./dist/legacy/index.d.ts",
+      "import": "./dist/legacy.js",
+      "require": "./dist/legacy.cjs"
+    },
+    "./legacy/tokens": {
+      "types": "./dist/legacy/tokens/index.d.ts",
+      "import": "./dist/legacy/tokens.js",
+      "require": "./dist/legacy/tokens.cjs"
+    },
+    "./legacy/tokens/colors": {
+      "types": "./dist/legacy/tokens/colors.d.ts",
+      "import": "./dist/legacy/tokens/colors.js",
+      "require": "./dist/legacy/tokens/colors.cjs"
+    },
+    "./legacy/tokens/typography": {
+      "types": "./dist/legacy/tokens/typography.d.ts",
+      "import": "./dist/legacy/tokens/typography.js",
+      "require": "./dist/legacy/tokens/typography.cjs"
+    },
+    "./legacy/tokens/spacing": {
+      "types": "./dist/legacy/tokens/spacing.d.ts",
+      "import": "./dist/legacy/tokens/spacing.js",
+      "require": "./dist/legacy/tokens/spacing.cjs"
+    },
+    "./legacy/charts": {
+      "types": "./dist/legacy/charts/index.d.ts",
+      "import": "./dist/legacy/charts.js",
+      "require": "./dist/legacy/charts.cjs"
+    },
     "./styles.css": "./dist/styles.css",
     "./theme.css": "./src/theme/tokens.css",
     "./quarto.scss": "./src/theme/quarto.scss",
