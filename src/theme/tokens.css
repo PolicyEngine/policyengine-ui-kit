@@ -124,7 +124,7 @@
   --secondary-foreground: #F5F5F5;
 
   /* Muted */
-  --muted: #131820;
+  --muted: #1A2030;
   --muted-foreground: #9CA3AF;
 
   /* Accent */
@@ -135,17 +135,17 @@
   --destructive: #F87171;
   --destructive-foreground: #0B0E14;
 
-  /* Chrome */
-  --border: #1E293B;
-  --input: #1E293B;
+  /* Chrome. --border bumped from #1E293B (1.32:1 on background, 1.22:1 on card — visually invisible) to #334155 (1.87:1 on bg, 1.57:1 on card). */
+  --border: #334155;
+  --input: #334155;
   --ring: #38B2AC;
 
-  /* Card */
-  --card: #131820;
+  /* Card. Bumped from #131820 (1.08:1 on background — invisible) to #1A2030 (1.19:1 on bg). Together with the bumped --border, the card surface is now clearly distinguishable. */
+  --card: #1A2030;
   --card-foreground: #F5F5F5;
 
   /* Popover */
-  --popover: #131820;
+  --popover: #1A2030;
   --popover-foreground: #F5F5F5;
 
   /* Charts (lifted up the brand scale for dark backgrounds) */

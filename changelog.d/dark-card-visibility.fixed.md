@@ -1,0 +1,1 @@
+Dark mode card surfaces are now visible. `--card`/`--popover`/`--muted` bumped from `#131820` (1.08:1 vs background — visually invisible) to `#1A2030` (1.19:1), and `--border`/`--input` bumped from `#1E293B` (1.32:1 vs background, 1.22:1 vs card) to `#334155` (1.87:1 / 1.57:1) so card surfaces and their borders are clearly distinguishable.

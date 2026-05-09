@@ -78,6 +78,9 @@ const lightSections: CssSection[] = [
     },
   },
   {
+    // --ring at teal-500 (#319795) clears WCAG SC 1.4.11 (3:1 non-text)
+    // against white at 3.51:1 — only ~0.5 above the floor. If you nudge the
+    // ring lighter (toward teal-400), re-verify against the contrast matrix.
     name: "Chrome",
     declarations: {
       "--border": "#E2E8F0",
@@ -212,7 +215,7 @@ const darkSections: CssSection[] = [
   {
     name: "Muted",
     declarations: {
-      "--muted": "#131820",
+      "--muted": "#1A2030",
       "--muted-foreground": "#9CA3AF",
     },
   },
@@ -231,24 +234,30 @@ const darkSections: CssSection[] = [
     },
   },
   {
-    name: "Chrome",
+    name:
+      "Chrome. --border bumped from #1E293B (1.32:1 on background, 1.22:1 " +
+      "on card — visually invisible) to #334155 (1.87:1 on bg, 1.57:1 on " +
+      "card).",
     declarations: {
-      "--border": "#1E293B",
-      "--input": "#1E293B",
+      "--border": "#334155",
+      "--input": "#334155",
       "--ring": "#38B2AC",
     },
   },
   {
-    name: "Card",
+    name:
+      "Card. Bumped from #131820 (1.08:1 on background — invisible) to " +
+      "#1A2030 (1.19:1 on bg). Together with the bumped --border, the card " +
+      "surface is now clearly distinguishable.",
     declarations: {
-      "--card": "#131820",
+      "--card": "#1A2030",
       "--card-foreground": "#F5F5F5",
     },
   },
   {
     name: "Popover",
     declarations: {
-      "--popover": "#131820",
+      "--popover": "#1A2030",
       "--popover-foreground": "#F5F5F5",
     },
   },
@@ -672,6 +681,25 @@ export const contrastPairs: readonly ContrastPair[] = [
     minRatio: 4.5,
     mode: "light",
   },
+  {
+    // SC 1.4.11 (Non-text Contrast, AA): focus indicators must clear 3:1
+    // against the adjacent background. The ring sits on --background, so we
+    // pin its visibility there.
+    description: "ring on background (light, non-text)",
+    fg: rootColorsLight["--ring"],
+    bg: rootColorsLight["--background"],
+    minRatio: 3,
+    mode: "light",
+  },
+  {
+    // Default link styling resolves to teal-600. Asserted as small-text AA so
+    // links stay legible inside paragraph copy.
+    description: "link (teal-600) on background (light)",
+    fg: palette.teal[600],
+    bg: rootColorsLight["--background"],
+    minRatio: 4.5,
+    mode: "light",
+  },
   // ----- Dark mode -----
   {
     description: "foreground on background (dark)",
@@ -727,6 +755,33 @@ export const contrastPairs: readonly ContrastPair[] = [
     fg: rootColorsDark["--muted-foreground"],
     bg: rootColorsDark["--card"],
     minRatio: 4.5,
+    mode: "dark",
+  },
+  {
+    // Dark-mode primary fill (teal-400) is light enough that we can ink it
+    // with near-black text. Pin the AA guarantee.
+    description: "primary-foreground on primary (dark)",
+    fg: rootColorsDark["--primary-foreground"],
+    bg: rootColorsDark["--primary"],
+    minRatio: 4.5,
+    mode: "dark",
+  },
+  {
+    // Same pattern for destructive: dark-mode destructive is red-400, so we
+    // ink with near-black to clear AA.
+    description: "destructive-foreground on destructive (dark)",
+    fg: rootColorsDark["--destructive-foreground"],
+    bg: rootColorsDark["--destructive"],
+    minRatio: 4.5,
+    mode: "dark",
+  },
+  {
+    // Focus indicator must clear SC 1.4.11 (3:1 non-text) against the
+    // adjacent background in dark mode too.
+    description: "ring on background (dark, non-text)",
+    fg: rootColorsDark["--ring"],
+    bg: rootColorsDark["--background"],
+    minRatio: 3,
     mode: "dark",
   },
 ];
