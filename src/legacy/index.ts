@@ -28,5 +28,10 @@
  * This module will be removed in a future major release once consumers migrate.
  */
 
-export * from "./tokens";
-export * from "./charts";
+// Subpath re-exports use explicit `/index` to dodge the same
+// file-shadowing-folder ambiguity fixed in src/index.ts. Without the
+// `/index` pin, TypeScript's `bundler` resolution picks the Vite-emitted
+// `dist/legacy/tokens.js` over the tsc-emitted `dist/legacy/tokens/index.d.ts`
+// and silently drops the re-exports.
+export * from "./tokens/index";
+export * from "./charts/index";
