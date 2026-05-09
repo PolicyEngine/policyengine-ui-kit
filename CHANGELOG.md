@@ -1,3 +1,10 @@
+## [0.8.2] - 2026-05-09
+
+### Fixed
+
+- `@policyengine/ui-kit/legacy` types now resolve correctly under TypeScript `bundler` resolution. Same root cause as 0.8.1's main-entry fix: `src/legacy/index.ts` re-exported `'./tokens'` and `'./charts'`, but Vite's multi-entry build emits `dist/legacy/tokens.js` and `dist/legacy/charts.js` siblings to the tsc-emitted `dist/legacy/tokens/index.d.ts` and `dist/legacy/charts/index.d.ts` folders. With both shapes on disk, TS's `bundler` resolver picks the file (no types) over the folder. Pinning to `'./tokens/index'` and `'./charts/index'` forces folder resolution.
+
+
 ## [0.8.1] - 2026-05-09
 
 ### Fixed
