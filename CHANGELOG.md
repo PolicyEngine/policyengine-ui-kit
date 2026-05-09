@@ -1,3 +1,15 @@
+## [0.7.0] - 2026-05-09
+
+### Added
+
+- Contrast matrix now asserts the focus ring on background (light + dark, WCAG SC 1.4.11 non-text 3:1), dark-mode `primary-foreground` on `primary`, dark-mode `destructive-foreground` on `destructive`, and the default link color (teal-600) on background.
+
+### Fixed
+
+- Dark mode card surfaces are now visible. `--card`/`--popover`/`--muted` bumped from `#131820` (1.08:1 vs background — visually invisible) to `#1A2030` (1.19:1), and `--border`/`--input` bumped from `#1E293B` (1.32:1 vs background, 1.22:1 vs card) to `#334155` (1.87:1 / 1.57:1) so card surfaces and their borders are clearly distinguishable.
+- Quarto SCSS `$secondary` now resolves to the secondary surface fill (`#F2F4F7`) instead of the secondary foreground (`#101828`). Bootstrap's `$secondary` is a fill color (e.g. `.btn-secondary` background), so paper renders previously got a near-black secondary button where Bootstrap expects a light gray.
+
+
 ## [0.6.0] - 2026-05-09
 
 ### Added

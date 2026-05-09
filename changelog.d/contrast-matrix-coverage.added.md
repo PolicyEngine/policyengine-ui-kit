@@ -1,1 +1,0 @@
-Contrast matrix now asserts the focus ring on background (light + dark, WCAG SC 1.4.11 non-text 3:1), dark-mode `primary-foreground` on `primary`, dark-mode `destructive-foreground` on `destructive`, and the default link color (teal-600) on background.
