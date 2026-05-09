@@ -78,6 +78,9 @@ const lightSections: CssSection[] = [
     },
   },
   {
+    // --ring at teal-500 (#319795) clears WCAG SC 1.4.11 (3:1 non-text)
+    // against white at 3.51:1 — only ~0.5 above the floor. If you nudge the
+    // ring lighter (toward teal-400), re-verify against the contrast matrix.
     name: "Chrome",
     declarations: {
       "--border": "#E2E8F0",
@@ -232,8 +235,9 @@ const darkSections: CssSection[] = [
   },
   {
     name:
-      "Chrome. --border bumped from #1E293B (1.32:1 on background, 1.11:1 on " +
-      "card — visually invisible) to #334155 (1.87:1 on bg, 1.57:1 on card).",
+      "Chrome. --border bumped from #1E293B (1.32:1 on background, 1.22:1 " +
+      "on card — visually invisible) to #334155 (1.87:1 on bg, 1.57:1 on " +
+      "card).",
     declarations: {
       "--border": "#334155",
       "--input": "#334155",

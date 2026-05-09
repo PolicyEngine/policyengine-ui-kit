@@ -135,7 +135,7 @@
   --destructive: #F87171;
   --destructive-foreground: #0B0E14;
 
-  /* Chrome. --border bumped from #1E293B (1.32:1 on background, 1.11:1 on card — visually invisible) to #334155 (1.87:1 on bg, 1.57:1 on card). */
+  /* Chrome. --border bumped from #1E293B (1.32:1 on background, 1.22:1 on card — visually invisible) to #334155 (1.87:1 on bg, 1.57:1 on card). */
   --border: #334155;
   --input: #334155;
   --ring: #38B2AC;
