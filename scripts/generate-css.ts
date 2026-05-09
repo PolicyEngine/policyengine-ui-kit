@@ -277,7 +277,10 @@ function buildQuartoScss(): string {
     "/*-- scss:defaults --*/",
     "",
     `$primary: ${rootColorsLight["--primary"]};`,
-    `$secondary: ${rootColorsLight["--secondary-foreground"]};`,
+    // Bootstrap's $secondary is a *fill* color (e.g. .btn-secondary background),
+    // not a foreground. Use --secondary, the light gray surface, so paper
+    // buttons match the dashboard's secondary surface, not its dark text.
+    `$secondary: ${rootColorsLight["--secondary"]};`,
     `$success: ${semanticFills.success};`,
     `$warning: ${semanticFills.warning};`,
     `$danger: ${semanticFills.error};`,

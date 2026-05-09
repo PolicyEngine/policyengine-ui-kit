@@ -1,0 +1,1 @@
+Quarto SCSS `$secondary` now resolves to the secondary surface fill (`#F2F4F7`) instead of the secondary foreground (`#101828`). Bootstrap's `$secondary` is a fill color (e.g. `.btn-secondary` background), so paper renders previously got a near-black secondary button where Bootstrap expects a light gray.
