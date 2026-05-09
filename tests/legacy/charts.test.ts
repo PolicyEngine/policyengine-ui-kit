@@ -7,6 +7,7 @@ import {
   getChartConfig,
   formatCurrency,
   formatPercent,
+  getNiceTicks,
 } from "../../src/legacy/charts";
 import { colors } from "../../src/legacy/tokens/colors";
 import { typography } from "../../src/legacy/tokens/typography";
@@ -165,6 +166,53 @@ describe("charts", () => {
 
     it("should handle zero", () => {
       expect(formatPercent(0)).toBe("0%");
+    });
+  });
+
+  describe("getNiceTicks", () => {
+    it("should generate nice ticks for positive domain", () => {
+      const ticks = getNiceTicks([0, 100]);
+      expect(ticks).toEqual([0, 25, 50, 75, 100]);
+    });
+
+    it("should generate nice ticks for negative-to-positive domain", () => {
+      const ticks = getNiceTicks([-50, 50]);
+      expect(ticks).toEqual([-50, -25, 0, 25, 50]);
+    });
+
+    it("should generate nice ticks for all-negative domain", () => {
+      const ticks = getNiceTicks([-100, -10]);
+      expect(ticks).toEqual([-100, -75, -50, -25]);
+    });
+
+    it("should handle reversed domain (max, min) by normalizing", () => {
+      const ticks = getNiceTicks([100, 0]);
+      expect(ticks.length).toBeGreaterThan(0);
+      expect(ticks).toEqual([0, 25, 50, 75, 100]);
+    });
+
+    it("should handle very small ranges", () => {
+      const ticks = getNiceTicks([0, 0.001]);
+      expect(ticks.length).toBeGreaterThan(0);
+      expect(ticks[0]).toBe(0);
+      expect(ticks[ticks.length - 1]).toBeCloseTo(0.001, 4);
+    });
+
+    it("should return single value when min equals max", () => {
+      const ticks = getNiceTicks([42, 42]);
+      expect(ticks).toEqual([42]);
+    });
+
+    it("should respect custom tick count", () => {
+      const ticks = getNiceTicks([0, 100], 3);
+      expect(ticks.length).toBeGreaterThanOrEqual(2);
+      expect(ticks.length).toBeLessThanOrEqual(5);
+    });
+
+    it("should handle large ranges with billions", () => {
+      const ticks = getNiceTicks([0, 1e9]);
+      expect(ticks.length).toBeGreaterThan(0);
+      expect(ticks[0]).toBe(0);
     });
   });
 });

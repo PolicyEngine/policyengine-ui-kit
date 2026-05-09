@@ -192,7 +192,13 @@ function niceStep(roughStep: number): number {
  * @returns Array of tick values
  */
 export function getNiceTicks(domain: [number, number], count = 5): number[] {
-  const [dMin, dMax] = domain;
+  let [dMin, dMax] = domain;
+
+  // Normalize domain: ensure min <= max
+  if (dMin > dMax) {
+    [dMin, dMax] = [dMax, dMin];
+  }
+
   if (dMin === dMax) {
     return [dMin];
   }
