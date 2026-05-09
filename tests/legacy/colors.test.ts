@@ -50,16 +50,45 @@ describe("colors", () => {
   });
 
   describe("semantic colors", () => {
-    it("should have warning, error, info colors", () => {
+    it("should have warning, error, info, success colors", () => {
       expect(colors.warning).toBe("#FEC601");
       expect(colors.error).toBe("#EF4444");
       expect(colors.info).toBe("#2C7A7B");
+      // `success` was missing from the 0.8.0 shim and got re-added in this PR.
+      // Two consumer migrations had to backfill it locally; pin it now so a
+      // future shim regression fails CI here.
+      expect(colors.success).toBe("#22C55E");
     });
 
     it("should export semantic colors as constants", () => {
       expect(WARNING_YELLOW).toBe(colors.warning);
       expect(ERROR_RED).toBe(colors.error);
       expect(INFO_COLOR).toBe(colors.info);
+    });
+  });
+
+  describe("blue accent palette", () => {
+    // Same restoration story as `colors.success` — the snapshot copied into
+    // ui-kit/src/legacy in 0.8.0 had dropped the `blue` palette that
+    // @policyengine/design-system 0.2.0/0.3.0 shipped, forcing
+    // cbo-baseline-tracker and uk-spring-statement-2026 to backfill it.
+    it("should have a complete blue scale from 50-900", () => {
+      const expectedShades = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900];
+      expectedShades.forEach((shade) => {
+        expect(colors.blue[shade as keyof typeof colors.blue]).toBeDefined();
+        expect(colors.blue[shade as keyof typeof colors.blue]).toMatch(
+          /^#[0-9A-Fa-f]{6}$/,
+        );
+      });
+    });
+
+    it("should match the design-system 0.3.0 sky palette", () => {
+      // Pin the exact hex values so accidental re-imports from a different
+      // palette source (Tailwind blue vs sky) get caught.
+      expect(colors.blue[500]).toBe("#0EA5E9");
+      expect(colors.blue[600]).toBe("#0284C7");
+      expect(colors.blue[50]).toBe("#F0F9FF");
+      expect(colors.blue[900]).toBe("#0C4A6E");
     });
   });
 

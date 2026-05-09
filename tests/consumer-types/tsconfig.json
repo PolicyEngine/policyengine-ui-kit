@@ -1,0 +1,29 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "jsx": "react-jsx",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "noEmit": true,
+    "isolatedModules": true,
+    "types": [],
+    "baseUrl": "../..",
+    "paths": {
+      "@policyengine/ui-kit": ["./dist/index.d.ts"],
+      "@policyengine/ui-kit/legacy": ["./dist/legacy/index.d.ts"],
+      "@policyengine/ui-kit/legacy/tokens": ["./dist/legacy/tokens/index.d.ts"],
+      "@policyengine/ui-kit/legacy/tokens/colors": ["./dist/legacy/tokens/colors.d.ts"],
+      "@policyengine/ui-kit/legacy/tokens/typography": ["./dist/legacy/tokens/typography.d.ts"],
+      "@policyengine/ui-kit/legacy/tokens/spacing": ["./dist/legacy/tokens/spacing.d.ts"],
+      "@policyengine/ui-kit/legacy/charts": ["./dist/legacy/charts/index.d.ts"],
+      "@policyengine/ui-kit/primitives": ["./dist/primitives/index.d.ts"],
+      "@policyengine/ui-kit/layout": ["./dist/layout/index.d.ts"],
+      "@policyengine/ui-kit/charts": ["./dist/charts/index.d.ts"]
+    }
+  },
+  "include": ["fixture.ts"]
+}
