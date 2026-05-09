@@ -1,3 +1,18 @@
+## [0.9.0] - 2026-05-09
+
+### Added
+
+- Consumer-style typecheck harness (`tests/consumer-types/`). Type-checks a representative consumer fixture against the *built* `dist/` surface using `moduleResolution: "bundler"`, so any regression on the export shape of the main entry, the `legacy/` subpath, or the per-feature subpaths fails CI loudly. Catches the silent `dist/<name>.js`-shadows-`dist/<name>/index.d.ts` resolution failure that 0.8.0/0.8.1 shipped before being fixed in 0.8.1/0.8.2. The PR check workflow now runs `bun run build` before `bun run test` so the harness exercises freshly-built artifacts.
+
+### Changed
+
+- JSDoc migration map in `src/legacy/index.ts` now flags which design-system → ui-kit mappings preserve hex values (most) and which shift them (`colors.gray[N]` → `palette.gray[N]` is Tailwind-3 → Slate; `colors.text.warning` → `--text-warning` is Mantine orange.9 → Tailwind orange-700, the latter for WCAG AA). Bulk `sed`-replace from design-system to canonical ui-kit names is unsafe for those two pairs without a visual review.
+
+### Fixed
+
+- `@policyengine/ui-kit/legacy` now exposes `colors.blue` (Tailwind sky 50–900) and `colors.success` (`#22C55E`), restoring parity with `@policyengine/design-system` 0.2.0/0.3.0. The snapshot copied into `src/legacy/` for 0.8.0 came from a later workspace build that had dropped both, forcing cbo-baseline-tracker and uk-spring-statement-2026 to backfill them locally. The legacy color tests now pin both values so future regressions fail CI.
+
+
 ## [0.8.2] - 2026-05-09
 
 ### Fixed
