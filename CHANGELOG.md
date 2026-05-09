@@ -1,3 +1,19 @@
+## [0.6.0] - 2026-05-09
+
+### Added
+
+- TS canonical token source (`src/theme/tokens.ts`) with a generator (`scripts/generate-css.ts`) emitting both the CSS theme (`tokens.css`) and a Quarto SCSS theme (`quarto.scss`). Runtime tokens (`colors`, `palette`, `chartPalette`, `semanticFills`, `typography`, `radius`, `breakpoints`, `tokens`) are exported from the package root and from `@policyengine/ui-kit/tokens`.
+- WCAG contrast matrix Vitest. `tests/theme/contrast.test.ts` asserts every documented foreground/background token pair clears WCAG AA at 4.5:1 in both light and dark mode. Catches accessible-color regressions before they ship.
+- Dark mode tokens (`:root.dark` / `.dark { … }`) for every shadcn semantic role plus accessible-on-dark text variants. Activate by adding `class="dark"` to any ancestor element. Components and consumers' Tailwind utilities pick up the new values automatically via the `@custom-variant dark` declaration.
+- Built-in `:focus-visible` outline on every interactive element and a `prefers-reduced-motion: reduce` rule that snaps animations and transitions to instant. Applied via `@layer base`, so consumers inherit them just by importing `theme.css`.
+- Quarto SCSS theme export (`@policyengine/ui-kit/quarto.scss`). Maps the same hex values used in the React app to Bootstrap/Quarto SCSS variables (`$primary`, `$body-color`, etc.) so paper renders share the dashboard's palette and contrast guarantees.
+
+### Changed
+
+- `--destructive` bumped from `#EF4444` (red-500) to `#DC2626` (red-600) so `--destructive-foreground` (white) clears WCAG AA on the destructive fill (now 4.83:1, was 3.76:1).
+- `--text-warning` bumped from `#d9480f` (Mantine orange.9, 4.30:1 on white) to `#c2410c` (Tailwind orange-700, 5.18:1 on white) to clear WCAG AA at small text sizes.
+
+
 ## [0.5.0] - 2026-05-09
 
 ### Added

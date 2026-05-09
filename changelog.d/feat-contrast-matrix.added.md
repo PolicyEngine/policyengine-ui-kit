@@ -1,1 +1,0 @@
-WCAG contrast matrix Vitest. `tests/theme/contrast.test.ts` asserts every documented foreground/background token pair clears WCAG AA at 4.5:1 in both light and dark mode. Catches accessible-color regressions before they ship.

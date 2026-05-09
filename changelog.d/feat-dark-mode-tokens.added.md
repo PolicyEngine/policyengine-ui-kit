@@ -1,1 +1,0 @@
-Dark mode tokens (`:root.dark` / `.dark { … }`) for every shadcn semantic role plus accessible-on-dark text variants. Activate by adding `class="dark"` to any ancestor element. Components and consumers' Tailwind utilities pick up the new values automatically via the `@custom-variant dark` declaration.

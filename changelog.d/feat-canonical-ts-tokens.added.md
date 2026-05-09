@@ -1,1 +1,0 @@
-TS canonical token source (`src/theme/tokens.ts`) with a generator (`scripts/generate-css.ts`) emitting both the CSS theme (`tokens.css`) and a Quarto SCSS theme (`quarto.scss`). Runtime tokens (`colors`, `palette`, `chartPalette`, `semanticFills`, `typography`, `radius`, `breakpoints`, `tokens`) are exported from the package root and from `@policyengine/ui-kit/tokens`.

@@ -1,1 +1,0 @@
-Built-in `:focus-visible` outline on every interactive element and a `prefers-reduced-motion: reduce` rule that snaps animations and transitions to instant. Applied via `@layer base`, so consumers inherit them just by importing `theme.css`.

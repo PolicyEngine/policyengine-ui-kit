@@ -1,1 +1,0 @@
-Quarto SCSS theme export (`@policyengine/ui-kit/quarto.scss`). Maps the same hex values used in the React app to Bootstrap/Quarto SCSS variables (`$primary`, `$body-color`, etc.) so paper renders share the dashboard's palette and contrast guarantees.
