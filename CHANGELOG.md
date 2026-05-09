@@ -1,3 +1,10 @@
+## [0.8.1] - 2026-05-09
+
+### Fixed
+
+- Main-entry type re-exports now resolve from a TypeScript `bundler` consumer. Since 0.4.0 the dist/ tree contains both Vite-emitted `dist/<name>.js`/`.cjs` files and tsc-emitted `dist/<name>/index.d.ts` folders side by side. With both on disk, TypeScript's `bundler` module resolution prefers the file over the folder and reports `Module '"@policyengine/ui-kit"' has no exported member 'Badge'` (and the same for every primitive/layout/charts/visualization/inputs/display/utils/assets symbol) from the main entry. Pinning the source re-exports to the explicit `./<name>/index` folder path forces folder resolution and exposes types correctly. Subpath imports (`@policyengine/ui-kit/primitives`) were unaffected.
+
+
 ## [0.8.0] - 2026-05-09
 
 ### Added
