@@ -1,3 +1,10 @@
+## [0.8.0] - 2026-05-09
+
+### Added
+
+- `@policyengine/ui-kit/legacy` compatibility shim that mirrors the API surface of the deprecated `@policyengine/design-system` package. Migrating from design-system is now a pure import-path rename: `@policyengine/design-system` → `@policyengine/ui-kit/legacy`, with matching subpath exports for `/tokens`, `/tokens/colors`, `/tokens/typography`, `/tokens/spacing`, and `/charts`. All legacy exports carry `@deprecated` JSDoc pointing at the canonical ui-kit equivalents (`palette`, `semanticFills`, `typography`, `namedSpacing`, `chartPalette`, etc.).
+
+
 ## [0.7.0] - 2026-05-09
 
 ### Added
