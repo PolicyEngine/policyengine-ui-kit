@@ -27,10 +27,19 @@ const DIST_INDEX = path.join(ROOT, "dist", "index.d.ts");
 
 // Skip the harness when dist/ is missing so a fresh `bun run test` doesn't
 // fail before `bun run build` ever runs. CI runs build before tests; local
-// runs typically already have dist/ from a prior build cycle.
+// runs typically already have dist/ from a prior build cycle. We use a
+// visible `it.skip` (not `describe.skipIf`) so the test report shows a
+// "skipped" line with an actionable hint instead of silently dropping the
+// test — that way a dev who runs `bun run test` cold can see *why* the
+// harness didn't fire.
 const distAvailable = fs.existsSync(DIST_INDEX);
 
-describe.skipIf(!distAvailable)("consumer-style type resolution", () => {
+describe("consumer-style type resolution", () => {
+  if (!distAvailable) {
+    it.skip("(skipped — run `bun run build` first to exercise the typecheck harness against dist/)", () => {});
+    return;
+  }
+
   it("main + legacy + per-feature subpaths all type-check from a bundler-resolution consumer", () => {
     let stdout = "";
     let stderr = "";
