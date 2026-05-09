@@ -1,0 +1,71 @@
+/* PolicyEngine Quarto SCSS theme — GENERATED; DO NOT EDIT.
+ * Source of truth: src/theme/tokens.ts
+ * Regenerate with: bun run generate-tokens
+ *
+ * Usage in a Quarto _quarto.yml:
+ *   format:
+ *     html:
+ *       theme:
+ *         - cosmo
+ *         - quarto.scss   # this file via @import
+ * The exposed Bootstrap variables track the same hex values as the CSS
+ * tokens used in the React app, so paper renders match the dashboard.
+ */
+
+/*-- scss:defaults --*/
+
+$primary: #2C7A7B;
+$secondary: #101828;
+$success: #22C55E;
+$warning: #FEC601;
+$danger: #EF4444;
+$info: #1890FF;
+$body-bg: #FFFFFF;
+$body-color: #000000;
+$body-secondary-color: #5a5a5a;
+$body-tertiary-color: #475569;
+$link-color: #2C7A7B;
+$link-hover-color: #285E61;
+$border-color: #E2E8F0;
+$card-bg: #FFFFFF;
+$font-family-sans-serif: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+$font-family-monospace: JetBrains Mono, "Fira Code", Consolas, monospace;
+
+// Accessible-on-white text variants — match @policyengine/ui-kit's
+// --text-warning / --text-error / --text-success exactly so paper
+// callouts share the dashboard's contrast guarantees.
+$pe-text-warning: #c2410c;
+$pe-text-error: #B91C1C;
+$pe-text-success: #285E61;
+
+// Brand palette so authors can style a callout without hex literals.
+$pe-teal-50: #E6FFFA;
+$pe-teal-100: #B2F5EA;
+$pe-teal-200: #81E6D9;
+$pe-teal-300: #4FD1C5;
+$pe-teal-400: #38B2AC;
+$pe-teal-500: #319795;
+$pe-teal-600: #2C7A7B;
+$pe-teal-700: #285E61;
+$pe-teal-800: #234E52;
+$pe-teal-900: #1D4044;
+$pe-gray-50: #F0F9FF;
+$pe-gray-100: #F2F4F7;
+$pe-gray-200: #E2E8F0;
+$pe-gray-300: #CBD5E1;
+$pe-gray-400: #94A3B8;
+$pe-gray-500: #64748B;
+$pe-gray-600: #475569;
+$pe-gray-700: #344054;
+$pe-gray-800: #1E293B;
+$pe-gray-900: #101828;
+$pe-blue-50: #F0F9FF;
+$pe-blue-100: #E0F2FE;
+$pe-blue-200: #BAE6FD;
+$pe-blue-300: #7DD3FC;
+$pe-blue-400: #38BDF8;
+$pe-blue-500: #0EA5E9;
+$pe-blue-600: #0284C7;
+$pe-blue-700: #026AA2;
+$pe-blue-800: #075985;
+$pe-blue-900: #0C4A6E;

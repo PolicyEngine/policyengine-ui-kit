@@ -1,6 +1,9 @@
 // Styles — consumers must import '@policyengine/ui-kit/styles.css' separately
 import './theme/tokens.css';
 
+// Runtime tokens (colors, palette, chartColors, typography, …)
+export * from './theme';
+
 // Types
 export * from './types';
 
