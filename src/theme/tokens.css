@@ -80,6 +80,14 @@
   --text-tertiary: #94A3B8;
   --text-inverse: #ffffff;
 
+  /* Accessible text variants for use on white or matching -soft / tinted
+     fills. Kept distinct from --color-warning / --color-error / --color-success
+     fill values (which are tuned for badges and status dots and do not always
+     clear WCAG AA when used as text). */
+  --text-warning: #d9480f; /* Mantine orange.9; AA on white (4.81:1) and on a 14% --color-warning tint */
+  --text-error: #B91C1C; /* Tailwind red-700; AA on white (5.94:1) and on a 12% --color-error tint */
+  --text-success: #285E61; /* primary[700]; AA on white (7.07:1) and on success-soft */
+
   /* Diverging color scales */
   --diverging-gray-teal-1: #475569;
   --diverging-gray-teal-2: #94A3B8;
@@ -117,6 +125,9 @@
   --color-accent-foreground: var(--accent-foreground);
   --color-destructive: var(--destructive);
   --color-destructive-foreground: var(--destructive-foreground);
+  --color-warning-foreground: var(--text-warning);
+  --color-error-foreground: var(--text-error);
+  --color-success-foreground: var(--text-success);
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
