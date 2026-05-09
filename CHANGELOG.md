@@ -1,3 +1,10 @@
+## [0.5.0] - 2026-05-09
+
+### Added
+
+- Add accessible text tokens (--text-warning, --text-error, --text-success) and Tailwind utilities text-warning-foreground, text-error-foreground, text-success-foreground for use on white or matching -soft / tinted fills.
+
+
 ## [0.4.0] - 2026-05-08
 
 ### Added
