@@ -1,3 +1,10 @@
+## [0.10.0] - 2026-05-10
+
+### Added
+
+- Add canonical PolicyEngine header, footer, and shell components for child applications.
+
+
 ## [0.9.1] - 2026-05-10
 
 ### Fixed
