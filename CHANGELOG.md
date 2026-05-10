@@ -1,3 +1,10 @@
+## [0.9.1] - 2026-05-10
+
+### Fixed
+
+- Restore Tailwind text size utilities from `text-5xl` through `text-9xl`.
+
+
 ## [0.9.0] - 2026-05-09
 
 ### Added
