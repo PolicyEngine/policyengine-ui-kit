@@ -1,3 +1,10 @@
+## [0.10.1] - 2026-05-10
+
+### Fixed
+
+- Preserve PolicyEngine shell client boundaries and fix default shell navigation edge cases.
+
+
 ## [0.10.0] - 2026-05-10
 
 ### Added
