@@ -5,6 +5,12 @@ import { SidebarLayout } from '../../src/layout/SidebarLayout';
 import { SingleColumnLayout } from '../../src/layout/SingleColumnLayout';
 import { Header } from '../../src/layout/header';
 import { InputPanel } from '../../src/layout/InputPanel';
+import {
+  getPolicyEngineNavItems,
+  PolicyEngineFooter,
+  PolicyEngineHeader,
+  PolicyEngineShell,
+} from '../../src/layout';
 import { ResultsPanel } from '../../src/layout/ResultsPanel';
 
 describe('DashboardShell', () => {
@@ -41,6 +47,39 @@ describe('Header', () => {
       />,
     );
     expect(screen.getByText('Home')).toBeInTheDocument();
+  });
+});
+
+describe('PolicyEngine shell components', () => {
+  it('builds country-aware navigation URLs', () => {
+    const navItems = getPolicyEngineNavItems('uk');
+
+    expect(navItems).toContainEqual({
+      label: 'API',
+      href: 'https://policyengine.org/uk/api',
+    });
+  });
+
+  it('renders the canonical PolicyEngine header', () => {
+    render(<PolicyEngineHeader country="uk" />);
+
+    expect(screen.getAllByText('Research').length).toBeGreaterThan(0);
+    expect(screen.getAllByText('Model').length).toBeGreaterThan(0);
+    expect(screen.getAllByText('API').length).toBeGreaterThan(0);
+  });
+
+  it('renders the canonical PolicyEngine footer', () => {
+    render(<PolicyEngineFooter country="us" />);
+
+    expect(screen.getByText('Privacy policy')).toBeInTheDocument();
+    expect(screen.getByText(/PolicyEngine/)).toBeInTheDocument();
+  });
+
+  it('wraps app content with the canonical PolicyEngine shell', () => {
+    render(<PolicyEngineShell country="us">Tool content</PolicyEngineShell>);
+
+    expect(screen.getByText('Tool content')).toBeInTheDocument();
+    expect(screen.getAllByText('Donate').length).toBeGreaterThan(0);
   });
 });
 
