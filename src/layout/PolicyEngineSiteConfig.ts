@@ -21,6 +21,35 @@ export function getPolicyEngineCountryUrl(
   return `${normalizeBaseUrl(baseUrl)}/${country}`;
 }
 
+export interface PolicyEngineCountrySwitchUrlOptions {
+  baseUrl?: string;
+  countries?: CountryConfig[];
+  pathname?: string;
+  search?: string;
+  hash?: string;
+}
+
+export function getPolicyEngineCountrySwitchUrl(
+  country: PolicyEngineCountryId,
+  {
+    baseUrl = DEFAULT_POLICYENGINE_BASE_URL,
+    countries = policyEngineCountries,
+    pathname = typeof window !== 'undefined' ? window.location.pathname : '',
+    search = typeof window !== 'undefined' ? window.location.search : '',
+    hash = typeof window !== 'undefined' ? window.location.hash : '',
+  }: PolicyEngineCountrySwitchUrlOptions = {},
+) {
+  const countryIds = new Set(countries.map(({ id }) => id));
+  const segments = pathname.split('/');
+
+  if (countryIds.has(segments[1])) {
+    segments[1] = country;
+    return `${normalizeBaseUrl(baseUrl)}${segments.join('/')}${search}${hash}`;
+  }
+
+  return getPolicyEngineCountryUrl(country, baseUrl);
+}
+
 export function getPolicyEngineUrl(
   country: PolicyEngineCountryId = 'us',
   path = '',
@@ -34,7 +63,7 @@ export function getPolicyEngineNavItems(
   country: PolicyEngineCountryId = 'us',
   baseUrl = DEFAULT_POLICYENGINE_BASE_URL,
 ): NavItemConfig[] {
-  return [
+  const navItems: NavItemConfig[] = [
     {
       label: 'Research',
       href: getPolicyEngineUrl(country, 'research', baseUrl),
@@ -46,10 +75,6 @@ export function getPolicyEngineNavItems(
     {
       label: 'API',
       href: getPolicyEngineUrl(country, 'api', baseUrl),
-    },
-    {
-      label: 'Python',
-      href: getPolicyEngineUrl(country, 'python', baseUrl),
     },
     {
       label: 'About',
@@ -77,6 +102,15 @@ export function getPolicyEngineNavItems(
       href: getPolicyEngineUrl(country, 'donate', baseUrl),
     },
   ];
+
+  if (country === 'us') {
+    navItems.splice(3, 0, {
+      label: 'Python',
+      href: getPolicyEngineUrl(country, 'python', baseUrl),
+    });
+  }
+
+  return navItems;
 }
 
 export function getPolicyEngineFooterLinks(
