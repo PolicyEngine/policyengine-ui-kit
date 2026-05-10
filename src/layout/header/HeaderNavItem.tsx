@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { ChevronDown } from 'lucide-react';
 import type { NavItemConfig } from './Header';
 
@@ -27,6 +27,27 @@ const hoverHandlers = {
   onMouseLeave: (e: React.MouseEvent<HTMLElement>) => {
     e.currentTarget.style.backgroundColor = 'transparent';
   },
+};
+
+const dropdownItemStyle: React.CSSProperties = {
+  display: 'flex',
+  alignItems: 'center',
+  width: '100%',
+  textAlign: 'left',
+  padding: '11px 16px',
+  borderRadius: '10px',
+  border: 'none',
+  background: 'transparent',
+  cursor: 'pointer',
+  fontSize: '14px',
+  fontFamily: 'var(--font-sans)',
+  fontWeight: 600,
+  color: 'var(--color-teal-800)',
+  transition:
+    'background-color 0.12s ease, color 0.12s ease, opacity 0.3s ease',
+  lineHeight: '1.3',
+  letterSpacing: '-0.01em',
+  textDecoration: 'none',
 };
 
 /**
@@ -59,20 +80,6 @@ function AppleDropdown({
       return () => clearTimeout(timer);
     }
   }, [open]);
-
-  const handleSelect = useCallback(
-    (item: { label: string; href: string }) => {
-      onClose();
-      if (onNavigate) {
-        onNavigate(item.href);
-      } else if (linkComponent) {
-        // linkComponent handles its own navigation
-      } else {
-        window.location.href = item.href;
-      }
-    },
-    [onClose, onNavigate, linkComponent],
-  );
 
   if (!open && contentHeight === 0) {
     return null;
@@ -118,57 +125,65 @@ function AppleDropdown({
         }}
       >
         <div ref={contentRef} style={{ padding: '8px' }}>
-          {items.map((item, i) => (
-            <button
-              key={item.label}
-              type="button"
-              onClick={() => handleSelect(item)}
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                width: '100%',
-                textAlign: 'left',
-                padding: '11px 16px',
-                borderRadius: '10px',
-                border: 'none',
-                background: 'transparent',
-                cursor: 'pointer',
-                fontSize: '14px',
-                fontFamily: 'var(--font-sans)',
-                fontWeight: 600,
-                color: 'var(--color-teal-800)',
-                transition:
-                  'background-color 0.12s ease, color 0.12s ease, opacity 0.3s ease',
-                transitionDelay: visible ? `${i * 50}ms` : '0ms',
-                opacity: visible ? 1 : 0,
-                lineHeight: '1.3',
-                letterSpacing: '-0.01em',
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.backgroundColor =
-                  'var(--color-teal-500)';
-                e.currentTarget.style.color = 'var(--text-inverse)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.backgroundColor = 'transparent';
-                e.currentTarget.style.color = 'var(--color-teal-800)';
-              }}
-            >
-              <span>{item.label}</span>
-              {item.description && (
-                <span
-                  style={{
-                    marginLeft: '8px',
-                    fontSize: '12px',
-                    opacity: 0.6,
-                    fontWeight: 400,
-                  }}
+          {items.map((item, i) => {
+            const style = {
+              ...dropdownItemStyle,
+              transitionDelay: visible ? `${i * 50}ms` : '0ms',
+              opacity: visible ? 1 : 0,
+            };
+            const content = (
+              <>
+                <span>{item.label}</span>
+                {item.description && (
+                  <span
+                    style={{
+                      marginLeft: '8px',
+                      fontSize: '12px',
+                      opacity: 0.6,
+                      fontWeight: 400,
+                    }}
+                  >
+                    {item.description}
+                  </span>
+                )}
+              </>
+            );
+            const handleClick = (e: React.MouseEvent<HTMLElement>) => {
+              onClose();
+              if (onNavigate) {
+                e.preventDefault();
+                onNavigate(item.href);
+              }
+            };
+
+            if (linkComponent) {
+              const LinkComp = linkComponent;
+              return (
+                <LinkComp
+                  key={item.label}
+                  href={item.href}
+                  to={item.href}
+                  onClick={handleClick}
+                  style={style}
+                  {...hoverHandlers}
                 >
-                  {item.description}
-                </span>
-              )}
-            </button>
-          ))}
+                  {content}
+                </LinkComp>
+              );
+            }
+
+            return (
+              <a
+                key={item.label}
+                href={item.href}
+                onClick={handleClick}
+                style={style}
+                {...hoverHandlers}
+              >
+                {content}
+              </a>
+            );
+          })}
         </div>
       </div>
     </>

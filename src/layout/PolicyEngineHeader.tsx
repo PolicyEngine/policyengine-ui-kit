@@ -3,6 +3,7 @@
 import { Header, type CountryConfig, type HeaderProps, type NavItemConfig } from './header';
 import {
   DEFAULT_POLICYENGINE_BASE_URL,
+  getPolicyEngineCountrySwitchUrl,
   getPolicyEngineCountryUrl,
   getPolicyEngineNavItems,
   policyEngineCountries,
@@ -35,7 +36,10 @@ export function PolicyEngineHeader({
     onCountryChange ??
     ((countryId: string) => {
       if (typeof window !== 'undefined') {
-        window.location.href = getPolicyEngineCountryUrl(countryId, baseUrl);
+        window.location.href = getPolicyEngineCountrySwitchUrl(countryId, {
+          baseUrl,
+          countries,
+        });
       }
     });
 

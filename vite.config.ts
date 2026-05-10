@@ -2,9 +2,34 @@ import { resolve } from 'path';
 import tailwindcss from '@tailwindcss/vite';
 import react from '@vitejs/plugin-react';
 import { defineConfig } from 'vite';
+import type { Plugin } from 'vite';
+
+function preserveClientDirectives(): Plugin {
+  return {
+    name: 'preserve-client-directives',
+    generateBundle(_options, bundle) {
+      for (const chunk of Object.values(bundle)) {
+        if (chunk.type !== 'chunk') continue;
+
+        const isClientEntry =
+          chunk.facadeModuleId?.endsWith('/src/index.ts') ||
+          chunk.facadeModuleId?.endsWith('/src/layout/index.ts');
+        const hasClientLayoutModule = chunk.moduleIds.some(
+          (id) =>
+            id.includes('/src/layout/PolicyEngine') ||
+            id.includes('/src/layout/header/'),
+        );
+
+        if ((isClientEntry || hasClientLayoutModule) && !chunk.code.startsWith('"use client";')) {
+          chunk.code = `"use client";\n${chunk.code}`;
+        }
+      }
+    },
+  };
+}
 
 export default defineConfig({
-  plugins: [tailwindcss(), react()],
+  plugins: [tailwindcss(), react(), preserveClientDirectives()],
   resolve: {
     alias: {
       '@': resolve(__dirname, 'src'),

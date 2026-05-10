@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { DashboardShell } from '../../src/layout/DashboardShell';
 import { SidebarLayout } from '../../src/layout/SidebarLayout';
 import { SingleColumnLayout } from '../../src/layout/SingleColumnLayout';
@@ -7,6 +8,7 @@ import { Header } from '../../src/layout/header';
 import { InputPanel } from '../../src/layout/InputPanel';
 import {
   getPolicyEngineNavItems,
+  getPolicyEngineCountrySwitchUrl,
   PolicyEngineFooter,
   PolicyEngineHeader,
   PolicyEngineShell,
@@ -58,6 +60,19 @@ describe('PolicyEngine shell components', () => {
       label: 'API',
       href: 'https://policyengine.org/uk/api',
     });
+    expect(navItems.some((item) => item.label === 'Python')).toBe(false);
+  });
+
+  it('preserves the current route when building country switch URLs', () => {
+    expect(
+      getPolicyEngineCountrySwitchUrl('uk', {
+        pathname: '/us/california-wealth-tax/results',
+        search: '?household=1',
+        hash: '#chart',
+      }),
+    ).toBe(
+      'https://policyengine.org/uk/california-wealth-tax/results?household=1#chart',
+    );
   });
 
   it('renders the canonical PolicyEngine header', () => {
@@ -80,6 +95,26 @@ describe('PolicyEngine shell components', () => {
 
     expect(screen.getByText('Tool content')).toBeInTheDocument();
     expect(screen.getAllByText('Donate').length).toBeGreaterThan(0);
+  });
+
+  it('renders dropdown links with a custom link component', async () => {
+    const Link = ({
+      children,
+      href,
+      ...props
+    }: React.AnchorHTMLAttributes<HTMLAnchorElement> & { href: string }) => (
+      <a href={href} {...props}>
+        {children}
+      </a>
+    );
+
+    render(<PolicyEngineHeader country="us" linkComponent={Link} />);
+
+    await userEvent.click(screen.getByRole('button', { name: /about/i }));
+    expect(screen.getByRole('link', { name: /Team/i })).toHaveAttribute(
+      'href',
+      'https://policyengine.org/us/team',
+    );
   });
 });
 
