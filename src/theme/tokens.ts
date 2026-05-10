@@ -467,6 +467,11 @@ export const typography = {
     "2xl": { size: "24px", lineHeight: "32px" },
     "3xl": { size: "28px", lineHeight: "36px" },
     "4xl": { size: "32px", lineHeight: "40px" },
+    "5xl": { size: "3rem", lineHeight: "1" },
+    "6xl": { size: "3.75rem", lineHeight: "1" },
+    "7xl": { size: "4.5rem", lineHeight: "1" },
+    "8xl": { size: "6rem", lineHeight: "1" },
+    "9xl": { size: "8rem", lineHeight: "1" },
   },
 } as const;
 
