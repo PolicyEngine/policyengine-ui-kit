@@ -11,6 +11,27 @@ export { SidebarSection, type SidebarSectionProps } from './SidebarSection';
 export { SidebarDivider } from './SidebarDivider';
 export { Footer, type FooterProps } from './Footer';
 export {
+  PolicyEngineFooter,
+  type PolicyEngineFooterProps,
+} from './PolicyEngineFooter';
+export {
+  PolicyEngineHeader,
+  type PolicyEngineHeaderProps,
+} from './PolicyEngineHeader';
+export {
+  PolicyEngineShell,
+  type PolicyEngineShellProps,
+} from './PolicyEngineShell';
+export {
+  DEFAULT_POLICYENGINE_BASE_URL,
+  getPolicyEngineCountryUrl,
+  getPolicyEngineFooterLinks,
+  getPolicyEngineNavItems,
+  getPolicyEngineUrl,
+  policyEngineCountries,
+  type PolicyEngineCountryId,
+} from './PolicyEngineSiteConfig';
+export {
   Header,
   type HeaderProps,
   type NavItemConfig,
