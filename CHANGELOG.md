@@ -1,3 +1,10 @@
+## [0.12.0] - 2026-05-14
+
+### Added
+
+- Add `@policyengine/ui-kit/legacy/tokens.css` — CSS-side companion to the JS `legacy` shim. Mirrors the `--pe-color-*` / `--pe-font-*` / `--pe-space-*` / `--pe-radius-*` custom properties that `@policyengine/design-system@0.3.0` shipped, so consumers migrating from design-system can switch their globals.css import with a single line (`@policyengine/design-system/tokens.css` → `@policyengine/ui-kit/legacy/tokens.css`) instead of inlining hex values per repo.
+
+
 ## [0.10.1] - 2026-05-10
 
 ### Fixed
