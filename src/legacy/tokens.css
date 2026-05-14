@@ -45,10 +45,23 @@
   --pe-color-gray-800: #1F2937;
   --pe-color-gray-900: #101828;
 
+  /* Colors — blue */
+  --pe-color-blue-50: #F0F9FF;
+  --pe-color-blue-100: #E0F2FE;
+  --pe-color-blue-200: #BAE6FD;
+  --pe-color-blue-300: #7DD3FC;
+  --pe-color-blue-400: #38BDF8;
+  --pe-color-blue-500: #0EA5E9;
+  --pe-color-blue-600: #0284C7;
+  --pe-color-blue-700: #026AA2;
+  --pe-color-blue-800: #075985;
+  --pe-color-blue-900: #0C4A6E;
+
   /* Colors — semantic */
+  --pe-color-success: #22C55E;
   --pe-color-warning: #FEC601;
   --pe-color-error: #EF4444;
-  --pe-color-info: #2C7A7B;
+  --pe-color-info: #1890FF;
 
   /* Colors — background */
   --pe-color-bg-primary: #FFFFFF;
@@ -62,8 +75,6 @@
   --pe-color-text-tertiary: #9CA3AF;
   --pe-color-text-inverse: #FFFFFF;
   --pe-color-text-title: #000000;
-  --pe-color-text-link: #2C7A7B;
-  --pe-color-text-linkHover: #285E61;
   --pe-color-text-warning: #d9480f;
 
   /* Colors — border */
