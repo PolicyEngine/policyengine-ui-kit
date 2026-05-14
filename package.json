@@ -1,6 +1,6 @@
 {
   "name": "@policyengine/ui-kit",
-  "version": "0.10.1",
+  "version": "0.11.0",
   "type": "module",
   "main": "dist/index.cjs",
   "module": "dist/index.js",
@@ -83,6 +83,7 @@
     },
     "./styles.css": "./dist/styles.css",
     "./theme.css": "./src/theme/tokens.css",
+    "./legacy/tokens.css": "./src/legacy/tokens.css",
     "./quarto.scss": "./src/theme/quarto.scss",
     "./tokens": {
       "types": "./dist/theme/index.d.ts",
@@ -94,6 +95,7 @@
   "files": [
     "dist",
     "src/theme",
+    "src/legacy",
     "src/assets"
   ],
   "scripts": {
