@@ -79,7 +79,7 @@
   /* Text semantic aliases */
   --text-primary: #000000;
   --text-secondary: #5a5a5a;
-  --text-tertiary: #94A3B8;
+  --text-tertiary: #64748B;
   --text-inverse: #ffffff;
 
   /* Accessible-on-white text variants. Distinct from --color-warning / --color-error / --color-success fill values, which are tuned for badges and status dots and do not always clear WCAG AA when used as text. */

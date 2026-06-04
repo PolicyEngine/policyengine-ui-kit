@@ -132,7 +132,11 @@ const lightSections: CssSection[] = [
     declarations: {
       "--text-primary": "#000000",
       "--text-secondary": "#5a5a5a",
-      "--text-tertiary": "#94A3B8",
+      // gray-500: meets WCAG AA (4.5:1) as normal text on white and on
+      // --background-secondary. The prior #94A3B8 was ~2.6:1 and failed,
+      // forcing consumers to override muted text per app. Dark mode (below)
+      // keeps #94A3B8, which is 7.5:1 on the dark background.
+      "--text-tertiary": "#64748B",
       "--text-inverse": "#ffffff",
     },
   },
