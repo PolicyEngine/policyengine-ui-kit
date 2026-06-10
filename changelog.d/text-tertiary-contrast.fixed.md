@@ -1,1 +1,0 @@
-- Darken light-mode `--text-tertiary` from `#94A3B8` (~2.6:1 on white, failing WCAG AA) to `#64748B` (gray-500, 4.5:1+), so tertiary/muted text is accessible by default and consumers no longer need per-app overrides. Dark mode is unchanged (`#94A3B8` is 7.5:1 on the dark background).
