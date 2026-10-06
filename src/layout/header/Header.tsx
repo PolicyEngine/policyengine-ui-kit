@@ -82,8 +82,8 @@ export const Header = forwardRef<HTMLDivElement, HeaderProps>(
           padding: '8px 32px',
           height: 'var(--spacing-header, 58px)',
           background:
-            'linear-gradient(to right, var(--color-teal-800), var(--color-teal-600))',
-          borderBottom: '0.5px solid var(--color-teal-700)',
+            'linear-gradient(to right, var(--color-teal-800, #234E52), var(--color-teal-600, #2C7A7B))',
+          borderBottom: '0.5px solid var(--color-teal-700, #285E61)',
           boxShadow:
             '0px 2px 4px -1px rgba(0, 0, 0, 0.06), 0px 4px 6px -1px rgba(0, 0, 0, 0.1)',
           zIndex: 1000,
