@@ -8,9 +8,10 @@ import { policyEngineFeaturedTools } from '../../src/layout/PolicyEngineFeatured
  * app-v2 is still on ui-kit 0.4, so it can't import the list from here yet.
  * Once app-v2 reads it from ui-kit and deletes its own file, delete this test.
  *
- * This reads app-v2's main branch over the network, so it also runs on a
- * weekly schedule (.github/workflows/featured-tools-parity.yml) to catch a
- * tool added on policyengine.org when nothing changes here.
+ * This reads app-v2's main branch over the network, so `bun run test` skips
+ * it. .github/workflows/featured-tools-parity.yml runs it when this copy
+ * changes and weekly, to catch a change on policyengine.org while nothing
+ * changes here.
  */
 const APP_V2_FEATURED_TOOLS_URL =
   'https://raw.githubusercontent.com/PolicyEngine/policyengine-app-v2/main/app/src/data/featuredTools.json';
@@ -23,12 +24,21 @@ describe('featured tools parity with policyengine.org', () => {
     expect(response.ok, `GET ${APP_V2_FEATURED_TOOLS_URL}: ${response.status}`).toBe(
       true,
     );
+    const text = await response.text();
+    let appV2Tools: unknown;
+    try {
+      appV2Tools = JSON.parse(text);
+    } catch (error) {
+      throw new Error(
+        `${APP_V2_FEATURED_TOOLS_URL} is not JSON (${String(error)}): ${text.slice(0, 200)}`,
+      );
+    }
 
     expect(
       policyEngineFeaturedTools,
       'src/layout/PolicyEngineFeaturedTools.ts differs from app-v2’s ' +
         'app/src/data/featuredTools.json; change them together so zone ' +
         'apps and policyengine.org show the same Tools menu',
-    ).toStrictEqual(await response.json());
+    ).toStrictEqual(appV2Tools);
   }, 20_000);
 });

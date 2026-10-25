@@ -1,9 +1,6 @@
 import type { CountryConfig, NavItemConfig } from './header';
 import type { FooterProps } from './Footer';
-import {
-  policyEngineFeaturedTools,
-  type PolicyEngineFeaturedTool,
-} from './PolicyEngineFeaturedTools';
+import { policyEngineFeaturedTools } from './PolicyEngineFeaturedTools';
 
 export type PolicyEngineCountryId = 'us' | 'uk' | (string & {});
 
@@ -67,7 +64,7 @@ export function getPolicyEngineUrl(
 export function getPolicyEngineFeaturedTools(
   country: PolicyEngineCountryId = 'us',
   baseUrl = DEFAULT_POLICYENGINE_BASE_URL,
-): (PolicyEngineFeaturedTool & { readonly href: string })[] {
+): { slug: string; label: string; description: string; href: string }[] {
   const tools = Object.hasOwn(policyEngineFeaturedTools, country)
     ? (policyEngineFeaturedTools[country] ?? [])
     : [];

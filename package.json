@@ -105,6 +105,7 @@
     "prebuild": "tsx scripts/generate-css.ts",
     "build": "vite build && mv dist/ui-kit.css dist/styles.css && tsc -p tsconfig.build.json --emitDeclarationOnly",
     "test": "vitest run",
+    "test:network": "VITEST_NETWORK=1 vitest run .network.test",
     "test:watch": "vitest",
     "typecheck": "tsc --noEmit",
     "lint": "tsc --noEmit",

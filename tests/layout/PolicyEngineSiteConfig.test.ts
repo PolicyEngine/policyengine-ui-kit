@@ -92,6 +92,7 @@ describe('PolicyEngine Tools menu', () => {
     expect(toolsItem(navItems)).toEqual({
       label: 'Tools',
       href: 'https://policyengine.org/us/research?types=interactive',
+      external: true,
       children: [
         {
           label: 'CliffWatch',
@@ -131,6 +132,7 @@ describe('PolicyEngine Tools menu', () => {
     expect(toolsItem(navItems)).toEqual({
       label: 'Tools',
       href: 'https://policyengine.org/uk/research?types=interactive',
+      external: true,
       children: [
         {
           label: 'UK CliffWatch',
@@ -164,7 +166,7 @@ describe('PolicyEngine Tools menu', () => {
       {
         slug: 'uk-cliff-watch',
         label: 'UK CliffWatch',
-        description: policyEngineFeaturedTools.uk[0].description,
+        description: policyEngineFeaturedTools.uk![0].description,
         href: 'https://staging.policyengine.org/uk/uk-cliff-watch',
       },
     ]);
@@ -182,8 +184,18 @@ describe('PolicyEngine Tools menu', () => {
     );
   });
 
+  it('freezes the shared data so one header cannot change another', () => {
+    expect(Object.isFrozen(policyEngineFeaturedTools)).toBe(true);
+    for (const tools of Object.values(policyEngineFeaturedTools)) {
+      expect(Object.isFrozen(tools)).toBe(true);
+      for (const tool of tools ?? []) {
+        expect(Object.isFrozen(tool)).toBe(true);
+      }
+    }
+  });
+
   it('keeps every tool entry well formed', () => {
-    for (const [country, tools] of Object.entries(policyEngineFeaturedTools)) {
+    for (const [country, tools = []] of Object.entries(policyEngineFeaturedTools)) {
       expect(tools.length, country).toBeGreaterThan(0);
       for (const tool of tools) {
         expect(tool.slug).toMatch(/^[a-z0-9]+(-[a-z0-9]+)*$/);
@@ -235,7 +247,7 @@ describe('PolicyEngine Tools menu properties', () => {
         const origin = baseUrl.replace(/\/+$/, '');
         const tools = toolsItem(getPolicyEngineNavItems(country, baseUrl));
         const rows = tools?.children ?? [];
-        const expectedTools = policyEngineFeaturedTools[country];
+        const expectedTools = policyEngineFeaturedTools[country]!;
 
         expect(rows.map((row) => row.label)).toEqual([
           ...expectedTools.map((tool) => tool.label),

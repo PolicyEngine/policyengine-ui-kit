@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import { render, screen, within } from '@testing-library/react';
+import { render, screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Header } from '../../src/layout/header';
 import { PolicyEngineHeader } from '../../src/layout/PolicyEngineHeader';
@@ -73,6 +73,11 @@ describe('PolicyEngineHeader Tools menu', () => {
     await userEvent.click(screen.getByRole('link', { name: 'OBBBA household explorer' }));
     expect(onNavigate).not.toHaveBeenCalled();
     expect(clickWasPrevented).toEqual([false]);
+    // The click also closes the dropdown, for a browser that keeps the page
+    // (a middle click, or a click the browser refuses to follow).
+    await waitFor(() =>
+      expect(screen.queryByRole('link', { name: 'CliffWatch' })).toBeNull(),
+    );
   });
 
   it('still routes the other dropdowns through the link component and onNavigate', async () => {
@@ -101,8 +106,13 @@ describe('PolicyEngineHeader Tools menu', () => {
     const panel = screen
       .getByRole('link', { name: 'OBBBA household explorer' })
       .closest<HTMLElement>('div[style*="position: absolute"]');
-    expect(panel?.style.width).toBe('max-content');
-    expect(panel?.style.minWidth).toBe('220px');
+    expect(panel).not.toBeNull();
+    expect(panel!.contains(screen.getByRole('link', { name: 'CliffWatch' }))).toBe(
+      true,
+    );
+    expect(panel!.style.width).toBe('max-content');
+    expect(panel!.style.minWidth).toBe('220px');
+    expect(panel!.style.maxWidth).toBe('min(28rem, calc(100vw - 32px))');
   });
 
   it('lists only UK CliffWatch and the full list for the UK', async () => {
@@ -157,6 +167,15 @@ describe('PolicyEngineHeader Tools menu', () => {
     expect(screen.queryByRole('dialog')).toBeNull();
   });
 
+  it('lets the mobile menu scroll above the sticky header', async () => {
+    render(<PolicyEngineHeader country="us" />);
+
+    const menu = await openMobileMenu();
+    expect(menu.style.overflowY).toBe('auto');
+    expect(Number(menu.style.zIndex)).toBeGreaterThan(1000);
+    expect(within(menu).getByRole('link', { name: 'Donate' })).toBeInTheDocument();
+  });
+
   it('leaves mobile tool links to the browser when there is no router', async () => {
     const onNavigate = vi.fn();
     render(<PolicyEngineHeader country="uk" onNavigate={onNavigate} />);
@@ -170,6 +189,87 @@ describe('PolicyEngineHeader Tools menu', () => {
     await userEvent.click(within(menuAgain).getByRole('link', { name: 'Team' }));
     expect(onNavigate).toHaveBeenCalledWith('https://policyengine.org/uk/team');
     expect(clickWasPrevented).toEqual([false, true]);
+  });
+});
+
+describe('Header external dropdowns', () => {
+  const navItems = [
+    {
+      label: 'Zones',
+      href: '/zones',
+      external: true,
+      children: [
+        { label: 'Zone row', href: 'https://example.org/zone' },
+        { label: 'Local row', href: '/local', external: false },
+      ],
+    },
+    {
+      label: 'Mixed',
+      href: '/mixed',
+      children: [
+        { label: 'Routed row', href: '/routed' },
+        { label: 'Other zone row', href: 'https://example.org/other', external: true },
+      ],
+    },
+  ];
+
+  it('passes the item flag to rows on desktop unless a row sets its own', async () => {
+    const onNavigate = vi.fn();
+    render(
+      <Header navItems={navItems} linkComponent={ClientLink} onNavigate={onNavigate} />,
+    );
+
+    await openDesktopMenu('Zones');
+    expect(screen.getByRole('link', { name: 'Zone row' })).not.toHaveAttribute(
+      'data-client-link',
+    );
+    expect(screen.getByRole('link', { name: 'Local row' })).toHaveAttribute(
+      'data-client-link',
+    );
+    await userEvent.click(screen.getByRole('link', { name: 'Zone row' }));
+    expect(onNavigate).not.toHaveBeenCalled();
+
+    await openDesktopMenu('Mixed');
+    expect(screen.getByRole('link', { name: 'Routed row' })).toHaveAttribute(
+      'data-client-link',
+    );
+    await userEvent.click(screen.getByRole('link', { name: 'Other zone row' }));
+    expect(onNavigate).not.toHaveBeenCalled();
+    expect(clickWasPrevented).toEqual([false, false]);
+  });
+
+  it('passes the item flag to rows on mobile unless a row sets its own', async () => {
+    const { unmount } = render(
+      <Header navItems={navItems} linkComponent={ClientLink} />,
+    );
+    const routedMenu = await openMobileMenu();
+    expect(
+      within(routedMenu).getByRole('link', { name: 'Zone row' }),
+    ).not.toHaveAttribute('data-client-link');
+    expect(
+      within(routedMenu).getByRole('link', { name: 'Local row' }),
+    ).toHaveAttribute('data-client-link');
+    expect(
+      within(routedMenu).getByRole('link', { name: 'Routed row' }),
+    ).toHaveAttribute('data-client-link');
+    expect(
+      within(routedMenu).getByRole('link', { name: 'Other zone row' }),
+    ).not.toHaveAttribute('data-client-link');
+    unmount();
+
+    const onNavigate = vi.fn();
+    render(<Header navItems={navItems} onNavigate={onNavigate} />);
+    for (const name of ['Zone row', 'Other zone row']) {
+      const menu = await openMobileMenu();
+      await userEvent.click(within(menu).getByRole('link', { name }));
+      expect(screen.queryByRole('dialog')).toBeNull();
+    }
+    expect(onNavigate).not.toHaveBeenCalled();
+
+    const menu = await openMobileMenu();
+    await userEvent.click(within(menu).getByRole('link', { name: 'Local row' }));
+    expect(onNavigate).toHaveBeenCalledWith('/local');
+    expect(clickWasPrevented).toEqual([false, false, true]);
   });
 });
 

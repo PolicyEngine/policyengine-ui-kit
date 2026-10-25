@@ -1,18 +1,37 @@
 name: Featured tools parity
 
 # The header's Tools menu copies policyengine.org's list; see
-# tests/layout/featuredToolsParity.test.ts. PR checks run that test too. This
-# weekly run catches a tool added on policyengine.org while nothing changes
-# here.
+# tests/layout/featuredToolsParity.network.test.ts. This runs when the copy
+# or its check changes here, and weekly to catch a change on policyengine.org
+# while nothing changes here. A failure outside a pull request opens an issue,
+# or comments on the one already open.
 on:
+  pull_request:
+    paths:
+      - src/layout/PolicyEngineFeaturedTools.ts
+      - tests/layout/featuredToolsParity.network.test.ts
+      - .github/workflows/featured-tools-parity.yml
+  push:
+    branches: [main]
+    paths:
+      - src/layout/PolicyEngineFeaturedTools.ts
+      - tests/layout/featuredToolsParity.network.test.ts
+      - .github/workflows/featured-tools-parity.yml
   schedule:
     - cron: "0 14 * * 1"
   workflow_dispatch:
+
+permissions:
+  contents: read
 
 jobs:
   parity:
     name: Featured tools parity
     runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      issues: write
 
     steps:
       - name: Check out repository
@@ -25,4 +44,23 @@ jobs:
         run: bun install --frozen-lockfile
 
       - name: Compare with policyengine.org's list
-        run: bunx vitest run tests/layout/featuredToolsParity.test.ts
+        run: bun run test:network
+
+      - name: Open or update the drift issue
+        if: failure() && github.event_name != 'pull_request'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          title="Tools menu differs from policyengine.org"
+          body="The featured tools parity check failed: $RUN_URL
+
+          src/layout/PolicyEngineFeaturedTools.ts no longer matches app/src/data/featuredTools.json in PolicyEngine/policyengine-app-v2 (or that file could not be read). Change the copy here to match, so zone apps and policyengine.org show the same Tools menu."
+          number=$(gh issue list --repo "$GITHUB_REPOSITORY" --state open \
+            --search "in:title \"$title\"" --json number,title \
+            --jq "map(select(.title == \"$title\")) | .[0].number // empty")
+          if [ -n "$number" ]; then
+            gh issue comment "$number" --repo "$GITHUB_REPOSITORY" --body "Still failing: $RUN_URL"
+          else
+            gh issue create --repo "$GITHUB_REPOSITORY" --title "$title" --body "$body"
+          fi

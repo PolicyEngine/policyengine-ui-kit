@@ -22,10 +22,10 @@ function freezeTools(
  *
  * This mirrors `app/src/data/featuredTools.json` in
  * PolicyEngine/policyengine-app-v2, which drives policyengine.org's own
- * header and homepage. `tests/layout/featuredToolsParity.test.ts` fails when
- * the two lists differ, so change both together. A country with no entry has
- * no Tools menu. The data is frozen because every header in a bundle shares
- * it.
+ * header and homepage, so change both together.
+ * `tests/layout/featuredToolsParity.network.test.ts` fails when the two lists
+ * differ. A country with no entry has no Tools menu. The data is frozen
+ * because every header in a bundle shares it.
  */
 export const policyEngineFeaturedTools: Readonly<
   Partial<Record<string, readonly PolicyEngineFeaturedTool[]>>
