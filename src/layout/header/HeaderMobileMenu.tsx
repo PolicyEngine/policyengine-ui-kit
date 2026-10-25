@@ -70,7 +70,14 @@ export function HeaderMobileMenu({
         <SheetContent
           side="right"
           className="w-[300px]"
-          style={{ backgroundColor: 'var(--color-teal-600)' }}
+          style={{
+            backgroundColor: 'var(--color-teal-600)',
+            // The full nav is taller than a short phone, so let it scroll.
+            overflowY: 'auto',
+            // Above the sticky header (zIndex 1000), which would otherwise
+            // cover the sheet's title and close button.
+            zIndex: 1001,
+          }}
         >
           <SheetHeader>
             <SheetTitle className="text-white">Menu</SheetTitle>
@@ -99,7 +106,8 @@ export function HeaderMobileMenu({
                     style={{ gap: '8px', paddingLeft: '16px' }}
                   >
                     {item.children.map((child) => {
-                      if (linkComponent && !child.external) {
+                      const childExternal = child.external ?? item.external;
+                      if (linkComponent && !childExternal) {
                         const LinkComp = linkComponent;
                         return (
                           <LinkComp
@@ -124,7 +132,7 @@ export function HeaderMobileMenu({
                           key={child.label}
                           href={child.href}
                           onClick={
-                            child.external
+                            childExternal
                               ? onClose
                               : (e) => {
                                   e.preventDefault();

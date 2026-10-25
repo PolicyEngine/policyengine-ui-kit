@@ -67,9 +67,9 @@ export function getPolicyEngineUrl(
 export function getPolicyEngineFeaturedTools(
   country: PolicyEngineCountryId = 'us',
   baseUrl = DEFAULT_POLICYENGINE_BASE_URL,
-): (PolicyEngineFeaturedTool & { href: string })[] {
+): (PolicyEngineFeaturedTool & { readonly href: string })[] {
   const tools = Object.hasOwn(policyEngineFeaturedTools, country)
-    ? policyEngineFeaturedTools[country]
+    ? (policyEngineFeaturedTools[country] ?? [])
     : [];
   return tools.map((tool) => ({
     ...tool,
@@ -95,11 +95,13 @@ function getPolicyEngineToolsNavItem(
   }
 
   const allToolsUrl = getPolicyEngineAllToolsUrl(country, baseUrl);
-  // Each tool is its own zone, and so is the research listing, so every row
-  // is a full page load rather than a client-side transition.
+  // Each tool is its own zone, and the research listing belongs to the
+  // website's, so no app rendering this header can reach them with a
+  // client-side transition: every row is a full page load.
   return {
     label: 'Tools',
     href: allToolsUrl,
+    external: true,
     children: [
       ...tools.map(({ label, href }) => ({ label, href, external: true })),
       { label: 'All interactive tools', href: allToolsUrl, external: true },

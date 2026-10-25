@@ -42,5 +42,6 @@ export {
   Header,
   type HeaderProps,
   type NavItemConfig,
+  type NavItemChildConfig,
   type CountryConfig,
 } from './header';

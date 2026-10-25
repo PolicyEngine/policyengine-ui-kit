@@ -2,22 +2,26 @@ import { forwardRef, useState } from 'react';
 import { cn } from '../../utils/cn';
 import { HeaderContent } from './HeaderContent';
 
+/** A row in a nav item's dropdown. */
+export interface NavItemChildConfig {
+  label: string;
+  href: string;
+  description?: string;
+  /** Overrides the parent item's `external` for this row. */
+  external?: boolean;
+}
+
 export interface NavItemConfig {
   label: string;
   href: string;
   /**
-   * Render a plain `<a>` that the browser follows as a full page load,
-   * skipping `linkComponent` and `onNavigate`. Use it for a page served by
-   * another zone, which a client-side router can't reach.
+   * Render a plain `<a>` that the browser follows as a full page load in
+   * the same tab, skipping `linkComponent` and `onNavigate`. Use it for a
+   * page served by another zone, which a client-side router can't reach.
+   * Dropdown rows inherit it unless they set their own.
    */
   external?: boolean;
-  children?: {
-    label: string;
-    href: string;
-    description?: string;
-    /** Same as the item-level `external`, for one dropdown row. */
-    external?: boolean;
-  }[];
+  children?: NavItemChildConfig[];
 }
 
 export interface CountryConfig {
@@ -35,9 +39,15 @@ export interface HeaderProps {
   currentCountry?: string;
   /** Callback when a country is selected */
   onCountryChange?: (id: string) => void;
-  /** Navigation callback — called when any nav link is clicked */
+  /**
+   * Navigation callback — called when a nav link is clicked, except
+   * `external` items, which the browser follows itself
+   */
   onNavigate?: (href: string) => void;
-  /** Custom link component (e.g. React Router Link, Next.js Link) */
+  /**
+   * Custom link component (e.g. React Router Link, Next.js Link), used for
+   * every nav link except `external` items
+   */
   linkComponent?: React.ElementType;
   /** Logo image source URL */
   logoSrc?: string;

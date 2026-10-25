@@ -109,9 +109,11 @@ function AppleDropdown({
             : 'translateX(-50%) translateY(-8px)',
           marginTop: '10px',
           // The trigger is a narrow box, so size the panel to its longest row
-          // instead of wrapping every row at the minimum width.
+          // instead of wrapping every row at the minimum width, up to a cap
+          // that keeps long descriptions from widening the page.
           width: 'max-content',
           minWidth: '220px',
+          maxWidth: 'min(28rem, calc(100vw - 32px))',
           overflow: 'hidden',
           maxHeight: visible ? `${contentHeight}px` : '0px',
           opacity: visible ? 1 : 0,
@@ -259,7 +261,10 @@ export function HeaderNavItem({
           />
         </button>
         <AppleDropdown
-          items={children}
+          items={children.map((child) => ({
+            ...child,
+            external: child.external ?? external,
+          }))}
           open={dropdownOpen}
           onClose={() => setDropdownOpen(false)}
           onNavigate={onNavigate}

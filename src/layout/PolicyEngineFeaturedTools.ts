@@ -6,9 +6,15 @@
  */
 export interface PolicyEngineFeaturedTool {
   /** Path segment after the country: the tool lives at `/<country>/<slug>`. */
-  slug: string;
-  label: string;
-  description: string;
+  readonly slug: string;
+  readonly label: string;
+  readonly description: string;
+}
+
+function freezeTools(
+  tools: PolicyEngineFeaturedTool[],
+): readonly PolicyEngineFeaturedTool[] {
+  return Object.freeze(tools.map((tool) => Object.freeze({ ...tool })));
 }
 
 /**
@@ -18,12 +24,13 @@ export interface PolicyEngineFeaturedTool {
  * PolicyEngine/policyengine-app-v2, which drives policyengine.org's own
  * header and homepage. `tests/layout/featuredToolsParity.test.ts` fails when
  * the two lists differ, so change both together. A country with no entry has
- * no Tools menu.
+ * no Tools menu. The data is frozen because every header in a bundle shares
+ * it.
  */
 export const policyEngineFeaturedTools: Readonly<
-  Record<string, readonly PolicyEngineFeaturedTool[]>
-> = {
-  us: [
+  Partial<Record<string, readonly PolicyEngineFeaturedTool[]>>
+> = Object.freeze({
+  us: freezeTools([
     {
       slug: 'cliffwatch',
       label: 'CliffWatch',
@@ -42,13 +49,13 @@ export const policyEngineFeaturedTools: Readonly<
       description:
         "Monitor tax and benefit legislation across all 50 US states. See which states are in session, track active bills, and explore PolicyEngine's research on state-level policy reforms.",
     },
-  ],
-  uk: [
+  ]),
+  uk: freezeTools([
     {
       slug: 'uk-cliff-watch',
       label: 'UK CliffWatch',
       description:
         "See where benefit withdrawal and taxes create cliffs and high marginal rates as a UK household's earnings rise.",
     },
-  ],
-};
+  ]),
+});
