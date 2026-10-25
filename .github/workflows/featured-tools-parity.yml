@@ -1,0 +1,28 @@
+name: Featured tools parity
+
+# The header's Tools menu copies policyengine.org's list; see
+# tests/layout/featuredToolsParity.test.ts. PR checks run that test too. This
+# weekly run catches a tool added on policyengine.org while nothing changes
+# here.
+on:
+  schedule:
+    - cron: "0 14 * * 1"
+  workflow_dispatch:
+
+jobs:
+  parity:
+    name: Featured tools parity
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+
+      - name: Set up Bun
+        uses: oven-sh/setup-bun@v2
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Compare with policyengine.org's list
+        run: bunx vitest run tests/layout/featuredToolsParity.test.ts

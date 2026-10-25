@@ -99,7 +99,7 @@ export function HeaderMobileMenu({
                     style={{ gap: '8px', paddingLeft: '16px' }}
                   >
                     {item.children.map((child) => {
-                      if (linkComponent) {
+                      if (linkComponent && !child.external) {
                         const LinkComp = linkComponent;
                         return (
                           <LinkComp
@@ -123,10 +123,14 @@ export function HeaderMobileMenu({
                         <a
                           key={child.label}
                           href={child.href}
-                          onClick={(e) => {
-                            e.preventDefault();
-                            handleNavigate(child.href);
-                          }}
+                          onClick={
+                            child.external
+                              ? onClose
+                              : (e) => {
+                                  e.preventDefault();
+                                  handleNavigate(child.href);
+                                }
+                          }
                           style={{
                             color: 'var(--text-inverse)',
                             textDecoration: 'none',
@@ -143,7 +147,7 @@ export function HeaderMobileMenu({
                 </div>
               ) : (
                 (() => {
-                  if (linkComponent) {
+                  if (linkComponent && !item.external) {
                     const LinkComp = linkComponent;
                     return (
                       <LinkComp
@@ -169,12 +173,14 @@ export function HeaderMobileMenu({
                       key={item.label}
                       href={item.href}
                       onClick={
-                        onNavigate
-                          ? (e: React.MouseEvent) => {
-                              e.preventDefault();
-                              handleNavigate(item.href);
-                            }
-                          : undefined
+                        item.external
+                          ? onClose
+                          : onNavigate
+                            ? (e: React.MouseEvent) => {
+                                e.preventDefault();
+                                handleNavigate(item.href);
+                              }
+                            : undefined
                       }
                       style={{
                         color: 'var(--text-inverse)',

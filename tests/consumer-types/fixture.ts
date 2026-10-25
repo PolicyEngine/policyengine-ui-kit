@@ -47,6 +47,13 @@ import {
   Footer,
   Stack,
   Group,
+  PolicyEngineHeader,
+  getPolicyEngineNavItems,
+  getPolicyEngineFeaturedTools,
+  getPolicyEngineAllToolsUrl,
+  policyEngineFeaturedTools,
+  type NavItemConfig,
+  type PolicyEngineFeaturedTool,
   // Inputs
   CurrencyInput,
   NumberInput,
@@ -108,6 +115,18 @@ export const _LegacyColorPaths = {
   grayMid: legacyColors.gray[500],
 };
 
+// The Tools menu surface zone apps read (0.13.0): the item-level and
+// dropdown-row `external` flags and the featured-tool entries.
+export const _ToolsNavPaths: {
+  external: NavItemConfig["external"];
+  rowExternal: NonNullable<NavItemConfig["children"]>[number]["external"];
+  tool: PolicyEngineFeaturedTool;
+} = {
+  external: true,
+  rowExternal: true,
+  tool: policyEngineFeaturedTools.us[0],
+};
+
 // Touch each binding so unused-import settings don't strip them.
 export type _SmokeTest =
   | typeof Accordion
@@ -142,6 +161,10 @@ export type _SmokeTest =
   | typeof Footer
   | typeof Stack
   | typeof Group
+  | typeof PolicyEngineHeader
+  | typeof getPolicyEngineNavItems
+  | typeof getPolicyEngineFeaturedTools
+  | typeof getPolicyEngineAllToolsUrl
   | typeof CurrencyInput
   | typeof NumberInput
   | typeof DataTable

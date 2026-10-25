@@ -24,14 +24,20 @@ export {
 } from './PolicyEngineShell';
 export {
   DEFAULT_POLICYENGINE_BASE_URL,
+  getPolicyEngineAllToolsUrl,
   getPolicyEngineCountrySwitchUrl,
   getPolicyEngineCountryUrl,
+  getPolicyEngineFeaturedTools,
   getPolicyEngineFooterLinks,
   getPolicyEngineNavItems,
   getPolicyEngineUrl,
   policyEngineCountries,
   type PolicyEngineCountryId,
 } from './PolicyEngineSiteConfig';
+export {
+  policyEngineFeaturedTools,
+  type PolicyEngineFeaturedTool,
+} from './PolicyEngineFeaturedTools';
 export {
   Header,
   type HeaderProps,

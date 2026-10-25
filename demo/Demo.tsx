@@ -100,6 +100,7 @@ import { SegmentedControl } from '../src/primitives/SegmentedControl';
 // Layout
 import { DashboardShell } from '../src/layout/DashboardShell';
 import { Header } from '../src/layout/header';
+import { PolicyEngineHeader } from '../src/layout/PolicyEngineHeader';
 import { SidebarLayout } from '../src/layout/SidebarLayout';
 import { SingleColumnLayout } from '../src/layout/SingleColumnLayout';
 import { InputPanel } from '../src/layout/InputPanel';
@@ -1287,6 +1288,18 @@ export function Demo() {
                   currentCountry={homeCountry}
                   onCountryChange={setHomeCountry}
                   onNavigate={(href) => console.log('Navigate:', href)}
+                  styles={{ root: { position: 'relative' } }}
+                />
+              </div>
+            </SubSection>
+
+            <SubSection title="PolicyEngine header">
+              {/* No overflow-hidden here: it would clip the dropdowns. */}
+              <div className="border border-border rounded-lg">
+                <PolicyEngineHeader
+                  country={homeCountry}
+                  countries={homeHeaderCountries}
+                  onCountryChange={setHomeCountry}
                   styles={{ root: { position: 'relative' } }}
                 />
               </div>

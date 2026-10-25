@@ -108,6 +108,9 @@ function AppleDropdown({
             ? 'translateX(-50%) translateY(0)'
             : 'translateX(-50%) translateY(-8px)',
           marginTop: '10px',
+          // The trigger is a narrow box, so size the panel to its longest row
+          // instead of wrapping every row at the minimum width.
+          width: 'max-content',
           minWidth: '220px',
           overflow: 'hidden',
           maxHeight: visible ? `${contentHeight}px` : '0px',
@@ -150,13 +153,13 @@ function AppleDropdown({
             );
             const handleClick = (e: React.MouseEvent<HTMLElement>) => {
               onClose();
-              if (onNavigate) {
+              if (onNavigate && !item.external) {
                 e.preventDefault();
                 onNavigate(item.href);
               }
             };
 
-            if (linkComponent) {
+            if (linkComponent && !item.external) {
               const LinkComp = linkComponent;
               return (
                 <LinkComp
@@ -198,7 +201,7 @@ export function HeaderNavItem({
   onNavigate,
   linkComponent,
 }: HeaderNavItemProps) {
-  const { label, href, children } = item;
+  const { label, href, children, external } = item;
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -267,7 +270,7 @@ export function HeaderNavItem({
   }
 
   // Simple link item
-  if (linkComponent) {
+  if (linkComponent && !external) {
     const LinkComp = linkComponent;
     return (
       <LinkComp
@@ -286,7 +289,7 @@ export function HeaderNavItem({
       href={href}
       style={navItemStyle}
       onClick={
-        onNavigate && href
+        onNavigate && href && !external
           ? (e: React.MouseEvent) => {
               e.preventDefault();
               onNavigate(href);

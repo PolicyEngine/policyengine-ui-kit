@@ -1,5 +1,9 @@
 import type { CountryConfig, NavItemConfig } from './header';
 import type { FooterProps } from './Footer';
+import {
+  policyEngineFeaturedTools,
+  type PolicyEngineFeaturedTool,
+} from './PolicyEngineFeaturedTools';
 
 export type PolicyEngineCountryId = 'us' | 'uk' | (string & {});
 
@@ -59,15 +63,61 @@ export function getPolicyEngineUrl(
   return `${getPolicyEngineCountryUrl(country, baseUrl)}${normalizedPath}`;
 }
 
+/** The featured tools for a country, with absolute links, or none. */
+export function getPolicyEngineFeaturedTools(
+  country: PolicyEngineCountryId = 'us',
+  baseUrl = DEFAULT_POLICYENGINE_BASE_URL,
+): (PolicyEngineFeaturedTool & { href: string })[] {
+  const tools = Object.hasOwn(policyEngineFeaturedTools, country)
+    ? policyEngineFeaturedTools[country]
+    : [];
+  return tools.map((tool) => ({
+    ...tool,
+    href: getPolicyEngineUrl(country, tool.slug, baseUrl),
+  }));
+}
+
+/** The research listing filtered to interactive tools. */
+export function getPolicyEngineAllToolsUrl(
+  country: PolicyEngineCountryId = 'us',
+  baseUrl = DEFAULT_POLICYENGINE_BASE_URL,
+) {
+  return getPolicyEngineUrl(country, 'research?types=interactive', baseUrl);
+}
+
+function getPolicyEngineToolsNavItem(
+  country: PolicyEngineCountryId,
+  baseUrl: string,
+): NavItemConfig | null {
+  const tools = getPolicyEngineFeaturedTools(country, baseUrl);
+  if (tools.length === 0) {
+    return null;
+  }
+
+  const allToolsUrl = getPolicyEngineAllToolsUrl(country, baseUrl);
+  // Each tool is its own zone, and so is the research listing, so every row
+  // is a full page load rather than a client-side transition.
+  return {
+    label: 'Tools',
+    href: allToolsUrl,
+    children: [
+      ...tools.map(({ label, href }) => ({ label, href, external: true })),
+      { label: 'All interactive tools', href: allToolsUrl, external: true },
+    ],
+  };
+}
+
 export function getPolicyEngineNavItems(
   country: PolicyEngineCountryId = 'us',
   baseUrl = DEFAULT_POLICYENGINE_BASE_URL,
 ): NavItemConfig[] {
-  const navItems: NavItemConfig[] = [
+  const toolsNavItem = getPolicyEngineToolsNavItem(country, baseUrl);
+  return [
     {
       label: 'Research',
       href: getPolicyEngineUrl(country, 'research', baseUrl),
     },
+    ...(toolsNavItem ? [toolsNavItem] : []),
     {
       label: 'Model',
       href: getPolicyEngineUrl(country, 'model', baseUrl),
@@ -76,6 +126,14 @@ export function getPolicyEngineNavItems(
       label: 'API',
       href: getPolicyEngineUrl(country, 'api', baseUrl),
     },
+    ...(country === 'us'
+      ? [
+          {
+            label: 'Python',
+            href: getPolicyEngineUrl(country, 'python', baseUrl),
+          },
+        ]
+      : []),
     {
       label: 'About',
       href: getPolicyEngineUrl(country, 'team', baseUrl),
@@ -102,15 +160,6 @@ export function getPolicyEngineNavItems(
       href: getPolicyEngineUrl(country, 'donate', baseUrl),
     },
   ];
-
-  if (country === 'us') {
-    navItems.splice(3, 0, {
-      label: 'Python',
-      href: getPolicyEngineUrl(country, 'python', baseUrl),
-    });
-  }
-
-  return navItems;
 }
 
 export function getPolicyEngineFooterLinks(

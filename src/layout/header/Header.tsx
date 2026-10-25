@@ -5,7 +5,19 @@ import { HeaderContent } from './HeaderContent';
 export interface NavItemConfig {
   label: string;
   href: string;
-  children?: { label: string; href: string; description?: string }[];
+  /**
+   * Render a plain `<a>` that the browser follows as a full page load,
+   * skipping `linkComponent` and `onNavigate`. Use it for a page served by
+   * another zone, which a client-side router can't reach.
+   */
+  external?: boolean;
+  children?: {
+    label: string;
+    href: string;
+    description?: string;
+    /** Same as the item-level `external`, for one dropdown row. */
+    external?: boolean;
+  }[];
 }
 
 export interface CountryConfig {
