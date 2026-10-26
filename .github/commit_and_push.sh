@@ -13,4 +13,7 @@ if git diff --staged --quiet; then
 fi
 
 git commit -m "Release @policyengine/ui-kit"
-git push
+# If main moved during the release, put the release commit on top of it, so
+# the version npm now has also lands on main.
+git pull --rebase origin main
+git push origin HEAD:main

@@ -6,6 +6,12 @@ on:
   # Retries a release that failed after its PR merged, without a new commit.
   workflow_dispatch:
 
+# One release at a time: a second run waits, then bumps from the first's
+# release commit instead of racing it to main.
+concurrency:
+  group: release
+  cancel-in-progress: false
+
 jobs:
   release:
     name: Bump version, build changelog, publish to npm
@@ -15,7 +21,10 @@ jobs:
       # npm trusted publishing: npm accepts this workflow's OIDC token
       # instead of a stored, expiring npm token.
       id-token: write
-    if: "!contains(github.event.head_commit.message, 'Release @policyengine/ui-kit')"
+    # Only main releases: npm trusts this workflow from any branch, and a
+    # manual run can pick one. A manual run has no head commit, so the
+    # release-commit check passes.
+    if: "github.ref == 'refs/heads/main' && !contains(github.event.head_commit.message, 'Release @policyengine/ui-kit')"
 
     steps:
       - uses: actions/checkout@v6
