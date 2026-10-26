@@ -3,6 +3,8 @@ name: Version, Changelog, and Publish
 on:
   push:
     branches: [main]
+  # Retries a release that failed after its PR merged, without a new commit.
+  workflow_dispatch:
 
 jobs:
   release:
@@ -10,14 +12,43 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
-    if: "!contains(github.event.head_commit.message, 'Release @policyengine/ui-kit')"
+      # npm trusted publishing: npm accepts this workflow's OIDC token
+      # instead of a stored, expiring npm token.
+      id-token: write
+      # To hand a release over to a fresh run on main's tip (below).
+      actions: write
+    # One release at a time, so two runs never bump from the same version.
+    # On the job, not the workflow, so a skipped non-main run never takes a
+    # main run's place in the queue.
+    concurrency:
+      group: release
+      cancel-in-progress: false
+    # Only main releases: npm trusts this workflow from any branch, and a
+    # manual run can pick one. A manual run has no head commit, so the
+    # release-commit check passes.
+    if: "github.ref == 'refs/heads/main' && !contains(github.event.head_commit.message, 'Release @policyengine/ui-kit')"
 
     steps:
       - uses: actions/checkout@v6
 
       - name: Check for changelog fragments
         id: check
-        run: .github/check_fragments.sh
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          # npm records this run's commit as the package's source, so release
+          # only from main's tip. If main has moved on (a later merge, or the
+          # release commit of a run this one waited for), hand over to a fresh
+          # run on the tip, which carries this commit's fragments too.
+          git fetch --quiet --depth=1 origin main
+          if [ "$(git rev-parse FETCH_HEAD)" != "$GITHUB_SHA" ]; then
+            echo "main has moved past $GITHUB_SHA; starting a release from its tip."
+            gh workflow run push.yml --ref main
+            echo "count=0" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          .github/check_fragments.sh
 
       - name: Set up Python
         if: steps.check.outputs.count != '0'
@@ -53,14 +84,21 @@ jobs:
         if: steps.check.outputs.count != '0'
         uses: actions/setup-node@v6
         with:
-          node-version: 20
+          node-version: "24.21.0"
           registry-url: https://registry.npmjs.org
+
+      # Trusted publishing needs npm 11.5.1 or later.
+      - name: Verify npm publishing toolchain
+        if: steps.check.outputs.count != '0'
+        run: |
+          node --version
+          npm --version
+          test "$(node --version)" = "v24.21.0"
+          test "$(npm --version)" = "11.19.0"
 
       - name: Publish to npm
         if: steps.check.outputs.count != '0'
         run: npm publish --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Commit and push
         if: steps.check.outputs.count != '0'
