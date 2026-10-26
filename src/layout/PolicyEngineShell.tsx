@@ -5,13 +5,16 @@ import { cn } from '../utils/cn';
 import { PolicyEngineFooter, type PolicyEngineFooterProps } from './PolicyEngineFooter';
 import { PolicyEngineHeader, type PolicyEngineHeaderProps } from './PolicyEngineHeader';
 import { DEFAULT_POLICYENGINE_BASE_URL, type PolicyEngineCountryId } from './PolicyEngineSiteConfig';
+import { DEFAULT_POLICYENGINE_APP_URL } from './PolicyEngineTools';
 
 export interface PolicyEngineShellProps {
   children: ReactNode;
   country?: PolicyEngineCountryId;
   baseUrl?: string;
+  /** The main app's origin, which the header's Tools menu links to first. */
+  appUrl?: string;
   showFooter?: boolean;
-  headerProps?: Omit<PolicyEngineHeaderProps, 'country' | 'baseUrl'>;
+  headerProps?: Omit<PolicyEngineHeaderProps, 'country' | 'baseUrl' | 'appUrl'>;
   footerProps?: Omit<PolicyEngineFooterProps, 'country' | 'baseUrl'>;
   className?: string;
   mainClassName?: string;
@@ -21,6 +24,7 @@ export function PolicyEngineShell({
   children,
   country = 'us',
   baseUrl = DEFAULT_POLICYENGINE_BASE_URL,
+  appUrl = DEFAULT_POLICYENGINE_APP_URL,
   showFooter = true,
   headerProps,
   footerProps,
@@ -29,7 +33,12 @@ export function PolicyEngineShell({
 }: PolicyEngineShellProps) {
   return (
     <div className={cn('min-h-screen flex flex-col', className)}>
-      <PolicyEngineHeader country={country} baseUrl={baseUrl} {...headerProps} />
+      <PolicyEngineHeader
+        country={country}
+        baseUrl={baseUrl}
+        appUrl={appUrl}
+        {...headerProps}
+      />
       <main className={cn('flex-1', mainClassName)}>{children}</main>
       {showFooter && (
         <PolicyEngineFooter country={country} baseUrl={baseUrl} {...footerProps} />

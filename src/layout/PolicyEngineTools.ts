@@ -34,6 +34,9 @@ function freezeTools(
  * when this copy, the main app's label or its URL differ from app-v2's, so
  * change them when apps.json changes. The data is frozen because every
  * header in a bundle shares it.
+ *
+ * This export may move: the plan is for app-v2 and ui-kit to read one list,
+ * after which this copy goes.
  */
 export const policyEngineTools: Readonly<
   Partial<Record<string, readonly PolicyEngineTool[]>>

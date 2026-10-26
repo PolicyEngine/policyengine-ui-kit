@@ -33,6 +33,7 @@ export {
   getPolicyEngineUrl,
   policyEngineCountries,
   type PolicyEngineCountryId,
+  type PolicyEngineToolLink,
 } from './PolicyEngineSiteConfig';
 export {
   DEFAULT_POLICYENGINE_APP_URL,

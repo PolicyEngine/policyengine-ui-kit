@@ -64,12 +64,21 @@ export function getPolicyEngineUrl(
   return `${getPolicyEngineCountryUrl(country, baseUrl)}${normalizedPath}`;
 }
 
+/** A tool with its absolute link. */
+export interface PolicyEngineToolLink {
+  slug: string;
+  label: string;
+  href: string;
+}
+
 /** A country's tools, sorted by label, with absolute links, or none. */
 export function getPolicyEngineTools(
   country: PolicyEngineCountryId = 'us',
   baseUrl = DEFAULT_POLICYENGINE_BASE_URL,
-): { slug: string; label: string; href: string }[] {
-  const tools = Object.hasOwn(policyEngineTools, country)
+): PolicyEngineToolLink[] {
+  // Own keys only, so `__proto__` or `constructor` never finds a list.
+  // (Object.hasOwn would do, but Safari added it only in 15.4.)
+  const tools = Object.prototype.hasOwnProperty.call(policyEngineTools, country)
     ? (policyEngineTools[country] ?? [])
     : [];
   return tools.map((tool) => ({
