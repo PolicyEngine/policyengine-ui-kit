@@ -385,8 +385,11 @@ describe('Header dropdown position', () => {
 
     await openDesktopMenu('Tools');
     expect(panel().style.left).toBe('50%');
-    // Sideways placement stays out of the animated transform.
+    // Sideways placement stays out of the animated transform, and `left`
+    // doesn't animate, so the panel never slides past the viewport's edge.
     expect(panel().style.transform).toMatch(/^translateX\(-50%\) translateY\((0|-8px)\)$/);
+    expect(panel().style.transition).toContain('transform');
+    expect(panel().style.transition).not.toMatch(/(^|,)\s*(left|all)\b/);
   });
 
   it('leaves a panel it cannot measure centred', async () => {
