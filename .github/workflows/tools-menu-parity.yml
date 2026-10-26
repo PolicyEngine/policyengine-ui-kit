@@ -11,12 +11,18 @@ on:
       - src/layout/PolicyEngineTools.ts
       - tests/layout/toolsMenuParity.network.test.ts
       - .github/workflows/tools-menu-parity.yml
+      # How the test runs: the test:network script and the vitest exclude.
+      - package.json
+      - vitest.config.ts
   push:
     branches: [main]
     paths:
       - src/layout/PolicyEngineTools.ts
       - tests/layout/toolsMenuParity.network.test.ts
       - .github/workflows/tools-menu-parity.yml
+      # How the test runs: the test:network script and the vitest exclude.
+      - package.json
+      - vitest.config.ts
   schedule:
     - cron: "0 14 * * 1"
   workflow_dispatch:

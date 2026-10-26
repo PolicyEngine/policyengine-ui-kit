@@ -17,12 +17,27 @@ import {
  * It reads over the network, so `bun run test` skips it.
  * .github/workflows/tools-menu-parity.yml runs it when the copy changes and
  * weekly, to catch a change on policyengine.org while nothing changes here.
+ *
+ * What it can't see:
+ * - It applies its own copy of the rule rather than running app-v2's code.
+ *   If app-v2 changes the rule itself (another filter, a different sort),
+ *   this test can pass while the menus differ. app-v2's own tests
+ *   (website/src/__tests__/lib/toolsMenu.test.ts) pin its side of the rule.
+ * - It reads CALCULATOR_URL's default in the code. A deployment that sets
+ *   NEXT_PUBLIC_CALCULATOR_URL or VITE_CALCULATOR_URL links the main app
+ *   somewhere else, and this test can't tell.
  */
 const APP_V2 =
   'https://raw.githubusercontent.com/PolicyEngine/policyengine-app-v2/main';
 const APPS_JSON_URL = `${APP_V2}/app/src/data/apps/apps.json`;
-const TOOLS_MENU_URL = `${APP_V2}/app/src/utils/toolsMenu.ts`;
-const CONSTANTS_URL = `${APP_V2}/app/src/constants.ts`;
+// The calculator's header and the website's header each name the main app
+// and give its URL, so check both.
+const APP_TOOLS_MENU_URL = `${APP_V2}/app/src/utils/toolsMenu.ts`;
+const APP_CONSTANTS_URL = `${APP_V2}/app/src/constants.ts`;
+const WEBSITE_TOOLS_MENU_URL = `${APP_V2}/website/src/lib/toolsMenu.ts`;
+const MAIN_APP_LABEL_PATTERN = /MAIN_APP_LABEL\s*=\s*['"]([^'"]+)['"]/;
+// `[^;]*?` spans the line break in the website's two-line declaration.
+const CALCULATOR_URL_PATTERN = /CALCULATOR_URL\s*=[^;]*?\|\|\s*['"]([^'"]+)['"]/;
 
 /** GET `url`, retrying once if the connection fails (not on an HTTP error). */
 async function fetchText(url: string): Promise<string> {
@@ -93,21 +108,17 @@ describe('Tools menu parity with policyengine.org', () => {
     ).toStrictEqual(toolsByCountry(apps as AppEntry[]));
   }, 20_000);
 
-  it('names and links the main app as app-v2 does', async () => {
+  it.each([
+    ['the calculator', APP_TOOLS_MENU_URL, APP_CONSTANTS_URL],
+    ['the website', WEBSITE_TOOLS_MENU_URL, WEBSITE_TOOLS_MENU_URL],
+  ])('names and links the main app as %s’s header does', async (_, labelUrl, appUrl) => {
     expect(
       POLICYENGINE_APP_LABEL,
-      'POLICYENGINE_APP_LABEL differs from MAIN_APP_LABEL in app-v2',
-    ).toBe(
-      await readFromSource(TOOLS_MENU_URL, /MAIN_APP_LABEL\s*=\s*['"]([^'"]+)['"]/),
-    );
+      `POLICYENGINE_APP_LABEL differs from MAIN_APP_LABEL in ${labelUrl}`,
+    ).toBe(await readFromSource(labelUrl, MAIN_APP_LABEL_PATTERN));
     expect(
       DEFAULT_POLICYENGINE_APP_URL,
-      'DEFAULT_POLICYENGINE_APP_URL differs from CALCULATOR_URL’s default in app-v2',
-    ).toBe(
-      await readFromSource(
-        CONSTANTS_URL,
-        /CALCULATOR_URL\s*=[^\n]*\|\|\s*['"]([^'"]+)['"]/,
-      ),
-    );
+      `DEFAULT_POLICYENGINE_APP_URL differs from CALCULATOR_URL’s default in ${appUrl}`,
+    ).toBe(await readFromSource(appUrl, CALCULATOR_URL_PATTERN));
   }, 35_000);
 });

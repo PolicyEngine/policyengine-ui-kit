@@ -33,6 +33,7 @@ import {
   Select,
   Separator,
   Sheet,
+  SheetContent,
   Skeleton,
   Spinner,
   Switch,
@@ -48,6 +49,7 @@ import {
   Stack,
   Group,
   PolicyEngineHeader,
+  PolicyEngineShell,
   getPolicyEngineNavItems,
   getPolicyEngineTools,
   getPolicyEngineAppUrl,
@@ -57,6 +59,7 @@ import {
   type NavItemConfig,
   type NavItemChildConfig,
   type PolicyEngineTool,
+  type PolicyEngineToolLink,
   // Inputs
   CurrencyInput,
   NumberInput,
@@ -126,6 +129,9 @@ export const _ToolsNavPaths: {
   tool: PolicyEngineTool | undefined;
   mainApp: NavItemChildConfig;
   appUrlProp: Parameters<typeof PolicyEngineHeader>[0]["appUrl"];
+  shellAppUrlProp: Parameters<typeof PolicyEngineShell>[0]["appUrl"];
+  toolLink: PolicyEngineToolLink | undefined;
+  sheetOverlayStyle: Parameters<typeof SheetContent>[0]["overlayStyle"];
 } = {
   external: true,
   row: { label: "CliffWatch", href: "/us/cliffwatch", external: true },
@@ -136,6 +142,9 @@ export const _ToolsNavPaths: {
     external: true,
   },
   appUrlProp: DEFAULT_POLICYENGINE_APP_URL,
+  shellAppUrlProp: DEFAULT_POLICYENGINE_APP_URL,
+  toolLink: getPolicyEngineTools("uk")[0],
+  sheetOverlayStyle: { zIndex: 1001 },
 };
 
 // Touch each binding so unused-import settings don't strip them.

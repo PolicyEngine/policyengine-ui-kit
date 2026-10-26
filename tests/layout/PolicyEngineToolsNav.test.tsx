@@ -3,6 +3,7 @@ import { render, screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Header } from '../../src/layout/header';
 import { PolicyEngineHeader } from '../../src/layout/PolicyEngineHeader';
+import { PolicyEngineShell } from '../../src/layout/PolicyEngineShell';
 
 /** A client-side link: marks what it renders so tests can tell it apart. */
 function ClientLink({
@@ -46,6 +47,29 @@ async function openMobileMenu() {
   return screen.getByRole('dialog');
 }
 
+/** Each link in a mobile menu group as [text, href, routed by the app]. */
+function mobileGroupRows(menu: HTMLElement, label: string) {
+  const rows = within(menu).getByText(label).nextElementSibling as HTMLElement;
+  return within(rows)
+    .getAllByRole('link')
+    .map((link) => [
+      link.textContent,
+      link.getAttribute('href'),
+      link.hasAttribute('data-client-link'),
+    ]);
+}
+
+const US_ROWS = [
+  ['PolicyEngine app', 'https://app.policyengine.org/us'],
+  ['CliffWatch', 'https://policyengine.org/us/cliffwatch'],
+  ['Coverage Compass', 'https://policyengine.org/us/coverage-compass'],
+  ['GiveCalc', 'https://policyengine.org/us/givecalc'],
+  ['Marriage calculator', 'https://policyengine.org/us/marriage'],
+  ['QBI deduction calculator', 'https://policyengine.org/us/qbi-calculator'],
+  ['SPM threshold calculator', 'https://policyengine.org/us/spm-calculator'],
+  ['TANF calculator', 'https://policyengine.org/us/tanf-calculator'],
+];
+
 describe('PolicyEngineHeader Tools menu', () => {
   it('opens the main app and the US tools as plain links even with a router link and onNavigate', async () => {
     const onNavigate = vi.fn();
@@ -58,16 +82,6 @@ describe('PolicyEngineHeader Tools menu', () => {
     );
 
     await openDesktopMenu('Tools');
-    const rows = [
-      ['PolicyEngine app', 'https://app.policyengine.org/us'],
-      ['CliffWatch', 'https://policyengine.org/us/cliffwatch'],
-      ['Coverage Compass', 'https://policyengine.org/us/coverage-compass'],
-      ['GiveCalc', 'https://policyengine.org/us/givecalc'],
-      ['Marriage calculator', 'https://policyengine.org/us/marriage'],
-      ['QBI deduction calculator', 'https://policyengine.org/us/qbi-calculator'],
-      ['SPM threshold calculator', 'https://policyengine.org/us/spm-calculator'],
-      ['TANF calculator', 'https://policyengine.org/us/tanf-calculator'],
-    ];
     const panel = screen
       .getByRole('link', { name: 'CliffWatch' })
       .closest<HTMLElement>('div[style*="position: absolute"]')!;
@@ -75,7 +89,7 @@ describe('PolicyEngineHeader Tools menu', () => {
       within(panel)
         .getAllByRole('link')
         .map((link) => [link.textContent, link.getAttribute('href')]),
-    ).toEqual(rows);
+    ).toEqual(US_ROWS);
     for (const link of within(panel).getAllByRole('link')) {
       expect(link).not.toHaveAttribute('data-client-link');
     }
@@ -168,6 +182,36 @@ describe('PolicyEngineHeader Tools menu', () => {
     );
   });
 
+  it('passes the shell appUrl to the header', async () => {
+    const { unmount } = render(<PolicyEngineShell country="uk">Tool content</PolicyEngineShell>);
+    await openDesktopMenu('Tools');
+    expect(screen.getByRole('link', { name: 'PolicyEngine app' })).toHaveAttribute(
+      'href',
+      'https://app.policyengine.org/uk',
+    );
+    unmount();
+
+    render(
+      <PolicyEngineShell
+        country="us"
+        baseUrl="https://staging.policyengine.org"
+        appUrl="https://app.staging.policyengine.org"
+      >
+        Tool content
+      </PolicyEngineShell>,
+    );
+
+    await openDesktopMenu('Tools');
+    expect(screen.getByRole('link', { name: 'PolicyEngine app' })).toHaveAttribute(
+      'href',
+      'https://app.staging.policyengine.org/us',
+    );
+    expect(screen.getByRole('link', { name: 'CliffWatch' })).toHaveAttribute(
+      'href',
+      'https://staging.policyengine.org/us/cliffwatch',
+    );
+  });
+
   it('has no Tools menu for another country', async () => {
     render(<PolicyEngineHeader country="ca" />);
 
@@ -188,30 +232,60 @@ describe('PolicyEngineHeader Tools menu', () => {
     );
 
     const menu = await openMobileMenu();
-    expect(within(menu).getByText('Tools')).toBeInTheDocument();
-    const mainApp = within(menu).getByRole('link', { name: 'PolicyEngine app' });
-    expect(mainApp).toHaveAttribute('href', 'https://app.policyengine.org/us');
-    expect(mainApp).not.toHaveAttribute('data-client-link');
-    const cliffWatch = within(menu).getByRole('link', { name: 'CliffWatch' });
-    expect(cliffWatch).toHaveAttribute('href', 'https://policyengine.org/us/cliffwatch');
-    expect(cliffWatch).not.toHaveAttribute('data-client-link');
+    expect(mobileGroupRows(menu, 'Tools')).toEqual(
+      US_ROWS.map(([label, href]) => [label, href, false]),
+    );
     expect(within(menu).getByRole('link', { name: 'Team' })).toHaveAttribute(
       'data-client-link',
     );
 
-    await userEvent.click(cliffWatch);
+    await userEvent.click(within(menu).getByRole('link', { name: 'CliffWatch' }));
     expect(onNavigate).not.toHaveBeenCalled();
     expect(clickWasPrevented).toEqual([false]);
     expect(screen.queryByRole('dialog')).toBeNull();
   });
 
-  it('lets the mobile menu scroll above the sticky header', async () => {
-    render(<PolicyEngineHeader country="us" />);
+  it('lists the UK tools in order in the mobile menu', async () => {
+    render(<PolicyEngineHeader country="uk" linkComponent={ClientLink} />);
 
     const menu = await openMobileMenu();
-    expect(menu.style.overflowY).toBe('auto');
-    expect(Number(menu.style.zIndex)).toBeGreaterThan(1000);
-    expect(within(menu).getByRole('link', { name: 'Donate' })).toBeInTheDocument();
+    expect(mobileGroupRows(menu, 'Tools')).toEqual([
+      ['PolicyEngine app', 'https://app.policyengine.org/uk', false],
+      ['Marriage calculator', 'https://policyengine.org/uk/marriage', false],
+      [
+        'Student loan calculator',
+        'https://policyengine.org/uk/uk-student-loan-calculator',
+        false,
+      ],
+      ['UK CliffWatch', 'https://policyengine.org/uk/uk-cliff-watch', false],
+    ]);
+  });
+
+  it('scrolls the mobile links under a fixed title, above the sticky header', async () => {
+    render(<PolicyEngineHeader country="us" />);
+
+    const headerZ = Number(
+      document.querySelector<HTMLElement>('div[style*="position: sticky"]')!.style.zIndex,
+    );
+    expect(headerZ).toBe(1000);
+    const menu = await openMobileMenu();
+    expect(Number(menu.style.zIndex)).toBeGreaterThan(headerZ);
+    const overlay = document.querySelector<HTMLElement>('[data-slot="sheet-overlay"]')!;
+    expect(Number(overlay.style.zIndex)).toBeGreaterThan(headerZ);
+
+    // The sheet itself doesn't scroll; the list under its title does.
+    expect(menu.style.overflowY).toBe('');
+    const list = within(menu)
+      .getByRole('link', { name: 'Donate' })
+      .closest<HTMLElement>('div[style*="overflow-y: auto"]')!;
+    expect(list).not.toBeNull();
+    expect(menu.contains(list)).toBe(true);
+    expect(parseFloat(list.style.minHeight)).toBe(0);
+    expect(list.style.flex).toMatch(/^1( |$)/);
+    expect(list.contains(within(menu).getByText('Menu'))).toBe(false);
+    expect(list.contains(within(menu).getByRole('button', { name: 'Close' }))).toBe(
+      false,
+    );
   });
 
   it('leaves mobile tool links to the browser when there is no router', async () => {
@@ -227,6 +301,125 @@ describe('PolicyEngineHeader Tools menu', () => {
     await userEvent.click(within(menuAgain).getByRole('link', { name: 'Team' }));
     expect(onNavigate).toHaveBeenCalledWith('https://policyengine.org/uk/team');
     expect(clickWasPrevented).toEqual([false, true]);
+  });
+});
+
+describe('Header dropdown position', () => {
+  // Not jsdom's window.innerWidth (1024), which counts the scrollbar.
+  const VIEWPORT_WIDTH = 1000;
+  // Where the dropdown panel sits, unshifted, before the header moves it.
+  let panelLeft = 0;
+  let panelWidth = 0;
+
+  /** The shift the panel's transform applies, in px. */
+  function shiftOf(element: HTMLElement) {
+    const match = element.style.transform.match(/calc\(-50% \+ (-?[\d.]+)px\)/);
+    return match ? Number(match[1]) : 0;
+  }
+
+  function isPanel(element: Element): element is HTMLElement {
+    return (
+      element instanceof HTMLElement &&
+      element.style.position === 'absolute' &&
+      element.style.width === 'max-content'
+    );
+  }
+
+  beforeEach(() => {
+    Object.defineProperty(document.documentElement, 'clientWidth', {
+      configurable: true,
+      value: VIEWPORT_WIDTH,
+    });
+    vi.spyOn(Element.prototype, 'getBoundingClientRect').mockImplementation(
+      function (this: Element) {
+        if (!isPanel(this)) return new DOMRect(0, 0, 0, 0);
+        return new DOMRect(panelLeft + shiftOf(this), 0, panelWidth, 100);
+      },
+    );
+  });
+
+  afterEach(() => {
+    vi.restoreAllMocks();
+    delete (document.documentElement as { clientWidth?: number }).clientWidth;
+  });
+
+  function panel() {
+    return screen
+      .getByRole('link', { name: 'CliffWatch' })
+      .closest<HTMLElement>('div[style*="position: absolute"]')!;
+  }
+
+  it('stays centred under its trigger when it fits', async () => {
+    panelLeft = 400;
+    panelWidth = 300;
+    render(<PolicyEngineHeader country="us" />);
+
+    await openDesktopMenu('Tools');
+    expect(panel().style.transform).toMatch(/^translateX\(-50%\) /);
+  });
+
+  it('leaves a panel it cannot measure centred', async () => {
+    panelLeft = -50;
+    panelWidth = 0;
+    render(<PolicyEngineHeader country="us" />);
+
+    await openDesktopMenu('Tools');
+    expect(panel().style.transform).toMatch(/^translateX\(-50%\) /);
+  });
+
+  it('moves left to keep its right edge 16px inside the viewport', async () => {
+    panelLeft = 900;
+    panelWidth = 300;
+    render(<PolicyEngineHeader country="us" />);
+
+    await openDesktopMenu('Tools');
+    expect(shiftOf(panel())).toBe(VIEWPORT_WIDTH - 16 - 1200);
+    expect(panel().style.transform).toMatch(/^translateX\(calc\(-50% \+ -216px\)\) /);
+  });
+
+  it('moves right to keep its left edge 16px inside the viewport', async () => {
+    panelLeft = -50;
+    panelWidth = 300;
+    render(<PolicyEngineHeader country="us" />);
+
+    await openDesktopMenu('Tools');
+    expect(shiftOf(panel())).toBe(66);
+  });
+
+  it('keeps the left edge on screen when the panel is wider than the viewport', async () => {
+    panelLeft = -40;
+    panelWidth = 1100;
+    render(<PolicyEngineHeader country="us" />);
+
+    await openDesktopMenu('Tools');
+    expect(shiftOf(panel())).toBe(56);
+  });
+
+  it('measures afresh each time it opens', async () => {
+    panelLeft = 900;
+    panelWidth = 300;
+    render(<PolicyEngineHeader country="us" />);
+
+    await openDesktopMenu('Tools');
+    expect(shiftOf(panel())).toBe(-216);
+    await userEvent.keyboard('{Escape}');
+    await waitFor(() =>
+      expect(screen.queryByRole('link', { name: 'CliffWatch' })).toBeNull(),
+    );
+
+    // Reopened with the old shift still applied, it lands in the same place.
+    await openDesktopMenu('Tools');
+    expect(shiftOf(panel())).toBe(-216);
+    await userEvent.keyboard('{Escape}');
+    await waitFor(() =>
+      expect(screen.queryByRole('link', { name: 'CliffWatch' })).toBeNull(),
+    );
+
+    // After the window grows, the panel fits and goes back to centred.
+    panelLeft = 400;
+    await openDesktopMenu('Tools');
+    expect(shiftOf(panel())).toBe(0);
+    expect(panel().style.transform).toMatch(/^translateX\(-50%\) /);
   });
 });
 
