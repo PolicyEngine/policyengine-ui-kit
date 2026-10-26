@@ -73,28 +73,43 @@ function AppleDropdown({
   const panelRef = useRef<HTMLDivElement>(null);
   const [contentHeight, setContentHeight] = useState(0);
   const [visible, setVisible] = useState(false);
-  // How far to move the panel sideways from centred under its trigger.
+  // How far to move the panel sideways from centred under its trigger, in
+  // the panel's own CSS pixels.
   const [shift, setShift] = useState(0);
 
   // A panel wider than its trigger, under an item near the edge, would run
-  // off the viewport and add a horizontal scrollbar, so keep it on screen.
+  // off the viewport and add a horizontal scrollbar, so keep it on screen,
+  // placing it again whenever the window resizes or scrolls while it's open.
   useLayoutEffect(() => {
     const panel = panelRef.current;
-    if (!open || !panel) return;
-    const rect = panel.getBoundingClientRect();
-    if (rect.width === 0) return; // Not laid out.
-    const left = rect.left - shift;
-    const right = rect.right - shift;
-    const viewportWidth = document.documentElement.clientWidth;
-    let next = 0;
-    if (right > viewportWidth - VIEWPORT_MARGIN) {
-      next = viewportWidth - VIEWPORT_MARGIN - right;
+    const trigger = panel?.parentElement;
+    if (!open || !panel || !trigger) return;
+    function place() {
+      const { width } = panel!.getBoundingClientRect();
+      if (width === 0) return; // Not laid out.
+      // Where the panel sits centred under its trigger, whatever its shift.
+      const box = trigger!.getBoundingClientRect();
+      const left = (box.left + box.right - width) / 2;
+      const right = left + width;
+      const viewportWidth = document.documentElement.clientWidth;
+      let next = 0;
+      if (right > viewportWidth - VIEWPORT_MARGIN) {
+        next = viewportWidth - VIEWPORT_MARGIN - right;
+      }
+      if (left + next < VIEWPORT_MARGIN) {
+        next = VIEWPORT_MARGIN - left;
+      }
+      // Under a scaled ancestor, the panel's CSS pixels aren't the viewport's.
+      const scale = panel!.offsetWidth > 0 ? width / panel!.offsetWidth : 1;
+      setShift(next / scale);
     }
-    if (left + next < VIEWPORT_MARGIN) {
-      next = VIEWPORT_MARGIN - left;
-    }
-    setShift(next);
-    // Measure once per opening; `shift` is read only to undo the last one.
+    place();
+    window.addEventListener('resize', place);
+    window.addEventListener('scroll', place, { capture: true, passive: true });
+    return () => {
+      window.removeEventListener('resize', place);
+      window.removeEventListener('scroll', place, { capture: true });
+    };
   }, [open]);
 
   useEffect(() => {
@@ -131,10 +146,12 @@ function AppleDropdown({
         style={{
           position: 'absolute',
           top: '100%',
-          left: '50%',
-          transform: `${
-            shift === 0 ? 'translateX(-50%)' : `translateX(calc(-50% + ${shift}px))`
-          } ${visible ? 'translateY(0)' : 'translateY(-8px)'}`,
+          // Shifted with `left`, which doesn't animate, so the panel never
+          // slides sideways and a measurement never catches it mid-slide.
+          left: shift === 0 ? '50%' : `calc(50% + ${shift}px)`,
+          transform: visible
+            ? 'translateX(-50%) translateY(0)'
+            : 'translateX(-50%) translateY(-8px)',
           marginTop: '10px',
           // The trigger is a narrow box, so size the panel to its longest row
           // instead of wrapping every row at the minimum width, up to a cap

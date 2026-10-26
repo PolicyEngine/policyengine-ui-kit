@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import { render, screen, waitFor, within } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Header } from '../../src/layout/header';
 import { PolicyEngineHeader } from '../../src/layout/PolicyEngineHeader';
@@ -273,8 +273,10 @@ describe('PolicyEngineHeader Tools menu', () => {
     const overlay = document.querySelector<HTMLElement>('[data-slot="sheet-overlay"]')!;
     expect(Number(overlay.style.zIndex)).toBeGreaterThan(headerZ);
 
-    // The sheet itself doesn't scroll; the list under its title does.
+    // The sheet itself doesn't scroll; the list under its title does. jsdom
+    // has no layout, so this checks the wiring: a column the list fills.
     expect(menu.style.overflowY).toBe('');
+    expect(menu).toHaveClass('flex', 'flex-col', 'h-full');
     const list = within(menu)
       .getByRole('link', { name: 'Donate' })
       .closest<HTMLElement>('div[style*="overflow-y: auto"]')!;
@@ -306,15 +308,21 @@ describe('PolicyEngineHeader Tools menu', () => {
 
 describe('Header dropdown position', () => {
   // Not jsdom's window.innerWidth (1024), which counts the scrollbar.
-  const VIEWPORT_WIDTH = 1000;
-  // Where the dropdown panel sits, unshifted, before the header moves it.
-  let panelLeft = 0;
+  let viewportWidth = 1000;
+  // The centre of the Tools trigger, and the panel's width, in viewport px.
+  let triggerCentre = 0;
   let panelWidth = 0;
+  // The panel's width in its own CSS px is panelWidth / scale.
+  let scale = 1;
 
-  /** The shift the panel's transform applies, in px. */
+  /** The shift the panel's `left` applies, in its own CSS px. */
   function shiftOf(element: HTMLElement) {
-    const match = element.style.transform.match(/calc\(-50% \+ (-?[\d.]+)px\)/);
-    return match ? Number(match[1]) : 0;
+    const match = element.style.left.match(/^calc\(50% ([+-]) (-?[\d.]+)px\)$/);
+    if (!match) {
+      expect(element.style.left).toBe('50%');
+      return 0;
+    }
+    return (match[1] === '-' ? -1 : 1) * Number(match[2]);
   }
 
   function isPanel(element: Element): element is HTMLElement {
@@ -326,14 +334,28 @@ describe('Header dropdown position', () => {
   }
 
   beforeEach(() => {
+    viewportWidth = 1000;
+    scale = 1;
     Object.defineProperty(document.documentElement, 'clientWidth', {
       configurable: true,
-      value: VIEWPORT_WIDTH,
+      get: () => viewportWidth,
     });
     vi.spyOn(Element.prototype, 'getBoundingClientRect').mockImplementation(
       function (this: Element) {
-        if (!isPanel(this)) return new DOMRect(0, 0, 0, 0);
-        return new DOMRect(panelLeft + shiftOf(this), 0, panelWidth, 100);
+        if (isPanel(this)) {
+          const left = triggerCentre - panelWidth / 2 + shiftOf(this) * scale;
+          return new DOMRect(left, 50, panelWidth, 100);
+        }
+        // The trigger's box, which the panel hangs from.
+        if ([...this.children].some(isPanel)) {
+          return new DOMRect(triggerCentre - 40, 0, 80, 40);
+        }
+        return new DOMRect(0, 0, 0, 0);
+      },
+    );
+    vi.spyOn(HTMLElement.prototype, 'offsetWidth', 'get').mockImplementation(
+      function (this: HTMLElement) {
+        return isPanel(this) ? panelWidth / scale : 0;
       },
     );
   });
@@ -349,45 +371,57 @@ describe('Header dropdown position', () => {
       .closest<HTMLElement>('div[style*="position: absolute"]')!;
   }
 
+  async function closeMenu() {
+    await userEvent.keyboard('{Escape}');
+    await waitFor(() =>
+      expect(screen.queryByRole('link', { name: 'CliffWatch' })).toBeNull(),
+    );
+  }
+
   it('stays centred under its trigger when it fits', async () => {
-    panelLeft = 400;
+    triggerCentre = 550;
     panelWidth = 300;
     render(<PolicyEngineHeader country="us" />);
 
     await openDesktopMenu('Tools');
-    expect(panel().style.transform).toMatch(/^translateX\(-50%\) /);
+    expect(panel().style.left).toBe('50%');
+    // Sideways placement stays out of the animated transform.
+    expect(panel().style.transform).toMatch(/^translateX\(-50%\) translateY\((0|-8px)\)$/);
   });
 
   it('leaves a panel it cannot measure centred', async () => {
-    panelLeft = -50;
+    // Laid out, a panel here would move right; unmeasured, it shouldn't.
+    triggerCentre = 0;
     panelWidth = 0;
     render(<PolicyEngineHeader country="us" />);
 
     await openDesktopMenu('Tools');
-    expect(panel().style.transform).toMatch(/^translateX\(-50%\) /);
+    expect(panel().style.left).toBe('50%');
   });
 
   it('moves left to keep its right edge 16px inside the viewport', async () => {
-    panelLeft = 900;
+    // Centred, the panel would span 900 to 1200.
+    triggerCentre = 1050;
     panelWidth = 300;
     render(<PolicyEngineHeader country="us" />);
 
     await openDesktopMenu('Tools');
-    expect(shiftOf(panel())).toBe(VIEWPORT_WIDTH - 16 - 1200);
-    expect(panel().style.transform).toMatch(/^translateX\(calc\(-50% \+ -216px\)\) /);
+    expect(shiftOf(panel())).toBe(viewportWidth - 16 - 1200);
+    expect(panel().getBoundingClientRect().right).toBe(viewportWidth - 16);
   });
 
   it('moves right to keep its left edge 16px inside the viewport', async () => {
-    panelLeft = -50;
+    triggerCentre = 100;
     panelWidth = 300;
     render(<PolicyEngineHeader country="us" />);
 
     await openDesktopMenu('Tools');
     expect(shiftOf(panel())).toBe(66);
+    expect(panel().getBoundingClientRect().left).toBe(16);
   });
 
   it('keeps the left edge on screen when the panel is wider than the viewport', async () => {
-    panelLeft = -40;
+    triggerCentre = 510;
     panelWidth = 1100;
     render(<PolicyEngineHeader country="us" />);
 
@@ -395,31 +429,81 @@ describe('Header dropdown position', () => {
     expect(shiftOf(panel())).toBe(56);
   });
 
-  it('measures afresh each time it opens', async () => {
-    panelLeft = 900;
+  it('moves in its own pixels under a scaled ancestor', async () => {
+    triggerCentre = 1050;
+    panelWidth = 300;
+    scale = 0.8;
+    render(<PolicyEngineHeader country="us" />);
+
+    await openDesktopMenu('Tools');
+    expect(shiftOf(panel())).toBe(-216 / 0.8);
+    expect(panel().getBoundingClientRect().right).toBeCloseTo(viewportWidth - 16);
+  });
+
+  it('places itself again when the window resizes while it is open', async () => {
+    triggerCentre = 1050;
     panelWidth = 300;
     render(<PolicyEngineHeader country="us" />);
 
     await openDesktopMenu('Tools');
     expect(shiftOf(panel())).toBe(-216);
-    await userEvent.keyboard('{Escape}');
-    await waitFor(() =>
-      expect(screen.queryByRole('link', { name: 'CliffWatch' })).toBeNull(),
-    );
 
-    // Reopened with the old shift still applied, it lands in the same place.
+    // The same window: the panel stays where it is.
+    fireEvent(window, new Event('resize'));
+    expect(shiftOf(panel())).toBe(-216);
+
+    viewportWidth = 900;
+    fireEvent(window, new Event('resize'));
+    expect(shiftOf(panel())).toBe(900 - 16 - 1200);
+
+    viewportWidth = 1400;
+    fireEvent(window, new Event('resize'));
+    expect(panel().style.left).toBe('50%');
+  });
+
+  it('places itself again when a container scrolls while it is open', async () => {
+    triggerCentre = 550;
+    panelWidth = 300;
+    render(<PolicyEngineHeader country="us" />);
+
+    await openDesktopMenu('Tools');
+    expect(panel().style.left).toBe('50%');
+
+    triggerCentre = 1050;
+    fireEvent.scroll(document.body);
+    expect(shiftOf(panel())).toBe(-216);
+  });
+
+  it('stops listening once it closes', async () => {
+    triggerCentre = 550;
+    panelWidth = 300;
+    render(<PolicyEngineHeader country="us" />);
+    const add = vi.spyOn(window, 'addEventListener');
+    const remove = vi.spyOn(window, 'removeEventListener');
+
+    await openDesktopMenu('Tools');
+    await closeMenu();
+    const placed = add.mock.calls.filter(([, listener]) => {
+      return typeof listener === 'function' && listener.name === 'place';
+    });
+    expect(placed.map(([type]) => type).sort()).toEqual(['resize', 'scroll']);
+    for (const [type, listener, options] of placed) {
+      expect(remove).toHaveBeenCalledWith(
+        type,
+        listener,
+        ...(type === 'scroll' ? [expect.objectContaining({ capture: true })] : []),
+      );
+      expect(options === undefined || type === 'scroll').toBe(true);
+    }
+
+    // Reopened, it measures afresh.
+    triggerCentre = 1050;
     await openDesktopMenu('Tools');
     expect(shiftOf(panel())).toBe(-216);
-    await userEvent.keyboard('{Escape}');
-    await waitFor(() =>
-      expect(screen.queryByRole('link', { name: 'CliffWatch' })).toBeNull(),
-    );
-
-    // After the window grows, the panel fits and goes back to centred.
-    panelLeft = 400;
+    await closeMenu();
+    triggerCentre = 550;
     await openDesktopMenu('Tools');
-    expect(shiftOf(panel())).toBe(0);
-    expect(panel().style.transform).toMatch(/^translateX\(-50%\) /);
+    expect(panel().style.left).toBe('50%');
   });
 });
 
