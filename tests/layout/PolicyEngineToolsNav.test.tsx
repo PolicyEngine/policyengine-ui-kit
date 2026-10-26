@@ -47,7 +47,7 @@ async function openMobileMenu() {
 }
 
 describe('PolicyEngineHeader Tools menu', () => {
-  it('opens the US tools as plain links even with a router link and onNavigate', async () => {
+  it('opens the main app and the US tools as plain links even with a router link and onNavigate', async () => {
     const onNavigate = vi.fn();
     render(
       <PolicyEngineHeader
@@ -59,24 +59,34 @@ describe('PolicyEngineHeader Tools menu', () => {
 
     await openDesktopMenu('Tools');
     const rows = [
+      ['PolicyEngine app', 'https://app.policyengine.org/us'],
       ['CliffWatch', 'https://policyengine.org/us/cliffwatch'],
-      ['OBBBA household explorer', 'https://policyengine.org/us/obbba-households'],
-      ['State legislative tracker', 'https://policyengine.org/us/bill-tracker'],
-      ['All interactive tools', 'https://policyengine.org/us/research?types=interactive'],
+      ['Coverage Compass', 'https://policyengine.org/us/coverage-compass'],
+      ['GiveCalc', 'https://policyengine.org/us/givecalc'],
+      ['Marriage calculator', 'https://policyengine.org/us/marriage'],
+      ['QBI deduction calculator', 'https://policyengine.org/us/qbi-calculator'],
+      ['SPM threshold calculator', 'https://policyengine.org/us/spm-calculator'],
+      ['TANF calculator', 'https://policyengine.org/us/tanf-calculator'],
     ];
-    for (const [name, href] of rows) {
-      const link = screen.getByRole('link', { name });
-      expect(link).toHaveAttribute('href', href);
+    const panel = screen
+      .getByRole('link', { name: 'CliffWatch' })
+      .closest<HTMLElement>('div[style*="position: absolute"]')!;
+    expect(
+      within(panel)
+        .getAllByRole('link')
+        .map((link) => [link.textContent, link.getAttribute('href')]),
+    ).toEqual(rows);
+    for (const link of within(panel).getAllByRole('link')) {
       expect(link).not.toHaveAttribute('data-client-link');
     }
 
-    await userEvent.click(screen.getByRole('link', { name: 'OBBBA household explorer' }));
+    await userEvent.click(screen.getByRole('link', { name: 'QBI deduction calculator' }));
     expect(onNavigate).not.toHaveBeenCalled();
     expect(clickWasPrevented).toEqual([false]);
     // The click also closes the dropdown, for a browser that keeps the page
     // (a middle click, or a click the browser refuses to follow).
     await waitFor(() =>
-      expect(screen.queryByRole('link', { name: 'CliffWatch' })).toBeNull(),
+      expect(screen.queryByRole('link', { name: 'PolicyEngine app' })).toBeNull(),
     );
   });
 
@@ -104,7 +114,7 @@ describe('PolicyEngineHeader Tools menu', () => {
 
     await openDesktopMenu('Tools');
     const panel = screen
-      .getByRole('link', { name: 'OBBBA household explorer' })
+      .getByRole('link', { name: 'QBI deduction calculator' })
       .closest<HTMLElement>('div[style*="position: absolute"]');
     expect(panel).not.toBeNull();
     expect(panel!.contains(screen.getByRole('link', { name: 'CliffWatch' }))).toBe(
@@ -115,22 +125,47 @@ describe('PolicyEngineHeader Tools menu', () => {
     expect(panel!.style.maxWidth).toBe('min(28rem, calc(100vw - 32px))');
   });
 
-  it('lists only UK CliffWatch and the full list for the UK', async () => {
+  it('lists the main app and the UK tools for the UK', async () => {
     render(<PolicyEngineHeader country="uk" />);
 
     await openDesktopMenu('Tools');
-    expect(screen.getByRole('link', { name: 'UK CliffWatch' })).toHaveAttribute(
-      'href',
-      'https://policyengine.org/uk/uk-cliff-watch',
-    );
+    const panel = screen
+      .getByRole('link', { name: 'UK CliffWatch' })
+      .closest<HTMLElement>('div[style*="position: absolute"]')!;
     expect(
-      screen.getByRole('link', { name: 'All interactive tools' }),
-    ).toHaveAttribute('href', 'https://policyengine.org/uk/research?types=interactive');
+      within(panel)
+        .getAllByRole('link')
+        .map((link) => [link.textContent, link.getAttribute('href')]),
+    ).toEqual([
+      ['PolicyEngine app', 'https://app.policyengine.org/uk'],
+      ['Marriage calculator', 'https://policyengine.org/uk/marriage'],
+      ['Student loan calculator', 'https://policyengine.org/uk/uk-student-loan-calculator'],
+      ['UK CliffWatch', 'https://policyengine.org/uk/uk-cliff-watch'],
+    ]);
     expect(screen.queryByRole('link', { name: 'CliffWatch' })).toBeNull();
-    expect(screen.queryByRole('link', { name: /OBBBA/ })).toBeNull();
     for (const link of document.querySelectorAll('a')) {
       expect(link.getAttribute('href')).not.toMatch(/\/uk\/cliffwatch(\/|\?|$)/);
     }
+  });
+
+  it('links the main app on the appUrl it is given', async () => {
+    render(
+      <PolicyEngineHeader
+        country="uk"
+        baseUrl="https://staging.policyengine.org"
+        appUrl="https://app.staging.policyengine.org/"
+      />,
+    );
+
+    await openDesktopMenu('Tools');
+    expect(screen.getByRole('link', { name: 'PolicyEngine app' })).toHaveAttribute(
+      'href',
+      'https://app.staging.policyengine.org/uk',
+    );
+    expect(screen.getByRole('link', { name: 'UK CliffWatch' })).toHaveAttribute(
+      'href',
+      'https://staging.policyengine.org/uk/uk-cliff-watch',
+    );
   });
 
   it('has no Tools menu for another country', async () => {
@@ -142,7 +177,7 @@ describe('PolicyEngineHeader Tools menu', () => {
     expect(within(menu).getByText('Research')).toBeInTheDocument();
   });
 
-  it('lists the tools as plain links in the mobile menu', async () => {
+  it('lists the main app and the tools as plain links in the mobile menu', async () => {
     const onNavigate = vi.fn();
     render(
       <PolicyEngineHeader
@@ -154,6 +189,9 @@ describe('PolicyEngineHeader Tools menu', () => {
 
     const menu = await openMobileMenu();
     expect(within(menu).getByText('Tools')).toBeInTheDocument();
+    const mainApp = within(menu).getByRole('link', { name: 'PolicyEngine app' });
+    expect(mainApp).toHaveAttribute('href', 'https://app.policyengine.org/us');
+    expect(mainApp).not.toHaveAttribute('data-client-link');
     const cliffWatch = within(menu).getByRole('link', { name: 'CliffWatch' });
     expect(cliffWatch).toHaveAttribute('href', 'https://policyengine.org/us/cliffwatch');
     expect(cliffWatch).not.toHaveAttribute('data-client-link');

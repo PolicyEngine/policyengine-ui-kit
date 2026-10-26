@@ -1,6 +1,10 @@
 import type { CountryConfig, NavItemConfig } from './header';
 import type { FooterProps } from './Footer';
-import { policyEngineFeaturedTools } from './PolicyEngineFeaturedTools';
+import {
+  DEFAULT_POLICYENGINE_APP_URL,
+  POLICYENGINE_APP_LABEL,
+  policyEngineTools,
+} from './PolicyEngineTools';
 
 export type PolicyEngineCountryId = 'us' | 'uk' | (string & {});
 
@@ -60,13 +64,13 @@ export function getPolicyEngineUrl(
   return `${getPolicyEngineCountryUrl(country, baseUrl)}${normalizedPath}`;
 }
 
-/** The featured tools for a country, with absolute links, or none. */
-export function getPolicyEngineFeaturedTools(
+/** A country's tools, sorted by label, with absolute links, or none. */
+export function getPolicyEngineTools(
   country: PolicyEngineCountryId = 'us',
   baseUrl = DEFAULT_POLICYENGINE_BASE_URL,
-): { slug: string; label: string; description: string; href: string }[] {
-  const tools = Object.hasOwn(policyEngineFeaturedTools, country)
-    ? (policyEngineFeaturedTools[country] ?? [])
+): { slug: string; label: string; href: string }[] {
+  const tools = Object.hasOwn(policyEngineTools, country)
+    ? (policyEngineTools[country] ?? [])
     : [];
   return tools.map((tool) => ({
     ...tool,
@@ -74,34 +78,36 @@ export function getPolicyEngineFeaturedTools(
   }));
 }
 
-/** The research listing filtered to interactive tools. */
-export function getPolicyEngineAllToolsUrl(
+/** The main app for a country. */
+export function getPolicyEngineAppUrl(
   country: PolicyEngineCountryId = 'us',
-  baseUrl = DEFAULT_POLICYENGINE_BASE_URL,
+  appUrl = DEFAULT_POLICYENGINE_APP_URL,
 ) {
-  return getPolicyEngineUrl(country, 'research?types=interactive', baseUrl);
+  return `${normalizeBaseUrl(appUrl)}/${country}`;
 }
 
 function getPolicyEngineToolsNavItem(
   country: PolicyEngineCountryId,
   baseUrl: string,
+  appUrl: string,
 ): NavItemConfig | null {
-  const tools = getPolicyEngineFeaturedTools(country, baseUrl);
+  const tools = getPolicyEngineTools(country, baseUrl);
+  // The main app never stands alone in the menu.
   if (tools.length === 0) {
     return null;
   }
 
-  const allToolsUrl = getPolicyEngineAllToolsUrl(country, baseUrl);
-  // Each tool is its own zone, and the research listing belongs to the
-  // website's, so no app rendering this header can reach them with a
-  // client-side transition: every row is a full page load.
+  const mainAppHref = getPolicyEngineAppUrl(country, appUrl);
+  // The main app is on another domain and each tool is its own zone, so no
+  // app rendering this header can reach them with a client-side transition:
+  // every row is a full page load.
   return {
     label: 'Tools',
-    href: allToolsUrl,
+    href: mainAppHref,
     external: true,
     children: [
+      { label: POLICYENGINE_APP_LABEL, href: mainAppHref, external: true },
       ...tools.map(({ label, href }) => ({ label, href, external: true })),
-      { label: 'All interactive tools', href: allToolsUrl, external: true },
     ],
   };
 }
@@ -109,8 +115,9 @@ function getPolicyEngineToolsNavItem(
 export function getPolicyEngineNavItems(
   country: PolicyEngineCountryId = 'us',
   baseUrl = DEFAULT_POLICYENGINE_BASE_URL,
+  appUrl = DEFAULT_POLICYENGINE_APP_URL,
 ): NavItemConfig[] {
-  const toolsNavItem = getPolicyEngineToolsNavItem(country, baseUrl);
+  const toolsNavItem = getPolicyEngineToolsNavItem(country, baseUrl, appUrl);
   return [
     {
       label: 'Research',

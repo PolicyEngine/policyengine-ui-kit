@@ -1,22 +1,22 @@
-name: Featured tools parity
+name: Tools menu parity
 
-# The header's Tools menu copies policyengine.org's list; see
-# tests/layout/featuredToolsParity.network.test.ts. This runs when the copy
-# or its check changes here, and weekly to catch a change on policyengine.org
-# while nothing changes here. A failure outside a pull request opens an issue,
-# or comments on the one already open.
+# The header's Tools menu copies the toolsMenu entries in policyengine.org's
+# apps.json; see tests/layout/toolsMenuParity.network.test.ts. This runs when
+# the copy or its check changes here, and weekly to catch a change on
+# policyengine.org while nothing changes here. A failure outside a pull
+# request opens an issue, or comments on the one already open.
 on:
   pull_request:
     paths:
-      - src/layout/PolicyEngineFeaturedTools.ts
-      - tests/layout/featuredToolsParity.network.test.ts
-      - .github/workflows/featured-tools-parity.yml
+      - src/layout/PolicyEngineTools.ts
+      - tests/layout/toolsMenuParity.network.test.ts
+      - .github/workflows/tools-menu-parity.yml
   push:
     branches: [main]
     paths:
-      - src/layout/PolicyEngineFeaturedTools.ts
-      - tests/layout/featuredToolsParity.network.test.ts
-      - .github/workflows/featured-tools-parity.yml
+      - src/layout/PolicyEngineTools.ts
+      - tests/layout/toolsMenuParity.network.test.ts
+      - .github/workflows/tools-menu-parity.yml
   schedule:
     - cron: "0 14 * * 1"
   workflow_dispatch:
@@ -26,7 +26,7 @@ permissions:
 
 jobs:
   parity:
-    name: Featured tools parity
+    name: Tools menu parity
     runs-on: ubuntu-latest
     timeout-minutes: 10
     permissions:
@@ -43,7 +43,7 @@ jobs:
       - name: Install dependencies
         run: bun install --frozen-lockfile
 
-      - name: Compare with policyengine.org's list
+      - name: Compare with policyengine.org's apps.json
         run: bun run test:network
 
       - name: Open or update the drift issue
@@ -53,9 +53,9 @@ jobs:
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
         run: |
           title="Tools menu differs from policyengine.org"
-          body="The featured tools parity check failed: $RUN_URL
+          body="The Tools menu parity check failed: $RUN_URL
 
-          src/layout/PolicyEngineFeaturedTools.ts no longer matches app/src/data/featuredTools.json in PolicyEngine/policyengine-app-v2 (or that file could not be read). Change the copy here to match, so zone apps and policyengine.org show the same Tools menu."
+          src/layout/PolicyEngineTools.ts no longer matches the toolsMenu entries in app/src/data/apps/apps.json in PolicyEngine/policyengine-app-v2, or the main app's label or URL changed there, or those files could not be read. Update the copy here to match, so zone apps and policyengine.org show the same Tools menu."
           number=$(gh issue list --repo "$GITHUB_REPOSITORY" --state open \
             --search "in:title \"$title\"" --json number,title \
             --jq "map(select(.title == \"$title\")) | .[0].number // empty")

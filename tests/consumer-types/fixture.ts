@@ -49,12 +49,14 @@ import {
   Group,
   PolicyEngineHeader,
   getPolicyEngineNavItems,
-  getPolicyEngineFeaturedTools,
-  getPolicyEngineAllToolsUrl,
-  policyEngineFeaturedTools,
+  getPolicyEngineTools,
+  getPolicyEngineAppUrl,
+  policyEngineTools,
+  POLICYENGINE_APP_LABEL,
+  DEFAULT_POLICYENGINE_APP_URL,
   type NavItemConfig,
   type NavItemChildConfig,
-  type PolicyEngineFeaturedTool,
+  type PolicyEngineTool,
   // Inputs
   CurrencyInput,
   NumberInput,
@@ -117,15 +119,23 @@ export const _LegacyColorPaths = {
 };
 
 // The Tools menu surface zone apps read: the item-level and dropdown-row
-// `external` flags and the featured-tool entries.
+// `external` flags, the tool entries and the main app's label and URL.
 export const _ToolsNavPaths: {
   external: NavItemConfig["external"];
   row: NavItemChildConfig;
-  tool: PolicyEngineFeaturedTool | undefined;
+  tool: PolicyEngineTool | undefined;
+  mainApp: NavItemChildConfig;
+  appUrlProp: Parameters<typeof PolicyEngineHeader>[0]["appUrl"];
 } = {
   external: true,
   row: { label: "CliffWatch", href: "/us/cliffwatch", external: true },
-  tool: policyEngineFeaturedTools.us?.[0],
+  tool: policyEngineTools.us?.[0],
+  mainApp: {
+    label: POLICYENGINE_APP_LABEL,
+    href: `${DEFAULT_POLICYENGINE_APP_URL}/us`,
+    external: true,
+  },
+  appUrlProp: DEFAULT_POLICYENGINE_APP_URL,
 };
 
 // Touch each binding so unused-import settings don't strip them.
@@ -164,8 +174,8 @@ export type _SmokeTest =
   | typeof Group
   | typeof PolicyEngineHeader
   | typeof getPolicyEngineNavItems
-  | typeof getPolicyEngineFeaturedTools
-  | typeof getPolicyEngineAllToolsUrl
+  | typeof getPolicyEngineTools
+  | typeof getPolicyEngineAppUrl
   | typeof CurrencyInput
   | typeof NumberInput
   | typeof DataTable
