@@ -6,11 +6,6 @@ on:
   # Retries a release that failed after its PR merged, without a new commit.
   workflow_dispatch:
 
-# One release at a time, so two runs never bump from the same version.
-concurrency:
-  group: release
-  cancel-in-progress: false
-
 jobs:
   release:
     name: Bump version, build changelog, publish to npm
@@ -20,21 +15,40 @@ jobs:
       # npm trusted publishing: npm accepts this workflow's OIDC token
       # instead of a stored, expiring npm token.
       id-token: write
+      # To hand a release over to a fresh run on main's tip (below).
+      actions: write
+    # One release at a time, so two runs never bump from the same version.
+    # On the job, not the workflow, so a skipped non-main run never takes a
+    # main run's place in the queue.
+    concurrency:
+      group: release
+      cancel-in-progress: false
     # Only main releases: npm trusts this workflow from any branch, and a
     # manual run can pick one. A manual run has no head commit, so the
     # release-commit check passes.
     if: "github.ref == 'refs/heads/main' && !contains(github.event.head_commit.message, 'Release @policyengine/ui-kit')"
 
     steps:
-      # The tip of main, not the pushed commit: a run that waited for another
-      # release starts from that release's commit, not the version before it.
       - uses: actions/checkout@v6
-        with:
-          ref: main
 
       - name: Check for changelog fragments
         id: check
-        run: .github/check_fragments.sh
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          # npm records this run's commit as the package's source, so release
+          # only from main's tip. If main has moved on (a later merge, or the
+          # release commit of a run this one waited for), hand over to a fresh
+          # run on the tip, which carries this commit's fragments too.
+          git fetch --quiet --depth=1 origin main
+          if [ "$(git rev-parse FETCH_HEAD)" != "$GITHUB_SHA" ]; then
+            echo "main has moved past $GITHUB_SHA; starting a release from its tip."
+            gh workflow run push.yml --ref main
+            echo "count=0" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          .github/check_fragments.sh
 
       - name: Set up Python
         if: steps.check.outputs.count != '0'

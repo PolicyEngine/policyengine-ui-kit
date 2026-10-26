@@ -14,6 +14,8 @@ fi
 
 git commit -m "Release @policyengine/ui-kit"
 # If main moved during the release, put the release commit on top of it, so
-# the version npm now has also lands on main.
+# the version npm now has also lands on main. (A conflict, or a merge between
+# this pull and the push, stops the script: the version is then on npm
+# without its release commit, and needs one written by hand.)
 git pull --rebase origin main
 git push origin HEAD:main
