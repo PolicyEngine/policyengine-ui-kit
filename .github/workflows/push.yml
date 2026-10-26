@@ -6,8 +6,7 @@ on:
   # Retries a release that failed after its PR merged, without a new commit.
   workflow_dispatch:
 
-# One release at a time: a second run waits, then bumps from the first's
-# release commit instead of racing it to main.
+# One release at a time, so two runs never bump from the same version.
 concurrency:
   group: release
   cancel-in-progress: false
@@ -27,7 +26,11 @@ jobs:
     if: "github.ref == 'refs/heads/main' && !contains(github.event.head_commit.message, 'Release @policyengine/ui-kit')"
 
     steps:
+      # The tip of main, not the pushed commit: a run that waited for another
+      # release starts from that release's commit, not the version before it.
       - uses: actions/checkout@v6
+        with:
+          ref: main
 
       - name: Check for changelog fragments
         id: check
