@@ -1,5 +1,10 @@
 export { Header } from './Header';
-export type { HeaderProps, NavItemConfig, CountryConfig } from './Header';
+export type {
+  HeaderProps,
+  NavItemConfig,
+  NavItemChildConfig,
+  CountryConfig,
+} from './Header';
 export { HeaderContent } from './HeaderContent';
 export { HeaderLogo } from './HeaderLogo';
 export { HeaderNav } from './HeaderNav';

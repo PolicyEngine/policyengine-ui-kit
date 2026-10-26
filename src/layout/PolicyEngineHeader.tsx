@@ -1,6 +1,7 @@
 'use client';
 
 import { Header, type CountryConfig, type HeaderProps, type NavItemConfig } from './header';
+import { DEFAULT_POLICYENGINE_APP_URL } from './PolicyEngineTools';
 import {
   DEFAULT_POLICYENGINE_BASE_URL,
   getPolicyEngineCountrySwitchUrl,
@@ -17,6 +18,8 @@ export interface PolicyEngineHeaderProps
   > {
   country?: PolicyEngineCountryId;
   baseUrl?: string;
+  /** The main app's origin, which the Tools menu's first row links to. */
+  appUrl?: string;
   navItems?: NavItemConfig[];
   countries?: CountryConfig[];
   logoHref?: string;
@@ -26,6 +29,7 @@ export interface PolicyEngineHeaderProps
 export function PolicyEngineHeader({
   country = 'us',
   baseUrl = DEFAULT_POLICYENGINE_BASE_URL,
+  appUrl = DEFAULT_POLICYENGINE_APP_URL,
   navItems,
   countries = policyEngineCountries,
   logoHref,
@@ -45,7 +49,7 @@ export function PolicyEngineHeader({
 
   return (
     <Header
-      navItems={navItems ?? getPolicyEngineNavItems(country, baseUrl)}
+      navItems={navItems ?? getPolicyEngineNavItems(country, baseUrl, appUrl)}
       countries={countries}
       currentCountry={country}
       logoHref={logoHref ?? getPolicyEngineCountryUrl(country, baseUrl)}

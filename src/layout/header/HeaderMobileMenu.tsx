@@ -70,14 +70,28 @@ export function HeaderMobileMenu({
         <SheetContent
           side="right"
           className="w-[300px]"
-          style={{ backgroundColor: 'var(--color-teal-600)' }}
+          style={{
+            backgroundColor: 'var(--color-teal-600)',
+            // Above the sticky header (zIndex 1000), which would otherwise
+            // cover the sheet's title and close button and stay undimmed.
+            zIndex: 1001,
+          }}
+          overlayStyle={{ zIndex: 1001 }}
         >
           <SheetHeader>
             <SheetTitle className="text-white">Menu</SheetTitle>
           </SheetHeader>
+          {/* The full nav is taller than a short phone, so the links scroll
+              under the title and close button, which stay put. */}
           <div
             className="flex flex-col"
-            style={{ gap: '24px', padding: '24px' }}
+            style={{
+              gap: '24px',
+              padding: '24px',
+              flex: 1,
+              minHeight: 0,
+              overflowY: 'auto',
+            }}
           >
             {navItems.map((item) =>
               item.children && item.children.length > 0 ? (
@@ -99,7 +113,8 @@ export function HeaderMobileMenu({
                     style={{ gap: '8px', paddingLeft: '16px' }}
                   >
                     {item.children.map((child) => {
-                      if (linkComponent) {
+                      const childExternal = child.external ?? item.external;
+                      if (linkComponent && !childExternal) {
                         const LinkComp = linkComponent;
                         return (
                           <LinkComp
@@ -123,10 +138,14 @@ export function HeaderMobileMenu({
                         <a
                           key={child.label}
                           href={child.href}
-                          onClick={(e) => {
-                            e.preventDefault();
-                            handleNavigate(child.href);
-                          }}
+                          onClick={
+                            childExternal
+                              ? onClose
+                              : (e) => {
+                                  e.preventDefault();
+                                  handleNavigate(child.href);
+                                }
+                          }
                           style={{
                             color: 'var(--text-inverse)',
                             textDecoration: 'none',
@@ -143,7 +162,7 @@ export function HeaderMobileMenu({
                 </div>
               ) : (
                 (() => {
-                  if (linkComponent) {
+                  if (linkComponent && !item.external) {
                     const LinkComp = linkComponent;
                     return (
                       <LinkComp
@@ -169,12 +188,14 @@ export function HeaderMobileMenu({
                       key={item.label}
                       href={item.href}
                       onClick={
-                        onNavigate
-                          ? (e: React.MouseEvent) => {
-                              e.preventDefault();
-                              handleNavigate(item.href);
-                            }
-                          : undefined
+                        item.external
+                          ? onClose
+                          : onNavigate
+                            ? (e: React.MouseEvent) => {
+                                e.preventDefault();
+                                handleNavigate(item.href);
+                              }
+                            : undefined
                       }
                       style={{
                         color: 'var(--text-inverse)',

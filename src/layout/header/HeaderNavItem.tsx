@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { ChevronDown } from 'lucide-react';
 import type { NavItemConfig } from './Header';
 
@@ -28,6 +28,9 @@ const hoverHandlers = {
     e.currentTarget.style.backgroundColor = 'transparent';
   },
 };
+
+/** The closest the dropdown panel comes to either side of the viewport. */
+const VIEWPORT_MARGIN = 16;
 
 const dropdownItemStyle: React.CSSProperties = {
   display: 'flex',
@@ -67,8 +70,47 @@ function AppleDropdown({
   linkComponent?: React.ElementType;
 }) {
   const contentRef = useRef<HTMLDivElement>(null);
+  const panelRef = useRef<HTMLDivElement>(null);
   const [contentHeight, setContentHeight] = useState(0);
   const [visible, setVisible] = useState(false);
+  // How far to move the panel sideways from centred under its trigger, in
+  // the panel's own CSS pixels.
+  const [shift, setShift] = useState(0);
+
+  // A panel wider than its trigger, under an item near the edge, would run
+  // off the viewport and add a horizontal scrollbar, so keep it on screen,
+  // placing it again whenever the window resizes or scrolls while it's open.
+  useLayoutEffect(() => {
+    const panel = panelRef.current;
+    const trigger = panel?.parentElement;
+    if (!open || !panel || !trigger) return;
+    function place() {
+      const { width } = panel!.getBoundingClientRect();
+      if (width === 0) return; // Not laid out.
+      // Where the panel sits centred under its trigger, whatever its shift.
+      const box = trigger!.getBoundingClientRect();
+      const left = (box.left + box.right - width) / 2;
+      const right = left + width;
+      const viewportWidth = document.documentElement.clientWidth;
+      let next = 0;
+      if (right > viewportWidth - VIEWPORT_MARGIN) {
+        next = viewportWidth - VIEWPORT_MARGIN - right;
+      }
+      if (left + next < VIEWPORT_MARGIN) {
+        next = VIEWPORT_MARGIN - left;
+      }
+      // Under a scaled ancestor, the panel's CSS pixels aren't the viewport's.
+      const scale = panel!.offsetWidth > 0 ? width / panel!.offsetWidth : 1;
+      setShift(next / scale);
+    }
+    place();
+    window.addEventListener('resize', place);
+    window.addEventListener('scroll', place, { capture: true, passive: true });
+    return () => {
+      window.removeEventListener('resize', place);
+      window.removeEventListener('scroll', place, { capture: true });
+    };
+  }, [open]);
 
   useEffect(() => {
     if (open && contentRef.current) {
@@ -100,15 +142,23 @@ function AppleDropdown({
       />
       {/* Dropdown panel */}
       <div
+        ref={panelRef}
         style={{
           position: 'absolute',
           top: '100%',
-          left: '50%',
+          // Shifted with `left`, which doesn't animate, so the panel never
+          // slides sideways and a measurement never catches it mid-slide.
+          left: shift === 0 ? '50%' : `calc(50% + ${shift}px)`,
           transform: visible
             ? 'translateX(-50%) translateY(0)'
             : 'translateX(-50%) translateY(-8px)',
           marginTop: '10px',
+          // The trigger is a narrow box, so size the panel to its longest row
+          // instead of wrapping every row at the minimum width, up to a cap
+          // that keeps long descriptions from widening the page.
+          width: 'max-content',
           minWidth: '220px',
+          maxWidth: 'min(28rem, calc(100vw - 32px))',
           overflow: 'hidden',
           maxHeight: visible ? `${contentHeight}px` : '0px',
           opacity: visible ? 1 : 0,
@@ -150,13 +200,13 @@ function AppleDropdown({
             );
             const handleClick = (e: React.MouseEvent<HTMLElement>) => {
               onClose();
-              if (onNavigate) {
+              if (onNavigate && !item.external) {
                 e.preventDefault();
                 onNavigate(item.href);
               }
             };
 
-            if (linkComponent) {
+            if (linkComponent && !item.external) {
               const LinkComp = linkComponent;
               return (
                 <LinkComp
@@ -198,7 +248,7 @@ export function HeaderNavItem({
   onNavigate,
   linkComponent,
 }: HeaderNavItemProps) {
-  const { label, href, children } = item;
+  const { label, href, children, external } = item;
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -256,7 +306,10 @@ export function HeaderNavItem({
           />
         </button>
         <AppleDropdown
-          items={children}
+          items={children.map((child) => ({
+            ...child,
+            external: child.external ?? external,
+          }))}
           open={dropdownOpen}
           onClose={() => setDropdownOpen(false)}
           onNavigate={onNavigate}
@@ -267,7 +320,7 @@ export function HeaderNavItem({
   }
 
   // Simple link item
-  if (linkComponent) {
+  if (linkComponent && !external) {
     const LinkComp = linkComponent;
     return (
       <LinkComp
@@ -286,7 +339,7 @@ export function HeaderNavItem({
       href={href}
       style={navItemStyle}
       onClick={
-        onNavigate && href
+        onNavigate && href && !external
           ? (e: React.MouseEvent) => {
               e.preventDefault();
               onNavigate(href);

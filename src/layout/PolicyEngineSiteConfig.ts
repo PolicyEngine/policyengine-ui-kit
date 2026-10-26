@@ -1,5 +1,10 @@
 import type { CountryConfig, NavItemConfig } from './header';
 import type { FooterProps } from './Footer';
+import {
+  DEFAULT_POLICYENGINE_APP_URL,
+  POLICYENGINE_APP_LABEL,
+  policyEngineTools,
+} from './PolicyEngineTools';
 
 export type PolicyEngineCountryId = 'us' | 'uk' | (string & {});
 
@@ -59,15 +64,75 @@ export function getPolicyEngineUrl(
   return `${getPolicyEngineCountryUrl(country, baseUrl)}${normalizedPath}`;
 }
 
+/** A tool with its absolute link. */
+export interface PolicyEngineToolLink {
+  slug: string;
+  label: string;
+  href: string;
+}
+
+/** A country's tools, sorted by label, with absolute links, or none. */
+export function getPolicyEngineTools(
+  country: PolicyEngineCountryId = 'us',
+  baseUrl = DEFAULT_POLICYENGINE_BASE_URL,
+): PolicyEngineToolLink[] {
+  // Own keys only, so `__proto__` or `constructor` never finds a list.
+  // (Object.hasOwn would do, but Safari added it only in 15.4.)
+  const tools = Object.prototype.hasOwnProperty.call(policyEngineTools, country)
+    ? (policyEngineTools[country] ?? [])
+    : [];
+  return tools.map((tool) => ({
+    ...tool,
+    href: getPolicyEngineUrl(country, tool.slug, baseUrl),
+  }));
+}
+
+/** The main app for a country. */
+export function getPolicyEngineAppUrl(
+  country: PolicyEngineCountryId = 'us',
+  appUrl = DEFAULT_POLICYENGINE_APP_URL,
+) {
+  return `${normalizeBaseUrl(appUrl)}/${country}`;
+}
+
+function getPolicyEngineToolsNavItem(
+  country: PolicyEngineCountryId,
+  baseUrl: string,
+  appUrl: string,
+): NavItemConfig | null {
+  const tools = getPolicyEngineTools(country, baseUrl);
+  // The main app never stands alone in the menu.
+  if (tools.length === 0) {
+    return null;
+  }
+
+  const mainAppHref = getPolicyEngineAppUrl(country, appUrl);
+  // The main app is on another domain and each tool is its own zone, so no
+  // app rendering this header can reach them with a client-side transition:
+  // every row is a full page load.
+  return {
+    label: 'Tools',
+    href: mainAppHref,
+    external: true,
+    children: [
+      { label: POLICYENGINE_APP_LABEL, href: mainAppHref, external: true },
+      ...tools.map(({ label, href }) => ({ label, href, external: true })),
+    ],
+  };
+}
+
 export function getPolicyEngineNavItems(
   country: PolicyEngineCountryId = 'us',
   baseUrl = DEFAULT_POLICYENGINE_BASE_URL,
+  appUrl = DEFAULT_POLICYENGINE_APP_URL,
 ): NavItemConfig[] {
-  const navItems: NavItemConfig[] = [
+  const toolsNavItem = getPolicyEngineToolsNavItem(country, baseUrl, appUrl);
+  return [
     {
       label: 'Research',
       href: getPolicyEngineUrl(country, 'research', baseUrl),
     },
+    ...(toolsNavItem ? [toolsNavItem] : []),
     {
       label: 'Model',
       href: getPolicyEngineUrl(country, 'model', baseUrl),
@@ -76,6 +141,14 @@ export function getPolicyEngineNavItems(
       label: 'API',
       href: getPolicyEngineUrl(country, 'api', baseUrl),
     },
+    ...(country === 'us'
+      ? [
+          {
+            label: 'Python',
+            href: getPolicyEngineUrl(country, 'python', baseUrl),
+          },
+        ]
+      : []),
     {
       label: 'About',
       href: getPolicyEngineUrl(country, 'team', baseUrl),
@@ -102,15 +175,6 @@ export function getPolicyEngineNavItems(
       href: getPolicyEngineUrl(country, 'donate', baseUrl),
     },
   ];
-
-  if (country === 'us') {
-    navItems.splice(3, 0, {
-      label: 'Python',
-      href: getPolicyEngineUrl(country, 'python', baseUrl),
-    });
-  }
-
-  return navItems;
 }
 
 export function getPolicyEngineFooterLinks(

@@ -33,6 +33,7 @@ import {
   Select,
   Separator,
   Sheet,
+  SheetContent,
   Skeleton,
   Spinner,
   Switch,
@@ -47,6 +48,18 @@ import {
   Footer,
   Stack,
   Group,
+  PolicyEngineHeader,
+  PolicyEngineShell,
+  getPolicyEngineNavItems,
+  getPolicyEngineTools,
+  getPolicyEngineAppUrl,
+  policyEngineTools,
+  POLICYENGINE_APP_LABEL,
+  DEFAULT_POLICYENGINE_APP_URL,
+  type NavItemConfig,
+  type NavItemChildConfig,
+  type PolicyEngineTool,
+  type PolicyEngineToolLink,
   // Inputs
   CurrencyInput,
   NumberInput,
@@ -108,6 +121,32 @@ export const _LegacyColorPaths = {
   grayMid: legacyColors.gray[500],
 };
 
+// The Tools menu surface zone apps read: the item-level and dropdown-row
+// `external` flags, the tool entries and the main app's label and URL.
+export const _ToolsNavPaths: {
+  external: NavItemConfig["external"];
+  row: NavItemChildConfig;
+  tool: PolicyEngineTool | undefined;
+  mainApp: NavItemChildConfig;
+  appUrlProp: Parameters<typeof PolicyEngineHeader>[0]["appUrl"];
+  shellAppUrlProp: Parameters<typeof PolicyEngineShell>[0]["appUrl"];
+  toolLink: PolicyEngineToolLink | undefined;
+  sheetOverlayStyle: Parameters<typeof SheetContent>[0]["overlayStyle"];
+} = {
+  external: true,
+  row: { label: "CliffWatch", href: "/us/cliffwatch", external: true },
+  tool: policyEngineTools.us?.[0],
+  mainApp: {
+    label: POLICYENGINE_APP_LABEL,
+    href: `${DEFAULT_POLICYENGINE_APP_URL}/us`,
+    external: true,
+  },
+  appUrlProp: DEFAULT_POLICYENGINE_APP_URL,
+  shellAppUrlProp: DEFAULT_POLICYENGINE_APP_URL,
+  toolLink: getPolicyEngineTools("uk")[0],
+  sheetOverlayStyle: { zIndex: 1001 },
+};
+
 // Touch each binding so unused-import settings don't strip them.
 export type _SmokeTest =
   | typeof Accordion
@@ -142,6 +181,10 @@ export type _SmokeTest =
   | typeof Footer
   | typeof Stack
   | typeof Group
+  | typeof PolicyEngineHeader
+  | typeof getPolicyEngineNavItems
+  | typeof getPolicyEngineTools
+  | typeof getPolicyEngineAppUrl
   | typeof CurrencyInput
   | typeof NumberInput
   | typeof DataTable

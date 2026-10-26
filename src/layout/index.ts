@@ -24,17 +24,27 @@ export {
 } from './PolicyEngineShell';
 export {
   DEFAULT_POLICYENGINE_BASE_URL,
+  getPolicyEngineAppUrl,
   getPolicyEngineCountrySwitchUrl,
   getPolicyEngineCountryUrl,
   getPolicyEngineFooterLinks,
   getPolicyEngineNavItems,
+  getPolicyEngineTools,
   getPolicyEngineUrl,
   policyEngineCountries,
   type PolicyEngineCountryId,
+  type PolicyEngineToolLink,
 } from './PolicyEngineSiteConfig';
+export {
+  DEFAULT_POLICYENGINE_APP_URL,
+  POLICYENGINE_APP_LABEL,
+  policyEngineTools,
+  type PolicyEngineTool,
+} from './PolicyEngineTools';
 export {
   Header,
   type HeaderProps,
   type NavItemConfig,
+  type NavItemChildConfig,
   type CountryConfig,
 } from './header';

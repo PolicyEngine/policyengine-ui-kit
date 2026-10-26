@@ -1,0 +1,1 @@
+The mobile header menu now scrolls its links when they are taller than the screen, so Donate and other low items stay reachable on short phones, while the menu's title and close button stay in place. The menu and its dimmed overlay now sit above the sticky header instead of under it.

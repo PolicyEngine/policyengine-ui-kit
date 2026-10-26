@@ -1,0 +1,72 @@
+name: Tools menu parity
+
+# The header's Tools menu copies the toolsMenu entries in policyengine.org's
+# apps.json; see tests/layout/toolsMenuParity.network.test.ts. This runs when
+# the copy or its check changes here, and weekly to catch a change on
+# policyengine.org while nothing changes here. A failure outside a pull
+# request opens an issue, or comments on the one already open.
+on:
+  pull_request:
+    paths:
+      - src/layout/PolicyEngineTools.ts
+      - tests/layout/toolsMenuParity.network.test.ts
+      - .github/workflows/tools-menu-parity.yml
+      # How the test runs: the test:network script and the vitest exclude.
+      - package.json
+      - vitest.config.ts
+  push:
+    branches: [main]
+    paths:
+      - src/layout/PolicyEngineTools.ts
+      - tests/layout/toolsMenuParity.network.test.ts
+      - .github/workflows/tools-menu-parity.yml
+      # How the test runs: the test:network script and the vitest exclude.
+      - package.json
+      - vitest.config.ts
+  schedule:
+    - cron: "0 14 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  parity:
+    name: Tools menu parity
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      issues: write
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+
+      - name: Set up Bun
+        uses: oven-sh/setup-bun@v2
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Compare with policyengine.org's apps.json
+        run: bun run test:network
+
+      - name: Open or update the drift issue
+        if: failure() && github.event_name != 'pull_request'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          title="Tools menu differs from policyengine.org"
+          body="The Tools menu parity check failed: $RUN_URL
+
+          src/layout/PolicyEngineTools.ts no longer matches the toolsMenu entries in app/src/data/apps/apps.json in PolicyEngine/policyengine-app-v2, or the main app's label or URL changed there, or those files could not be read. Update the copy here to match, so zone apps and policyengine.org show the same Tools menu."
+          number=$(gh issue list --repo "$GITHUB_REPOSITORY" --state open \
+            --search "in:title \"$title\"" --json number,title \
+            --jq "map(select(.title == \"$title\")) | .[0].number // empty")
+          if [ -n "$number" ]; then
+            gh issue comment "$number" --repo "$GITHUB_REPOSITORY" --body "Still failing: $RUN_URL"
+          else
+            gh issue create --repo "$GITHUB_REPOSITORY" --title "$title" --body "$body"
+          fi
