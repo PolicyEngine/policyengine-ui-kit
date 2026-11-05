@@ -1,0 +1,3062 @@
+{
+ "congress": 120,
+ "as_of": "2026-11-05T21:11Z",
+ "source": "Wikipedia, \"2026 United States House of Representatives elections\", race calls as reported there",
+ "source_url": "https://en.wikipedia.org/w/index.php?title=2026_United_States_House_of_Representatives_elections&oldid=1383960101",
+ "called": 406,
+ "not_yet_called": 30,
+ "districts": {
+  "AK-01": {
+   "label": "Alaska's at-large congressional district",
+   "status": "not_yet_called",
+   "name": null,
+   "party": null,
+   "party_name": null
+  },
+  "AL-01": {
+   "label": "Alabama's 1st congressional district",
+   "status": "called",
+   "name": "Jerry Carl",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "AL-02": {
+   "label": "Alabama's 2nd congressional district",
+   "status": "called",
+   "name": "Shomari Figures",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "AL-03": {
+   "label": "Alabama's 3rd congressional district",
+   "status": "called",
+   "name": "Mike Rogers",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "AL-04": {
+   "label": "Alabama's 4th congressional district",
+   "status": "called",
+   "name": "Robert Aderholt",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "AL-05": {
+   "label": "Alabama's 5th congressional district",
+   "status": "called",
+   "name": "Dale Strong",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "AL-06": {
+   "label": "Alabama's 6th congressional district",
+   "status": "called",
+   "name": "Gary Palmer",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "AL-07": {
+   "label": "Alabama's 7th congressional district",
+   "status": "called",
+   "name": "Terri Sewell",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "AR-01": {
+   "label": "Arkansas's 1st congressional district",
+   "status": "called",
+   "name": "Rick Crawford",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "AR-02": {
+   "label": "Arkansas's 2nd congressional district",
+   "status": "called",
+   "name": "French Hill",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "AR-03": {
+   "label": "Arkansas's 3rd congressional district",
+   "status": "called",
+   "name": "Steve Womack",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "AR-04": {
+   "label": "Arkansas's 4th congressional district",
+   "status": "called",
+   "name": "Bruce Westerman",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "AZ-01": {
+   "label": "Arizona's 1st congressional district",
+   "status": "called",
+   "name": "Amish Shah",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "AZ-02": {
+   "label": "Arizona's 2nd congressional district",
+   "status": "not_yet_called",
+   "name": null,
+   "party": null,
+   "party_name": null
+  },
+  "AZ-03": {
+   "label": "Arizona's 3rd congressional district",
+   "status": "called",
+   "name": "Yassamin Ansari",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "AZ-04": {
+   "label": "Arizona's 4th congressional district",
+   "status": "called",
+   "name": "Greg Stanton",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "AZ-05": {
+   "label": "Arizona's 5th congressional district",
+   "status": "not_yet_called",
+   "name": null,
+   "party": null,
+   "party_name": null
+  },
+  "AZ-06": {
+   "label": "Arizona's 6th congressional district",
+   "status": "called",
+   "name": "JoAnna Mendoza",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "AZ-07": {
+   "label": "Arizona's 7th congressional district",
+   "status": "called",
+   "name": "Adelita Grijalva",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "AZ-08": {
+   "label": "Arizona's 8th congressional district",
+   "status": "not_yet_called",
+   "name": null,
+   "party": null,
+   "party_name": null
+  },
+  "AZ-09": {
+   "label": "Arizona's 9th congressional district",
+   "status": "called",
+   "name": "Paul Gosar",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "CA-01": {
+   "label": "California's 1st congressional district",
+   "status": "called",
+   "name": "Mike McGuire",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "CA-02": {
+   "label": "California's 2nd congressional district",
+   "status": "called",
+   "name": "Jared Huffman",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "CA-03": {
+   "label": "California's 3rd congressional district",
+   "status": "called",
+   "name": "Ami Bera",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "CA-04": {
+   "label": "California's 4th congressional district",
+   "status": "not_yet_called",
+   "name": null,
+   "party": null,
+   "party_name": null
+  },
+  "CA-05": {
+   "label": "California's 5th congressional district",
+   "status": "called",
+   "name": "Tom McClintock",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "CA-06": {
+   "label": "California's 6th congressional district",
+   "status": "called",
+   "name": "Richard Pan",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "CA-07": {
+   "label": "California's 7th congressional district",
+   "status": "not_yet_called",
+   "name": null,
+   "party": null,
+   "party_name": null
+  },
+  "CA-08": {
+   "label": "California's 8th congressional district",
+   "status": "called",
+   "name": "John Garamendi",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "CA-09": {
+   "label": "California's 9th congressional district",
+   "status": "called",
+   "name": "Josh Harder",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "CA-10": {
+   "label": "California's 10th congressional district",
+   "status": "called",
+   "name": "Mark DeSaulnier",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "CA-11": {
+   "label": "California's 11th congressional district",
+   "status": "called",
+   "name": "Scott Wiener",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "CA-12": {
+   "label": "California's 12th congressional district",
+   "status": "called",
+   "name": "Lateefah Simon",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "CA-13": {
+   "label": "California's 13th congressional district",
+   "status": "called",
+   "name": "Adam Gray",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "CA-14": {
+   "label": "California's 14th congressional district",
+   "status": "not_yet_called",
+   "name": null,
+   "party": null,
+   "party_name": null
+  },
+  "CA-15": {
+   "label": "California's 15th congressional district",
+   "status": "called",
+   "name": "Kevin Mullin",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "CA-16": {
+   "label": "California's 16th congressional district",
+   "status": "called",
+   "name": "Sam Liccardo",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "CA-17": {
+   "label": "California's 17th congressional district",
+   "status": "called",
+   "name": "Ro Khanna",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "CA-18": {
+   "label": "California's 18th congressional district",
+   "status": "called",
+   "name": "Zoe Lofgren",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "CA-19": {
+   "label": "California's 19th congressional district",
+   "status": "called",
+   "name": "Jimmy Panetta",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "CA-20": {
+   "label": "California's 20th congressional district",
+   "status": "called",
+   "name": "Vince Fong",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "CA-21": {
+   "label": "California's 21st congressional district",
+   "status": "called",
+   "name": "Jim Costa",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "CA-22": {
+   "label": "California's 22nd congressional district",
+   "status": "called",
+   "name": "Randy Villegas",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "CA-23": {
+   "label": "California's 23rd congressional district",
+   "status": "not_yet_called",
+   "name": null,
+   "party": null,
+   "party_name": null
+  },
+  "CA-24": {
+   "label": "California's 24th congressional district",
+   "status": "called",
+   "name": "Salud Carbajal",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "CA-25": {
+   "label": "California's 25th congressional district",
+   "status": "called",
+   "name": "Raul Ruiz",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "CA-26": {
+   "label": "California's 26th congressional district",
+   "status": "called",
+   "name": "Jacqui Irwin",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "CA-27": {
+   "label": "California's 27th congressional district",
+   "status": "called",
+   "name": "George T. Whitesides",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "CA-28": {
+   "label": "California's 28th congressional district",
+   "status": "called",
+   "name": "Judy Chu",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "CA-29": {
+   "label": "California's 29th congressional district",
+   "status": "called",
+   "name": "Luz Rivas",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "CA-30": {
+   "label": "California's 30th congressional district",
+   "status": "called",
+   "name": "Laura Friedman",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "CA-31": {
+   "label": "California's 31st congressional district",
+   "status": "called",
+   "name": "Gil Cisneros",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "CA-32": {
+   "label": "California's 32nd congressional district",
+   "status": "called",
+   "name": "Brad Sherman",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "CA-33": {
+   "label": "California's 33rd congressional district",
+   "status": "called",
+   "name": "Pete Aguilar",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "CA-34": {
+   "label": "California's 34th congressional district",
+   "status": "called",
+   "name": "Angela Gonzales-Torres",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "CA-35": {
+   "label": "California's 35th congressional district",
+   "status": "called",
+   "name": "Norma Torres",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "CA-36": {
+   "label": "California's 36th congressional district",
+   "status": "called",
+   "name": "Ted Lieu",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "CA-37": {
+   "label": "California's 37th congressional district",
+   "status": "called",
+   "name": "Sydney Kamlager-Dove",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "CA-38": {
+   "label": "California's 38th congressional district",
+   "status": "called",
+   "name": "Hilda Solis",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "CA-39": {
+   "label": "California's 39th congressional district",
+   "status": "called",
+   "name": "Mark Takano",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "CA-40": {
+   "label": "California's 40th congressional district",
+   "status": "not_yet_called",
+   "name": null,
+   "party": null,
+   "party_name": null
+  },
+  "CA-41": {
+   "label": "California's 41st congressional district",
+   "status": "called",
+   "name": "Linda Sánchez",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "CA-42": {
+   "label": "California's 42nd congressional district",
+   "status": "called",
+   "name": "Robert Garcia",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "CA-43": {
+   "label": "California's 43rd congressional district",
+   "status": "called",
+   "name": "Maxine Waters",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "CA-44": {
+   "label": "California's 44th congressional district",
+   "status": "called",
+   "name": "Nanette Barragán",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "CA-45": {
+   "label": "California's 45th congressional district",
+   "status": "called",
+   "name": "Derek Tran",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "CA-46": {
+   "label": "California's 46th congressional district",
+   "status": "called",
+   "name": "Lou Correa",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "CA-47": {
+   "label": "California's 47th congressional district",
+   "status": "called",
+   "name": "Dave Min",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "CA-48": {
+   "label": "California's 48th congressional district",
+   "status": "called",
+   "name": "Marni von Wilpert",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "CA-49": {
+   "label": "California's 49th congressional district",
+   "status": "called",
+   "name": "Mike Levin",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "CA-50": {
+   "label": "California's 50th congressional district",
+   "status": "called",
+   "name": "Scott Peters",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "CA-51": {
+   "label": "California's 51st congressional district",
+   "status": "called",
+   "name": "Sara Jacobs",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "CA-52": {
+   "label": "California's 52nd congressional district",
+   "status": "called",
+   "name": "Juan Vargas",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "CO-01": {
+   "label": "Colorado's 1st congressional district",
+   "status": "called",
+   "name": "Melat Kiros",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "CO-02": {
+   "label": "Colorado's 2nd congressional district",
+   "status": "called",
+   "name": "Joe Neguse",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "CO-03": {
+   "label": "Colorado's 3rd congressional district",
+   "status": "not_yet_called",
+   "name": null,
+   "party": null,
+   "party_name": null
+  },
+  "CO-04": {
+   "label": "Colorado's 4th congressional district",
+   "status": "not_yet_called",
+   "name": null,
+   "party": null,
+   "party_name": null
+  },
+  "CO-05": {
+   "label": "Colorado's 5th congressional district",
+   "status": "called",
+   "name": "Jessica Killin",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "CO-06": {
+   "label": "Colorado's 6th congressional district",
+   "status": "called",
+   "name": "Jason Crow",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "CO-07": {
+   "label": "Colorado's 7th congressional district",
+   "status": "called",
+   "name": "Brittany Pettersen",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "CO-08": {
+   "label": "Colorado's 8th congressional district",
+   "status": "called",
+   "name": "Manny Rutinel",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "CT-01": {
+   "label": "Connecticut's 1st congressional district",
+   "status": "called",
+   "name": "Luke Bronin",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "CT-02": {
+   "label": "Connecticut's 2nd congressional district",
+   "status": "called",
+   "name": "Joe Courtney",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "CT-03": {
+   "label": "Connecticut's 3rd congressional district",
+   "status": "called",
+   "name": "Rosa DeLauro",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "CT-04": {
+   "label": "Connecticut's 4th congressional district",
+   "status": "called",
+   "name": "Jim Himes",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "CT-05": {
+   "label": "Connecticut's 5th congressional district",
+   "status": "called",
+   "name": "Jahana Hayes",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "DC-01": {
+   "label": "District of Columbia's at-large congressional district",
+   "status": "called",
+   "name": "Robert White",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "DE-01": {
+   "label": "Delaware's at-large congressional district",
+   "status": "called",
+   "name": "Sarah McBride",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "FL-01": {
+   "label": "Florida's 1st congressional district",
+   "status": "called",
+   "name": "Jimmy Patronis",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "FL-02": {
+   "label": "Florida's 2nd congressional district",
+   "status": "called",
+   "name": "Austin Rogers",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "FL-03": {
+   "label": "Florida's 3rd congressional district",
+   "status": "called",
+   "name": "Kat Cammack",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "FL-04": {
+   "label": "Florida's 4th congressional district",
+   "status": "called",
+   "name": "Aaron Bean",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "FL-05": {
+   "label": "Florida's 5th congressional district",
+   "status": "called",
+   "name": "John Rutherford",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "FL-06": {
+   "label": "Florida's 6th congressional district",
+   "status": "called",
+   "name": "Randy Fine",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "FL-07": {
+   "label": "Florida's 7th congressional district",
+   "status": "not_yet_called",
+   "name": null,
+   "party": null,
+   "party_name": null
+  },
+  "FL-08": {
+   "label": "Florida's 8th congressional district",
+   "status": "called",
+   "name": "Mike Haridopolos",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "FL-09": {
+   "label": "Florida's 9th congressional district",
+   "status": "not_yet_called",
+   "name": null,
+   "party": null,
+   "party_name": null
+  },
+  "FL-10": {
+   "label": "Florida's 10th congressional district",
+   "status": "called",
+   "name": "Maxwell Frost",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "FL-11": {
+   "label": "Florida's 11th congressional district",
+   "status": "called",
+   "name": "Joe Strada",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "FL-12": {
+   "label": "Florida's 12th congressional district",
+   "status": "called",
+   "name": "Gus Bilirakis",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "FL-13": {
+   "label": "Florida's 13th congressional district",
+   "status": "called",
+   "name": "Anna Paulina Luna",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "FL-14": {
+   "label": "Florida's 14th congressional district",
+   "status": "called",
+   "name": "Kathy Castor",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "FL-15": {
+   "label": "Florida's 15th congressional district",
+   "status": "called",
+   "name": "Laurel Lee",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "FL-16": {
+   "label": "Florida's 16th congressional district",
+   "status": "called",
+   "name": "Sydney Gruters",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "FL-17": {
+   "label": "Florida's 17th congressional district",
+   "status": "called",
+   "name": "Greg Steube",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "FL-18": {
+   "label": "Florida's 18th congressional district",
+   "status": "called",
+   "name": "Scott Franklin",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "FL-19": {
+   "label": "Florida's 19th congressional district",
+   "status": "called",
+   "name": "Jim Schwartzel",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "FL-20": {
+   "label": "Florida's 20th congressional district",
+   "status": "called",
+   "name": "Debbie Wasserman Schultz",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "FL-21": {
+   "label": "Florida's 21st congressional district",
+   "status": "called",
+   "name": "Brian Mast",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "FL-22": {
+   "label": "Florida's 22nd congressional district",
+   "status": "called",
+   "name": "Pia Dandiya",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "FL-23": {
+   "label": "Florida's 23rd congressional district",
+   "status": "called",
+   "name": "Lois Frankel",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "FL-24": {
+   "label": "Florida's 24th congressional district",
+   "status": "called",
+   "name": "Oliver Gilbert",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "FL-25": {
+   "label": "Florida's 25th congressional district",
+   "status": "called",
+   "name": "Jared Moskowitz",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "FL-26": {
+   "label": "Florida's 26th congressional district",
+   "status": "not_yet_called",
+   "name": null,
+   "party": null,
+   "party_name": null
+  },
+  "FL-27": {
+   "label": "Florida's 27th congressional district",
+   "status": "not_yet_called",
+   "name": null,
+   "party": null,
+   "party_name": null
+  },
+  "FL-28": {
+   "label": "Florida's 28th congressional district",
+   "status": "called",
+   "name": "Carlos A. Giménez",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "GA-01": {
+   "label": "Georgia's 1st congressional district",
+   "status": "called",
+   "name": "Jim Kingston",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "GA-02": {
+   "label": "Georgia's 2nd congressional district",
+   "status": "called",
+   "name": "Sanford Bishop",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "GA-03": {
+   "label": "Georgia's 3rd congressional district",
+   "status": "called",
+   "name": "Brian Jack",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "GA-04": {
+   "label": "Georgia's 4th congressional district",
+   "status": "called",
+   "name": "Hank Johnson",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "GA-05": {
+   "label": "Georgia's 5th congressional district",
+   "status": "called",
+   "name": "Nikema Williams",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "GA-06": {
+   "label": "Georgia's 6th congressional district",
+   "status": "called",
+   "name": "Lucy McBath",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "GA-07": {
+   "label": "Georgia's 7th congressional district",
+   "status": "called",
+   "name": "Rich McCormick",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "GA-08": {
+   "label": "Georgia's 8th congressional district",
+   "status": "called",
+   "name": "Austin Scott",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "GA-09": {
+   "label": "Georgia's 9th congressional district",
+   "status": "called",
+   "name": "Andrew Clyde",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "GA-10": {
+   "label": "Georgia's 10th congressional district",
+   "status": "called",
+   "name": "Houston Gaines",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "GA-11": {
+   "label": "Georgia's 11th congressional district",
+   "status": "called",
+   "name": "John Cowan",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "GA-12": {
+   "label": "Georgia's 12th congressional district",
+   "status": "called",
+   "name": "Rick Allen",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "GA-13": {
+   "label": "Georgia's 13th congressional district",
+   "status": "called",
+   "name": "Jasmine Clark",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "GA-14": {
+   "label": "Georgia's 14th congressional district",
+   "status": "called",
+   "name": "Clay Fuller",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "HI-01": {
+   "label": "Hawaii's 1st congressional district",
+   "status": "called",
+   "name": "Ed Case",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "HI-02": {
+   "label": "Hawaii's 2nd congressional district",
+   "status": "called",
+   "name": "Jill Tokuda",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "IA-01": {
+   "label": "Iowa's 1st congressional district",
+   "status": "called",
+   "name": "Christina Bohannan",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "IA-02": {
+   "label": "Iowa's 2nd congressional district",
+   "status": "called",
+   "name": "Lindsay James",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "IA-03": {
+   "label": "Iowa's 3rd congressional district",
+   "status": "called",
+   "name": "Sarah Trone Garriott",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "IA-04": {
+   "label": "Iowa's 4th congressional district",
+   "status": "called",
+   "name": "Chris McGowan",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "ID-01": {
+   "label": "Idaho's 1st congressional district",
+   "status": "called",
+   "name": "Russ Fulcher",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "ID-02": {
+   "label": "Idaho's 2nd congressional district",
+   "status": "called",
+   "name": "Mike Simpson",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "IL-01": {
+   "label": "Illinois's 1st congressional district",
+   "status": "called",
+   "name": "Jonathan Jackson",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "IL-02": {
+   "label": "Illinois's 2nd congressional district",
+   "status": "called",
+   "name": "Donna Miller",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "IL-03": {
+   "label": "Illinois's 3rd congressional district",
+   "status": "called",
+   "name": "Delia Ramirez",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "IL-04": {
+   "label": "Illinois's 4th congressional district",
+   "status": "called",
+   "name": "Patty García",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "IL-05": {
+   "label": "Illinois's 5th congressional district",
+   "status": "called",
+   "name": "Mike Quigley",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "IL-06": {
+   "label": "Illinois's 6th congressional district",
+   "status": "called",
+   "name": "Sean Casten",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "IL-07": {
+   "label": "Illinois's 7th congressional district",
+   "status": "called",
+   "name": "La Shawn Ford",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "IL-08": {
+   "label": "Illinois's 8th congressional district",
+   "status": "called",
+   "name": "Melissa Bean",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "IL-09": {
+   "label": "Illinois's 9th congressional district",
+   "status": "called",
+   "name": "Daniel Biss",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "IL-10": {
+   "label": "Illinois's 10th congressional district",
+   "status": "called",
+   "name": "Brad Schneider",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "IL-11": {
+   "label": "Illinois's 11th congressional district",
+   "status": "called",
+   "name": "Bill Foster",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "IL-12": {
+   "label": "Illinois's 12th congressional district",
+   "status": "called",
+   "name": "Mike Bost",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "IL-13": {
+   "label": "Illinois's 13th congressional district",
+   "status": "called",
+   "name": "Nikki Budzinski",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "IL-14": {
+   "label": "Illinois's 14th congressional district",
+   "status": "called",
+   "name": "Lauren Underwood",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "IL-15": {
+   "label": "Illinois's 15th congressional district",
+   "status": "called",
+   "name": "Mary Miller",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "IL-16": {
+   "label": "Illinois's 16th congressional district",
+   "status": "called",
+   "name": "Darin LaHood",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "IL-17": {
+   "label": "Illinois's 17th congressional district",
+   "status": "called",
+   "name": "Eric Sorensen",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "IN-01": {
+   "label": "Indiana's 1st congressional district",
+   "status": "called",
+   "name": "Frank J. Mrvan",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "IN-02": {
+   "label": "Indiana's 2nd congressional district",
+   "status": "called",
+   "name": "Rudy Yakym",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "IN-03": {
+   "label": "Indiana's 3rd congressional district",
+   "status": "called",
+   "name": "Marlin Stutzman",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "IN-04": {
+   "label": "Indiana's 4th congressional district",
+   "status": "called",
+   "name": "Jim Baird",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "IN-05": {
+   "label": "Indiana's 5th congressional district",
+   "status": "called",
+   "name": "J. D. Ford",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "IN-06": {
+   "label": "Indiana's 6th congressional district",
+   "status": "called",
+   "name": "Jefferson Shreve",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "IN-07": {
+   "label": "Indiana's 7th congressional district",
+   "status": "called",
+   "name": "André Carson",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "IN-08": {
+   "label": "Indiana's 8th congressional district",
+   "status": "called",
+   "name": "Mark Messmer",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "IN-09": {
+   "label": "Indiana's 9th congressional district",
+   "status": "called",
+   "name": "Erin Houchin",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "KS-01": {
+   "label": "Kansas's 1st congressional district",
+   "status": "called",
+   "name": "Tracey Mann",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "KS-02": {
+   "label": "Kansas's 2nd congressional district",
+   "status": "called",
+   "name": "Derek Schmidt",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "KS-03": {
+   "label": "Kansas's 3rd congressional district",
+   "status": "called",
+   "name": "Sharice Davids",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "KS-04": {
+   "label": "Kansas's 4th congressional district",
+   "status": "called",
+   "name": "Ron Estes",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "KY-01": {
+   "label": "Kentucky's 1st congressional district",
+   "status": "called",
+   "name": "James Comer",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "KY-02": {
+   "label": "Kentucky's 2nd congressional district",
+   "status": "called",
+   "name": "Brett Guthrie",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "KY-03": {
+   "label": "Kentucky's 3rd congressional district",
+   "status": "called",
+   "name": "Morgan McGarvey",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "KY-04": {
+   "label": "Kentucky's 4th congressional district",
+   "status": "called",
+   "name": "Ed Gallrein",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "KY-05": {
+   "label": "Kentucky's 5th congressional district",
+   "status": "called",
+   "name": "Hal Rogers",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "KY-06": {
+   "label": "Kentucky's 6th congressional district",
+   "status": "called",
+   "name": "Zach Dembo",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "LA-01": {
+   "label": "Louisiana's 1st congressional district",
+   "status": "called",
+   "name": "Steve Scalise",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "LA-02": {
+   "label": "Louisiana's 2nd congressional district",
+   "status": "called",
+   "name": "Troy Carter",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "LA-03": {
+   "label": "Louisiana's 3rd congressional district",
+   "status": "called",
+   "name": "Clay Higgins",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "LA-04": {
+   "label": "Louisiana's 4th congressional district",
+   "status": "called",
+   "name": "Mike Johnson",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "LA-05": {
+   "label": "Louisiana's 5th congressional district",
+   "status": "not_yet_called",
+   "name": null,
+   "party": null,
+   "party_name": null
+  },
+  "LA-06": {
+   "label": "Louisiana's 6th congressional district",
+   "status": "not_yet_called",
+   "name": null,
+   "party": null,
+   "party_name": null
+  },
+  "MA-01": {
+   "label": "Massachusetts's 1st congressional district",
+   "status": "called",
+   "name": "Richard Neal",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "MA-02": {
+   "label": "Massachusetts's 2nd congressional district",
+   "status": "called",
+   "name": "Jim McGovern",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "MA-03": {
+   "label": "Massachusetts's 3rd congressional district",
+   "status": "called",
+   "name": "Lori Trahan",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "MA-04": {
+   "label": "Massachusetts's 4th congressional district",
+   "status": "called",
+   "name": "Jake Auchincloss",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "MA-05": {
+   "label": "Massachusetts's 5th congressional district",
+   "status": "called",
+   "name": "Katherine Clark",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "MA-06": {
+   "label": "Massachusetts's 6th congressional district",
+   "status": "called",
+   "name": "Dan Koh",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "MA-07": {
+   "label": "Massachusetts's 7th congressional district",
+   "status": "called",
+   "name": "Ayanna Pressley",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "MA-08": {
+   "label": "Massachusetts's 8th congressional district",
+   "status": "called",
+   "name": "Stephen Lynch",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "MA-09": {
+   "label": "Massachusetts's 9th congressional district",
+   "status": "called",
+   "name": "Bill Keating",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "MD-01": {
+   "label": "Maryland's 1st congressional district",
+   "status": "called",
+   "name": "Andy Harris",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "MD-02": {
+   "label": "Maryland's 2nd congressional district",
+   "status": "called",
+   "name": "Johnny Olszewski",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "MD-03": {
+   "label": "Maryland's 3rd congressional district",
+   "status": "called",
+   "name": "Sarah Elfreth",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "MD-04": {
+   "label": "Maryland's 4th congressional district",
+   "status": "called",
+   "name": "Glenn Ivey",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "MD-05": {
+   "label": "Maryland's 5th congressional district",
+   "status": "called",
+   "name": "Adrian Boafo",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "MD-06": {
+   "label": "Maryland's 6th congressional district",
+   "status": "called",
+   "name": "April McClain Delaney",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "MD-07": {
+   "label": "Maryland's 7th congressional district",
+   "status": "called",
+   "name": "Kweisi Mfume",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "MD-08": {
+   "label": "Maryland's 8th congressional district",
+   "status": "called",
+   "name": "Jamie Raskin",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "ME-01": {
+   "label": "Maine's 1st congressional district",
+   "status": "called",
+   "name": "Chellie Pingree",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "ME-02": {
+   "label": "Maine's 2nd congressional district",
+   "status": "not_yet_called",
+   "name": null,
+   "party": null,
+   "party_name": null
+  },
+  "MI-01": {
+   "label": "Michigan's 1st congressional district",
+   "status": "called",
+   "name": "Jack Bergman",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "MI-02": {
+   "label": "Michigan's 2nd congressional district",
+   "status": "called",
+   "name": "John Moolenaar",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "MI-03": {
+   "label": "Michigan's 3rd congressional district",
+   "status": "called",
+   "name": "Hillary Scholten",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "MI-04": {
+   "label": "Michigan's 4th congressional district",
+   "status": "called",
+   "name": "Sean McCann",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "MI-05": {
+   "label": "Michigan's 5th congressional district",
+   "status": "called",
+   "name": "Tim Walberg",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "MI-06": {
+   "label": "Michigan's 6th congressional district",
+   "status": "called",
+   "name": "Debbie Dingell",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "MI-07": {
+   "label": "Michigan's 7th congressional district",
+   "status": "called",
+   "name": "William Lawrence",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "MI-08": {
+   "label": "Michigan's 8th congressional district",
+   "status": "called",
+   "name": "Kristen McDonald Rivet",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "MI-09": {
+   "label": "Michigan's 9th congressional district",
+   "status": "called",
+   "name": "Lisa McClain",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "MI-10": {
+   "label": "Michigan's 10th congressional district",
+   "status": "called",
+   "name": "Christina Hines",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "MI-11": {
+   "label": "Michigan's 11th congressional district",
+   "status": "called",
+   "name": "Jeremy Moss",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "MI-12": {
+   "label": "Michigan's 12th congressional district",
+   "status": "called",
+   "name": "Rashida Tlaib",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "MI-13": {
+   "label": "Michigan's 13th congressional district",
+   "status": "called",
+   "name": "Donavan McKinney",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "MN-01": {
+   "label": "Minnesota's 1st congressional district",
+   "status": "not_yet_called",
+   "name": null,
+   "party": null,
+   "party_name": null
+  },
+  "MN-02": {
+   "label": "Minnesota's 2nd congressional district",
+   "status": "called",
+   "name": "Matt Little",
+   "party": "D",
+   "party_name": "Democratic–Farmer–Labor"
+  },
+  "MN-03": {
+   "label": "Minnesota's 3rd congressional district",
+   "status": "called",
+   "name": "Kelly Morrison",
+   "party": "D",
+   "party_name": "Democratic–Farmer–Labor"
+  },
+  "MN-04": {
+   "label": "Minnesota's 4th congressional district",
+   "status": "called",
+   "name": "Betty McCollum",
+   "party": "D",
+   "party_name": "Democratic–Farmer–Labor"
+  },
+  "MN-05": {
+   "label": "Minnesota's 5th congressional district",
+   "status": "called",
+   "name": "Ilhan Omar",
+   "party": "D",
+   "party_name": "Democratic–Farmer–Labor"
+  },
+  "MN-06": {
+   "label": "Minnesota's 6th congressional district",
+   "status": "called",
+   "name": "Tom Emmer",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "MN-07": {
+   "label": "Minnesota's 7th congressional district",
+   "status": "called",
+   "name": "Michelle Fischbach",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "MN-08": {
+   "label": "Minnesota's 8th congressional district",
+   "status": "called",
+   "name": "Pete Stauber",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "MO-01": {
+   "label": "Missouri's 1st congressional district",
+   "status": "called",
+   "name": "Wesley Bell",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "MO-02": {
+   "label": "Missouri's 2nd congressional district",
+   "status": "called",
+   "name": "Fred Wellman",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "MO-03": {
+   "label": "Missouri's 3rd congressional district",
+   "status": "called",
+   "name": "Bob Onder",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "MO-04": {
+   "label": "Missouri's 4th congressional district",
+   "status": "called",
+   "name": "Mark Alford",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "MO-05": {
+   "label": "Missouri's 5th congressional district",
+   "status": "called",
+   "name": "Emanuel Cleaver",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "MO-06": {
+   "label": "Missouri's 6th congressional district",
+   "status": "called",
+   "name": "Chris Stigall",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "MO-07": {
+   "label": "Missouri's 7th congressional district",
+   "status": "called",
+   "name": "Eric Burlison",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "MO-08": {
+   "label": "Missouri's 8th congressional district",
+   "status": "called",
+   "name": "Jason Smith",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "MS-01": {
+   "label": "Mississippi's 1st congressional district",
+   "status": "called",
+   "name": "Trent Kelly",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "MS-02": {
+   "label": "Mississippi's 2nd congressional district",
+   "status": "called",
+   "name": "Bennie Thompson",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "MS-03": {
+   "label": "Mississippi's 3rd congressional district",
+   "status": "called",
+   "name": "Michael Guest",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "MS-04": {
+   "label": "Mississippi's 4th congressional district",
+   "status": "called",
+   "name": "Mike Ezell",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "MT-01": {
+   "label": "Montana's 1st congressional district",
+   "status": "called",
+   "name": "Sam Forstag",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "MT-02": {
+   "label": "Montana's 2nd congressional district",
+   "status": "called",
+   "name": "Troy Downing",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "NC-01": {
+   "label": "North Carolina's 1st congressional district",
+   "status": "called",
+   "name": "Don Davis",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "NC-02": {
+   "label": "North Carolina's 2nd congressional district",
+   "status": "called",
+   "name": "Deborah Ross",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "NC-03": {
+   "label": "North Carolina's 3rd congressional district",
+   "status": "not_yet_called",
+   "name": null,
+   "party": null,
+   "party_name": null
+  },
+  "NC-04": {
+   "label": "North Carolina's 4th congressional district",
+   "status": "called",
+   "name": "Valerie Foushee",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "NC-05": {
+   "label": "North Carolina's 5th congressional district",
+   "status": "not_yet_called",
+   "name": null,
+   "party": null,
+   "party_name": null
+  },
+  "NC-06": {
+   "label": "North Carolina's 6th congressional district",
+   "status": "called",
+   "name": "Cyril Jefferson",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "NC-07": {
+   "label": "North Carolina's 7th congressional district",
+   "status": "not_yet_called",
+   "name": null,
+   "party": null,
+   "party_name": null
+  },
+  "NC-08": {
+   "label": "North Carolina's 8th congressional district",
+   "status": "not_yet_called",
+   "name": null,
+   "party": null,
+   "party_name": null
+  },
+  "NC-09": {
+   "label": "North Carolina's 9th congressional district",
+   "status": "called",
+   "name": "Richard Ojeda",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "NC-10": {
+   "label": "North Carolina's 10th congressional district",
+   "status": "not_yet_called",
+   "name": null,
+   "party": null,
+   "party_name": null
+  },
+  "NC-11": {
+   "label": "North Carolina's 11th congressional district",
+   "status": "called",
+   "name": "Jamie Ager",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "NC-12": {
+   "label": "North Carolina's 12th congressional district",
+   "status": "called",
+   "name": "Alma Adams",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "NC-13": {
+   "label": "North Carolina's 13th congressional district",
+   "status": "called",
+   "name": "Paul Barringer",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "NC-14": {
+   "label": "North Carolina's 14th congressional district",
+   "status": "called",
+   "name": "Lakesha Womack",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "ND-01": {
+   "label": "North Dakota's at-large congressional district",
+   "status": "called",
+   "name": "Julie Fedorchak",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "NE-01": {
+   "label": "Nebraska's 1st congressional district",
+   "status": "called",
+   "name": "Mike Flood",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "NE-02": {
+   "label": "Nebraska's 2nd congressional district",
+   "status": "called",
+   "name": "Denise Powell",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "NE-03": {
+   "label": "Nebraska's 3rd congressional district",
+   "status": "called",
+   "name": "Adrian Smith",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "NH-01": {
+   "label": "New Hampshire's 1st congressional district",
+   "status": "called",
+   "name": "Stefany Shaheen",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "NH-02": {
+   "label": "New Hampshire's 2nd congressional district",
+   "status": "called",
+   "name": "Maggie Goodlander",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "NJ-01": {
+   "label": "New Jersey's 1st congressional district",
+   "status": "called",
+   "name": "Donald Norcross",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "NJ-02": {
+   "label": "New Jersey's 2nd congressional district",
+   "status": "called",
+   "name": "Zack Mullock",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "NJ-03": {
+   "label": "New Jersey's 3rd congressional district",
+   "status": "called",
+   "name": "Herb Conaway",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "NJ-04": {
+   "label": "New Jersey's 4th congressional district",
+   "status": "called",
+   "name": "Chris Smith",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "NJ-05": {
+   "label": "New Jersey's 5th congressional district",
+   "status": "called",
+   "name": "Josh Gottheimer",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "NJ-06": {
+   "label": "New Jersey's 6th congressional district",
+   "status": "called",
+   "name": "Frank Pallone",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "NJ-07": {
+   "label": "New Jersey's 7th congressional district",
+   "status": "called",
+   "name": "Rebecca Bennett",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "NJ-08": {
+   "label": "New Jersey's 8th congressional district",
+   "status": "called",
+   "name": "Rob Menendez",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "NJ-09": {
+   "label": "New Jersey's 9th congressional district",
+   "status": "called",
+   "name": "Nellie Pou",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "NJ-10": {
+   "label": "New Jersey's 10th congressional district",
+   "status": "called",
+   "name": "LaMonica McIver",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "NJ-11": {
+   "label": "New Jersey's 11th congressional district",
+   "status": "called",
+   "name": "Analilia Mejia",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "NJ-12": {
+   "label": "New Jersey's 12th congressional district",
+   "status": "called",
+   "name": "Adam Hamawy",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "NM-01": {
+   "label": "New Mexico's 1st congressional district",
+   "status": "called",
+   "name": "Melanie Stansbury",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "NM-02": {
+   "label": "New Mexico's 2nd congressional district",
+   "status": "called",
+   "name": "Gabe Vasquez",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "NM-03": {
+   "label": "New Mexico's 3rd congressional district",
+   "status": "called",
+   "name": "Teresa Leger Fernández",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "NV-01": {
+   "label": "Nevada's 1st congressional district",
+   "status": "called",
+   "name": "Dina Titus",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "NV-02": {
+   "label": "Nevada's 2nd congressional district",
+   "status": "called",
+   "name": "Teresa Benitez-Thompson",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "NV-03": {
+   "label": "Nevada's 3rd congressional district",
+   "status": "called",
+   "name": "Susie Lee",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "NV-04": {
+   "label": "Nevada's 4th congressional district",
+   "status": "called",
+   "name": "Steven Horsford",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "NY-01": {
+   "label": "New York's 1st congressional district",
+   "status": "called",
+   "name": "Nick LaLota",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "NY-02": {
+   "label": "New York's 2nd congressional district",
+   "status": "not_yet_called",
+   "name": null,
+   "party": null,
+   "party_name": null
+  },
+  "NY-03": {
+   "label": "New York's 3rd congressional district",
+   "status": "called",
+   "name": "Tom Suozzi",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "NY-04": {
+   "label": "New York's 4th congressional district",
+   "status": "called",
+   "name": "Laura Gillen",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "NY-05": {
+   "label": "New York's 5th congressional district",
+   "status": "called",
+   "name": "Gregory Meeks",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "NY-06": {
+   "label": "New York's 6th congressional district",
+   "status": "called",
+   "name": "Grace Meng",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "NY-07": {
+   "label": "New York's 7th congressional district",
+   "status": "called",
+   "name": "Claire Valdez",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "NY-08": {
+   "label": "New York's 8th congressional district",
+   "status": "called",
+   "name": "Hakeem Jeffries",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "NY-09": {
+   "label": "New York's 9th congressional district",
+   "status": "called",
+   "name": "Yvette Clarke",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "NY-10": {
+   "label": "New York's 10th congressional district",
+   "status": "called",
+   "name": "Brad Lander",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "NY-11": {
+   "label": "New York's 11th congressional district",
+   "status": "called",
+   "name": "Nicole Malliotakis",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "NY-12": {
+   "label": "New York's 12th congressional district",
+   "status": "called",
+   "name": "Micah Lasher",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "NY-13": {
+   "label": "New York's 13th congressional district",
+   "status": "called",
+   "name": "Darializa Avila Chevalier",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "NY-14": {
+   "label": "New York's 14th congressional district",
+   "status": "called",
+   "name": "Alexandria Ocasio-Cortez",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "NY-15": {
+   "label": "New York's 15th congressional district",
+   "status": "called",
+   "name": "Ritchie Torres",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "NY-16": {
+   "label": "New York's 16th congressional district",
+   "status": "called",
+   "name": "George Latimer",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "NY-17": {
+   "label": "New York's 17th congressional district",
+   "status": "called",
+   "name": "Cait Conley",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "NY-18": {
+   "label": "New York's 18th congressional district",
+   "status": "called",
+   "name": "Pat Ryan",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "NY-19": {
+   "label": "New York's 19th congressional district",
+   "status": "called",
+   "name": "Josh Riley",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "NY-20": {
+   "label": "New York's 20th congressional district",
+   "status": "called",
+   "name": "Paul Tonko",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "NY-21": {
+   "label": "New York's 21st congressional district",
+   "status": "not_yet_called",
+   "name": null,
+   "party": null,
+   "party_name": null
+  },
+  "NY-22": {
+   "label": "New York's 22nd congressional district",
+   "status": "called",
+   "name": "John Mannion",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "NY-23": {
+   "label": "New York's 23rd congressional district",
+   "status": "called",
+   "name": "Nick Langworthy",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "NY-24": {
+   "label": "New York's 24th congressional district",
+   "status": "called",
+   "name": "Claudia Tenney",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "NY-25": {
+   "label": "New York's 25th congressional district",
+   "status": "called",
+   "name": "Joseph Morelle",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "NY-26": {
+   "label": "New York's 26th congressional district",
+   "status": "called",
+   "name": "Tim Kennedy",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "OH-01": {
+   "label": "Ohio's 1st congressional district",
+   "status": "called",
+   "name": "Greg Landsman",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "OH-02": {
+   "label": "Ohio's 2nd congressional district",
+   "status": "called",
+   "name": "David Taylor",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "OH-03": {
+   "label": "Ohio's 3rd congressional district",
+   "status": "called",
+   "name": "Joyce Beatty",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "OH-04": {
+   "label": "Ohio's 4th congressional district",
+   "status": "called",
+   "name": "Jim Jordan",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "OH-05": {
+   "label": "Ohio's 5th congressional district",
+   "status": "called",
+   "name": "Bob Latta",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "OH-06": {
+   "label": "Ohio's 6th congressional district",
+   "status": "called",
+   "name": "Michael Rulli",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "OH-07": {
+   "label": "Ohio's 7th congressional district",
+   "status": "called",
+   "name": "Brian Poindexter",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "OH-08": {
+   "label": "Ohio's 8th congressional district",
+   "status": "called",
+   "name": "Warren Davidson",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "OH-09": {
+   "label": "Ohio's 9th congressional district",
+   "status": "called",
+   "name": "Marcy Kaptur",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "OH-10": {
+   "label": "Ohio's 10th congressional district",
+   "status": "called",
+   "name": "Kristina Knickerbocker",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "OH-11": {
+   "label": "Ohio's 11th congressional district",
+   "status": "called",
+   "name": "Shontel Brown",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "OH-12": {
+   "label": "Ohio's 12th congressional district",
+   "status": "called",
+   "name": "Troy Balderson",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "OH-13": {
+   "label": "Ohio's 13th congressional district",
+   "status": "called",
+   "name": "Emilia Sykes",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "OH-14": {
+   "label": "Ohio's 14th congressional district",
+   "status": "called",
+   "name": "David Joyce",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "OH-15": {
+   "label": "Ohio's 15th congressional district",
+   "status": "called",
+   "name": "Don Leonard",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "OK-01": {
+   "label": "Oklahoma's 1st congressional district",
+   "status": "called",
+   "name": "Mark Tedford",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "OK-02": {
+   "label": "Oklahoma's 2nd congressional district",
+   "status": "called",
+   "name": "Josh Brecheen",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "OK-03": {
+   "label": "Oklahoma's 3rd congressional district",
+   "status": "called",
+   "name": "Frank Lucas",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "OK-04": {
+   "label": "Oklahoma's 4th congressional district",
+   "status": "called",
+   "name": "Tom Cole",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "OK-05": {
+   "label": "Oklahoma's 5th congressional district",
+   "status": "called",
+   "name": "Stephanie Bice",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "OR-01": {
+   "label": "Oregon's 1st congressional district",
+   "status": "called",
+   "name": "Suzanne Bonamici",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "OR-02": {
+   "label": "Oregon's 2nd congressional district",
+   "status": "called",
+   "name": "Cliff Bentz",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "OR-03": {
+   "label": "Oregon's 3rd congressional district",
+   "status": "called",
+   "name": "Maxine Dexter",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "OR-04": {
+   "label": "Oregon's 4th congressional district",
+   "status": "called",
+   "name": "Val Hoyle",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "OR-05": {
+   "label": "Oregon's 5th congressional district",
+   "status": "called",
+   "name": "Janelle Bynum",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "OR-06": {
+   "label": "Oregon's 6th congressional district",
+   "status": "called",
+   "name": "Andrea Salinas",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "PA-01": {
+   "label": "Pennsylvania's 1st congressional district",
+   "status": "called",
+   "name": "Bob Harvie",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "PA-02": {
+   "label": "Pennsylvania's 2nd congressional district",
+   "status": "called",
+   "name": "Brendan Boyle",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "PA-03": {
+   "label": "Pennsylvania's 3rd congressional district",
+   "status": "called",
+   "name": "Chris Rabb",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "PA-04": {
+   "label": "Pennsylvania's 4th congressional district",
+   "status": "called",
+   "name": "Madeleine Dean",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "PA-05": {
+   "label": "Pennsylvania's 5th congressional district",
+   "status": "called",
+   "name": "Mary Gay Scanlon",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "PA-06": {
+   "label": "Pennsylvania's 6th congressional district",
+   "status": "called",
+   "name": "Chrissy Houlahan",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "PA-07": {
+   "label": "Pennsylvania's 7th congressional district",
+   "status": "called",
+   "name": "Bob Brooks",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "PA-08": {
+   "label": "Pennsylvania's 8th congressional district",
+   "status": "called",
+   "name": "Paige Cognetti",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "PA-09": {
+   "label": "Pennsylvania's 9th congressional district",
+   "status": "called",
+   "name": "Dan Meuser",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "PA-10": {
+   "label": "Pennsylvania's 10th congressional district",
+   "status": "called",
+   "name": "Janelle Stelson",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "PA-11": {
+   "label": "Pennsylvania's 11th congressional district",
+   "status": "called",
+   "name": "Lloyd Smucker",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "PA-12": {
+   "label": "Pennsylvania's 12th congressional district",
+   "status": "called",
+   "name": "Summer Lee",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "PA-13": {
+   "label": "Pennsylvania's 13th congressional district",
+   "status": "called",
+   "name": "John Joyce",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "PA-14": {
+   "label": "Pennsylvania's 14th congressional district",
+   "status": "called",
+   "name": "Guy Reschenthaler",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "PA-15": {
+   "label": "Pennsylvania's 15th congressional district",
+   "status": "called",
+   "name": "Glenn Thompson",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "PA-16": {
+   "label": "Pennsylvania's 16th congressional district",
+   "status": "called",
+   "name": "Mike Kelly",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "PA-17": {
+   "label": "Pennsylvania's 17th congressional district",
+   "status": "called",
+   "name": "Chris Deluzio",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "RI-01": {
+   "label": "Rhode Island's 1st congressional district",
+   "status": "called",
+   "name": "Gabe Amo",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "RI-02": {
+   "label": "Rhode Island's 2nd congressional district",
+   "status": "called",
+   "name": "Seth Magaziner",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "SC-01": {
+   "label": "South Carolina's 1st congressional district",
+   "status": "called",
+   "name": "Nancy Lacore",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "SC-02": {
+   "label": "South Carolina's 2nd congressional district",
+   "status": "not_yet_called",
+   "name": null,
+   "party": null,
+   "party_name": null
+  },
+  "SC-03": {
+   "label": "South Carolina's 3rd congressional district",
+   "status": "called",
+   "name": "Sheri Biggs",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "SC-04": {
+   "label": "South Carolina's 4th congressional district",
+   "status": "called",
+   "name": "William Timmons",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "SC-05": {
+   "label": "South Carolina's 5th congressional district",
+   "status": "called",
+   "name": "Wes Climer",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "SC-06": {
+   "label": "South Carolina's 6th congressional district",
+   "status": "called",
+   "name": "Jim Clyburn",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "SC-07": {
+   "label": "South Carolina's 7th congressional district",
+   "status": "called",
+   "name": "Russell Fry",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "SD-01": {
+   "label": "South Dakota's at-large congressional district",
+   "status": "called",
+   "name": "Marty Jackley",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "TN-01": {
+   "label": "Tennessee's 1st congressional district",
+   "status": "called",
+   "name": "Diana Harshbarger",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "TN-02": {
+   "label": "Tennessee's 2nd congressional district",
+   "status": "called",
+   "name": "Tim Burchett",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "TN-03": {
+   "label": "Tennessee's 3rd congressional district",
+   "status": "called",
+   "name": "Chuck Fleischmann",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "TN-04": {
+   "label": "Tennessee's 4th congressional district",
+   "status": "called",
+   "name": "Victoria Broderick",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "TN-05": {
+   "label": "Tennessee's 5th congressional district",
+   "status": "called",
+   "name": "Charlie Hatcher",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "TN-06": {
+   "label": "Tennessee's 6th congressional district",
+   "status": "called",
+   "name": "Johnny Garrett",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "TN-07": {
+   "label": "Tennessee's 7th congressional district",
+   "status": "called",
+   "name": "Matt Van Epps",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "TN-08": {
+   "label": "Tennessee's 8th congressional district",
+   "status": "called",
+   "name": "David Kustoff",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "TN-09": {
+   "label": "Tennessee's 9th congressional district",
+   "status": "not_yet_called",
+   "name": null,
+   "party": null,
+   "party_name": null
+  },
+  "TX-01": {
+   "label": "Texas's 1st congressional district",
+   "status": "called",
+   "name": "Nathaniel Moran",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "TX-02": {
+   "label": "Texas's 2nd congressional district",
+   "status": "called",
+   "name": "Steve Toth",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "TX-03": {
+   "label": "Texas's 3rd congressional district",
+   "status": "called",
+   "name": "Keith Self",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "TX-04": {
+   "label": "Texas's 4th congressional district",
+   "status": "called",
+   "name": "Pat Fallon",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "TX-05": {
+   "label": "Texas's 5th congressional district",
+   "status": "called",
+   "name": "Lance Gooden",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "TX-06": {
+   "label": "Texas's 6th congressional district",
+   "status": "called",
+   "name": "Jake Ellzey",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "TX-07": {
+   "label": "Texas's 7th congressional district",
+   "status": "called",
+   "name": "Lizzie Fletcher",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "TX-08": {
+   "label": "Texas's 8th congressional district",
+   "status": "called",
+   "name": "Jessica Steinmann",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "TX-09": {
+   "label": "Texas's 9th congressional district",
+   "status": "called",
+   "name": "Leticia Gutierrez",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "TX-10": {
+   "label": "Texas's 10th congressional district",
+   "status": "called",
+   "name": "Chris Gober",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "TX-11": {
+   "label": "Texas's 11th congressional district",
+   "status": "called",
+   "name": "August Pfluger",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "TX-12": {
+   "label": "Texas's 12th congressional district",
+   "status": "called",
+   "name": "Craig Goldman",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "TX-13": {
+   "label": "Texas's 13th congressional district",
+   "status": "called",
+   "name": "Ronny Jackson",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "TX-14": {
+   "label": "Texas's 14th congressional district",
+   "status": "called",
+   "name": "Randy Weber",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "TX-15": {
+   "label": "Texas's 15th congressional district",
+   "status": "called",
+   "name": "Bobby Pulido",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "TX-16": {
+   "label": "Texas's 16th congressional district",
+   "status": "called",
+   "name": "Veronica Escobar",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "TX-17": {
+   "label": "Texas's 17th congressional district",
+   "status": "called",
+   "name": "Pete Sessions",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "TX-18": {
+   "label": "Texas's 18th congressional district",
+   "status": "called",
+   "name": "Christian Menefee",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "TX-19": {
+   "label": "Texas's 19th congressional district",
+   "status": "called",
+   "name": "Tom Sell",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "TX-20": {
+   "label": "Texas's 20th congressional district",
+   "status": "called",
+   "name": "Joaquin Castro",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "TX-21": {
+   "label": "Texas's 21st congressional district",
+   "status": "called",
+   "name": "Mark Teixeira",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "TX-22": {
+   "label": "Texas's 22nd congressional district",
+   "status": "called",
+   "name": "Trever Nehls",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "TX-23": {
+   "label": "Texas's 23rd congressional district",
+   "status": "called",
+   "name": "Katy Padilla Stout",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "TX-24": {
+   "label": "Texas's 24th congressional district",
+   "status": "called",
+   "name": "Beth Van Duyne",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "TX-25": {
+   "label": "Texas's 25th congressional district",
+   "status": "called",
+   "name": "Roger Williams",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "TX-26": {
+   "label": "Texas's 26th congressional district",
+   "status": "called",
+   "name": "Brandon Gill",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "TX-27": {
+   "label": "Texas's 27th congressional district",
+   "status": "called",
+   "name": "Michael Cloud",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "TX-28": {
+   "label": "Texas's 28th congressional district",
+   "status": "called",
+   "name": "Henry Cuellar",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "TX-29": {
+   "label": "Texas's 29th congressional district",
+   "status": "called",
+   "name": "Sylvia Garcia",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "TX-30": {
+   "label": "Texas's 30th congressional district",
+   "status": "called",
+   "name": "Frederick Haynes III",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "TX-31": {
+   "label": "Texas's 31st congressional district",
+   "status": "called",
+   "name": "John Carter",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "TX-32": {
+   "label": "Texas's 32nd congressional district",
+   "status": "called",
+   "name": "Jace Yarbrough",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "TX-33": {
+   "label": "Texas's 33rd congressional district",
+   "status": "called",
+   "name": "Colin Allred",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "TX-34": {
+   "label": "Texas's 34th congressional district",
+   "status": "called",
+   "name": "Vicente Gonzalez",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "TX-35": {
+   "label": "Texas's 35th congressional district",
+   "status": "called",
+   "name": "Johnny Garcia",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "TX-36": {
+   "label": "Texas's 36th congressional district",
+   "status": "called",
+   "name": "Brian Babin",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "TX-37": {
+   "label": "Texas's 37th congressional district",
+   "status": "called",
+   "name": "Greg Casar",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "TX-38": {
+   "label": "Texas's 38th congressional district",
+   "status": "called",
+   "name": "Jon Bonck",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "UT-01": {
+   "label": "Utah's 1st congressional district",
+   "status": "called",
+   "name": "Ben McAdams",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "UT-02": {
+   "label": "Utah's 2nd congressional district",
+   "status": "called",
+   "name": "Blake Moore",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "UT-03": {
+   "label": "Utah's 3rd congressional district",
+   "status": "called",
+   "name": "Celeste Maloy",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "UT-04": {
+   "label": "Utah's 4th congressional district",
+   "status": "called",
+   "name": "Mike Kennedy",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "VA-01": {
+   "label": "Virginia's 1st congressional district",
+   "status": "called",
+   "name": "Shannon Taylor",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "VA-02": {
+   "label": "Virginia's 2nd congressional district",
+   "status": "called",
+   "name": "Elaine Luria",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "VA-03": {
+   "label": "Virginia's 3rd congressional district",
+   "status": "called",
+   "name": "Bobby Scott",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "VA-04": {
+   "label": "Virginia's 4th congressional district",
+   "status": "called",
+   "name": "Jennifer McClellan",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "VA-05": {
+   "label": "Virginia's 5th congressional district",
+   "status": "called",
+   "name": "John McGuire",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "VA-06": {
+   "label": "Virginia's 6th congressional district",
+   "status": "called",
+   "name": "Ben Cline",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "VA-07": {
+   "label": "Virginia's 7th congressional district",
+   "status": "called",
+   "name": "Eugene Vindman",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "VA-08": {
+   "label": "Virginia's 8th congressional district",
+   "status": "called",
+   "name": "Don Beyer",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "VA-09": {
+   "label": "Virginia's 9th congressional district",
+   "status": "called",
+   "name": "Morgan Griffith",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "VA-10": {
+   "label": "Virginia's 10th congressional district",
+   "status": "called",
+   "name": "Suhas Subramanyam",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "VA-11": {
+   "label": "Virginia's 11th congressional district",
+   "status": "called",
+   "name": "James Walkinshaw",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "VT-01": {
+   "label": "Vermont's at-large congressional district",
+   "status": "called",
+   "name": "Becca Balint",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "WA-01": {
+   "label": "Washington's 1st congressional district",
+   "status": "called",
+   "name": "Suzan DelBene",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "WA-02": {
+   "label": "Washington's 2nd congressional district",
+   "status": "called",
+   "name": "Rick Larsen",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "WA-03": {
+   "label": "Washington's 3rd congressional district",
+   "status": "called",
+   "name": "Marie Gluesenkamp Perez",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "WA-04": {
+   "label": "Washington's 4th congressional district",
+   "status": "not_yet_called",
+   "name": null,
+   "party": null,
+   "party_name": null
+  },
+  "WA-05": {
+   "label": "Washington's 5th congressional district",
+   "status": "not_yet_called",
+   "name": null,
+   "party": null,
+   "party_name": null
+  },
+  "WA-06": {
+   "label": "Washington's 6th congressional district",
+   "status": "called",
+   "name": "Emily Randall",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "WA-07": {
+   "label": "Washington's 7th congressional district",
+   "status": "called",
+   "name": "Pramila Jayapal",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "WA-08": {
+   "label": "Washington's 8th congressional district",
+   "status": "called",
+   "name": "Kim Schrier",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "WA-09": {
+   "label": "Washington's 9th congressional district",
+   "status": "called",
+   "name": "Adam Smith",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "WA-10": {
+   "label": "Washington's 10th congressional district",
+   "status": "called",
+   "name": "Marilyn Strickland",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "WI-01": {
+   "label": "Wisconsin's 1st congressional district",
+   "status": "called",
+   "name": "Mitchell Berman",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "WI-02": {
+   "label": "Wisconsin's 2nd congressional district",
+   "status": "called",
+   "name": "Mark Pocan",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "WI-03": {
+   "label": "Wisconsin's 3rd congressional district",
+   "status": "called",
+   "name": "Rebecca Cooke",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "WI-04": {
+   "label": "Wisconsin's 4th congressional district",
+   "status": "called",
+   "name": "Gwen Moore",
+   "party": "D",
+   "party_name": "Democratic"
+  },
+  "WI-05": {
+   "label": "Wisconsin's 5th congressional district",
+   "status": "called",
+   "name": "Scott Fitzgerald",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "WI-06": {
+   "label": "Wisconsin's 6th congressional district",
+   "status": "called",
+   "name": "Glenn Grothman",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "WI-07": {
+   "label": "Wisconsin's 7th congressional district",
+   "status": "called",
+   "name": "Michael Alfonso",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "WI-08": {
+   "label": "Wisconsin's 8th congressional district",
+   "status": "called",
+   "name": "Tony Wied",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "WV-01": {
+   "label": "West Virginia's 1st congressional district",
+   "status": "called",
+   "name": "Carol Miller",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "WV-02": {
+   "label": "West Virginia's 2nd congressional district",
+   "status": "called",
+   "name": "Riley Moore",
+   "party": "R",
+   "party_name": "Republican"
+  },
+  "WY-01": {
+   "label": "Wyoming's at-large congressional district",
+   "status": "called",
+   "name": "Chuck Gray",
+   "party": "R",
+   "party_name": "Republican"
+  }
+ }
+}

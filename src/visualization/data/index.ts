@@ -1,6 +1,7 @@
 export {
   loadCongressionalDistrictsGeo,
   loadCongressionalDistrictsHex,
+  loadCongressionalDistrictMembers120,
   loadUKConstituenciesGeo,
   loadUKConstituenciesHex,
   loadStateSenateDistrictsGeo,

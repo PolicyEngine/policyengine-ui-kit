@@ -69,6 +69,23 @@ describe('map data loader selection', () => {
     expect(loadCongressionalDistrictsGeo).not.toHaveBeenCalled();
   });
 
+  it('loads 119th Congress districts unless told otherwise', async () => {
+    render(<USDistrictChoroplethMap data={data} visualizationType="geographic" />);
+
+    await waitFor(() => expect(loadCongressionalDistrictsGeo).toHaveBeenCalledWith(119));
+  });
+
+  it('loads 120th Congress districts when asked, for either view', async () => {
+    const { unmount } = render(
+      <USDistrictChoroplethMap data={data} visualizationType="geographic" congress={120} />,
+    );
+    await waitFor(() => expect(loadCongressionalDistrictsGeo).toHaveBeenCalledWith(120));
+    unmount();
+
+    render(<USDistrictChoroplethMap data={data} visualizationType="hex" congress={120} />);
+    await waitFor(() => expect(loadCongressionalDistrictsHex).toHaveBeenCalledWith(120));
+  });
+
   it('loads only UK geographic constituency data for geographic view', async () => {
     render(<UKConstituencyChoroplethMap data={data} visualizationType="geographic" />);
 

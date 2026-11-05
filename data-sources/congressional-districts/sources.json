@@ -1,0 +1,339 @@
+{
+  "retrieved": "2026-11-05",
+  "files": [
+    {
+      "path": "bef/cd120.zip",
+      "url": "https://www2.census.gov/programs-surveys/decennial/rdo/mapping-files/2027/120-congressional-district-befs/cd120.zip",
+      "sha256": "bc9a4fc543b8b279ce3663642a5cc4e19e32a8ef84f12371e26f754e5b8cc8a5",
+      "note": "Census 120th Congress block equivalency files, regenerated 2026-10-07 for Missouri"
+    },
+    {
+      "path": "bef/cd119.zip",
+      "url": "https://www2.census.gov/programs-surveys/decennial/rdo/mapping-files/2025/119-congressional-district-befs/cd119.zip",
+      "sha256": "1433feb5178dc7b4188ee30f5f7f715851f4400740b8fe1ce606a876c6294bd6",
+      "note": "Census 119th Congress block equivalency files"
+    },
+    {
+      "path": "pl/ak2020.pl.zip",
+      "url": "https://www2.census.gov/programs-surveys/decennial/2020/data/01-Redistricting_File--PL_94-171/Alaska/ak2020.pl.zip",
+      "sha256": "c90837c12ab2f5fe99132c558705e8d0b5174afdf2a0d28b71927f535fe63487"
+    },
+    {
+      "path": "pl/al2020.pl.zip",
+      "url": "https://www2.census.gov/programs-surveys/decennial/2020/data/01-Redistricting_File--PL_94-171/Alabama/al2020.pl.zip",
+      "sha256": "bd3fbbf22615b166869f9119aa12017b9a7b82baf0f22a9170e92a88a397cd77"
+    },
+    {
+      "path": "pl/ar2020.pl.zip",
+      "url": "https://www2.census.gov/programs-surveys/decennial/2020/data/01-Redistricting_File--PL_94-171/Arkansas/ar2020.pl.zip",
+      "sha256": "940ad2916676e443dfdab98c3e145fcf62ef9dcd9f10c763ccdb195f4d5f132e"
+    },
+    {
+      "path": "pl/az2020.pl.zip",
+      "url": "https://www2.census.gov/programs-surveys/decennial/2020/data/01-Redistricting_File--PL_94-171/Arizona/az2020.pl.zip",
+      "sha256": "56997e8b1b5175148fd3e1157ab57eee7c1722221cafebfd5d12fe2e687b2aff"
+    },
+    {
+      "path": "pl/ca2020.pl.zip",
+      "url": "https://www2.census.gov/programs-surveys/decennial/2020/data/01-Redistricting_File--PL_94-171/California/ca2020.pl.zip",
+      "sha256": "e02c83c85a9a5d69ded4bf0d4c8ebe3f4bcd2d8e5911db765e9e42915ad1f753"
+    },
+    {
+      "path": "pl/co2020.pl.zip",
+      "url": "https://www2.census.gov/programs-surveys/decennial/2020/data/01-Redistricting_File--PL_94-171/Colorado/co2020.pl.zip",
+      "sha256": "fce76008aedd10681bf0e57fa366ca788d280264edfe91e7d80a9b33ae86ab2c"
+    },
+    {
+      "path": "pl/ct2020.pl.zip",
+      "url": "https://www2.census.gov/programs-surveys/decennial/2020/data/01-Redistricting_File--PL_94-171/Connecticut/ct2020.pl.zip",
+      "sha256": "c4a2d42a79c52de10ea9397cca43db59c2df38e6d6e66b4396a0de8bd3f66780"
+    },
+    {
+      "path": "pl/dc2020.pl.zip",
+      "url": "https://www2.census.gov/programs-surveys/decennial/2020/data/01-Redistricting_File--PL_94-171/District_of_Columbia/dc2020.pl.zip",
+      "sha256": "21b5189f45ce260c4607c9579f4ad52d11920133af827b14b183121b48d40ce4"
+    },
+    {
+      "path": "pl/de2020.pl.zip",
+      "url": "https://www2.census.gov/programs-surveys/decennial/2020/data/01-Redistricting_File--PL_94-171/Delaware/de2020.pl.zip",
+      "sha256": "2d7743cc442574dc785c728e9637c5d4648bef518beef41b5f03756eb56ea78a"
+    },
+    {
+      "path": "pl/fl2020.pl.zip",
+      "url": "https://www2.census.gov/programs-surveys/decennial/2020/data/01-Redistricting_File--PL_94-171/Florida/fl2020.pl.zip",
+      "sha256": "fdcc98180f634b69c40ed1d71a63fe00fdda4cda3e35fbaa6382336501f4b0cf"
+    },
+    {
+      "path": "pl/ga2020.pl.zip",
+      "url": "https://www2.census.gov/programs-surveys/decennial/2020/data/01-Redistricting_File--PL_94-171/Georgia/ga2020.pl.zip",
+      "sha256": "26434588ceab435fa33a138ff999e4187c923a74732fcc488c3a0597b4adebcb"
+    },
+    {
+      "path": "pl/hi2020.pl.zip",
+      "url": "https://www2.census.gov/programs-surveys/decennial/2020/data/01-Redistricting_File--PL_94-171/Hawaii/hi2020.pl.zip",
+      "sha256": "b7e1ba6350c5d75267b688504052af001ad227763995f6bb26ccdd92fc45261f"
+    },
+    {
+      "path": "pl/ia2020.pl.zip",
+      "url": "https://www2.census.gov/programs-surveys/decennial/2020/data/01-Redistricting_File--PL_94-171/Iowa/ia2020.pl.zip",
+      "sha256": "c55e8276080b684431b8629269d4225c31080ea17257a737f9d99e3cf2ac6822"
+    },
+    {
+      "path": "pl/id2020.pl.zip",
+      "url": "https://www2.census.gov/programs-surveys/decennial/2020/data/01-Redistricting_File--PL_94-171/Idaho/id2020.pl.zip",
+      "sha256": "89345b6d5d12ccdec8af4039b0a6f1f5ba4cd7ca86c8f73ad6250b5713e3df47"
+    },
+    {
+      "path": "pl/il2020.pl.zip",
+      "url": "https://www2.census.gov/programs-surveys/decennial/2020/data/01-Redistricting_File--PL_94-171/Illinois/il2020.pl.zip",
+      "sha256": "e73f82d6aea0b9b372e9f8572c6edbedfa72ae9fc2039da84faf0cdf0c478a32"
+    },
+    {
+      "path": "pl/in2020.pl.zip",
+      "url": "https://www2.census.gov/programs-surveys/decennial/2020/data/01-Redistricting_File--PL_94-171/Indiana/in2020.pl.zip",
+      "sha256": "5f4999237a9bf3b3337865494d0d62c0a1dc620cad7e48caebaa83811f95901a"
+    },
+    {
+      "path": "pl/ks2020.pl.zip",
+      "url": "https://www2.census.gov/programs-surveys/decennial/2020/data/01-Redistricting_File--PL_94-171/Kansas/ks2020.pl.zip",
+      "sha256": "ac6b4ae5e2af4c8d639b46748d55927ee7821756f6073cc4f8238c1fb00498ee"
+    },
+    {
+      "path": "pl/ky2020.pl.zip",
+      "url": "https://www2.census.gov/programs-surveys/decennial/2020/data/01-Redistricting_File--PL_94-171/Kentucky/ky2020.pl.zip",
+      "sha256": "252a04b760e4da69665d5654108be2b63d55d294c1c0c608bfc7e7fcf2360ac4"
+    },
+    {
+      "path": "pl/la2020.pl.zip",
+      "url": "https://www2.census.gov/programs-surveys/decennial/2020/data/01-Redistricting_File--PL_94-171/Louisiana/la2020.pl.zip",
+      "sha256": "d8d9ea96195f2b848be70ef33dcb224d433d8d58025e11aaa0432c5211e5345c"
+    },
+    {
+      "path": "pl/ma2020.pl.zip",
+      "url": "https://www2.census.gov/programs-surveys/decennial/2020/data/01-Redistricting_File--PL_94-171/Massachusetts/ma2020.pl.zip",
+      "sha256": "9857362fbc1162d3943685134a77a91542a70eb667f3477559d07fd0a81e4889"
+    },
+    {
+      "path": "pl/md2020.pl.zip",
+      "url": "https://www2.census.gov/programs-surveys/decennial/2020/data/01-Redistricting_File--PL_94-171/Maryland/md2020.pl.zip",
+      "sha256": "9af1e1f0185b6219a9432132ef78e47c2d74c474948d2ed6004c7061412393f3"
+    },
+    {
+      "path": "pl/me2020.pl.zip",
+      "url": "https://www2.census.gov/programs-surveys/decennial/2020/data/01-Redistricting_File--PL_94-171/Maine/me2020.pl.zip",
+      "sha256": "f9bb6fe4cf13bb28b44e4d6a8d5d3e5209f9249ebc402db7ea5c24f8a673ac07"
+    },
+    {
+      "path": "pl/mi2020.pl.zip",
+      "url": "https://www2.census.gov/programs-surveys/decennial/2020/data/01-Redistricting_File--PL_94-171/Michigan/mi2020.pl.zip",
+      "sha256": "971bd53abeb1d905bb9b09bfe4dc1afe8514a916f24d285b289e0f66ec5cfb62"
+    },
+    {
+      "path": "pl/mn2020.pl.zip",
+      "url": "https://www2.census.gov/programs-surveys/decennial/2020/data/01-Redistricting_File--PL_94-171/Minnesota/mn2020.pl.zip",
+      "sha256": "7d30974597e73893d25ffef0975c8e673afcc1166f9919d5ff2a466a2e0e188f"
+    },
+    {
+      "path": "pl/mo2020.pl.zip",
+      "url": "https://www2.census.gov/programs-surveys/decennial/2020/data/01-Redistricting_File--PL_94-171/Missouri/mo2020.pl.zip",
+      "sha256": "900d8a3bcc59e2cc3c174730e2a8704bd653af1fc043c9fbd73196e1c0d7fba5"
+    },
+    {
+      "path": "pl/ms2020.pl.zip",
+      "url": "https://www2.census.gov/programs-surveys/decennial/2020/data/01-Redistricting_File--PL_94-171/Mississippi/ms2020.pl.zip",
+      "sha256": "cb64e3465cee9623dc574605f4dfcada33eaea6833062d31f769811fd20a5f26"
+    },
+    {
+      "path": "pl/mt2020.pl.zip",
+      "url": "https://www2.census.gov/programs-surveys/decennial/2020/data/01-Redistricting_File--PL_94-171/Montana/mt2020.pl.zip",
+      "sha256": "e01288ce3ae37ae732eb61d40268c6ac3ec8f9772c8609c6e9ca538bdd0bc130"
+    },
+    {
+      "path": "pl/nc2020.pl.zip",
+      "url": "https://www2.census.gov/programs-surveys/decennial/2020/data/01-Redistricting_File--PL_94-171/North_Carolina/nc2020.pl.zip",
+      "sha256": "04f2f250dad877d237d94f553f9cb2209594c2a021d15f9fdeedd4404db538db"
+    },
+    {
+      "path": "pl/nd2020.pl.zip",
+      "url": "https://www2.census.gov/programs-surveys/decennial/2020/data/01-Redistricting_File--PL_94-171/North_Dakota/nd2020.pl.zip",
+      "sha256": "a37d18e05a73b311a8fd7ade36dd5b17cac16ff125318c9ec6d2edd7f6968b71"
+    },
+    {
+      "path": "pl/ne2020.pl.zip",
+      "url": "https://www2.census.gov/programs-surveys/decennial/2020/data/01-Redistricting_File--PL_94-171/Nebraska/ne2020.pl.zip",
+      "sha256": "29298d68a5905cf9cb14cd64e35750d14727a330c5940ccf5238a8ae6e110300"
+    },
+    {
+      "path": "pl/nh2020.pl.zip",
+      "url": "https://www2.census.gov/programs-surveys/decennial/2020/data/01-Redistricting_File--PL_94-171/New_Hampshire/nh2020.pl.zip",
+      "sha256": "31852c0cfa871ea81f933bb1df904f0d45997097e38ade83db87ba58255d4468"
+    },
+    {
+      "path": "pl/nj2020.pl.zip",
+      "url": "https://www2.census.gov/programs-surveys/decennial/2020/data/01-Redistricting_File--PL_94-171/New_Jersey/nj2020.pl.zip",
+      "sha256": "caf0da4a9e9d46ced3f8020a7a2bf5240cd8805ed0679716f0cb2b8fcc65e811"
+    },
+    {
+      "path": "pl/nm2020.pl.zip",
+      "url": "https://www2.census.gov/programs-surveys/decennial/2020/data/01-Redistricting_File--PL_94-171/New_Mexico/nm2020.pl.zip",
+      "sha256": "77133ba4bb2fb2c28d39993bb4cff5f1c42823c9d13b75e51e8ecf986354c259"
+    },
+    {
+      "path": "pl/nv2020.pl.zip",
+      "url": "https://www2.census.gov/programs-surveys/decennial/2020/data/01-Redistricting_File--PL_94-171/Nevada/nv2020.pl.zip",
+      "sha256": "ac7e792e0a1d6248ff1700159f4ec6a3a7b3330ebe10899bb4f47ab97c19952d"
+    },
+    {
+      "path": "pl/ny2020.pl.zip",
+      "url": "https://www2.census.gov/programs-surveys/decennial/2020/data/01-Redistricting_File--PL_94-171/New_York/ny2020.pl.zip",
+      "sha256": "9d046014bee6b61afa808c5dfe841a6d036c77bff70197472fbdd291a40b8ce2"
+    },
+    {
+      "path": "pl/oh2020.pl.zip",
+      "url": "https://www2.census.gov/programs-surveys/decennial/2020/data/01-Redistricting_File--PL_94-171/Ohio/oh2020.pl.zip",
+      "sha256": "ceef338247ad2dccc267885f2879e167ab6730c7a332d3ceb5aef9d6e2338aa0"
+    },
+    {
+      "path": "pl/ok2020.pl.zip",
+      "url": "https://www2.census.gov/programs-surveys/decennial/2020/data/01-Redistricting_File--PL_94-171/Oklahoma/ok2020.pl.zip",
+      "sha256": "e95c99e6385f4ed3a5ea67962444a53ad7a731f26d1dd88df2efde504f101dff"
+    },
+    {
+      "path": "pl/or2020.pl.zip",
+      "url": "https://www2.census.gov/programs-surveys/decennial/2020/data/01-Redistricting_File--PL_94-171/Oregon/or2020.pl.zip",
+      "sha256": "f8e7fa8c331446850b1bf545e6c4aa63733373f582b11edd6b3cf31016bc4509"
+    },
+    {
+      "path": "pl/pa2020.pl.zip",
+      "url": "https://www2.census.gov/programs-surveys/decennial/2020/data/01-Redistricting_File--PL_94-171/Pennsylvania/pa2020.pl.zip",
+      "sha256": "2d33a7dab29c8dd5692bbde203d253e06eebbc44fcbaa96b1caa958d454026ae"
+    },
+    {
+      "path": "pl/ri2020.pl.zip",
+      "url": "https://www2.census.gov/programs-surveys/decennial/2020/data/01-Redistricting_File--PL_94-171/Rhode_Island/ri2020.pl.zip",
+      "sha256": "a2a6de20d0bac0dfe91aef66d3c2dde0eb768863884fbc45d4f3df5c49f5dcd0"
+    },
+    {
+      "path": "pl/sc2020.pl.zip",
+      "url": "https://www2.census.gov/programs-surveys/decennial/2020/data/01-Redistricting_File--PL_94-171/South_Carolina/sc2020.pl.zip",
+      "sha256": "e8996f6873405d6c048c42e8878231fc7f152564295498ff586a041648a46bb5"
+    },
+    {
+      "path": "pl/sd2020.pl.zip",
+      "url": "https://www2.census.gov/programs-surveys/decennial/2020/data/01-Redistricting_File--PL_94-171/South_Dakota/sd2020.pl.zip",
+      "sha256": "30d4edc3ccc86ad76a2a388c763ecdaebe23f43a5dcb92658587c04ca5cfa1a5"
+    },
+    {
+      "path": "pl/tn2020.pl.zip",
+      "url": "https://www2.census.gov/programs-surveys/decennial/2020/data/01-Redistricting_File--PL_94-171/Tennessee/tn2020.pl.zip",
+      "sha256": "89f843dbc717409169fef44df2682548c308c06c0d825451bf2e78340234daf2"
+    },
+    {
+      "path": "pl/tx2020.pl.zip",
+      "url": "https://www2.census.gov/programs-surveys/decennial/2020/data/01-Redistricting_File--PL_94-171/Texas/tx2020.pl.zip",
+      "sha256": "6fee8ca5759eb4942db25a59b8cbd3439ad4188279fccff87dac70a89ceca6ff"
+    },
+    {
+      "path": "pl/ut2020.pl.zip",
+      "url": "https://www2.census.gov/programs-surveys/decennial/2020/data/01-Redistricting_File--PL_94-171/Utah/ut2020.pl.zip",
+      "sha256": "4e6de13cd7b5307bfdd327446dd7107e2fdb790903f59186bb8285881531d0f0"
+    },
+    {
+      "path": "pl/va2020.pl.zip",
+      "url": "https://www2.census.gov/programs-surveys/decennial/2020/data/01-Redistricting_File--PL_94-171/Virginia/va2020.pl.zip",
+      "sha256": "e33c7c1ac0aa84b5fe5ba20188d2e562c5c96b1c02f59e766e18d037b23df9e8"
+    },
+    {
+      "path": "pl/vt2020.pl.zip",
+      "url": "https://www2.census.gov/programs-surveys/decennial/2020/data/01-Redistricting_File--PL_94-171/Vermont/vt2020.pl.zip",
+      "sha256": "6a18a3364dff5e0432b25f4b4972eaf22ac0699ea0273430509a9b6a763638e9"
+    },
+    {
+      "path": "pl/wa2020.pl.zip",
+      "url": "https://www2.census.gov/programs-surveys/decennial/2020/data/01-Redistricting_File--PL_94-171/Washington/wa2020.pl.zip",
+      "sha256": "dde77f2db632a4af274a968c39a7ab58fac6cfd90718e4a72ec239b84980db5b"
+    },
+    {
+      "path": "pl/wi2020.pl.zip",
+      "url": "https://www2.census.gov/programs-surveys/decennial/2020/data/01-Redistricting_File--PL_94-171/Wisconsin/wi2020.pl.zip",
+      "sha256": "e70f80ef4a803cdeb1e1767fc42e13f7d01ce9f98566c82ca4c2379aa9809f7f"
+    },
+    {
+      "path": "pl/wv2020.pl.zip",
+      "url": "https://www2.census.gov/programs-surveys/decennial/2020/data/01-Redistricting_File--PL_94-171/West_Virginia/wv2020.pl.zip",
+      "sha256": "8356c49f300e9c18658de56c06e551f5e8cb591c395fc3d1748077d46322889b"
+    },
+    {
+      "path": "pl/wy2020.pl.zip",
+      "url": "https://www2.census.gov/programs-surveys/decennial/2020/data/01-Redistricting_File--PL_94-171/Wyoming/wy2020.pl.zip",
+      "sha256": "98dd7d035942fea2758e0fcabe71efa0588a7ec7c9c33110bcde493fe8e8b942"
+    },
+    {
+      "path": "geo/tl_2026_01_cd120.zip",
+      "url": "https://www2.census.gov/geo/tiger/TIGER2026/CD/tl_2026_01_cd120.zip",
+      "sha256": "0fff80891184520f63889f24d2dbee39ae3489358399702d8c3470d55ae9a508"
+    },
+    {
+      "path": "geo/tl_2026_06_cd120.zip",
+      "url": "https://www2.census.gov/geo/tiger/TIGER2026/CD/tl_2026_06_cd120.zip",
+      "sha256": "5d441c64cb33ba3f6d8dee1be2ce5f7c1efa502f245ac67c36344de2567d4269"
+    },
+    {
+      "path": "geo/tl_2026_12_cd120.zip",
+      "url": "https://www2.census.gov/geo/tiger/TIGER2026/CD/tl_2026_12_cd120.zip",
+      "sha256": "7d22cba78f6553e192fca414e78f96c07d2a38e96cdd6450e39b9c3ceed9a2f4"
+    },
+    {
+      "path": "geo/tl_2026_22_cd120.zip",
+      "url": "https://www2.census.gov/geo/tiger/TIGER2026/CD/tl_2026_22_cd120.zip",
+      "sha256": "3e614ea60510318c5e30a62f7e33a47e672b335e060b3c8adf6de1d1299e2208"
+    },
+    {
+      "path": "geo/tl_2026_37_cd120.zip",
+      "url": "https://www2.census.gov/geo/tiger/TIGER2026/CD/tl_2026_37_cd120.zip",
+      "sha256": "13f0680937b2fb426c50b07bfd6dd473a541cee69fa39d512759dd03e787b9ef"
+    },
+    {
+      "path": "geo/tl_2026_39_cd120.zip",
+      "url": "https://www2.census.gov/geo/tiger/TIGER2026/CD/tl_2026_39_cd120.zip",
+      "sha256": "4c18b9422c82639e078dacc4df32cdfa61689b1e2f92ec5b232b4ba3a2b3421b"
+    },
+    {
+      "path": "geo/tl_2026_47_cd120.zip",
+      "url": "https://www2.census.gov/geo/tiger/TIGER2026/CD/tl_2026_47_cd120.zip",
+      "sha256": "a1f017ae34e3a335492ded7572ec69f3d7e193ffbc144a9269fb7e1b8803d0fe"
+    },
+    {
+      "path": "geo/tl_2026_48_cd120.zip",
+      "url": "https://www2.census.gov/geo/tiger/TIGER2026/CD/tl_2026_48_cd120.zip",
+      "sha256": "3edba357705cbd64be72db0296c8d49d1d5e1fbaa1b3c2b55556c2e633d42c7f"
+    },
+    {
+      "path": "geo/tl_2026_49_cd120.zip",
+      "url": "https://www2.census.gov/geo/tiger/TIGER2026/CD/tl_2026_49_cd120.zip",
+      "sha256": "0222fbf567b75aadcf7c12c43fadf49050ae381fb4e69ae6566c76709d480223"
+    },
+    {
+      "path": "geo/cb_2024_us_state_500k.zip",
+      "url": "https://www2.census.gov/geo/tiger/GENZ2024/shp/cb_2024_us_state_500k.zip",
+      "sha256": "3e81cbb6cf5f60d9b01ef3e730afa14d61ce5f784252a0b33a696135e71447bc"
+    },
+    {
+      "path": "geo/cb_2024_us_cd119_500k.zip",
+      "url": "https://www2.census.gov/geo/tiger/GENZ2024/shp/cb_2024_us_cd119_500k.zip",
+      "sha256": "2b4238aed7e865df75d0c9cfcd8dffa1b79007b24519ecc4b213e683078b031a"
+    },
+    {
+      "path": "geo/2020_Gaz_tracts_national.zip",
+      "url": "https://www2.census.gov/geo/docs/maps-data/data/gazetteer/2020_Gazetteer/2020_Gaz_tracts_national.zip",
+      "sha256": "992378ed33221d06e099e655a89d96a62fe2a67fca4f914af2288f2426136ffe",
+      "note": "tract internal points, used only to check the boundaries"
+    },
+    {
+      "path": "hex/hexcd_v32.zip",
+      "url": "https://drive.usercontent.google.com/download?id=18acMZLOjpQlyj_c-2q0QktmcsjM6Obrk&export=download&confirm=t",
+      "sha256": "e1ed4b77f39f41187415c8b2ae5cfeff17d48e9985c64eb469abbff2c4c4e0bb",
+      "note": "The Downballot congressional district hexmap v3.2 (2026), CC BY 4.0; linked from https://www.the-downballot.com/p/data"
+    }
+  ]
+}

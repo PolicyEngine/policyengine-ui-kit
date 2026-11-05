@@ -1,0 +1,103 @@
+{
+ "districts": 436,
+ "population": 331449281,
+ "largest_district_deviation_pct": {
+  "06": 2.3403,
+  "24": 0.7372,
+  "51": 0.6481,
+  "34": 0.6425,
+  "53": 0.5636,
+  "32": 0.3086,
+  "15": 0.1705,
+  "44": 0.1114
+ },
+ "redrawn_states": [
+  {
+   "state": "AL",
+   "state_fips": "01",
+   "districts": 7,
+   "districts_with_identical_blocks": 3,
+   "districts_identical_with_same_number": 3,
+   "people_whose_district_number_changed": 660496,
+   "state_population": 5024279
+  },
+  {
+   "state": "CA",
+   "state_fips": "06",
+   "districts": 52,
+   "districts_with_identical_blocks": 4,
+   "districts_identical_with_same_number": 4,
+   "people_whose_district_number_changed": 9214062,
+   "state_population": 39538223
+  },
+  {
+   "state": "FL",
+   "state_fips": "12",
+   "districts": 28,
+   "districts_with_identical_blocks": 5,
+   "districts_identical_with_same_number": 5,
+   "people_whose_district_number_changed": 6265306,
+   "state_population": 21538187
+  },
+  {
+   "state": "LA",
+   "state_fips": "22",
+   "districts": 6,
+   "districts_with_identical_blocks": 0,
+   "districts_identical_with_same_number": 0,
+   "people_whose_district_number_changed": 1497479,
+   "state_population": 4657757
+  },
+  {
+   "state": "NC",
+   "state_fips": "37",
+   "districts": 14,
+   "districts_with_identical_blocks": 12,
+   "districts_identical_with_same_number": 12,
+   "people_whose_district_number_changed": 543381,
+   "state_population": 10439388
+  },
+  {
+   "state": "OH",
+   "state_fips": "39",
+   "districts": 15,
+   "districts_with_identical_blocks": 2,
+   "districts_identical_with_same_number": 2,
+   "people_whose_district_number_changed": 1478290,
+   "state_population": 11799448
+  },
+  {
+   "state": "TN",
+   "state_fips": "47",
+   "districts": 9,
+   "districts_with_identical_blocks": 1,
+   "districts_identical_with_same_number": 1,
+   "people_whose_district_number_changed": 2400948,
+   "state_population": 6910840
+  },
+  {
+   "state": "TX",
+   "state_fips": "48",
+   "districts": 38,
+   "districts_with_identical_blocks": 1,
+   "districts_identical_with_same_number": 1,
+   "people_whose_district_number_changed": 10448258,
+   "state_population": 29145505
+  },
+  {
+   "state": "UT",
+   "state_fips": "49",
+   "districts": 4,
+   "districts_with_identical_blocks": 0,
+   "districts_identical_with_same_number": 0,
+   "people_whose_district_number_changed": 2260487,
+   "state_population": 3271616
+  }
+ ],
+ "rows": {
+  "county": 3771,
+  "tract": 89478,
+  "overlap": 844
+ },
+ "seats_in_redrawn_states": 173
+}
