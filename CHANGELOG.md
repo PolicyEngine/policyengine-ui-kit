@@ -1,3 +1,10 @@
+## [0.14.0] - 2026-11-24
+
+### Added
+
+- Add the ACA calculator (`/us/aca-calc`) to the US Tools menu, first after the PolicyEngine app, matching policyengine.org's list.
+
+
 ## [0.13.0] - 2026-11-18
 
 ### Added
