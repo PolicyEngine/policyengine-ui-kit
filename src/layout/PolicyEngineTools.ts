@@ -42,6 +42,7 @@ export const policyEngineTools: Readonly<
   Partial<Record<string, readonly PolicyEngineTool[]>>
 > = Object.freeze({
   us: freezeTools([
+    { slug: 'aca-calc', label: 'ACA calculator' },
     { slug: 'cliffwatch', label: 'CliffWatch' },
     { slug: 'coverage-compass', label: 'Coverage Compass' },
     { slug: 'givecalc', label: 'GiveCalc' },

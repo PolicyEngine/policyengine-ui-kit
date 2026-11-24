@@ -93,6 +93,7 @@ const origins = fc
   );
 
 const US_TOOLS = [
+  ['ACA calculator', 'aca-calc'],
   ['CliffWatch', 'cliffwatch'],
   ['Coverage Compass', 'coverage-compass'],
   ['GiveCalc', 'givecalc'],
@@ -191,7 +192,7 @@ describe('PolicyEngine Tools menu', () => {
       external: true,
     });
     expect(tools?.children?.[1].href).toBe(
-      'https://staging.policyengine.org/us/cliffwatch',
+      'https://staging.policyengine.org/us/aca-calc',
     );
   });
 

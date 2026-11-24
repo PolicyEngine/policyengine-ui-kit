@@ -61,6 +61,7 @@ function mobileGroupRows(menu: HTMLElement, label: string) {
 
 const US_ROWS = [
   ['PolicyEngine app', 'https://app.policyengine.org/us'],
+  ['ACA calculator', 'https://policyengine.org/us/aca-calc'],
   ['CliffWatch', 'https://policyengine.org/us/cliffwatch'],
   ['Coverage Compass', 'https://policyengine.org/us/coverage-compass'],
   ['GiveCalc', 'https://policyengine.org/us/givecalc'],
