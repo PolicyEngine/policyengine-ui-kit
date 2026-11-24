@@ -1,0 +1,437 @@
+district_id,state_abbr,state_name,state_fips,cd120fp,census_geoid,model_geoid,district_number,label,population_2020
+AL-01,AL,Alabama,01,01,0101,101,1,Alabama's 1st congressional district,717754
+AL-02,AL,Alabama,01,02,0102,102,2,Alabama's 2nd congressional district,717755
+AL-03,AL,Alabama,01,03,0103,103,3,Alabama's 3rd congressional district,717754
+AL-04,AL,Alabama,01,04,0104,104,4,Alabama's 4th congressional district,717754
+AL-05,AL,Alabama,01,05,0105,105,5,Alabama's 5th congressional district,717754
+AL-06,AL,Alabama,01,06,0106,106,6,Alabama's 6th congressional district,717754
+AL-07,AL,Alabama,01,07,0107,107,7,Alabama's 7th congressional district,717754
+AK-01,AK,Alaska,02,00,0200,200,1,Alaska's at-large congressional district,733391
+AZ-01,AZ,Arizona,04,01,0401,401,1,Arizona's 1st congressional district,794611
+AZ-02,AZ,Arizona,04,02,0402,402,2,Arizona's 2nd congressional district,794612
+AZ-03,AZ,Arizona,04,03,0403,403,3,Arizona's 3rd congressional district,794612
+AZ-04,AZ,Arizona,04,04,0404,404,4,Arizona's 4th congressional district,794611
+AZ-05,AZ,Arizona,04,05,0405,405,5,Arizona's 5th congressional district,794612
+AZ-06,AZ,Arizona,04,06,0406,406,6,Arizona's 6th congressional district,794611
+AZ-07,AZ,Arizona,04,07,0407,407,7,Arizona's 7th congressional district,794611
+AZ-08,AZ,Arizona,04,08,0408,408,8,Arizona's 8th congressional district,794610
+AZ-09,AZ,Arizona,04,09,0409,409,9,Arizona's 9th congressional district,794612
+AR-01,AR,Arkansas,05,01,0501,501,1,Arkansas's 1st congressional district,752509
+AR-02,AR,Arkansas,05,02,0502,502,2,Arkansas's 2nd congressional district,752710
+AR-03,AR,Arkansas,05,03,0503,503,3,Arkansas's 3rd congressional district,753219
+AR-04,AR,Arkansas,05,04,0504,504,4,Arkansas's 4th congressional district,753086
+CA-01,CA,California,06,01,0601,601,1,California's 1st congressional district,765487
+CA-02,CA,California,06,02,0602,602,2,California's 2nd congressional district,765001
+CA-03,CA,California,06,03,0603,603,3,California's 3rd congressional district,763291
+CA-04,CA,California,06,04,0604,604,4,California's 4th congressional district,758116
+CA-05,CA,California,06,05,0605,605,5,California's 5th congressional district,770847
+CA-06,CA,California,06,06,0606,606,6,California's 6th congressional district,757442
+CA-07,CA,California,06,07,0607,607,7,California's 7th congressional district,758734
+CA-08,CA,California,06,08,0608,608,8,California's 8th congressional district,764945
+CA-09,CA,California,06,09,0609,609,9,California's 9th congressional district,762401
+CA-10,CA,California,06,10,0610,610,10,California's 10th congressional district,759118
+CA-11,CA,California,06,11,0611,611,11,California's 11th congressional district,759192
+CA-12,CA,California,06,12,0612,612,12,California's 12th congressional district,758548
+CA-13,CA,California,06,13,0613,613,13,California's 13th congressional district,758808
+CA-14,CA,California,06,14,0614,614,14,California's 14th congressional district,760582
+CA-15,CA,California,06,15,0615,615,15,California's 15th congressional district,759058
+CA-16,CA,California,06,16,0616,616,16,California's 16th congressional district,758780
+CA-17,CA,California,06,17,0617,617,17,California's 17th congressional district,758885
+CA-18,CA,California,06,18,0618,618,18,California's 18th congressional district,770826
+CA-19,CA,California,06,19,0619,619,19,California's 19th congressional district,758545
+CA-20,CA,California,06,20,0620,620,20,California's 20th congressional district,762909
+CA-21,CA,California,06,21,0621,621,21,California's 21st congressional district,756411
+CA-22,CA,California,06,22,0622,622,22,California's 22nd congressional district,778145
+CA-23,CA,California,06,23,0623,623,23,California's 23rd congressional district,769312
+CA-24,CA,California,06,24,0624,624,24,California's 24th congressional district,764734
+CA-25,CA,California,06,25,0625,625,25,California's 25th congressional district,763761
+CA-26,CA,California,06,26,0626,626,26,California's 26th congressional district,758413
+CA-27,CA,California,06,27,0627,627,27,California's 27th congressional district,760129
+CA-28,CA,California,06,28,0628,628,28,California's 28th congressional district,758019
+CA-29,CA,California,06,29,0629,629,29,California's 29th congressional district,757430
+CA-30,CA,California,06,30,0630,630,30,California's 30th congressional district,758223
+CA-31,CA,California,06,31,0631,631,31,California's 31st congressional district,758733
+CA-32,CA,California,06,32,0632,632,32,California's 32nd congressional district,758634
+CA-33,CA,California,06,33,0633,633,33,California's 33rd congressional district,757177
+CA-34,CA,California,06,34,0634,634,34,California's 34th congressional district,757694
+CA-35,CA,California,06,35,0635,635,35,California's 35th congressional district,765081
+CA-36,CA,California,06,36,0636,636,36,California's 36th congressional district,758224
+CA-37,CA,California,06,37,0637,637,37,California's 37th congressional district,755317
+CA-38,CA,California,06,38,0638,638,38,California's 38th congressional district,757523
+CA-39,CA,California,06,39,0639,639,39,California's 39th congressional district,756504
+CA-40,CA,California,06,40,0640,640,40,California's 40th congressional district,758355
+CA-41,CA,California,06,41,0641,641,41,California's 41st congressional district,757743
+CA-42,CA,California,06,42,0642,642,42,California's 42nd congressional district,757992
+CA-43,CA,California,06,43,0643,643,43,California's 43rd congressional district,754875
+CA-44,CA,California,06,44,0644,644,44,California's 44th congressional district,757709
+CA-45,CA,California,06,45,0645,645,45,California's 45th congressional district,758321
+CA-46,CA,California,06,46,0646,646,46,California's 46th congressional district,757683
+CA-47,CA,California,06,47,0647,647,47,California's 47th congressional district,759243
+CA-48,CA,California,06,48,0648,648,48,California's 48th congressional district,758048
+CA-49,CA,California,06,49,0649,649,49,California's 49th congressional district,758652
+CA-50,CA,California,06,50,0650,650,50,California's 50th congressional district,759364
+CA-51,CA,California,06,51,0651,651,51,California's 51st congressional district,758012
+CA-52,CA,California,06,52,0652,652,52,California's 52nd congressional district,761247
+CO-01,CO,Colorado,08,01,0801,801,1,Colorado's 1st congressional district,721714
+CO-02,CO,Colorado,08,02,0802,802,2,Colorado's 2nd congressional district,721720
+CO-03,CO,Colorado,08,03,0803,803,3,Colorado's 3rd congressional district,721730
+CO-04,CO,Colorado,08,04,0804,804,4,Colorado's 4th congressional district,721794
+CO-05,CO,Colorado,08,05,0805,805,5,Colorado's 5th congressional district,721714
+CO-06,CO,Colorado,08,06,0806,806,6,Colorado's 6th congressional district,721681
+CO-07,CO,Colorado,08,07,0807,807,7,Colorado's 7th congressional district,721697
+CO-08,CO,Colorado,08,08,0808,808,8,Colorado's 8th congressional district,721664
+CT-01,CT,Connecticut,09,01,0901,901,1,Connecticut's 1st congressional district,721189
+CT-02,CT,Connecticut,09,02,0902,902,2,Connecticut's 2nd congressional district,721188
+CT-03,CT,Connecticut,09,03,0903,903,3,Connecticut's 3rd congressional district,721189
+CT-04,CT,Connecticut,09,04,0904,904,4,Connecticut's 4th congressional district,721189
+CT-05,CT,Connecticut,09,05,0905,905,5,Connecticut's 5th congressional district,721189
+DE-01,DE,Delaware,10,00,1000,1000,1,Delaware's at-large congressional district,989948
+DC-01,DC,District of Columbia,11,98,1198,1100,1,District of Columbia's at-large congressional district,689545
+FL-01,FL,Florida,12,01,1201,1201,1,Florida's 1st congressional district,769221
+FL-02,FL,Florida,12,02,1202,1202,2,Florida's 2nd congressional district,769221
+FL-03,FL,Florida,12,03,1203,1203,3,Florida's 3rd congressional district,769221
+FL-04,FL,Florida,12,04,1204,1204,4,Florida's 4th congressional district,769221
+FL-05,FL,Florida,12,05,1205,1205,5,Florida's 5th congressional district,769221
+FL-06,FL,Florida,12,06,1206,1206,6,Florida's 6th congressional district,769221
+FL-07,FL,Florida,12,07,1207,1207,7,Florida's 7th congressional district,769221
+FL-08,FL,Florida,12,08,1208,1208,8,Florida's 8th congressional district,769220
+FL-09,FL,Florida,12,09,1209,1209,9,Florida's 9th congressional district,769221
+FL-10,FL,Florida,12,10,1210,1210,10,Florida's 10th congressional district,769221
+FL-11,FL,Florida,12,11,1211,1211,11,Florida's 11th congressional district,769221
+FL-12,FL,Florida,12,12,1212,1212,12,Florida's 12th congressional district,769221
+FL-13,FL,Florida,12,13,1213,1213,13,Florida's 13th congressional district,769221
+FL-14,FL,Florida,12,14,1214,1214,14,Florida's 14th congressional district,769221
+FL-15,FL,Florida,12,15,1215,1215,15,Florida's 15th congressional district,769221
+FL-16,FL,Florida,12,16,1216,1216,16,Florida's 16th congressional district,769221
+FL-17,FL,Florida,12,17,1217,1217,17,Florida's 17th congressional district,769221
+FL-18,FL,Florida,12,18,1218,1218,18,Florida's 18th congressional district,769221
+FL-19,FL,Florida,12,19,1219,1219,19,Florida's 19th congressional district,769221
+FL-20,FL,Florida,12,20,1220,1220,20,Florida's 20th congressional district,769221
+FL-21,FL,Florida,12,21,1221,1221,21,Florida's 21st congressional district,769221
+FL-22,FL,Florida,12,22,1222,1222,22,Florida's 22nd congressional district,769221
+FL-23,FL,Florida,12,23,1223,1223,23,Florida's 23rd congressional district,769221
+FL-24,FL,Florida,12,24,1224,1224,24,Florida's 24th congressional district,769221
+FL-25,FL,Florida,12,25,1225,1225,25,Florida's 25th congressional district,769221
+FL-26,FL,Florida,12,26,1226,1226,26,Florida's 26th congressional district,769221
+FL-27,FL,Florida,12,27,1227,1227,27,Florida's 27th congressional district,769221
+FL-28,FL,Florida,12,28,1228,1228,28,Florida's 28th congressional district,769221
+GA-01,GA,Georgia,13,01,1301,1301,1,Georgia's 1st congressional district,765137
+GA-02,GA,Georgia,13,02,1302,1302,2,Georgia's 2nd congressional district,765137
+GA-03,GA,Georgia,13,03,1303,1303,3,Georgia's 3rd congressional district,765136
+GA-04,GA,Georgia,13,04,1304,1304,4,Georgia's 4th congressional district,765137
+GA-05,GA,Georgia,13,05,1305,1305,5,Georgia's 5th congressional district,765137
+GA-06,GA,Georgia,13,06,1306,1306,6,Georgia's 6th congressional district,765136
+GA-07,GA,Georgia,13,07,1307,1307,7,Georgia's 7th congressional district,765137
+GA-08,GA,Georgia,13,08,1308,1308,8,Georgia's 8th congressional district,765136
+GA-09,GA,Georgia,13,09,1309,1309,9,Georgia's 9th congressional district,765135
+GA-10,GA,Georgia,13,10,1310,1310,10,Georgia's 10th congressional district,765137
+GA-11,GA,Georgia,13,11,1311,1311,11,Georgia's 11th congressional district,765135
+GA-12,GA,Georgia,13,12,1312,1312,12,Georgia's 12th congressional district,765136
+GA-13,GA,Georgia,13,13,1313,1313,13,Georgia's 13th congressional district,765136
+GA-14,GA,Georgia,13,14,1314,1314,14,Georgia's 14th congressional district,765136
+HI-01,HI,Hawaii,15,01,1501,1501,1,Hawaii's 1st congressional district,726395
+HI-02,HI,Hawaii,15,02,1502,1502,2,Hawaii's 2nd congressional district,728876
+ID-01,ID,Idaho,16,01,1601,1601,1,Idaho's 1st congressional district,919553
+ID-02,ID,Idaho,16,02,1602,1602,2,Idaho's 2nd congressional district,919553
+IL-01,IL,Illinois,17,01,1701,1701,1,Illinois's 1st congressional district,753677
+IL-02,IL,Illinois,17,02,1702,1702,2,Illinois's 2nd congressional district,753677
+IL-03,IL,Illinois,17,03,1703,1703,3,Illinois's 3rd congressional district,753677
+IL-04,IL,Illinois,17,04,1704,1704,4,Illinois's 4th congressional district,753677
+IL-05,IL,Illinois,17,05,1705,1705,5,Illinois's 5th congressional district,753677
+IL-06,IL,Illinois,17,06,1706,1706,6,Illinois's 6th congressional district,753677
+IL-07,IL,Illinois,17,07,1707,1707,7,Illinois's 7th congressional district,753677
+IL-08,IL,Illinois,17,08,1708,1708,8,Illinois's 8th congressional district,753677
+IL-09,IL,Illinois,17,09,1709,1709,9,Illinois's 9th congressional district,753677
+IL-10,IL,Illinois,17,10,1710,1710,10,Illinois's 10th congressional district,753677
+IL-11,IL,Illinois,17,11,1711,1711,11,Illinois's 11th congressional district,753677
+IL-12,IL,Illinois,17,12,1712,1712,12,Illinois's 12th congressional district,753677
+IL-13,IL,Illinois,17,13,1713,1713,13,Illinois's 13th congressional district,753677
+IL-14,IL,Illinois,17,14,1714,1714,14,Illinois's 14th congressional district,753677
+IL-15,IL,Illinois,17,15,1715,1715,15,Illinois's 15th congressional district,753677
+IL-16,IL,Illinois,17,16,1716,1716,16,Illinois's 16th congressional district,753677
+IL-17,IL,Illinois,17,17,1717,1717,17,Illinois's 17th congressional district,753676
+IN-01,IN,Indiana,18,01,1801,1801,1,Indiana's 1st congressional district,753947
+IN-02,IN,Indiana,18,02,1802,1802,2,Indiana's 2nd congressional district,753947
+IN-03,IN,Indiana,18,03,1803,1803,3,Indiana's 3rd congressional district,753947
+IN-04,IN,Indiana,18,04,1804,1804,4,Indiana's 4th congressional district,753947
+IN-05,IN,Indiana,18,05,1805,1805,5,Indiana's 5th congressional district,753947
+IN-06,IN,Indiana,18,06,1806,1806,6,Indiana's 6th congressional district,753949
+IN-07,IN,Indiana,18,07,1807,1807,7,Indiana's 7th congressional district,753949
+IN-08,IN,Indiana,18,08,1808,1808,8,Indiana's 8th congressional district,753947
+IN-09,IN,Indiana,18,09,1809,1809,9,Indiana's 9th congressional district,753948
+IA-01,IA,Iowa,19,01,1901,1901,1,Iowa's 1st congressional district,797584
+IA-02,IA,Iowa,19,02,1902,1902,2,Iowa's 2nd congressional district,797589
+IA-03,IA,Iowa,19,03,1903,1903,3,Iowa's 3rd congressional district,797551
+IA-04,IA,Iowa,19,04,1904,1904,4,Iowa's 4th congressional district,797645
+KS-01,KS,Kansas,20,01,2001,2001,1,Kansas's 1st congressional district,734470
+KS-02,KS,Kansas,20,02,2002,2002,2,Kansas's 2nd congressional district,734470
+KS-03,KS,Kansas,20,03,2003,2003,3,Kansas's 3rd congressional district,734470
+KS-04,KS,Kansas,20,04,2004,2004,4,Kansas's 4th congressional district,734470
+KY-01,KY,Kentucky,21,01,2101,2101,1,Kentucky's 1st congressional district,750973
+KY-02,KY,Kentucky,21,02,2102,2102,2,Kentucky's 2nd congressional district,750972
+KY-03,KY,Kentucky,21,03,2103,2103,3,Kentucky's 3rd congressional district,750973
+KY-04,KY,Kentucky,21,04,2104,2104,4,Kentucky's 4th congressional district,750973
+KY-05,KY,Kentucky,21,05,2105,2105,5,Kentucky's 5th congressional district,750973
+KY-06,KY,Kentucky,21,06,2106,2106,6,Kentucky's 6th congressional district,750972
+LA-01,LA,Louisiana,22,01,2201,2201,1,Louisiana's 1st congressional district,776249
+LA-02,LA,Louisiana,22,02,2202,2202,2,Louisiana's 2nd congressional district,776248
+LA-03,LA,Louisiana,22,03,2203,2203,3,Louisiana's 3rd congressional district,776355
+LA-04,LA,Louisiana,22,04,2204,2204,4,Louisiana's 4th congressional district,776337
+LA-05,LA,Louisiana,22,05,2205,2205,5,Louisiana's 5th congressional district,776285
+LA-06,LA,Louisiana,22,06,2206,2206,6,Louisiana's 6th congressional district,776283
+ME-01,ME,Maine,23,01,2301,2301,1,Maine's 1st congressional district,681179
+ME-02,ME,Maine,23,02,2302,2302,2,Maine's 2nd congressional district,681180
+MD-01,MD,Maryland,24,01,2401,2401,1,Maryland's 1st congressional district,772748
+MD-02,MD,Maryland,24,02,2402,2402,2,Maryland's 2nd congressional district,770906
+MD-03,MD,Maryland,24,03,2403,2403,3,Maryland's 3rd congressional district,771733
+MD-04,MD,Maryland,24,04,2404,2404,4,Maryland's 4th congressional district,770577
+MD-05,MD,Maryland,24,05,2405,2405,5,Maryland's 5th congressional district,774641
+MD-06,MD,Maryland,24,06,2406,2406,6,Maryland's 6th congressional district,777845
+MD-07,MD,Maryland,24,07,2407,2407,7,Maryland's 7th congressional district,767247
+MD-08,MD,Maryland,24,08,2408,2408,8,Maryland's 8th congressional district,771527
+MA-01,MA,Massachusetts,25,01,2501,2501,1,Massachusetts's 1st congressional district,781103
+MA-02,MA,Massachusetts,25,02,2502,2502,2,Massachusetts's 2nd congressional district,781101
+MA-03,MA,Massachusetts,25,03,2503,2503,3,Massachusetts's 3rd congressional district,781102
+MA-04,MA,Massachusetts,25,04,2504,2504,4,Massachusetts's 4th congressional district,781103
+MA-05,MA,Massachusetts,25,05,2505,2505,5,Massachusetts's 5th congressional district,781101
+MA-06,MA,Massachusetts,25,06,2506,2506,6,Massachusetts's 6th congressional district,781101
+MA-07,MA,Massachusetts,25,07,2507,2507,7,Massachusetts's 7th congressional district,781102
+MA-08,MA,Massachusetts,25,08,2508,2508,8,Massachusetts's 8th congressional district,781102
+MA-09,MA,Massachusetts,25,09,2509,2509,9,Massachusetts's 9th congressional district,781102
+MI-01,MI,Michigan,26,01,2601,2601,1,Michigan's 1st congressional district,775375
+MI-02,MI,Michigan,26,02,2602,2602,2,Michigan's 2nd congressional district,774997
+MI-03,MI,Michigan,26,03,2603,2603,3,Michigan's 3rd congressional district,775414
+MI-04,MI,Michigan,26,04,2604,2604,4,Michigan's 4th congressional district,774600
+MI-05,MI,Michigan,26,05,2605,2605,5,Michigan's 5th congressional district,774544
+MI-06,MI,Michigan,26,06,2606,2606,6,Michigan's 6th congressional district,775273
+MI-07,MI,Michigan,26,07,2607,2607,7,Michigan's 7th congressional district,775238
+MI-08,MI,Michigan,26,08,2608,2608,8,Michigan's 8th congressional district,775229
+MI-09,MI,Michigan,26,09,2609,2609,9,Michigan's 9th congressional district,774962
+MI-10,MI,Michigan,26,10,2610,2610,10,Michigan's 10th congressional district,775218
+MI-11,MI,Michigan,26,11,2611,2611,11,Michigan's 11th congressional district,775568
+MI-12,MI,Michigan,26,12,2612,2612,12,Michigan's 12th congressional district,775247
+MI-13,MI,Michigan,26,13,2613,2613,13,Michigan's 13th congressional district,775666
+MN-01,MN,Minnesota,27,01,2701,2701,1,Minnesota's 1st congressional district,713311
+MN-02,MN,Minnesota,27,02,2702,2702,2,Minnesota's 2nd congressional district,713312
+MN-03,MN,Minnesota,27,03,2703,2703,3,Minnesota's 3rd congressional district,713311
+MN-04,MN,Minnesota,27,04,2704,2704,4,Minnesota's 4th congressional district,713312
+MN-05,MN,Minnesota,27,05,2705,2705,5,Minnesota's 5th congressional district,713312
+MN-06,MN,Minnesota,27,06,2706,2706,6,Minnesota's 6th congressional district,713312
+MN-07,MN,Minnesota,27,07,2707,2707,7,Minnesota's 7th congressional district,713312
+MN-08,MN,Minnesota,27,08,2708,2708,8,Minnesota's 8th congressional district,713312
+MS-01,MS,Mississippi,28,01,2801,2801,1,Mississippi's 1st congressional district,740319
+MS-02,MS,Mississippi,28,02,2802,2802,2,Mississippi's 2nd congressional district,740319
+MS-03,MS,Mississippi,28,03,2803,2803,3,Mississippi's 3rd congressional district,740320
+MS-04,MS,Mississippi,28,04,2804,2804,4,Mississippi's 4th congressional district,740321
+MO-01,MO,Missouri,29,01,2901,2901,1,Missouri's 1st congressional district,769364
+MO-02,MO,Missouri,29,02,2902,2902,2,Missouri's 2nd congressional district,769364
+MO-03,MO,Missouri,29,03,2903,2903,3,Missouri's 3rd congressional district,769364
+MO-04,MO,Missouri,29,04,2904,2904,4,Missouri's 4th congressional district,769364
+MO-05,MO,Missouri,29,05,2905,2905,5,Missouri's 5th congressional district,769364
+MO-06,MO,Missouri,29,06,2906,2906,6,Missouri's 6th congressional district,769364
+MO-07,MO,Missouri,29,07,2907,2907,7,Missouri's 7th congressional district,769365
+MO-08,MO,Missouri,29,08,2908,2908,8,Missouri's 8th congressional district,769364
+MT-01,MT,Montana,30,01,3001,3001,1,Montana's 1st congressional district,542112
+MT-02,MT,Montana,30,02,3002,3002,2,Montana's 2nd congressional district,542113
+NE-01,NE,Nebraska,31,01,3101,3101,1,Nebraska's 1st congressional district,653822
+NE-02,NE,Nebraska,31,02,3102,3102,2,Nebraska's 2nd congressional district,653847
+NE-03,NE,Nebraska,31,03,3103,3103,3,Nebraska's 3rd congressional district,653835
+NV-01,NV,Nevada,32,01,3201,3201,1,Nevada's 1st congressional district,773758
+NV-02,NV,Nevada,32,02,3202,3202,2,Nevada's 2nd congressional district,777417
+NV-03,NV,Nevada,32,03,3203,3203,3,Nevada's 3rd congressional district,775299
+NV-04,NV,Nevada,32,04,3204,3204,4,Nevada's 4th congressional district,778140
+NH-01,NH,New Hampshire,33,01,3301,3301,1,New Hampshire's 1st congressional district,688764
+NH-02,NH,New Hampshire,33,02,3302,3302,2,New Hampshire's 2nd congressional district,688765
+NJ-01,NJ,New Jersey,34,01,3401,3401,1,New Jersey's 1st congressional district,771744
+NJ-02,NJ,New Jersey,34,02,3402,3402,2,New Jersey's 2nd congressional district,779056
+NJ-03,NJ,New Jersey,34,03,3403,3403,3,New Jersey's 3rd congressional district,778024
+NJ-04,NJ,New Jersey,34,04,3404,3404,4,New Jersey's 4th congressional district,772969
+NJ-05,NJ,New Jersey,34,05,3405,3405,5,New Jersey's 5th congressional district,773218
+NJ-06,NJ,New Jersey,34,06,3406,3406,6,New Jersey's 6th congressional district,773768
+NJ-07,NJ,New Jersey,34,07,3407,3407,7,New Jersey's 7th congressional district,774294
+NJ-08,NJ,New Jersey,34,08,3408,3408,8,New Jersey's 8th congressional district,772366
+NJ-09,NJ,New Jersey,34,09,3409,3409,9,New Jersey's 9th congressional district,772060
+NJ-10,NJ,New Jersey,34,10,3410,3410,10,New Jersey's 10th congressional district,773536
+NJ-11,NJ,New Jersey,34,11,3411,3411,11,New Jersey's 11th congressional district,773263
+NJ-12,NJ,New Jersey,34,12,3412,3412,12,New Jersey's 12th congressional district,774696
+NM-01,NM,New Mexico,35,01,3501,3501,1,New Mexico's 1st congressional district,705832
+NM-02,NM,New Mexico,35,02,3502,3502,2,New Mexico's 2nd congressional district,705846
+NM-03,NM,New Mexico,35,03,3503,3503,3,New Mexico's 3rd congressional district,705844
+NY-01,NY,New York,36,01,3601,3601,1,New York's 1st congressional district,776971
+NY-02,NY,New York,36,02,3602,3602,2,New York's 2nd congressional district,776971
+NY-03,NY,New York,36,03,3603,3603,3,New York's 3rd congressional district,776971
+NY-04,NY,New York,36,04,3604,3604,4,New York's 4th congressional district,776971
+NY-05,NY,New York,36,05,3605,3605,5,New York's 5th congressional district,776971
+NY-06,NY,New York,36,06,3606,3606,6,New York's 6th congressional district,776972
+NY-07,NY,New York,36,07,3607,3607,7,New York's 7th congressional district,776972
+NY-08,NY,New York,36,08,3608,3608,8,New York's 8th congressional district,776971
+NY-09,NY,New York,36,09,3609,3609,9,New York's 9th congressional district,776971
+NY-10,NY,New York,36,10,3610,3610,10,New York's 10th congressional district,776972
+NY-11,NY,New York,36,11,3611,3611,11,New York's 11th congressional district,776971
+NY-12,NY,New York,36,12,3612,3612,12,New York's 12th congressional district,776971
+NY-13,NY,New York,36,13,3613,3613,13,New York's 13th congressional district,776971
+NY-14,NY,New York,36,14,3614,3614,14,New York's 14th congressional district,776970
+NY-15,NY,New York,36,15,3615,3615,15,New York's 15th congressional district,776971
+NY-16,NY,New York,36,16,3616,3616,16,New York's 16th congressional district,776972
+NY-17,NY,New York,36,17,3617,3617,17,New York's 17th congressional district,776971
+NY-18,NY,New York,36,18,3618,3618,18,New York's 18th congressional district,776971
+NY-19,NY,New York,36,19,3619,3619,19,New York's 19th congressional district,776971
+NY-20,NY,New York,36,20,3620,3620,20,New York's 20th congressional district,776971
+NY-21,NY,New York,36,21,3621,3621,21,New York's 21st congressional district,776971
+NY-22,NY,New York,36,22,3622,3622,22,New York's 22nd congressional district,776971
+NY-23,NY,New York,36,23,3623,3623,23,New York's 23rd congressional district,776971
+NY-24,NY,New York,36,24,3624,3624,24,New York's 24th congressional district,776971
+NY-25,NY,New York,36,25,3625,3625,25,New York's 25th congressional district,776971
+NY-26,NY,New York,36,26,3626,3626,26,New York's 26th congressional district,776971
+NC-01,NC,North Carolina,37,01,3701,3701,1,North Carolina's 1st congressional district,745671
+NC-02,NC,North Carolina,37,02,3702,3702,2,North Carolina's 2nd congressional district,745670
+NC-03,NC,North Carolina,37,03,3703,3703,3,North Carolina's 3rd congressional district,745670
+NC-04,NC,North Carolina,37,04,3704,3704,4,North Carolina's 4th congressional district,745671
+NC-05,NC,North Carolina,37,05,3705,3705,5,North Carolina's 5th congressional district,745671
+NC-06,NC,North Carolina,37,06,3706,3706,6,North Carolina's 6th congressional district,745671
+NC-07,NC,North Carolina,37,07,3707,3707,7,North Carolina's 7th congressional district,745671
+NC-08,NC,North Carolina,37,08,3708,3708,8,North Carolina's 8th congressional district,745671
+NC-09,NC,North Carolina,37,09,3709,3709,9,North Carolina's 9th congressional district,745671
+NC-10,NC,North Carolina,37,10,3710,3710,10,North Carolina's 10th congressional district,745670
+NC-11,NC,North Carolina,37,11,3711,3711,11,North Carolina's 11th congressional district,745670
+NC-12,NC,North Carolina,37,12,3712,3712,12,North Carolina's 12th congressional district,745670
+NC-13,NC,North Carolina,37,13,3713,3713,13,North Carolina's 13th congressional district,745670
+NC-14,NC,North Carolina,37,14,3714,3714,14,North Carolina's 14th congressional district,745671
+ND-01,ND,North Dakota,38,00,3800,3800,1,North Dakota's at-large congressional district,779094
+OH-01,OH,Ohio,39,01,3901,3901,1,Ohio's 1st congressional district,786630
+OH-02,OH,Ohio,39,02,3902,3902,2,Ohio's 2nd congressional district,786629
+OH-03,OH,Ohio,39,03,3903,3903,3,Ohio's 3rd congressional district,786630
+OH-04,OH,Ohio,39,04,3904,3904,4,Ohio's 4th congressional district,786630
+OH-05,OH,Ohio,39,05,3905,3905,5,Ohio's 5th congressional district,786630
+OH-06,OH,Ohio,39,06,3906,3906,6,Ohio's 6th congressional district,786630
+OH-07,OH,Ohio,39,07,3907,3907,7,Ohio's 7th congressional district,786630
+OH-08,OH,Ohio,39,08,3908,3908,8,Ohio's 8th congressional district,786630
+OH-09,OH,Ohio,39,09,3909,3909,9,Ohio's 9th congressional district,786630
+OH-10,OH,Ohio,39,10,3910,3910,10,Ohio's 10th congressional district,786629
+OH-11,OH,Ohio,39,11,3911,3911,11,Ohio's 11th congressional district,786630
+OH-12,OH,Ohio,39,12,3912,3912,12,Ohio's 12th congressional district,786630
+OH-13,OH,Ohio,39,13,3913,3913,13,Ohio's 13th congressional district,786630
+OH-14,OH,Ohio,39,14,3914,3914,14,Ohio's 14th congressional district,786630
+OH-15,OH,Ohio,39,15,3915,3915,15,Ohio's 15th congressional district,786630
+OK-01,OK,Oklahoma,40,01,4001,4001,1,Oklahoma's 1st congressional district,791871
+OK-02,OK,Oklahoma,40,02,4002,4002,2,Oklahoma's 2nd congressional district,791871
+OK-03,OK,Oklahoma,40,03,4003,4003,3,Oklahoma's 3rd congressional district,791871
+OK-04,OK,Oklahoma,40,04,4004,4004,4,Oklahoma's 4th congressional district,791870
+OK-05,OK,Oklahoma,40,05,4005,4005,5,Oklahoma's 5th congressional district,791870
+OR-01,OR,Oregon,41,01,4101,4101,1,Oregon's 1st congressional district,706209
+OR-02,OR,Oregon,41,02,4102,4102,2,Oregon's 2nd congressional district,706209
+OR-03,OR,Oregon,41,03,4103,4103,3,Oregon's 3rd congressional district,706209
+OR-04,OR,Oregon,41,04,4104,4104,4,Oregon's 4th congressional district,706208
+OR-05,OR,Oregon,41,05,4105,4105,5,Oregon's 5th congressional district,706209
+OR-06,OR,Oregon,41,06,4106,4106,6,Oregon's 6th congressional district,706212
+PA-01,PA,Pennsylvania,42,01,4201,4201,1,Pennsylvania's 1st congressional district,764866
+PA-02,PA,Pennsylvania,42,02,4202,4202,2,Pennsylvania's 2nd congressional district,764865
+PA-03,PA,Pennsylvania,42,03,4203,4203,3,Pennsylvania's 3rd congressional district,764864
+PA-04,PA,Pennsylvania,42,04,4204,4204,4,Pennsylvania's 4th congressional district,764865
+PA-05,PA,Pennsylvania,42,05,4205,4205,5,Pennsylvania's 5th congressional district,764866
+PA-06,PA,Pennsylvania,42,06,4206,4206,6,Pennsylvania's 6th congressional district,764864
+PA-07,PA,Pennsylvania,42,07,4207,4207,7,Pennsylvania's 7th congressional district,764865
+PA-08,PA,Pennsylvania,42,08,4208,4208,8,Pennsylvania's 8th congressional district,764866
+PA-09,PA,Pennsylvania,42,09,4209,4209,9,Pennsylvania's 9th congressional district,764864
+PA-10,PA,Pennsylvania,42,10,4210,4210,10,Pennsylvania's 10th congressional district,764864
+PA-11,PA,Pennsylvania,42,11,4211,4211,11,Pennsylvania's 11th congressional district,764864
+PA-12,PA,Pennsylvania,42,12,4212,4212,12,Pennsylvania's 12th congressional district,764864
+PA-13,PA,Pennsylvania,42,13,4213,4213,13,Pennsylvania's 13th congressional district,764864
+PA-14,PA,Pennsylvania,42,14,4214,4214,14,Pennsylvania's 14th congressional district,764866
+PA-15,PA,Pennsylvania,42,15,4215,4215,15,Pennsylvania's 15th congressional district,764864
+PA-16,PA,Pennsylvania,42,16,4216,4216,16,Pennsylvania's 16th congressional district,764865
+PA-17,PA,Pennsylvania,42,17,4217,4217,17,Pennsylvania's 17th congressional district,764864
+RI-01,RI,Rhode Island,44,01,4401,4401,1,Rhode Island's 1st congressional district,548078
+RI-02,RI,Rhode Island,44,02,4402,4402,2,Rhode Island's 2nd congressional district,549301
+SC-01,SC,South Carolina,45,01,4501,4501,1,South Carolina's 1st congressional district,731203
+SC-02,SC,South Carolina,45,02,4502,4502,2,South Carolina's 2nd congressional district,731203
+SC-03,SC,South Carolina,45,03,4503,4503,3,South Carolina's 3rd congressional district,731204
+SC-04,SC,South Carolina,45,04,4504,4504,4,South Carolina's 4th congressional district,731204
+SC-05,SC,South Carolina,45,05,4505,4505,5,South Carolina's 5th congressional district,731204
+SC-06,SC,South Carolina,45,06,4506,4506,6,South Carolina's 6th congressional district,731204
+SC-07,SC,South Carolina,45,07,4507,4507,7,South Carolina's 7th congressional district,731203
+SD-01,SD,South Dakota,46,00,4600,4600,1,South Dakota's at-large congressional district,886667
+TN-01,TN,Tennessee,47,01,4701,4701,1,Tennessee's 1st congressional district,767871
+TN-02,TN,Tennessee,47,02,4702,4702,2,Tennessee's 2nd congressional district,767871
+TN-03,TN,Tennessee,47,03,4703,4703,3,Tennessee's 3rd congressional district,767871
+TN-04,TN,Tennessee,47,04,4704,4704,4,Tennessee's 4th congressional district,767871
+TN-05,TN,Tennessee,47,05,4705,4705,5,Tennessee's 5th congressional district,767871
+TN-06,TN,Tennessee,47,06,4706,4706,6,Tennessee's 6th congressional district,767871
+TN-07,TN,Tennessee,47,07,4707,4707,7,Tennessee's 7th congressional district,767871
+TN-08,TN,Tennessee,47,08,4708,4708,8,Tennessee's 8th congressional district,767871
+TN-09,TN,Tennessee,47,09,4709,4709,9,Tennessee's 9th congressional district,767872
+TX-01,TX,Texas,48,01,4801,4801,1,Texas's 1st congressional district,766987
+TX-02,TX,Texas,48,02,4802,4802,2,Texas's 2nd congressional district,766987
+TX-03,TX,Texas,48,03,4803,4803,3,Texas's 3rd congressional district,766987
+TX-04,TX,Texas,48,04,4804,4804,4,Texas's 4th congressional district,766987
+TX-05,TX,Texas,48,05,4805,4805,5,Texas's 5th congressional district,766987
+TX-06,TX,Texas,48,06,4806,4806,6,Texas's 6th congressional district,766987
+TX-07,TX,Texas,48,07,4807,4807,7,Texas's 7th congressional district,766987
+TX-08,TX,Texas,48,08,4808,4808,8,Texas's 8th congressional district,766987
+TX-09,TX,Texas,48,09,4809,4809,9,Texas's 9th congressional district,766987
+TX-10,TX,Texas,48,10,4810,4810,10,Texas's 10th congressional district,766987
+TX-11,TX,Texas,48,11,4811,4811,11,Texas's 11th congressional district,766987
+TX-12,TX,Texas,48,12,4812,4812,12,Texas's 12th congressional district,766987
+TX-13,TX,Texas,48,13,4813,4813,13,Texas's 13th congressional district,766987
+TX-14,TX,Texas,48,14,4814,4814,14,Texas's 14th congressional district,766987
+TX-15,TX,Texas,48,15,4815,4815,15,Texas's 15th congressional district,766987
+TX-16,TX,Texas,48,16,4816,4816,16,Texas's 16th congressional district,766987
+TX-17,TX,Texas,48,17,4817,4817,17,Texas's 17th congressional district,766987
+TX-18,TX,Texas,48,18,4818,4818,18,Texas's 18th congressional district,766987
+TX-19,TX,Texas,48,19,4819,4819,19,Texas's 19th congressional district,766987
+TX-20,TX,Texas,48,20,4820,4820,20,Texas's 20th congressional district,766987
+TX-21,TX,Texas,48,21,4821,4821,21,Texas's 21st congressional district,766987
+TX-22,TX,Texas,48,22,4822,4822,22,Texas's 22nd congressional district,766987
+TX-23,TX,Texas,48,23,4823,4823,23,Texas's 23rd congressional district,766987
+TX-24,TX,Texas,48,24,4824,4824,24,Texas's 24th congressional district,766987
+TX-25,TX,Texas,48,25,4825,4825,25,Texas's 25th congressional district,766987
+TX-26,TX,Texas,48,26,4826,4826,26,Texas's 26th congressional district,766987
+TX-27,TX,Texas,48,27,4827,4827,27,Texas's 27th congressional district,766987
+TX-28,TX,Texas,48,28,4828,4828,28,Texas's 28th congressional district,766987
+TX-29,TX,Texas,48,29,4829,4829,29,Texas's 29th congressional district,766987
+TX-30,TX,Texas,48,30,4830,4830,30,Texas's 30th congressional district,766987
+TX-31,TX,Texas,48,31,4831,4831,31,Texas's 31st congressional district,766987
+TX-32,TX,Texas,48,32,4832,4832,32,Texas's 32nd congressional district,766987
+TX-33,TX,Texas,48,33,4833,4833,33,Texas's 33rd congressional district,766987
+TX-34,TX,Texas,48,34,4834,4834,34,Texas's 34th congressional district,766987
+TX-35,TX,Texas,48,35,4835,4835,35,Texas's 35th congressional district,766987
+TX-36,TX,Texas,48,36,4836,4836,36,Texas's 36th congressional district,766987
+TX-37,TX,Texas,48,37,4837,4837,37,Texas's 37th congressional district,766987
+TX-38,TX,Texas,48,38,4838,4838,38,Texas's 38th congressional district,766986
+UT-01,UT,Utah,49,01,4901,4901,1,Utah's 1st congressional district,817904
+UT-02,UT,Utah,49,02,4902,4902,2,Utah's 2nd congressional district,817904
+UT-03,UT,Utah,49,03,4903,4903,3,Utah's 3rd congressional district,817904
+UT-04,UT,Utah,49,04,4904,4904,4,Utah's 4th congressional district,817904
+VT-01,VT,Vermont,50,00,5000,5000,1,Vermont's at-large congressional district,643077
+VA-01,VA,Virginia,51,01,5101,5101,1,Virginia's 1st congressional district,784256
+VA-02,VA,Virginia,51,02,5102,5102,2,Virginia's 2nd congressional district,785438
+VA-03,VA,Virginia,51,03,5103,5103,3,Virginia's 3rd congressional district,779587
+VA-04,VA,Virginia,51,04,5104,5104,4,Virginia's 4th congressional district,787373
+VA-05,VA,Virginia,51,05,5105,5105,5,Virginia's 5th congressional district,788614
+VA-06,VA,Virginia,51,06,5106,5106,6,Virginia's 6th congressional district,783180
+VA-07,VA,Virginia,51,07,5107,5107,7,Virginia's 7th congressional district,783688
+VA-08,VA,Virginia,51,08,5108,5108,8,Virginia's 8th congressional district,784093
+VA-09,VA,Virginia,51,09,5109,5109,9,Virginia's 9th congressional district,786392
+VA-10,VA,Virginia,51,10,5110,5110,10,Virginia's 10th congressional district,784275
+VA-11,VA,Virginia,51,11,5111,5111,11,Virginia's 11th congressional district,784497
+WA-01,WA,Washington,53,01,5301,5301,1,Washington's 1st congressional district,772031
+WA-02,WA,Washington,53,02,5302,5302,2,Washington's 2nd congressional district,769105
+WA-03,WA,Washington,53,03,5303,5303,3,Washington's 3rd congressional district,769308
+WA-04,WA,Washington,53,04,5304,5304,4,Washington's 4th congressional district,768710
+WA-05,WA,Washington,53,05,5305,5305,5,Washington's 5th congressional district,774871
+WA-06,WA,Washington,53,06,5306,5306,6,Washington's 6th congressional district,773278
+WA-07,WA,Washington,53,07,5307,5307,7,Washington's 7th congressional district,769663
+WA-08,WA,Washington,53,08,5308,5308,8,Washington's 8th congressional district,769847
+WA-09,WA,Washington,53,09,5309,5309,9,Washington's 9th congressional district,768838
+WA-10,WA,Washington,53,10,5310,5310,10,Washington's 10th congressional district,769630
+WV-01,WV,West Virginia,54,01,5401,5401,1,West Virginia's 1st congressional district,896067
+WV-02,WV,West Virginia,54,02,5402,5402,2,West Virginia's 2nd congressional district,897649
+WI-01,WI,Wisconsin,55,01,5501,5501,1,Wisconsin's 1st congressional district,736715
+WI-02,WI,Wisconsin,55,02,5502,5502,2,Wisconsin's 2nd congressional district,736715
+WI-03,WI,Wisconsin,55,03,5503,5503,3,Wisconsin's 3rd congressional district,736716
+WI-04,WI,Wisconsin,55,04,5504,5504,4,Wisconsin's 4th congressional district,736714
+WI-05,WI,Wisconsin,55,05,5505,5505,5,Wisconsin's 5th congressional district,736715
+WI-06,WI,Wisconsin,55,06,5506,5506,6,Wisconsin's 6th congressional district,736714
+WI-07,WI,Wisconsin,55,07,5507,5507,7,Wisconsin's 7th congressional district,736715
+WI-08,WI,Wisconsin,55,08,5508,5508,8,Wisconsin's 8th congressional district,736714
+WY-01,WY,Wyoming,56,00,5600,5600,1,Wyoming's at-large congressional district,576851

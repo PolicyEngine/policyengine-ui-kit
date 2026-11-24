@@ -12,6 +12,7 @@ import { geoPath, geoAlbersUsa, geoEquirectangular } from 'd3-geo';
 import type {
   ChoroplethDataPoint,
   ChoroplethMapConfig,
+  CongressNumber,
   GeoJSONFeature,
   GeoJSONFeatureCollection,
   MapVisualizationType,
@@ -44,6 +45,11 @@ export interface USDistrictChoroplethMapProps {
   focusState?: string;
   /** Map visualization type: 'geographic' or 'hex' */
   visualizationType?: MapVisualizationType;
+  /**
+   * Which Congress's district boundaries to draw (default 119). Match the data: district
+   * IDs are the same in both, but nine states' districts cover different areas in the 120th.
+   */
+  congress?: CongressNumber;
   /** Optional ref to the map container for image export */
   exportRef?: React.Ref<HTMLDivElement>;
   /** State abbreviations whose fetches errored (colored red) */
@@ -115,6 +121,7 @@ export function USDistrictChoroplethMap({
   config,
   focusState,
   visualizationType = 'geographic',
+  congress = 119,
   exportRef,
   errorStates,
   downloadFilename,
@@ -144,7 +151,7 @@ export function USDistrictChoroplethMap({
       ? loadCongressionalDistrictsHex
       : loadCongressionalDistrictsGeo;
 
-    loadMapData()
+    loadMapData(congress)
       .then((geo) => {
         if (isMounted) setGeoData(geo);
       })
@@ -155,7 +162,7 @@ export function USDistrictChoroplethMap({
     return () => {
       isMounted = false;
     };
-  }, [isHexMap, shouldLoadMapData]);
+  }, [isHexMap, shouldLoadMapData, congress]);
 
   const geoJSON = geoData;
   const fullConfig = useMemo(

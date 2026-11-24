@@ -1,0 +1,109 @@
+{
+ "method": "Check the 120th boundaries against Census's block assignments, writing ../cd120/geometry_check.json.\n\nFor every 2020 tract that lies wholly inside one 120th district (all its blocks are assigned to\nthat district), the tract's internal point (2020 Gazetteer) should fall inside that district's\nshape. The same test is run on the 119th file and 119th assignments as a baseline: the share\nof points that land in another district measures how much the simplified boundaries move\nlines, not an error in the districts.",
+ "cd120": {
+  "tracts_checked": 79864,
+  "wrong_share_unchanged_states": 0.00943,
+  "wrong_share_redrawn_states": 0.01016,
+  "outside_every_shape": 378,
+  "redrawn_states": {
+   "AL": {
+    "tracts": 1382,
+    "wrong": 2,
+    "outside": 3
+   },
+   "CA": {
+    "tracts": 8242,
+    "wrong": 167,
+    "outside": 42
+   },
+   "FL": {
+    "tracts": 4883,
+    "wrong": 15,
+    "outside": 55
+   },
+   "LA": {
+    "tracts": 1280,
+    "wrong": 19,
+    "outside": 4
+   },
+   "NC": {
+    "tracts": 2509,
+    "wrong": 6,
+    "outside": 10
+   },
+   "OH": {
+    "tracts": 3046,
+    "wrong": 19,
+    "outside": 6
+   },
+   "TN": {
+    "tracts": 1597,
+    "wrong": 3,
+    "outside": 0
+   },
+   "TX": {
+    "tracts": 6394,
+    "wrong": 74,
+    "outside": 11
+   },
+   "UT": {
+    "tracts": 687,
+    "wrong": 0,
+    "outside": 0
+   }
+  }
+ },
+ "cd119_baseline": {
+  "tracts_checked": 79887,
+  "wrong_share_unchanged_states": 0.01972,
+  "wrong_share_redrawn_states": 0.02513,
+  "outside_every_shape": 173,
+  "redrawn_states": {
+   "AL": {
+    "tracts": 1373,
+    "wrong": 8,
+    "outside": 3
+   },
+   "CA": {
+    "tracts": 8401,
+    "wrong": 301,
+    "outside": 30
+   },
+   "FL": {
+    "tracts": 4908,
+    "wrong": 92,
+    "outside": 18
+   },
+   "LA": {
+    "tracts": 1223,
+    "wrong": 34,
+    "outside": 1
+   },
+   "NC": {
+    "tracts": 2510,
+    "wrong": 15,
+    "outside": 0
+   },
+   "OH": {
+    "tracts": 3068,
+    "wrong": 30,
+    "outside": 7
+   },
+   "TN": {
+    "tracts": 1609,
+    "wrong": 5,
+    "outside": 0
+   },
+   "TX": {
+    "tracts": 6280,
+    "wrong": 252,
+    "outside": 1
+   },
+   "UT": {
+    "tracts": 671,
+    "wrong": 18,
+    "outside": 0
+   }
+  }
+ }
+}

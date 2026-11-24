@@ -1,5 +1,8 @@
 export type {
   MapVisualizationType,
+  CongressNumber,
+  CongressionalDistrictMember,
+  CongressionalDistrictMembers,
   ChoroplethDataPoint,
   HexMapDataPoint,
   ColorScaleConfig,
@@ -53,6 +56,7 @@ export {
 export {
   loadCongressionalDistrictsGeo,
   loadCongressionalDistrictsHex,
+  loadCongressionalDistrictMembers,
   loadUKConstituenciesGeo,
   loadUKConstituenciesHex,
   loadStateSenateDistrictsGeo,

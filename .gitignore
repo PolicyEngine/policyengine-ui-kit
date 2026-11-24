@@ -5,3 +5,6 @@ dist/
 .env.*
 !.env.example
 bun.lock
+
+# Congressional district source downloads (see data-sources/congressional-districts/README.md)
+data-sources/congressional-districts/work/
